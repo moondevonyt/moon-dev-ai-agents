@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "moon-dev-ai-agents-for-trading"
+version = "0.1.0"
+description = "AI AGENTS FOR TRADING"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+package-mode = false 
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+fastapi = "^0.115.7"
+uvicorn = "^0.34.0"
+python-multipart = "^0.0.20"
+jinja2 = "^3.1.5"
+python-dotenv = "^1.0.1"
+requests = "^2.32.3"
+pypdf2 = "^3.0.1"
+pandas = "^2.2.3"
+termcolor = "^2.5.0"
+numpy = "<2.0.0"
+pandas-ta = "^0.3.14b0"
+schedule = "^1.2.2"
+python-dateutil = "^2.9.0.post0"
+backoff = "^2.2.1"
+openai = "^1.60.0"
+youtube-transcript-api = "^0.6.3"
+torch = "^2.5.1"
+transformers = "^4.48.1"
+twikit = "^2.2.1"
+anthropic = "^0.45.0"
+solders = "^0.23.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
