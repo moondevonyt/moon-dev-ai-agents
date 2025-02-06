@@ -36,6 +36,7 @@ import pandas as pd
 import tempfile
 from src.config import *
 from src.models import model_factory
+import re
 
 # Load .env file explicitly from project root
 load_dotenv(dotenv_path=env_path)
@@ -45,9 +46,52 @@ cprint(f"\n🔍 Checking environment setup...", "cyan")
 cprint(f"📂 Project Root: {project_root}", "cyan")
 cprint(f"📝 .env Path: {env_path}", "cyan")
 
+# Available Model Types:
+# - "claude": Anthropic's Claude models
+# - "groq": Groq's hosted models
+# - "openai": OpenAI's GPT models
+# - "gemini": Google's Gemini models
+# - "deepseek": DeepSeek models
+# - "ollama": Local models through Ollama
+
+# Available Models by Type:
+# OpenAI Models:
+# - "gpt-4o": Latest GPT-4 Optimized (Best for complex reasoning)
+# - "gpt-4o-mini": Smaller, faster GPT-4 Optimized
+# - "o1": Latest O1 model - Shows reasoning process
+# - "o1-mini": Smaller O1 model
+# - "o3-mini": Brand new fast reasoning model
+
+# Claude Models:
+# - "claude-3-opus-20240229": Most powerful Claude
+# - "claude-3-sonnet-20240229": Balanced Claude
+# - "claude-3-haiku-20240307": Fast, efficient Claude
+
+# Gemini Models:
+# - "gemini-2.0-flash-exp": Next-gen multimodal
+# - "gemini-1.5-flash": Fast versatile model
+# - "gemini-1.5-flash-8b": High volume tasks
+# - "gemini-1.5-pro": Complex reasoning tasks
+
+# Groq Models:
+# - "mixtral-8x7b-32768": Mixtral 8x7B (32k context)
+# - "gemma2-9b-it": Google Gemma 2 9B
+# - "llama-3.3-70b-versatile": Llama 3.3 70B
+# - "llama-3.1-8b-instant": Llama 3.1 8B
+# - "llama-guard-3-8b": Llama Guard 3 8B
+
+# DeepSeek Models:
+# - "deepseek-chat": Fast chat model
+# - "deepseek-reasoner": Enhanced reasoning model
+
+# Ollama Models (Local, Free):
+# - "deepseek-r1": Best for complex reasoning
+# - "gemma:2b": Fast and efficient for simple tasks
+# - "llama3.2": Balanced model good for most tasks
+
 # Model override settings
-MODEL_TYPE = "deepseek"  # Using DeepSeek
-MODEL_NAME = "deepseek-chat"  # Fast chat model
+MODEL_TYPE = "ollama"  # Choose from model types above
+MODEL_NAME = "llama3.2"  # Choose from models above
 
 # Configuration for faster testing
 MIN_INTERVAL_MINUTES = 6  # Less than a second
@@ -74,21 +118,27 @@ AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 TEST_TRANSCRIPT = """Hey Moon Dev here, I'm working on implementing the new trading algorithm using Python. 
 The RSI calculations look good but I need to optimize the moving average calculations."""
 
-# Focus prompt optimized for O1 models
-FOCUS_PROMPT = """You are Moon Dev's Focus AI Agent. Your task is to analyze the following transcript and:
-1. Rate focus level from 1-10 (10 being completely focused on coding/trading)
-2. Provide ONE encouraging sentence to maintain/improve focus
+# Focus prompt optimized for all models
+FOCUS_PROMPT = """You are Moon Dev's Focus AI Agent. Your task is to analyze the following transcript and rate focus.
 
-Consider:
+IMPORTANT: DO NOT USE ANY MARKDOWN OR FORMATTING. RESPOND WITH PLAIN TEXT ONLY.
+
+RESPOND WITH EXACTLY TWO LINES:
+LINE 1: Just a number from 1-10 followed by '/10' (example: '8/10')
+LINE 2: One encouraging sentence (no quotes)
+
+Consider these ratings:
 - Coding discussion = high focus (8-10)
 - Trading analysis = high focus (8-10)
 - Random chat/topics = low focus (1-4)
 - Non-work discussion = low focus (1-4)
 
-BE STRICT WITH YOUR RATING. RESPOND IN THIS EXACT FORMAT:
-X/10
-"Quote OR motivational sentence"
-"""
+EXAMPLE RESPONSE:
+8/10
+Keep crushing that code, Moon Dev! Your focus is leading to amazing results.
+
+TRANSCRIPT TO ANALYZE:
+{transcript}"""
 
 class FocusAgent:
     def __init__(self):
@@ -127,16 +177,7 @@ class FocusAgent:
         if not openai_key:
             raise ValueError("🚨 OPENAI_KEY not found in environment variables!")
         self.openai_client = openai.OpenAI(api_key=openai_key)
-        
-        # Initialize local DeepSeek client if enabled
-        if USE_LOCAL_DEEPSEEK:
-            self.local_deepseek = openai.OpenAI(
-                api_key="not-needed",
-                base_url=f"http://{LAMBDA_IP}:8000/v1"
-            )
-            cprint("🚀 Moon Dev's Focus Agent using Local DeepSeek!", "green")
-        else:
-            self.local_deepseek = None
+
         
         # Initialize Anthropic for Claude models
         anthropic_key = os.getenv("ANTHROPIC_KEY")
@@ -186,8 +227,14 @@ class FocusAgent:
             encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
             sample_rate_hertz=SAMPLE_RATE,
             language_code="en-US",
+            enable_automatic_punctuation=True,  # Add punctuation
+            model="latest_long",  # Use long-form model
+            use_enhanced=True  # Use enhanced model
         )
-        streaming_config = speech.StreamingRecognitionConfig(config=config)
+        streaming_config = speech.StreamingRecognitionConfig(
+            config=config,
+            interim_results=True  # Get interim results for better completeness
+        )
         
         def audio_generator():
             audio = pyaudio.PyAudio()
@@ -204,6 +251,8 @@ class FocusAgent:
                 while time_lib.time() - start_time < RECORDING_DURATION:
                     data = stream.read(AUDIO_CHUNK_SIZE, exception_on_overflow=False)
                     yield data
+                # Add a small silence at the end to ensure we get the last word
+                yield b'\x00' * AUDIO_CHUNK_SIZE
             finally:
                 stream.stop_stream()
                 stream.close()
@@ -226,6 +275,9 @@ class FocusAgent:
                     for result in response.results:
                         if result.is_final:
                             self.current_transcript.append(result.alternatives[0].transcript)
+            
+            # Small delay to ensure we get the complete transcript
+            time_lib.sleep(0.5)
                             
         except Exception as e:
             cprint(f"❌ Error recording audio: {str(e)}", "red")
@@ -275,44 +327,71 @@ class FocusAgent:
             cprint(f"  ├─ Length: {len(transcript)} chars", "cyan")
             cprint(f"  └─ Content type check: {'chicken' in transcript.lower()}", "yellow")
             
-            # Special handling for O1 models
-            if MODEL_NAME.startswith('o1'):
-                cprint("\n🧠 Using O1 model with reasoning capabilities...", "cyan")
-                cprint("⏳ This may take longer as the model thinks deeply...", "cyan")
+            # For Ollama models
+            if MODEL_TYPE == "ollama":
+                cprint("\n🧠 Using Ollama model...", "cyan")
                 response = self.model.generate_response(
-                    system_prompt=FOCUS_PROMPT,
-                    user_content=transcript,
-                    max_completion_tokens=25000  # Reserve space for reasoning
+                    system_prompt="You are Moon Dev's Focus AI. You analyze focus and provide ratings. NO MARKDOWN OR FORMATTING. RESPOND WITH EXACTLY TWO LINES: A SCORE LINE (X/10) AND ONE SINGLE ENCOURAGING SENTENCE.",
+                    user_content=FOCUS_PROMPT.format(transcript=transcript),
+                    temperature=0.7
                 )
+                
+                # Handle raw string response from Ollama
+                if isinstance(response, str):
+                    response_content = response
+                else:
+                    response_content = response.content if hasattr(response, 'content') else str(response)
             else:
+                # For other API-based models
                 response = self.model.generate_response(
                     system_prompt=FOCUS_PROMPT,
                     user_content=transcript,
                     temperature=AI_TEMPERATURE,
                     max_tokens=AI_MAX_TOKENS
                 )
+                response_content = response.content
             
             # Print raw response for debugging
             cprint(f"\n📝 Raw model response:", "magenta")
             cprint(f"══════════════════════════════", "magenta")
-            cprint(response.content, "yellow")
+            cprint(response_content, "yellow")
             cprint(f"══════════════════════════════\n", "magenta")
             
             # Split into score and message, taking only the first two lines
             try:
-                # Special handling for DeepSeek models that include thinking
-                if "deepseek" in MODEL_NAME.lower():
-                    # Get only the last two lines after </think>
-                    response_lines = response.content.strip().split('\n')
-                    actual_response = [line for line in response_lines if not line.startswith('<think>') and not line.startswith('</think>') and line.strip()]
-                    score_line = actual_response[-2]  # Second to last line should be score
-                    message = actual_response[-1]  # Last line should be quote
-                else:
-                    lines = response.content.strip().split('\n')
-                    score_line = lines[0]  # First line should be score
-                    message = lines[1] if len(lines) > 1 else ""  # Second line should be quote
+                # Clean up the response and remove any markdown
+                response_content = response_content.replace('*', '').replace('_', '')
+                response_content = re.sub(r'LINE \d+:', '', response_content)
+                response_content = re.sub(r'[""]', '', response_content)
                 
+                # Split into lines and clean
+                lines = [line.strip() for line in response_content.strip().split('\n') if line.strip()]
+                
+                # Find the score line (should contain X/10)
+                score_line = None
+                message_lines = []
+                
+                for line in lines:
+                    if not score_line and '/' in line and '/10' in line:
+                        # Extract just the score part if there's extra text
+                        score_match = re.search(r'(\d+)/10', line)
+                        if score_match:
+                            score_line = score_match.group(0)
+                    elif line and not line.lower().startswith(('line', 'transcript', 'example', 'consider', 'respond', 'important')):
+                        message_lines.append(line)
+                
+                if not score_line or not message_lines:
+                    raise ValueError("Could not find score and message in response")
+                
+                # Combine message lines into one sentence
+                message = ' '.join(message_lines)
+                
+                # Extract just the number
                 score = float(score_line.split('/')[0])
+                
+                # Validate score range
+                if not (1 <= score <= 10):
+                    raise ValueError(f"Score {score} out of valid range (1-10)")
                 
                 # Validate response
                 if 'chicken' in transcript.lower() and score > 3:
@@ -322,7 +401,7 @@ class FocusAgent:
                 return score, message.strip()
             except (ValueError, IndexError) as e:
                 cprint(f"\n❌ Error parsing model response: {str(e)}", "red")
-                cprint(f"  └─ Raw response: {response.content}", "red")
+                cprint(f"  └─ Raw response: {response_content}", "red")
                 return 0, "Error parsing focus analysis"
             
         except Exception as e:
@@ -423,8 +502,8 @@ class FocusAgent:
                 if self.current_transcript:
                     full_transcript = ' '.join(self.current_transcript)
                     if full_transcript.strip():
-                        cprint("\n🎯 Got transcript:", "green")
-                        cprint(f"Length: {len(full_transcript)} chars", "cyan")
+                        #cprint("\n🎯 Got transcript:", "green")
+                        #cprint(f"Length: {len(full_transcript)} chars", "cyan")
                         self.process_transcript(full_transcript)
                     else:
                         cprint("⚠️ No speech detected in sample", "yellow")

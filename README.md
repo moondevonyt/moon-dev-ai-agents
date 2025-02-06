@@ -4,36 +4,37 @@
   <a href="https://www.moondev.com/"><img src="moondev.png" width="300" alt="Moon Dev"></a>
 </p>
 
-This project explores the potential of [artificial financial intelligence](https://www.afi.xyz) - a focused implementation of AI for trading and investing research.
+## 🎯 Vision
+ai agents are clearly the future and the entire workforce will be replaced or atleast using ai agents. while i am a quant and building agents for algo trading i will be contributing to all different types of ai agent flows and placing all of the agents here for free, 100% open sourced because i beleive code is the great equalizer and we have never seen a regime shift like this so i need to get this code to the people
+
+feel free to join our discord if you beleive ai agents will be integrated into the workforce
 
 ⭐️ [first full concise documentation video (watch here)](https://www.youtube.com/watch?v=So_LQVKa55c)
 
+## Video Updates & Training
 📀 follow all updates here on youtube: https://www.youtube.com/playlist?list=PLXrNVMjRZUJg4M4uz52iGd1LhXXGVbIFz
 
+## Live Agents
+- Trading Agent (`trading_agent.py`): Example agent that analyzes token data via LLM to make basic trade decisions
+- Strategy Agent (`strategy_agent.py`): Manages and executes trading strategies placed in the strategies folder
+- Risk Agent (`risk_agent.py`): Monitors and manages portfolio risk, enforcing position limits and PnL thresholds
+- Copy Agent (`copy_agent.py`): monitors copy bot for potential trades
+- Whale Agent (`whale_agent.py`): monitors whale activity and announces when a whale enters the market
+- Sentiment Agent (`sentiment_agent.py`): analyzes Twitter sentiment for crypto tokens with voice announcements
+- Listing Arbitrage Agent (`listingarb_agent.py`): identifies promising Solana tokens on CoinGecko before they reach major exchanges like Binance and Coinbase, using parallel AI analysis for technical and fundamental insights
+- Focus Agent (`focus_agent.py`): randomly samples audio during coding sessions to maintain productivity, providing focus scores and voice alerts when focus drops (~$10/month, perfect for voice-to-code workflows)
+- Funding Agent (`funding_agent.py`): monitors funding rates across exchanges and uses AI to analyze opportunities, providing voice alerts for extreme funding situations with technical context 🌙
+- Liquidation Agent (`liquidation_agent.py`): tracks liquidation events with configurable time windows (15min/1hr/4hr), providing AI analysis and voice alerts for significant liquidation spikes 💦
+- Chart Agent (`chartanalysis_agent.py`): looks at any crypto chart and then analyzes it with ai to make a buy/sell/nothing reccomendation.
+- funding rate arbitrage agent (`fundingarb_agent.py`): tracks the funding rate on hyper liquid to find funding rate arbitrage opportunities between hl and solana
+- rbi agent (`rbi_agent.py`): uses deepseek to research trading strategies based on the youtube video, pdf, or words you give it. then sends to his ai friend who codes out the backtest.
+- twitter agent (`tweet_agent.py`): takes in text and creates tweets using deepseek or other models
+- video agent (`video_agent.py`): takes in text to create videos by creating audio snippets using elevenlabs and combining with raw_video footage
+- new or top tokens (`new_or_top_agent.py`): an agent that looks at the new tokens and the top tokens from coin gecko api
+- chat agent (`chat_agent`): an agent that monitors youtube live stream chat, moderates & responds to known questions. absolute fire.
+- clips agent (`clips_agent`): an agent that helps clip long videos into shorter ones so you can upload to your youtube and get paid more info is in the code notes and here: https://discord.gg/XAw8US9aHT
+
 **⚠️ IMPORTANT: This is an experimental project. There are NO guarantees of profitability. Trading involves substantial risk of loss.**
-
-## 🎯 Vision
-We're researching AI agents for trading that will eventually leverage [AFI](https://www.afi.xyz). With 4 years of experience training humans through our [bootcamp](https://algotradecamp.com), we're exploring where AI agents might complement human trading operations, and later replace trading human operations. This is experimental research, not a profitable trading solution.
-
-## 🧠 Hypothesis
-AI agents will be able to build a better quant portfolio than humans. i've spent the last 4 years building quant systems & training others to do so. 2025 is about replicating that success but with ai agents doing it instead of me. in 2026 i will release a paper of my findings after a full year of testing ai agents in quant vs the last 4 years of humans.
-
-## 💡 Concept
-AI agents might help address common trading challenges:
-- Emotional reactions
-- Ego-driven decisions
-- Inconsistent execution
-- Fatigue effects
-- Impatience
-- Fear & Greed cycles
-
-While we use the RBI framework for strategy research, we're exploring AI agents as potential tools. We're in early stages with LLM technology, investigating possibilities in the trading space.
-
-*There is no token associated with this project and there never will be. any token launched is not affiliated with this project, moon dev will never dm you. be careful. don't send funds anywhere*
-
-## Video Updates & Training
-all the video updates are consolidated in the below playlist on youtube
-📀 https://www.youtube.com/playlist?list=PLXrNVMjRZUJg4M4uz52iGd1LhXXGVbIFz
 
 ## ⚠️ Critical Disclaimers
 
@@ -59,36 +60,14 @@ all the video updates are consolidated in the below playlist on youtube
 ## 👂 Looking for Updates?
 Project updates will be posted in discord, join here: [moondev.com](http://moondev.com) 
 
-
 ## 🔗 Links
 - Free Algo Trading Roadmap: [moondev.com](https://moondev.com)
 - Algo Trading Education: [algotradecamp.com](https://algotradecamp.com)
 - Business Contact [moon@algotradecamp.com](mailto:moon@algotradecamp.com)
 
-
-## Live Agents
-- Trading Agent (`trading_agent.py`): Example agent that analyzes token data via LLM to make basic trade decisions
-- Strategy Agent (`strategy_agent.py`): Manages and executes trading strategies placed in the strategies folder
-- Risk Agent (`risk_agent.py`): Monitors and manages portfolio risk, enforcing position limits and PnL thresholds
-- Copy Agent (`copy_agent.py`): monitors copy bot for potential trades
-- Whale Agent (`whale_agent.py`): monitors whale activity and announces when a whale enters the market
-- Sentiment Agent (`sentiment_agent.py`): analyzes Twitter sentiment for crypto tokens with voice announcements
-- Listing Arbitrage Agent (`listingarb_agent.py`): identifies promising Solana tokens on CoinGecko before they reach major exchanges like Binance and Coinbase, using parallel AI analysis for technical and fundamental insights
-- Focus Agent (`focus_agent.py`): randomly samples audio during coding sessions to maintain productivity, providing focus scores and voice alerts when focus drops (~$10/month, perfect for voice-to-code workflows)
-- Funding Agent (`funding_agent.py`): monitors funding rates across exchanges and uses AI to analyze opportunities, providing voice alerts for extreme funding situations with technical context 🌙
-- Liquidation Agent (`liquidation_agent.py`): tracks liquidation events with configurable time windows (15min/1hr/4hr), providing AI analysis and voice alerts for significant liquidation spikes 💦
-- Chart Agent (`chartanalysis_agent.py`): looks at any crypto chart and then analyzes it with ai to make a buy/sell/nothing reccomendation.
-- funding rate arbitrage agent (`fundingarb_agent.py`): tracks the funding rate on hyper liquid to find funding rate arbitrage opportunities between hl and solana
-- rbi agent (`rbi_agent.py`): uses deepseek to research trading strategies based on the youtube video, pdf, or words you give it. then sends to his ai friend who codes out the backtest.
-- twitter agent (`tweet_agent.py`): takes in text and creates tweets using deepseek or other models
-- video agent (`video_agent.py`): takes in text to create videos by creating audio snippets using elevenlabs and combining with raw_video footage
-- new or top tokens (`new_or_top_agent.py`): an agent that looks at the new tokens and the top tokens from coin gecko api
-- chat agent (`chat_agent`): an agent that monitors youtube live stream chat, moderates & responds to known questions. absolute fire.
-- clips agent (`clips_agent`): an agent that helps clip long videos into shorter ones so you can upload to your youtube and get paid more info is in the code notes and here: https://discord.gg/XAw8US9aHT
-
-
 ### Shipped Features 📦
 
+- [x] 2/6 - added ollama to allow for local deepseek r1, gema and llama 3.2 and any other ollama or hugging face model
 - [x] 2/5 - clips agent to make money completed by clipping my streams into short digestible videos /clips_agent.py and you can see full training here: https://discord.gg/XAw8US9aHT
 - [x] 2/4 - code running agent is complete and put in the agents folder
 - [x] 2/3 - self executing now works, game changer

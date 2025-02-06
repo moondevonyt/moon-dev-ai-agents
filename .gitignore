@@ -105,7 +105,7 @@ src/audio
 src/data/chat_agent/chat_history.csv
 src/data/chat_agent/config.json
 
-
+src/data/videos/raw_streams/EaMh2ILYJS4.mov
 *.env
 .env.*
 !.env_example

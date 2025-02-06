@@ -58,6 +58,49 @@ Preview Models:
 - `deepseek-chat`: Fast chat model (Good for conversational tasks)
 - `deepseek-reasoner`: Enhanced reasoning model (Better for complex problem-solving)
 
+### Local Ollama: Free, Fast, Private LLMs 🚀
+
+To get started with Ollama:
+1. Install Ollama: `curl https://ollama.ai/install.sh | sh`
+2. Start the server: `ollama serve`
+3. Pull our models:
+   ```bash
+   ollama pull deepseek-r1    # DeepSeek R1 - shows thinking process
+   ollama pull gemma:2b       # Google's Gemma 2B - fast responses
+   ollama pull llama3.2       # Meta's Llama 3.2 - balanced performance
+   ```
+4. Check they're ready: `ollama list`
+
+Available Models:
+- `deepseek-r1`: Best for complex reasoning, shows thinking process with <think> tags
+- `gemma:2b`: Fast and efficient for simple tasks, great for high-volume processing
+- `llama3.2`: Balanced model good for most tasks, especially good at following instructions
+
+Benefits:
+- 🚀 Free to use - no API costs
+- 🔒 Private - runs 100% local
+- ⚡ Fast responses
+- 🤔 DeepSeek shows thinking process
+- 🛠️ Full model control
+
+Usage Example:
+```python
+from src.models import model_factory
+
+# Initialize with Llama 3.2
+model = factory.get_model("ollama", "llama3.2")
+
+# Or use Gemma for faster responses
+model = factory.get_model("ollama", "gemma:2b")
+
+# Or DeepSeek for complex reasoning
+model = factory.get_model("ollama", "deepseek-r1")
+```
+
+Interesting models for future use:
+- gemma - for quick llm tasks https://huggingface.co/google/gemma-2-9b
+- coqui - for voice locally https://huggingface.co/coqui/XTTS-v2
+
 ## 🚀 Usage Example
 
 ```python

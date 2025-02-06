@@ -1,0 +1,1990 @@
+[00:01] a agents can make videos now you can see
+[00:03] this this goes ahead and runs it
+[00:05] analyzes these texts and then creates
+[00:07] these videos and make random videos here
+[00:09] but I actually want to go ahead and
+[00:10] update this today so I'm going to do
+[00:11] that and I'm going to show you every
+[00:12] single step of the way and I'm going to
+[00:13] give you all the code so what I want to
+[00:15] do here is call this um I'm going call
+[00:18] this the video clip agent clipping agent
+[00:21] clipping
+[00:22] agent um vid Clips vid clip agent this
+[00:27] let's change this one to video agent
+[00:29] from
+[00:31] um short
+[00:33] clips short
+[00:37] um short vid agent and then I'mma make a
+[00:40] new agent here called video agent or
+[00:43] clip agent oh [ __ ] video clip agent
+[00:50] video clips agent Clips
+[00:53] agent py here and this is going to be go
+[00:57] ahead and be Eclipse agent here
+[01:00] so the whole idea behind this is to be
+[01:03] able to take long
+[01:04] videos be able to take long videos and
+[01:06] make short videos out of it
+[01:10] 777 so the idea here is okay I actually
+[01:14] have a Clips channel in my Discord here
+[01:18] where we I had just have so much fire on
+[01:21] this YouTube channel that I don't have
+[01:23] time I don't have time to get to so I
+[01:25] put this Clips channel here dude and you
+[01:27] can see this Clips channel here explains
+[01:29] the whole process but essentially you
+[01:30] get paid per 10,000 views so right now
+[01:33] it's $69 per 10,000 views but it might
+[01:36] be more in the future I love you too
+[01:38] thank you 777 much love to you dude
+[01:40] anyways you can see here that um in the
+[01:44] Discord go to mb.com to get the Discord
+[01:47] but um you see you can get paid for
+[01:50] 10,000 views but the thing is dude is
+[01:54] this isn't just me this is all of the
+[01:56] streamers every single streamer out
+[01:58] there has long videos that need short
+[02:02] videos they need shorter videos because
+[02:05] there's gold in those long videos now
+[02:07] I'm not going to say there's golden
+[02:08] entertainment long videos like all the
+[02:11] you know the Neons and the Aiden Rosses
+[02:14] and the all those streamers dude I don't
+[02:16] know maybe there is gold cool but
+[02:18] there's literal gold here in my videos
+[02:20] so with this video agent essentially
+[02:23] what I'm going to show you how to do is
+[02:25] how to take these long videos and make
+[02:27] short videos and then if you upload them
+[02:29] to your channel you get
+[02:31] paid okay so super easy to do and I
+[02:34] actually have some really good examples
+[02:36] here uh of how people have been doing
+[02:39] this so let me just go ahead and grab
+[02:41] those real
+[02:45] quick so there's one here and then
+[02:49] here's
+[02:50] another
+[02:54] um where it go
+[03:02] okay so we have two examples two great
+[03:04] examples of this so these guys are
+[03:06] crushing
+[03:08] it examples so you get
+[03:14] paid by most
+[03:18] streamers to make short videos of their
+[03:23] clips of their content make clips of
+[03:25] their com content clips of their
+[03:28] videos of the
+[03:31] streams I have so much gold in my
+[03:36] videos and things that can
+[03:40] truly help
+[03:42] people if you want to learn how to code
+[03:48] and get paid while you do it you should
+[03:53] just
+[03:53] watch my videos and when you
+[03:57] see something
+[04:00] you think it's gold make a clip out of
+[04:02] it and you get paid by me for it you get
+[04:05] paid right now check out the clip
+[04:08] Channel check out the clips channel in
+[04:13] Discord for more info okay let's just
+[04:17] put that channel directly in there dude
+[04:20] let's go to the clips
+[04:22] bro let's go to the clips let's go ahead
+[04:24] and say create invite here and edit
+[04:28] invite link dude no limit
+[04:30] soldiers No Limit soldiers Duke generate
+[04:34] New Link
+[04:36] okay examples examples of people
+[04:40] crushing
+[04:42] it with my videos literally with my
+[04:47] videos much love to you
+[04:49] Stark much love to you Stark much love
+[04:52] to you code Freedom dude hope you guys
+[04:54] are doing great dude thank you for
+[04:56] sending the Good Vibes bro 777 keep them
+[04:59] coming through all day please please
+[05:02] please okay
+[05:05] so they
+[05:08] essentially they essentially get paid to
+[05:11] watch my coding
+[05:14] videos and make clips of the good parts
+[05:20] essentially
+[05:22] because because I don't have time to
+[05:26] make Clips I can only stream
+[05:30] as I'm building my
+[05:36] alos but you may have time you may you
+[05:41] may you you can get off on this dude
+[05:43] okay so you know the plan so what I want
+[05:45] to do here is I want to first off take
+[05:48] one of these long video okay let's go
+[05:50] ahead and show these examples here first
+[05:52] off okay so this is the clips agent here
+[05:55] and let's go to
+[05:57] the my
+[06:01] let's go look at these videos dude
+[06:03] because these guys are absolutely
+[06:04] crushing this video thing dude they're
+[06:07] clipping these videos up amazingly I
+[06:10] watch these videos now I'm going
+[06:12] subscribe you should subscribe as
+[06:15] well so you can see they're essentially
+[06:17] taking my longer videos and making
+[06:19] shorter videos of them putting a nice
+[06:21] thumbnail on them putting a good title
+[06:23] on them and you can see here they're
+[06:25] just shorter versions of my videos the
+[06:28] one thing I would say that would do
+[06:29] better for them is if they were a little
+[06:31] bit longer videos but I'll show you how
+[06:33] to do all of that here today so not only
+[06:36] are you going to be learning every
+[06:37] single thing because you're going to be
+[06:38] literally watching the videos and then
+[06:40] you know cutting them up in order to
+[06:42] make the good segments so you in
+[06:45] inherently learn how to code you
+[06:48] inherently learn how to outgo trade cuz
+[06:50] you're stepping on the gas every single
+[06:52] day it's beautiful beautiful stuff dude
+[06:54] beautiful stuff so you can see here my
+[06:58] focus agent about to yell at me 7.10
+[07:01] stay focused on the coding process each
+[07:03] line of code brings you closer to
+[07:05] mastering your craft thank you
+[07:07] bro thank you bro thank you bro anyways
+[07:10] you can see how they're doing it um I
+[07:13] would say the one difference I would do
+[07:14] if I were you is I would make these
+[07:17] longer videos you know my videos are 4
+[07:19] hours so take out like the 15 minute the
+[07:21] 20 part minute parts and I'll show you
+[07:23] how to build this agent out here today
+[07:25] so you can have this all pretty much
+[07:26] automated for you so you can see all you
+[07:29] you got to do is start a YouTube channel
+[07:31] it's all on YouTube it's YouTube only um
+[07:35] but it's pretty chill dude because all
+[07:37] you're doing is learning and then
+[07:38] uploading the good parts maybe put a
+[07:40] little thumbnail on it you can even use
+[07:41] my thumbnails take my thumbnails I don't
+[07:43] care take my videos take my thumbnails
+[07:45] take everything dude I believe code is a
+[07:47] great equalizer I believe if you learn
+[07:48] how to code you'll change your life
+[07:52] dude so these guys are crushing it and
+[07:54] you can see just randomly 2.3 th000
+[07:56] views on a video 900 views ,000 views
+[08:00] and you get paid every 10,000 views so
+[08:02] you can see it's just like might as well
+[08:04] if you are actually learning this
+[08:06] process you might as well get paid for
+[08:08] it okay so let's go ahead and build the
+[08:10] agent out now first things first this is
+[08:13] what you would do as well you would go
+[08:15] over to my YouTube or somebody else's
+[08:17] YouTube maybe another streamer's YouTube
+[08:19] anywhere that has long videos because
+[08:21] the whole goal here is to you know I put
+[08:24] my all into these videos dude I I
+[08:26] literally show you everything but within
+[08:29] those in the long videos there's great
+[08:31] parts so essentially your play would be
+[08:34] go to my YouTube open some videos that
+[08:36] you literally want to watch and learn if
+[08:39] you literally care how good you are
+[08:41] anything discipline you nobody you
+[08:44] nothing have discipline cuz you give up
+[08:46] under the slightest struggle without
+[08:48] discipline 100% me discipline is doing
+[08:50] what you hate to do but do it like you
+[08:52] love it doing what you hate to do but do
+[08:54] it like you love it that's that is a
+[08:57] great quote mhm and if you can do that
+[09:00] you could be successful in anything no
+[09:01] you normally are so what I would do dude
+[09:04] is I would look at the recent videos and
+[09:06] I would say which ones have the most
+[09:08] views on them and this is my YouTube
+[09:10] channel okay which one has the most
+[09:12] views on them that tells you where
+[09:13] people actually are watching people are
+[09:15] interested in okay so the Deep seek AI
+[09:17] agents okay uh the Jack dorsy the how to
+[09:21] actually use AI agents open the ones
+[09:23] that have a lot of views in them 25,000
+[09:25] views on this one deep seek AI
+[09:30] so look at the ones that have a lot of
+[09:31] views and then you could also look at
+[09:33] the most popular ones now the tricky
+[09:35] thing here is some of these are older so
+[09:37] are they going to still be popular I
+[09:39] don't know I don't know dude I don't
+[09:40] have the time for for doing these
+[09:42] clipping things but I I know that some
+[09:45] of you do because some of you come to me
+[09:47] and be like yo can I make a million
+[09:48] dollars overnight with algo trading and
+[09:51] algo trading is not how you make money
+[09:53] dude it's not how you make money if you
+[09:55] have cash that you're trading you can
+[09:57] earn a yield on your cash you can you
+[10:00] can earn a percentage of your cash yes
+[10:02] but it's not like how you're going to
+[10:03] make it out of the trenches bro I'm
+[10:06] sorry so I I got to do this at least
+[10:08] once a week I got to show you guys this
+[10:10] because I get so much pressure on me
+[10:12] from people saying like I just need to
+[10:14] make a hundred bucks I just need to make
+[10:15] 200 bucks okay well here dude I'm going
+[10:18] to give you my money because I believe
+[10:20] code is a great equalizer and I believe
+[10:22] if I get this knowledge out to people
+[10:24] it's going to change their
+[10:26] life it's going to change their life so
+[10:29] so if you want to help me with that you
+[10:31] can and you get paid for and you learn
+[10:33] at the same time so go through my videos
+[10:35] find the ones that are good if you need
+[10:37] screenshots for the videos you can use
+[10:40] mine as well dude watch this I'll just
+[10:42] type
+[10:43] in download
+[10:46] screenshots uh not screenshot thumbnails
+[10:49] thumbnails download
+[10:52] thumbnails from YouTube now you can also
+[10:55] make your own so you can just go here
+[10:57] and just grab any any one that I
+[11:00] have if you want to use those thumbnails
+[11:03] you know make your new titles whatever
+[11:06] um you can see that's an easy way to get
+[11:07] the thumbnails how do you get the vid
+[11:09] well I can't say this out loud but it's
+[11:11] the same way it's the same way just type
+[11:14] in
+[11:18] download video so I can't say that out
+[11:21] loud but you know that's how you do it
+[11:24] just
+[11:26] download the video so you have all of my
+[11:29] videos you literally have unlimited
+[11:31] access to all of my videos and you can
+[11:34] down you can get them you can get them
+[11:37] dude just click just Google bro just
+[11:40] Google and just get the highest version
+[11:42] quality dude click click it um some of
+[11:46] these are going to try to scam you in
+[11:48] the paint not scam you but uh you know
+[11:51] whatever get you to pay um I would look
+[11:53] for the ones with the highest resolution
+[11:56] here if you can get them uh so I would
+[11:58] go to a different website honestly cuz
+[12:00] that one's
+[12:02] 360p uh let's go ahead and look at 1080p
+[12:05] here all of these are you know they all
+[12:08] do the same thing I can't talk about
+[12:11] this on the stream because they listen
+[12:14] to every single
+[12:18] word here you go download the 1080p dude
+[12:22] if you
+[12:23] can it's a little tricky sometimes n it
+[12:27] won't let me take take that one seek AI
+[12:29] I used to be able to do this uh just put
+[12:32] SS in front of
+[12:40] it dude they're tightening up
+[12:44] bro they're tightening
+[12:49] up how do you even get these
+[12:52] anymore there's got to be a better way
+[12:56] you can use the 360s if you'd like
+[13:01] oh HD right here no I ain't
+[13:07] it I don't even know how to get them
+[13:09] anymore jez
+[13:13] bro it's paid where do you get that
+[13:20] at all right so step one is getting the
+[13:23] video so we got to figure that out
+[13:25] first there's usually free ones it's
+[13:29] just that I
+[13:30] think they try to take them down so you
+[13:34] have to play around with this a
+[13:36] bit and maybe I can put like a Dropbox
+[13:38] link or something with all my video
+[13:43] content so maybe I'll do that CU I have
+[13:45] all my videos you know they're all in my
+[13:48] folder so if I don't figure something
+[13:50] out in the next few minutes here I'm
+[13:52] just going to go ahead and put them in a
+[13:54] folder for you
+[14:01] Google
+[14:02] 4K I don't want to pay for it though
+[14:05] because then it defeats the pro purpose
+[14:07] you
+[14:07] know because I could pay for it sure but
+[14:11] um I want this to be free for you
+[14:18] guys all right dude well I've got all
+[14:20] the videos so I'm just going to upload
+[14:22] them to uh
+[14:29] to
+[14:31] Dropbox because I got all my videos
+[14:34] right here
+[14:35] dude they're all right here in this
+[14:38] folder
+[14:40] so
+[14:42] um what I'll do is in this in this
+[14:46] here in this uh Discord
+[14:50] here I'll go ahead and put a bunch of
+[14:53] videos I'll just start putting all my
+[14:55] videos here because then it'll be super
+[14:57] easy for you to get so now you know you
+[15:01] can do this with anybody any streamer or
+[15:03] anything it doesn't matter you just have
+[15:04] to make sure that they have some sort of
+[15:06] program in place I have this program in
+[15:07] place because I truly believe if you
+[15:09] post these vids dude I will personally
+[15:12] watch them and I know that there's so
+[15:14] much gold inside of these that if you're
+[15:17] able to learn while you post vids dude
+[15:21] you get you get paid you get paid to
+[15:23] learn dude that's fire somebody hit me
+[15:25] in the chat I'm also new to coding I
+[15:28] wrote you on I got a project idea for
+[15:31] our live stream nice
+[15:33] dude fire
+[15:36] um so what I'm going to start doing is
+[15:38] I'm just going to start doing that right
+[15:40] now let's go ahead and get to Dropbox
+[15:42] here
+[15:45] and how much do I have here in this
+[15:48] Dropbox I got
+[15:50] 02 I'm going to go ahead and oh I'm in
+[15:53] the right Dropbox actually so let's go
+[15:56] ahead and say
+[16:08] vids
+[16:14] unedited I got a bunch of videos dude I
+[16:16] got
+[16:18] unlimited try to code crypto triangular
+[16:21] Arbitrage I built that I buil It B I
+[16:24] built it good good idea though dude good
+[16:27] idea what love to you thanks
+[16:29] appreciate your
+[16:36] idea I got my Dropbox open over
+[16:45] here OG videos
+[16:51] maybe okay I got this dude I'm just
+[16:54] going to make some video I'm going to
+[16:55] call it uh videos let's say new folder
+[16:59] here create folder
+[17:04] here all
+[17:10] files and let's say create folder here
+[17:13] and this will be
+[17:15] videos for
+[17:22] Clippers okay seeck now I'm going to go
+[17:24] upload of videos there stay focused on
+[17:27] the task at hand every minute spent on
+[17:29] organizing is a minute closer to your
+[17:31] goal thank you
+[17:35] bro how to actually use AI for
+[17:39] trading deep seek so I got all my videos
+[17:42] here dude this is far bro I'm about to
+[17:45] give you guys so much heat that you can
+[17:47] just run with dude you can run with this
+[18:12] so this is going to be a way better way
+[18:13] anyways because you're going to have
+[18:19] um essentially the
+[18:23] 1080p you have the 1080p Y 2 mate okay
+[18:28] it might have something to do with where
+[18:30] I'm located as well
+[18:59] I'm uploading a ton of videos right now
+[19:02] so damn it might so don't waste it
+[19:05] living someone else's life let's see
+[19:07] don't be trapped by Dogma which is
+[19:09] living with the results of other
+[19:11] people's thinking don't let the noise of
+[19:14] others opinions drowned out your own
+[19:15] inner voice and most important have the
+[19:18] courage to follow your heart and
+[19:20] intuition they somehow already know what
+[19:23] you truly want to become
+[19:26] everything secondary
+[19:29] so I don't I don't want to I don't want
+[19:31] to um send you guys a bad vid vid
+[19:34] quality here so let's say
+[19:42] 1080p 1080p maybe go try that
+[19:47] one 740 is
+[19:51] fine P4 here okay
+[19:56] look this one works
+[20:00] maybe not
+[20:02] though mp4
+[20:06] download Yo thank you Kyler appreciate
+[20:09] you bro much
+[20:12] love so yeah the s's constantly Chang
+[20:15] okay well I'm going to have uh I'm
+[20:18] uploading 30 30 vids so you'll have
+[20:21] access to all my new vids um anyways
+[20:25] let's go ahead and make sure now that
+[20:27] you know
+[20:29] the process of I think the key process
+[20:32] to this is looking at which ones do well
+[20:35] like so there's two ways look at ones
+[20:37] that do well number one popular of
+[20:39] course but you can see a couple of these
+[20:41] are old like five months ago that's not
+[20:43] that old that that's not that old these
+[20:45] are obviously two hitters
+[20:47] here but some of them are like two years
+[20:50] old so you know you'll have to do your
+[20:51] judgment there and you know just because
+[20:54] it has a lot of views or whatever it
+[20:56] could be too old but it could also be
+[20:57] good so I don't want to like change your
+[20:59] mind on anything you know how you can
+[21:01] get the thumbnails if you need them you
+[21:03] can also use canva canva makes really
+[21:06] good thumbnails canva is a visual like a
+[21:10] Photoshop a easy Photoshop so you can
+[21:12] always make thumbnails there uh the key
+[21:15] is to make good titles and stuff and
+[21:17] essentially you can go through and just
+[21:19] get any of these any of these vids that
+[21:21] you feel like you want to watch and
+[21:23] learn from because if you are actually
+[21:25] learning during it then it's no cost to
+[21:28] you you know know what I'm saying
+[21:29] because when you have to clip it up well
+[21:31] you get to see it again okay so that's
+[21:34] fire bro 777 to you dude Kyler you are a
+[21:38] gem thank you bro Let the Peace of
+[21:40] Christ rule in your hearts dude let's
+[21:44] get it okay so let's go ahead and build
+[21:46] out this uh full this full um thing
+[21:54] here steps to success steps to your
+[21:58] success
+[22:00] as a
+[22:01] Clipper one find good long
+[22:06] videos on my
+[22:10] channel and then let's go here or
+[22:12] someone else's channel that pays
+[22:19] you or someone
+[22:23] else's that pays
+[22:26] you okay and then two
+[22:30] watch the video and find the parts that
+[22:31] are gold make a uh clip out of
+[22:36] it 2 minutes to you know two
+[22:45] hours I would honestly say five
+[22:48] minutes to two
+[22:52] hours
+[22:54] upload in
+[22:56] length upload the
+[22:59] clip
+[23:00] to your YouTube
+[23:05] channel when you
+[23:08] hit 10,000
+[23:11] views get
+[23:15] paid 69 for now but that may change keep
+[23:21] an eye on that may increase
+[23:30] honestly let's do it let I'm going to
+[23:31] build this to be cooler
+[23:34] actually may increase over
+[23:38] time let's say
+[23:40] uh payout
+[23:44] schedule payouts um
+[23:50] thresholds uh
+[23:52] 10,000
+[23:55] views views per month
+[23:59] equals
+[24:01] 69 per
+[24:07] 10K let's say uh 50,000 views per
+[24:16] month
+[24:19] equals
+[24:22] 89 per
+[24:25] 10,000 views
+[24:29] 100,000 views per
+[24:32] month equals 129 per 10,000
+[24:37] views no 100
+[24:41] per 10,000 views and if you get
+[24:47] um let's make this a little easier
+[24:51] actually
+[24:53] 30,000 and then
+[25:06] 50,000 all right payout
+[25:09] thresholds
+[25:11] so
+[25:17] standard but after you get to up to okay
+[25:20] 10,000 50,000 per month okay perfect
+[25:24] dude so that's
+[25:26] awesome um
+[25:30] if in the
+[25:32] USA you can only earn up
+[25:38] to
+[25:40] 500 per year but in the rest of the
+[25:47] world you can
+[25:50] earn
+[25:54] unlimited okay
+[25:57] so and and then if you get more
+[26:00] than let's say
+[26:03] 100,000
+[26:07] views per month then it's going to be
+[26:10] it's going to
+[26:12] be 149 per 10,000
+[26:19] views okay
+[26:22] so at 10,000
+[26:25] bonus bonus group here
+[26:30] once you hit 10,000
+[26:34] views per month you get access to a
+[26:40] private channel in
+[26:44] Discord with training on how to get more
+[26:50] views okay dude so that's how that's the
+[26:53] play right now so this is literally the
+[26:57] whole this is kind of I've kind of
+[26:58] updated this essentially as we go but
+[27:06] essentially this AI agent this AI agent
+[27:10] will be able to take long videos and
+[27:14] make them short
+[27:18] videos
+[27:20] enabling this AI agent to make money
+[27:25] while you sleep not really but you know
+[27:29] AI
+[27:30] enabling this AI agent to help you earn
+[27:36] money while you learn to code you get
+[27:41] paid by most streamers to make clips of
+[27:43] their
+[27:44] streams I have so much gold in my videos
+[27:47] and things that can truly help people if
+[27:50] you want to learn how to code and get
+[27:52] paid while you do it you should just
+[27:54] watch my videos and when you see
+[27:56] something that is gold you can make make
+[27:58] a clip out of it and you can get paid by
+[28:02] me for that check out the clips Channel
+[28:04] and Discord for more info examples of
+[28:07] people crushing it with my
+[28:09] videos here's a couple examples they
+[28:12] essentially get paid to watch my coding
+[28:13] videos and make clips of the good parts
+[28:17] because I don't have the time to make
+[28:19] Clips I only stream as I'm building my
+[28:22] alos steps to your success as a mondev
+[28:26] Clipper actually it's a Clipper anywhere
+[28:29] let's just say mondav Clipper
+[28:31] though a
+[28:33] moav
+[28:37] Clipper find good long videos on YouTube
+[28:40] here we go watch the video and find the
+[28:42] parts that are
+[28:45] good make a clip out of that video five
+[28:48] hours in
+[28:51] length sorry 5 minutes to 2 hours in
+[28:54] length upload the the clip to your
+[28:57] YouTube channel
+[28:59] YouTube
+[29:01] only no shorts no YouTube
+[29:08] shorts when you hit 10,000 views you get
+[29:11] paid
+[29:15] $69 get
+[29:18] paid 69 pay out pay out
+[29:25] um standard payment let's say
+[29:32] standard it's get involved if you Ain
+[29:34] gon for take this I bought some Hol tips
+[29:37] for your homeboy 10,000 views per month
+[29:39] you get 69 per 10,000 views 30,000 views
+[29:42] per month you get 89 per 10,000
+[29:46] views 50,000 you get 100 per 10,000
+[29:51] views 100,000 you get 149 that's
+[29:54] aggressive dude that's aggressive and I
+[29:57] don't know if that one will last that
+[29:59] one's aggressive bro let's pull that one
+[30:02] no let's keep it let's keep it let's see
+[30:03] let's see dude uh bonus group once you
+[30:06] hit 10,000 views per month you get
+[30:09] access to our private Channel and
+[30:15] Discord simply uh
+[30:19] submit your YouTube uh when you hit
+[30:26] 10,000 on the 1st and the 15th payments
+[30:29] are
+[30:31] payments are via crypto on the 1st and
+[30:38] 15th of every month when you hit 10,000
+[30:44] views per month
+[30:48] plus just email the link and your
+[30:54] tracking of the views
+[31:00] to
+[31:02] Moon 2.0 10 stay focused on your goals
+[31:06] and the results will
+[31:08] follow okay perfect dude wait I can get
+[31:10] paid for making clips of your video
+[31:12] exactly dude exactly you can much love
+[31:15] to you dude so I just want to make sure
+[31:18] that everybody can see the things that
+[31:20] you think are good dude so you get paid
+[31:23] for clipping my videos yes now I have
+[31:28] this
+[31:31] um Dropbox here here's a bunch of raw
+[31:35] footage where do I get the videos
+[31:38] where do you get the videos
+[31:43] from uh my
+[31:47] channel uh I will upload let's say one
+[31:50] this
+[31:52] Dropbox has a
+[31:54] bunch of my videos that I will upload to
+[32:01] daily so let's go ahead and get that
+[32:03] Dropbox share folder here copy link
+[32:09] okay copy link
+[32:15] here all right so that's that's step one
+[32:19] here and then here's the other two you
+[32:24] can you have permission have permission
+[32:35] to and then
+[32:40] um yeah dude what framework is this this
+[32:43] is a moev agents framework dude Mev AI
+[32:48] agents framework it's right here go to
+[32:50] mv.com click road map Discord GitHub you
+[32:53] get everything in the road map shows you
+[32:54] exactly how to automate your trading and
+[32:56] then you go down here do to the
+[33:00] uh moev AI agents here and we're
+[33:03] building out a a video agent today you
+[33:05] come here and you get the GitHub click
+[33:06] star in order to save it and fork in
+[33:08] order to copy the code it's all you got
+[33:10] to do dude and you're good so you got
+[33:13] everything I got so I'm going to go
+[33:15] ahead and keep updating this here and
+[33:18] I'm going to keep writing this out let's
+[33:20] go ahead and make sure this is up there
+[33:22] where do I get the videos from um are
+[33:24] there any questions you guys have any
+[33:25] questions based off of this based what I
+[33:28] just showed you are there any questions
+[33:29] that I could get ahead
+[33:31] of
+[33:33] um let's see if there's anything I
+[33:35] missed in this Clips channel here
+[33:37] updated August 14th I believe code is a
+[33:40] great equal equalizer that's why I share
+[33:42] every single line of code I create every
+[33:44] day I do this through streaming my code
+[33:46] of trading alos every single day now I
+[33:49] understand that it's hard to watch all
+[33:50] the streams and I get people asking me
+[33:53] for shorter videos I truly believe CA is
+[33:55] a greater so it cost 69 per month but
+[33:58] you can get it free because I give you
+[34:00] 10,000 if you do th 10,000 videos you
+[34:03] can or 10,000 views you can get $69 but
+[34:06] that could also be free tldr clip my
+[34:09] vids post them on your YouTube and when
+[34:10] you get 10,000 views okay perfect if you
+[34:13] want to get started watch this video
+[34:15] once you hit 10,000 views email
+[34:17] screenshots of videos stats and links
+[34:20] for here paid on the first and the
+[34:22] 15th I should make that consistent
+[34:25] huh I should make that consistent dude I
+[34:28] should make that consistent let's put it
+[34:30] at the same email address I got two
+[34:31] emails I'm a I'm a I'm a crazy guy you
+[34:35] know a crazy guy questions post below
+[34:38] post your Clips below I also want to
+[34:40] learn from past moev I do want to learn
+[34:43] from past Moon okay fire dude so this is
+[34:46] fire dude you've been at this for a
+[34:48] minute M respect thank you Minnie much
+[34:50] love to you uh can you drop the Dropbox
+[34:53] Link in the chat or is it in the Discord
+[34:56] So Adam I'm going to go ahead and push
+[34:58] this here to the GitHub right now new
+[35:01] terminal
+[35:04] G.G commit slm
+[35:09] um Clips
+[35:11] agent that can make
+[35:15] money get push here so let's see make
+[35:18] sure everything's good okay perfect
+[35:22] dude um can you drop the Dropbox link
+[35:27] yo so I'll drop the GitHub link right
+[35:30] now dude and it's all up in there
+[35:33] so let's go to the source here clips
+[35:36] that can make money here let's go ahead
+[35:41] to the clips here Clips agent here and
+[35:44] you got the Dropbox link now I've got
+[35:46] much more many more videos being
+[35:48] uploaded to the Dropbox right now so
+[35:50] you'll have access to all of my or a lot
+[35:53] of my videos a lot of my videos and I'll
+[35:55] try to just keep uploading those so you
+[35:57] got the the link now dude and you can
+[35:59] see the Dropbox is right here so go
+[36:02] ahead and have fun with that have fun
+[36:05] with that dude have fun with it make
+[36:07] sure you're having fun watch watch the
+[36:09] videos that you actually want to learn
+[36:11] from because then it's free you know
+[36:14] because then you're not you know it's
+[36:16] not like you're just over here making
+[36:17] videos dude you're literally learning
+[36:20] you're learning while you do this so
+[36:22] yeah so it's right here this Dropbox has
+[36:24] a bunch of videos okay so this is the
+[36:26] standard payout 9,000 per 10,000 views
+[36:29] but it increases based on your views per
+[36:31] month let me know if you have any
+[36:33] questions based off of what you've heard
+[36:35] so far otherwise I'm going to start
+[36:37] building out the clips
+[36:38] agent so if you want to read through
+[36:40] this real quick and if you got any other
+[36:43] questions let me know and then if
+[36:44] there's no other questions on how this
+[36:46] is set up and how the payments are made
+[36:49] all that good stuff then I will just
+[36:51] keep moving on to build a Clips agent
+[36:53] that will help you with this process and
+[36:55] help you clip the videos dude so let me
+[36:57] go ahead here and um let's do that dude
+[37:01] let's do that let's go ahead and do that
+[37:03] I want to go ahead and first um bring
+[37:06] one of these long videos one of the Raw
+[37:08] videos up in here so let's go put it in
+[37:10] the Raw let's go to data I think it
+[37:14] would be in the data here and this will
+[37:16] be under private data
+[37:18] maybe
+[37:20] no videos here Raw
+[37:26] videos order flow
+[37:30] okay I'm going to put one of these in
+[37:38] there
+[37:46] um let's just put this one in there for
+[37:49] now how to
+[37:51] use this here and this really big
+[37:54] actually
+[38:02] so maybe I should copy relative path
+[38:05] here I don't need to be uploading that
+[38:06] to GitHub dude it's too big get ignore
+[38:20] her I need to change that name too I do
+[38:24] I do I do I have to use
+[38:35] copy path
+[38:48] here honestly I could just probably get
+[38:50] rid of Raw videos in general okay got
+[38:53] that out of there so let me read through
+[38:54] this let me know if you have any
+[38:55] questions and then let's go ahead and
+[38:58] build this agent out to help you out
+[39:36] erir okay if you want a pair of shoes
+[39:39] and they at the store they're really at
+[39:41] the store you just don't have it yet it
+[39:43] ain't like that [ __ ] don't exist it's
+[39:45] just really at the store that's how I
+[39:46] looked at my whole life if I want it if
+[39:49] I believe I can have it then that's then
+[39:52] that's my reality all right dude so you
+[39:54] literally have the whole game plan in
+[39:57] here for the clips agent so [ __ ] dude
+[40:02] this is fire this is fire okay so since
+[40:05] you have access to
+[40:08] everything you should be able to step on
+[40:10] the gas now not yet well you could
+[40:19] actually so let me show you the first
+[40:21] way to do this before we do it how to do
+[40:25] this uh how do I clip the videos how do
+[40:27] I clip the
+[40:29] videos uh one download cap
+[40:49] cut to find the
+[40:53] interesting parts of the video
+[40:58] and make a 5 minute
+[41:02] to 2our clip of it three make an
+[41:10] interesting
+[41:18] thumbnail and
+[41:20] title for the
+[41:24] clip for post on
+[41:32] YouTube
+[41:34] um you can use
+[41:38] my
+[41:41] thumbnails if
+[41:43] needed just
+[41:45] Google how to
+[41:48] download post on
+[41:50] YouTube when you hit you hit
+[41:54] 10,000 views
+[41:57] email your link and
+[42:03] stats to get
+[42:05] paid here's a more here here is another
+[42:10] training
+[42:12] video it mentions uh the only difference
+[42:16] the only
+[42:18] difference is
+[42:21] that we only accept YouTube videos now
+[42:28] the below training is
+[42:32] helpful
+[42:34] though we only accept Long YouTube
+[42:37] videos
+[42:40] now okay so let's go ahead and put that
+[42:46] there where's that video at dude it's
+[42:49] right
+[42:51] here copy
+[42:58] visit here this is the video all right
+[43:00] as you
+[43:01] know so there you go now you have you
+[43:04] can do it you can start now honestly you
+[43:06] can start now you don't even need the AI
+[43:07] agent code but I'm going to investigate
+[43:09] how to make this easier with AI agents
+[43:12] training video
+[43:14] here I'm going to make it easier with AI
+[43:17] agents dude so let's go ahead and update
+[43:21] the REM me real quick n let's do that
+[43:23] later okay so now we have this copy path
+[43:26] okay
+[43:28] so let's go ahead and say I here um let
+[43:33] me go ahead first and update this so you
+[43:35] have all the instructions on how you can
+[43:38] start getting off get commit
+[43:42] M uh agent clip agent clip agent to make
+[43:47] money while
+[43:51] learning clip agent to make money get
+[43:55] push okay okay so you got all the code
+[43:57] there it's up on github.com and you can
+[44:00] get that from mb.com road map Discord
+[44:02] GitHub all that good stuff here we go
+[44:03] this is the road map and then then the
+[44:05] GitHub is here in the moon AI agents
+[44:07] when you get there you just go ahead and
+[44:09] hit here you go here and it's all right
+[44:10] here dud it's all right here dude let's
+[44:12] get it all day every day okay here's
+[44:15] some good examples of people crushing it
+[44:16] 777 like a boss T Ross is up in here
+[44:25] yes where do I get the videos from dude
+[44:27] I thought I just updated this didn't
+[44:30] I what the heck cursor training video I
+[44:35] didn't save it that's why okay so let's
+[44:38] update it
+[44:39] again uh get add. get commit
+[44:44] slm and
+[44:47] um clip agent to make
+[44:51] money get push okay so now we have all
+[44:55] this now we can start building to make
+[44:57] make this even easier if you are a coder
+[45:01] so let's go here and
+[45:05] say please look at my focus agent to see
+[45:08] how we set up the AI of all of this and
+[45:11] bring that
+[45:15] in but then I want you to build the
+[45:17] below essentially I have a file path
+[45:18] that I'll post here and this file path
+[45:21] will have
+[45:27] [Music]
+[45:29] a bunch of different
+[45:31] videos it's like going to be a folder of
+[45:33] videos and what I want you to do is put
+[45:36] me put some constants up top saying how
+[45:38] long I want the videos to
+[45:39] be so X
+[45:43] seconds and then essentially what this
+[45:46] will do
+[45:48] is split up the videos based on that
+[45:51] many
+[45:53] seconds and then output them into a new
+[45:55] folder called finish
+[46:00] Clips so I have a folder I'll be
+[46:03] connecting you to called raw click
+[46:05] clips and you output the clipped ones
+[46:09] into finished
+[46:11] Clips I don't know dude I'm not there
+[46:13] yet I haven't figured it out yet bro I
+[46:16] don't know yet I don't know I don't know
+[46:17] anything dude I just go I just build
+[46:19] clip raw
+[46:25] Clips finish clips let's go say finish
+[46:34] Clips finish Clips raw clips and finish
+[46:36] Clips let's put this in the Raw Clips
+[46:38] here let's get another one up in
+[46:40] [Music]
+[46:46] there
+[46:47] [Music]
+[46:50] um deep seek here let's go ahead and put
+[46:53] that in
+[46:55] there let's go ahead and rename it so
+[46:57] it's
+[47:07] Kinder okay let's go put raw Clips up in
+[47:10] the the
+[47:13] GitHub don't share or whatever get
+[47:15] [Music]
+[47:20] ignore okay so let's go ahead and put
+[47:24] raw Clips here
+[47:27] and then I have finish Clips here so
+[47:29] let's go to agents here data videos
+[47:34] finish Clips copy
+[47:36] P okay dude so that's that's what the
+[47:39] that's what it's going to do I don't see
+[47:40] the AI yet but we'll see how I can
+[47:43] implement it
+[47:58] uh will there be any new lessons based
+[48:00] on Moon's latest YouTube videos so much
+[48:02] insane content that's distracting but
+[48:04] only bits and pieces would be great to
+[48:05] have some integrated 15 days special llm
+[48:10] code to be honest Moon build a whole
+[48:13] different course for AI
+[48:16] agents
+[48:18] moon to be honest Moon can build a whole
+[48:20] different
+[48:21] course that's what I thought this course
+[48:24] would be I followed him on YouTube how
+[48:25] did you think that dude
+[48:32] this be crypto AI trading bot um course
+[48:34] the very least using GitHub code back
+[48:37] test um
+[48:41] whereas okay
+[48:44] well it's
+[48:48] interesting did you read the website
+[49:00] oh my
+[49:07] god there are some extra days after day
+[49:14] 30 though and I will be adding more of
+[49:19] this
+[49:20] agent stuff that said this the the boot
+[49:26] camp the boot camp is all about Alo
+[49:33] trading
+[49:36] and you get
+[49:39] everything on the
+[49:46] website plus more really okay
+[49:52] um let's go ahead imagine you had
+[49:55] everything you wanted
+[49:57] everything I love when people imagine
+[49:59] you were everything you ever wanted to
+[50:01] be and capture that
+[50:04] feeling that's the easiest way to
+[50:06] manifest what you want so you only get
+[50:09] what's on the website so I love when
+[50:11] people come up in here and be like yo I
+[50:13] thought we were going to get this or
+[50:14] that it's like
+[50:17] bro bro I literally explained it step by
+[50:20] step exactly what you get in the boot
+[50:22] camp and people were like I want more
+[50:26] I want more dude and I actually give
+[50:29] more I give more so much love to them um
+[50:33] but yeah if you join the boot camp you
+[50:34] get everything on this page it's 15 days
+[50:38] here but I'm I'm a I'm a thug so I go
+[50:41] ahead and actually give you more days
+[50:43] all the way up to 38 days that's crazy
+[50:45] dude 69 bucks that's insane that's why I
+[50:49] want you if you're if you can't afford
+[50:52] it bro then just clip some stuff dude
+[50:56] just clip some stuff
+[50:59] bro just clip some stuff and you can
+[51:01] have you can have it all dude you can
+[51:03] have it all okay let's go ahead and see
+[51:05] this sir is the boot camp easy to follow
+[51:08] I watch your YouTube videos but yes it's
+[51:10] easy much easier my friend much
+[51:15] easier much much easier to
+[51:24] follow much easier to follow this is
+[51:27] what the boot camp is for is be short
+[51:28] and concise videos obviously I can't
+[51:30] start from scratch every single day or
+[51:31] else I would get nowhere so that's why I
+[51:33] put the boot camp together okay no such
+[51:36] file called this Moon dve clipse deep SE
+[51:39] okay let's go ahead and say accept
+[51:51] here not quite
+[51:55] though I'm reject it for
+[51:57] [Music]
+[52:00] now this is going to be the RBI read
+[52:06] me great job but don't change the notes
+[52:09] at the top ever I have notes up there on
+[52:12] purpose don't change those go ahead and
+[52:15] Implement what you had to do though
+[52:29] I apologize it's okay don't worry about
+[52:32] it big dog I got you you locked I'm
+[52:35] locked
+[53:06] stay focused on your goals let DET guide
+[53:09] back
+[53:52] okay dude so we'll keep all those
+[53:54] perfect now let's say accept here
+[53:58] Movie pie. Editor import Movie pie.
+[54:00] Editor
+[54:02] okay I need
+[54:04] a go ahead and check out movie pie what
+[54:07] is PIP install movie pie pip
+[54:10] install movie
+[54:15] pie python library for editing sounds
+[54:18] good to me
+[54:19] dude wait wait
+[54:24] wait okay okay
+[54:31] okay so let's say pip install movie pie
+[54:33] now first off look at this video dude
+[54:36] this video right here is 10 gigabytes
+[54:39] big so it's like 4 hours or something
+[54:42] okay so you know it's 4
+[54:44] hours so if we build an AI agent to clip
+[54:47] it for us that's fire dude and then you
+[54:50] just have to figure out a title on the
+[54:53] thumbnail okay so and then you just
+[54:55] upload it to your YouTube super fire bro
+[54:58] Clips agent okay p and star movie pie
+[55:06] okay is it done no no module named this
+[55:10] okay but I just pip installed it I
+[55:13] thought I just pip installed it maybe
+[55:14] you can try it and see the
+[55:25] air oh looks like we're Gucci
+[56:11] great now that we've install it let's
+[56:13] run it no movie pie dude seems
+[56:17] something unall movie pie thank you
+[56:45] let's use a different Library
+[57:07] okay import movie pie that
+[57:11] way there we go
+[57:27] all right let's go ahead and run this
+[57:29] because it looks like it's kind of
+[57:32] working so input path is raw Clips
+[57:36] here and it's actually supposed to
+[57:40] be raw Clips finish videos okay looks
+[57:44] good to
+[57:49] me so let's see finish Clips here it's
+[57:52] not working oh snap I see the issue now
+[57:56] we need to use Movie pie. Editor no dude
+[57:59] stop it
+[58:07] reject I'm getting the above air when I
+[58:09] try to run
+[58:11] it I'm getting the above
+[58:25] Arrow e
+[59:04] movie pie okay maybe we could use a
+[59:06] different way of doing this because
+[59:40] saving
+[59:44] to so clip duration is 5 minutes and
+[59:47] seconds
+[60:05] so I think it's clipping
+[60:13] now put the
+[60:16] work I think it's working
+[60:19] dude so it says extracting extracting
+[60:22] clip one is creating 74 clips
+[60:26] yeah dude yeah
+[60:37] yeah let's see if it gets one of them
+[60:40] done if it gets one of them done I got a
+[60:41] good idea dude
+[61:03] so this clip as it's going to be sick
+[61:12] dude it's going to be sick B
+[61:48] so splitting z%
+[61:52] though maybe because it's so big
+[62:07] I think it's because it's big but we'll
+[62:12] see there it
+[62:15] goes splitting clip one it looks like it
+[62:18] had a air 1% splitting
+[62:21] video spling the let's say cancel and
+[62:24] resume dude
+[62:28] I see the issue we have a numpy version
+[62:31] conflict let's downgrade
+[62:33] numpy
+[62:40] dude what is nump have to do with it
+[62:44] what's nump got to do with this
+[62:52] dude hey what's number I got to do with
+[62:55] it dude
+[63:02] 2 points0 10 stay focused on the task at
+[63:05] hand your goals are waiting for your
+[63:07] undivided attention thank you
+[63:17] bro now it doesn't look like it's
+[63:19] working actually but let's go ahead and
+[63:21] try it over here
+[63:25] I mean the easiest way is to use cap cut
+[63:28] of course but I'm trying to make this
+[63:29] automated for you dude so use cap cut
+[63:32] for now and you could already have some
+[63:34] videos
+[63:35] done be honest all you got to do is pull
+[63:38] these in bro and go to capop cut it's
+[63:41] super
+[63:43] sick so let's go show you that process
+[63:47] here so cap cut all you got to do is
+[63:50] pull one of these videos in bro and for
+[63:53] example 03 mini for trading Pull It in
+[63:56] let it load takes actually a minute
+[63:58] because I got it from my external hard
+[64:00] drive but um once it's in there then we
+[64:03] can split it up I think that's the
+[64:06] probably the problem here it's taking a
+[64:07] little bit of seems to be stuck
+[64:12] here these videos are like 10 gigabytes
+[64:15] long so maybe this is a problem but it
+[64:17] seems to be stuck right here and then it
+[64:19] moves on after like 1% which is
+[64:22] weird is there another library that we
+[64:24] could try
+[64:26] I don't want to try it yet I want to
+[64:27] give it a give it a full couple minutes
+[64:29] here
+[65:07] is there another Library we could
+[65:22] try that's the question bro bro
+[65:27] is there another Library we could
+[65:31] try Okay so while that is running dude
+[65:34] you can see here like this is an hour
+[65:37] long video and it's super easy to clip
+[65:39] them up bro you just make this break
+[65:41] this bigger so you can see it and then
+[65:43] watch the part that you think it's going
+[65:45] to be
+[65:46] interesting I don't know what part's
+[65:48] interesting dude but all you got to do
+[65:49] is once you find that part that's
+[65:51] interesting just like take like 5
+[65:52] minutes to two hours of it and just
+[65:55] upload it is a video dude so for example
+[65:57] I just hit command B on Mac but command
+[66:01] B on Mac or just select here click right
+[66:04] click this and click split
+[66:08] trim oops not trim
+[66:11] sorry it's split split scene
+[66:17] here no that ain't it either dude I
+[66:20] don't know what it is it's command B
+[66:22] though I'll tell you that much command B
+[66:26] so command B on the max splits
+[66:29] it
+[66:31] B and then look at that that's a whole
+[66:33] clip there you just delete the rest or
+[66:36] you save it and you can say hey I'mma
+[66:38] clip those yeah this is probably the
+[66:39] better way to do it to be honest
+[66:42] dude just grab the clips here and then
+[66:45] you could copy it and you can say new
+[66:47] new project here copy it and say okay
+[66:51] and just put the clip in there dude
+[66:53] paste it in
+[66:57] and then click export I don't know if I
+[66:59] saved it correctly
+[67:00] but go back to uh C cut export new
+[67:05] project C cut more layout back to
+[67:15] homepage yeah dude so just clip these
+[67:17] videos however you'd like and you can
+[67:18] see my agent here 1% error processing no
+[67:21] STD out looks like we ran into this air
+[67:30] looks like we ran into this area here
+[67:31] where only got 1% done these videos are
+[67:34] like 10 gigabytes long so I don't know
+[67:36] if that might be the problem
+[68:04] ah yes I see the issue when dealing with
+[68:05] such large sales we should modify the
+[68:07] approach to use more memory efficient
+[68:09] processing add progress tracking for
+[68:11] each clip handle temporary
+[68:14] okay say accept here well not quite
+[68:28] okay there we
+[68:29] go
+[68:32] stop st for all
+[68:36] here now let's try
+[68:56] cap cut super easy
+[68:58] dude just go here break the clips up
+[69:02] break them up here and then all you do
+[69:03] is you know if that was the clip you
+[69:05] wanted to use we'll just delete these
+[69:07] ones or bring it over like I tried to do
+[69:09] actually I tried to bring it over to a
+[69:11] new one file new new project here
+[69:17] okay and then sometimes you could paste
+[69:19] it in here I used to be able to but you
+[69:22] could probably drag it to your desktop
+[69:24] or whatever and just do that back to
+[69:28] homepage here but essentially it's super
+[69:31] easy to use cap cut just go here and
+[69:35] let's say this is the clip that you make
+[69:37] it's a 16-minute clip just delete the
+[69:40] rest and then all you do is say export
+[69:42] here and you export it to your computer
+[69:45] and call it something good
+[69:47] dude you can see this is clipping this
+[69:50] nicely now finish videos finish Clips
+[69:54] here Perfect Dude
+[69:56] all right so this this is dope
+[70:00] dude
+[70:04] um you could name it whatever you want
+[70:06] it to be like how to use 03 for trading
+[70:12] and then just hit export and then once
+[70:13] you export it just throw it up on your
+[70:15] YouTube make a good thumbnail yeah had a
+[70:17] great quote that said rest and not in
+[70:19] the
+[70:19] middle and that's something I always
+[70:21] live by you know I'm not going to rest
+[70:24] I'm going to keep on push there a lot of
+[70:26] answers that I don't have even questions
+[70:30] that I don't have but I'm just going to
+[70:32] keep going I'm just going to keep going
+[70:34] and I'll figure these things out as we
+[70:35] go right let me know the charges it cost
+[70:37] 25 RS so I try to live by that all the
+[70:39] time rest at the rest at the end I don't
+[70:42] build stuff for people under 25 racks
+[70:45] dude
+[70:46] so you you're better off learning it
+[70:48] I'll show you how to do it so you can do
+[70:50] it for yourself for the rest of your
+[70:51] life I'll show you for $69 in the boot
+[70:54] camp
+[70:56] but otherwise it's 25 racks for any done
+[70:58] for you type stuff so I'd rather just
+[71:01] have you do it dude okay so you can see
+[71:03] clip number one is
+[71:05] done today I'm going to show you exactly
+[71:09] how to use China's new deep seek AI
+[71:12] which is 96% cheaper than any AI we've
+[71:16] ever seen I'm going to use this deep
+[71:18] seek AI to build the best trading
+[71:21] strategies and not just some BS hey deep
+[71:24] seat give me a trading strategy type
+[71:26] stuff stay focused on your goals every
+[71:29] minute spent on distractions is away
+[71:32] from achieving your dreams look at that
+[71:34] dude so okay look it makes 5 minute
+[71:38] videos now I'm going to show you how to
+[71:40] actually use
+[71:42] 03 open make a title and a thumbnail for
+[71:45] it and then upload that b and then you
+[71:47] get paid
+[71:49] bro so let's step on the
+[71:53] gas West Coast family wake up earlier
+[71:56] stay up late this is so far bro yes this
+[72:01] one's not done yet
+[72:04] but okay so Clips agent is lowkey done
+[72:16] bro mid key
+[72:21] actually um okay so this works great
+[72:26] clip
+[72:31] duration can you make the clip duration
+[72:33] random between two different numbers so
+[72:35] minimum clip duration and maximum clip
+[72:37] duration so for example it will do a
+[72:40] random amount between two numbers I
+[72:42] don't know what the minimum clip
+[72:44] duration currently is used for but if
+[72:46] it's not used for anything let's make it
+[72:47] so it outputs random uh sizes of videos
+[72:51] based on seconds
+[72:57] okay so steps to
+[72:58] success how do I clip videos
+[73:02] yes how to use how do
+[73:05] I I clip videos with this
+[73:10] code one put in my long
+[73:16] videos here in into into this folder
+[73:20] into this
+[73:21] folder let's go uh pick that folder out
+[73:27] raw
+[73:28] Clips copy relative
+[73:35] path what the
+[73:51] [ __ ] put in my log videos into this
+[73:54] folder path
+[73:59] to uh run the code
+[74:03] really uh make sure
+[74:05] to to make
+[74:08] sure to have this
+[74:11] folder two and it will be uh copy
+[74:14] relative
+[74:17] path this is the
+[74:22] output and then three
+[74:27] run the code and wait
+[74:30] for uh make a good
+[74:34] thumbnail and title then
+[74:38] upload to Youtube
+[74:42] five wait for 10,000
+[74:48] views okay that's it dude how do I clip
+[74:51] videos manually
+[74:56] how do I clip videos with
+[74:58] this agent yo Tex I'm doing great bro
+[75:02] how are you okay so how do I clip
+[75:04] manually how do I clip with this agent
+[75:06] okay you have two different ways to to
+[75:10] make clips now and you also have
+[75:13] unlimited videos to do this based off of
+[75:17] so here we go Dropbox folder
+[75:27] here are the training
+[75:29] video to learn
+[75:33] more to learn how to clip okay and then
+[75:39] all of
+[75:40] my all of my videos you can
+[75:49] use you can
+[75:51] also download from my YouTube channel
+[75:53] Okay so moab's video splitter Here
+[75:58] moab's video splitter agent for the ls
+[76:01] bro for the
+[76:03] ls for the ls bro for the ls okay let's
+[76:07] go ahead and see how it does now let's
+[76:10] delete these
+[76:13] three Clips agent here so this is
+[76:16] literally the one of the first agents
+[76:19] dude that could just make you money bro
+[76:23] cuz I know a lot of you guys are
+[76:25] hungry and algo trading isn't going to
+[76:28] make you money but if you have cash and
+[76:30] you're trading it's going to make you a
+[76:33] better Trader
+[76:34] absolutely it's going to trade better
+[76:37] humans can't trade dude humans can't
+[76:40] trade well I've always believed that but
+[76:42] some people don't believe that run the
+[76:43] code and wait for for them to
+[76:49] Output to the above folder so now I
+[76:53] could run this code here and it should
+[76:58] make the videos for me so let's run
+[77:02] it okay it's using a random length
+[77:05] creating 29 Random clips here so now I
+[77:09] could just let this run over night or
+[77:11] whatever and it will be done for me and
+[77:14] then I could just upload them to
+[77:17] YouTube That's fire dude I just showed
+[77:19] you a way to print cash bro so much love
+[77:23] to you glad you're here
+[77:39] it's crazy
+[77:43] huh cuz now you don't even have to make
+[77:45] videos dude that's the craziest part
+[77:47] about it because I understand like a lot
+[77:48] of y'all don't want to make videos but
+[77:50] like dude if you just take my videos and
+[77:53] you can make better a better YouTube
+[77:55] channel than I have is the thing like
+[77:58] these two guys here that are crushing it
+[78:01] they made better YouTube channels than I
+[78:04] literally have and I put them in the the
+[78:07] thing here so you have access to it but
+[78:10] they just did a better they're doing a
+[78:11] better job than me but it's me you know
+[78:14] it's based off my
+[78:16] videos which is [ __ ] fire bro because
+[78:20] now like these guys got the boot camp
+[78:22] for free and they're getting paid so you
+[78:24] could go check them out as examples
+[78:29] here creating clip
+[78:32] one okay let me go ahead
+[78:36] and make some updates here to the uh the
+[78:40] server message because in
+[78:43] the
+[78:46] Discord I have
+[78:49] um a message that's sent so let's go
+[78:53] check that out and see if I can get that
+[78:55] all set up you can see I just finished
+[78:57] the first video here created this video
+[79:00] how to how to use 03 for trading step
+[79:04] one video one so that's absolutely fire
+[79:08] I just showed you a way to make have an
+[79:12] agent make cash for you bro that's crazy
+[79:16] that's crazy dude that's
+[79:18] crazy I love this game and I love
+[79:20] sharing everything and I'm going to keep
+[79:21] sharing everything I just have so much
+[79:24] demand for like making some quick cash
+[79:27] as a developer and it's just not the way
+[79:30] to algo trade algo trading is if you
+[79:33] have money and you're trading already
+[79:35] and you have a strategy but you're not
+[79:37] going to make zero to you're not going
+[79:39] to go from zero to $10,000 off algo
+[79:42] trading sorry bro maybe if you're in the
+[79:46] trenches of solada but like yeah you're
+[79:48] gambling so be careful out
+[79:51] there but if you got a fast second of
+[79:53] cash and you're Trad it right now you
+[79:55] know for a fact a robot would trade it
+[79:57] better so you can see here this outputed
+[79:59] the first video
+[80:02] here so how to
+[80:04] use AI for trading clip
+[80:08] one this is the first video and you can
+[80:11] see it's 11 minutes I'm going to show
+[80:13] you how to actually use 03 that's fire
+[80:18] dude so it just clipped up the video for
+[80:20] me
+[80:22] 1080p beautiful beautiful beautiful and
+[80:25] then what do I do from here I just go to
+[80:26] reveal and finder here and I have it
+[80:29] okay I have it and then I just go to my
+[80:31] YouTube
+[80:33] here and let's just try it out dude I
+[80:36] could just say create upload
+[80:39] video and then I just upload the video
+[80:42] like how good you are on anything you
+[80:44] don't have discipline you ain't nobody
+[80:45] right you're nothing make Title Here
+[80:48] give up under the slightest struggle
+[80:50] without
+[80:51] discipline discipline is doing what you
+[80:53] hate to do but do it like you love it
+[80:55] doing what you hate to do but do it like
+[80:57] you love it that's that is a great quote
+[81:01] and if you can do that you could be
+[81:03] successful in anything well you normally
+[81:05] are go to my YouTube and just copy my
+[81:08] [Music]
+[81:13] description maybe not the whole
+[81:15] description but you know part of
+[81:20] it copy it here and
+[81:23] then post it in here
+[81:26] dude obviously take the chapters out
+[81:29] because that wouldn't be the right
+[81:31] chapters and you can see how to use oa3
+[81:34] for trading and then all you have to do
+[81:35] dude is add the thumbnail now if you
+[81:38] want to use my exact thumbnail you can
+[81:40] always just say download thumbnail copy
+[81:44] link address and say uh YouTube
+[81:49] thumbnail
+[81:51] downloader and then you could use my
+[81:53] same thumbnail if you want you have full
+[81:55] permission to everything
+[81:57] bro get thumbnail images here you can
+[82:00] see you could just download it here save
+[82:02] image
+[82:03] as
+[82:06] okay
+[82:08] Dy and then back to YouTube dude super
+[82:12] duper
+[82:14] easy upload
+[82:17] thumbnail I can just get that from here
+[82:20] [Music]
+[82:21] dude upload thumbnail
+[82:25] gain access I got to verify whatever but
+[82:28] the process of upload a YouTube video is
+[82:30] super simple so you could see it there
+[82:32] you go you got it all dude you got it
+[82:34] all now and you know how exactly how to
+[82:37] use this I'm clipping these videos on
+[82:40] your goals and the distractions will
+[82:42] fade we literally let's get back to
+[82:44] coding or trading we just built this
+[82:46] together dude and this Clipper is a l
+[82:50] like 930 that was a good move by making
+[82:52] it random here because now all your
+[82:55] videos are going to be different sizes
+[82:57] medium high or
+[82:59] low that show you step chat when I when
+[83:02] I when this timer says to dude this is
+[83:05] so fire bro okay so what I'm going to do
+[83:08] is I'm going to kill this now and I'm
+[83:09] going to say uh I'm going to delete
+[83:11] these videos so it doesn't uh clog up
+[83:14] your GitHub or
+[83:17] whatever and I believe this AI agent
+[83:21] here for clipping videos is version one
+[83:24] is zero there's not much AI to it to be
+[83:26] honest but what you don't need to
+[83:29] overuse AI you know uh Mund AI agents
+[83:33] okay raw Clips raw Clips raw vids you're
+[83:37] going to use raw Clips finish
+[83:40] fds videos okay that's it dude I just
+[83:45] wanted to show you that so you know how
+[83:46] to do it now if you have any questions
+[83:48] let me know let me go ahead and update
+[83:50] the
+[83:52] uh where did I put that
+[83:58] clipbot
+[84:08] y
+[84:11] um let's go ahead and send all of this
+[84:19] here okay
+[84:27] I have all of the above that I want to
+[84:29] add to my message that I send and also
+[84:32] say updated February 5th
+[84:37] 2025 and then keep everything that I
+[84:40] said in the original message besides the
+[84:43] parts that like contradict each other
+[84:46] like it's now 69 thou $69 per the 10
+[84:49] first 10,000 videos and then uh or views
+[84:53] and then it goes higher so obviously up
+[84:56] that update that part cuz that changed
+[84:59] keep all the links to the YouTube
+[85:00] trainings and add in the new information
+[85:03] that I have above as well and um yeah we
+[85:07] just need to make the message better
+[85:09] because there's more stuff added to it
+[85:11] so essentially look at the message that
+[85:13] we currently have and then the message I
+[85:15] sent you above in order to make a better
+[85:18] message that has all the new stuff and
+[85:21] the new updates
+[85:24] okay let's duplicate this just in case I
+[85:26] [ __ ] it up D
+[85:28] copy and view
+[85:34] okay please don't delete the videos I
+[85:37] already deleted them why would I not
+[85:38] delete them they're right here all the
+[85:40] videos are right here shorty Susan
+[85:42] they're right here all the videos are in
+[85:45] the
+[85:46] Dropbox and uh you have access to it so
+[85:48] I'm going get add. get
+[85:52] commitm uh
+[85:54] clip agent to make
+[85:57] money get push
+[86:00] okay so we're going to go to get push
+[86:02] here and you can see all of the the code
+[86:06] is now updated here hopefully yes you
+[86:09] can see clip agent it here okay so this
+[86:12] Clips it up for you dude and input
+[86:16] directory you could say here I I'll I'll
+[86:18] make this a little more clear grab some
+[86:21] videos and put it in your import
+[86:22] directory here
+[86:28] get some videos from
+[86:32] here here and put in
+[86:36] input
+[86:40] directory
+[86:43] folder
+[86:48] okay and I should put that above because
+[86:50] I'm a Noob tubing [ __ ]
+[86:55] okay get
+[86:56] add get
+[86:58] commit and then uh
+[87:03] clip get push
+[87:12] okay I hope you
+[87:14] created um
+[87:28] you can see the original messages here
+[87:30] and then combine it with my above
+[87:32] message to make a more better
+[87:35] message a more better yes that boy is
+[87:38] slick screen
+[87:56] oh nice successful examples
+[88:09] perfect so we got AI that can make Clips
+[88:13] dude and you could go check out other
+[88:14] streamers too dude this is just a way to
+[88:17] make money because everybody comes to me
+[88:19] thinking this is like Alo trading is a
+[88:21] way to make a bunch of money but if you
+[88:23] have Z that it's absolutely not a way to
+[88:26] make money you know you got to have
+[88:28] money to trade and trading is extremely
+[88:32] dangerous so I just want to start
+[88:34] showing you guys some I've showed you
+[88:36] everything I pretty much know about algo
+[88:38] trading and obviously I'm going to keep
+[88:40] working and keep building but dude I
+[88:43] just get so many people being like yo
+[88:45] how do I make money as a developer how
+[88:47] do I make money coding and here's here's
+[88:50] a quick easy way while you're leered bro
+[88:53] so
+[88:54] it's not like I don't want to it's not
+[88:56] like a get rich quick by any means but
+[88:58] hey you get paid a little bit while
+[88:59] you're learning the code that's
+[89:02] cool okay let's go see what this message
+[89:05] looks like
+[89:11] now let's go here and say clip channel
+[89:15] so Clips here
+[89:18] Clips oh we got an air
+[89:25] I think we need to split this into a
+[89:27] couple
+[89:45] messages come on come on come
+[89:51] on yes baby good morning
+[89:55] good morning princess how you doing you
+[89:59] look cute as ever cute as ever okay so
+[90:03] let's say accept here
+[90:15] okay okay there we
+[90:20] go Okay so
+[90:24] we could drop
+[90:25] uh since this is a Discord message we
+[90:28] can remove the join our Discord
+[90:31] part because there are this is actually
+[90:34] being sent to
+[90:38] Discord what else okay so updated
+[90:41] February 5th 2025 I believe code is a
+[90:43] great C that's why I share every single
+[90:45] line of code I create every day I do
+[90:48] this through streaming my coding of
+[90:49] trading alos every single day now I
+[90:51] understand that that's hard to watch all
+[90:54] the streams and videos and I get a lot
+[90:55] of people asking me to make shorter more
+[90:57] digestible videos unfortunately I am
+[91:00] fully focused on algo trading and
+[91:02] achieving all of my wildest
+[91:04] goals in Quant
+[91:10] so I can't spend my time searching
+[91:12] through the good parts editing and
+[91:13] clipping them so I've created two ways
+[91:15] for you to help
+[91:17] Spread spread uh spread coding knowledge
+[91:21] while earning manual clipping download
+[91:22] cap cut find interesting parts of my
+[91:24] videos and make 5 to 10
+[91:28] 2our 5 minute to 2our Clips create
+[91:31] engaging thumbnails and titles post on
+[91:33] YouTube no shorts AI agent clipping put
+[91:37] long video uh and then in the AI agent
+[91:40] uh let's go ahead here
+[92:01] okay so earning structure here AI agent
+[92:04] clipping earning structure 2.010 stay
+[92:07] focused on the task at hand your coding
+[92:09] and trading goals are within reach if
+[92:11] you keep your mind sharp and your
+[92:12] efforts
+[92:20] consistent okay let's go ahead and put
+[92:22] another line break right
+[92:34] there okay earning structure 10,000
+[92:37] views per month 69 per 10,000 views
+[92:40] 30,000 views per
+[92:46] month 100,000 views per
+[92:50] month I think that's a little aggressive
+[92:53] dude I'm going to scale that back a
+[92:55] little
+[92:56] bit um let's think about that real quick
+[93:45] whatever where to get
+[93:47] videos my YouTube channel
+[93:55] um where to get videos from my YouTube
+[94:05] channel okay success examples check out
+[94:08] these channels crushing it
+[94:10] okay important
+[94:14] notes YouTube videos only no shorts US
+[94:17] USA residence limited to 500 a year
+[94:19] unlimited for the rest of the world
+[94:21] payments via crypto on the 1st and 15th
+[94:24] get started watch training video here
+[94:26] join our Discord questions post
+[94:51] below and then let's make a Clips chat
+[94:59] this is a
+[95:01] private
+[95:02] next uh who gets in there nobody
+[95:06] really nobody until
+[95:09] uh you hit 10K helpful is in there uh M
+[95:14] nobody else nobody else create channel
+[95:17] Clips chat
+[95:19] here copy edit channel uh copy Channel
+[95:27] ID uh add in a section where it says
+[95:32] once you hit your first 10,000 views you
+[95:34] get to be a part of Clips chat Channel
+[95:37] where we we work together and Sh share
+[95:41] success and ideas in order to uh get
+[95:45] more views for your clips and then
+[95:47] here's the channel ID so you can link to
+[95:49] it
+[95:54] I've made some small edits onto the
+[95:56] message as well so please don't change
+[95:59] that those those changes like the sln I
+[96:02] added in there I've added in uh the
+[96:04] Dropbox link I've added in a couple
+[96:07] other things so don't make any changes
+[96:08] to what it says now but do the above
+[96:11] changes
+[96:15] above okay so let's go ahead and run
+[96:18] that
+[96:22] back so so if you make it dude to the
+[96:26] first 10,000 you get invited to Clips
+[96:30] chat uh I did it I actually got sold off
+[96:33] your YouTube videos and I knew I wanted
+[96:34] to be here I knew I wanted to do I went
+[96:38] to your site and paay
+[96:42] boo
+[96:44] that's some
+[96:47] trust thank you bro uh I will keep added
+[96:57] uh 100% money back
+[97:08] guarantee whatever he knows
+[97:14] that okay let's try this new one out
+[97:17] because this will be interesting here so
+[97:19] let's go to the clips here Clips Channel
+[97:22] and
+[97:25] um public chat clips clips
+[97:29] chat okay so here we go dude so this is
+[97:32] the new
+[97:37] message updated I believe Cod is a great
+[97:39] equalizer okay manual
+[97:43] clipping AI agent
+[97:47] clipping put long videos of the source
+[97:50] Clips output
+[98:00] finish
+[98:03] FS I thought it was going to be a finish
+[98:07] Clips that's going to be a finished
+[98:09] Clips
+[98:17] dude okay good catch good catch Moon
+[98:19] good catch put the log videos in Source
+[98:22] finished Clips R the AI and wait for the
+[98:24] process Clips add thumbnail uploaded to
+[98:27] YouTube okay
+[98:29] perfect so earning structure here
+[98:33] 10,069 okay 89 for 10 thou uh per if you
+[98:37] get to
+[98:39] 30,000 bonus hit 10,000 views a month to
+[98:43] access private Discord
+[98:58] copy edit copy Channel
+[99:08] ID once you hit
+[99:14] 10,000 so Clips Channel um
+[99:30] let's go ahead and put
+[99:31] this make sure the clips channel is
+[99:34] tagged here in this saying right
+[99:37] here so I'm just using AI on my server
+[99:40] to launch all this so I launch every day
+[99:42] I always ship bro I ship every single
+[99:45] day every [ __ ] day I'm shipping bro
+[99:48] so I'm making new new stuff that you
+[99:52] could step on the gas for with bro I'm
+[99:54] just going to keep building bro every
+[99:56] day no matter what uh I'm just going to
+[99:59] keep building I'm just going to keep
+[100:17] building for this saying say say
+[100:22] uh Quest questions Post
+[100:26] in the blow Channel which I'll give you
+[100:29] the link for and tag me post and tag me
+[100:33] at moav in
+[100:36] the below
+[100:38] Channel okay so let's public chat copy
+[100:42] link here copy Channel
+[100:51] ID so if you got questions should just
+[100:53] tag me in the public
+[100:59] chat let's see what it says questions
+[101:02] posted and tag
+[101:04] [Music]
+[101:11] MAV this what
+[101:16] [Music]
+[101:18] like all right we got a new message here
+[101:20] dud
+[101:25] okay
+[101:32] sick okay updated February 5th this
+[101:35] looks good manual clipping let's make
+[101:37] this
+[101:39] uh let's make these emojis
+[101:43] here and your clip here this could be
+[101:49] uh what would I put it uh
+[101:53] what kind of emoji should I
+[101:56] put kind of emoji should I put dude
+[101:58] let's put a
+[102:00] cactus that sounds fun I just like
+[102:02] having fun bro so you're the best man
+[102:05] thank you bro you're so sweet appreciate
+[102:08] you bro let's put a whale here on this
+[102:11] one AI agent
+[102:14] okay do we need the API you have you
+[102:16] need no API you need nothing you don't
+[102:19] even need to know how to code you don't
+[102:20] even know how to code need to know how
+[102:22] to code to start clipping bro you don't
+[102:24] even need to know how to code I just
+[102:26] made it easier if you do know how to
+[102:33] code but it's not
+[102:37] required it's not required bro
+[102:40] bro that's pretty fire dude 2.010 stay
+[102:44] focused on your goals and remember that
+[102:46] every moment spent on distractions is a
+[102:49] moment away from achieving greatness
+[102:55] so once you hit 10,000
+[103:01] views simply email us
+[103:05] uh simply email your Discord when you
+[103:11] hit
+[103:13] 10K and we will add you
+[103:19] okay no API nothing needed for the clips
+[103:23] Channel bro okay let's see if this looks
+[103:26] good
+[103:27] now and please let me know if you have
+[103:29] any questions because I can't go over
+[103:31] this every day obviously I got to get
+[103:33] back to the Grind dude I got to get back
+[103:36] to building so these clips you know you
+[103:39] have content to clip bro so this is uh
+[103:42] this is infinite this is infinite for
+[103:44] you if you're outside the US if you're
+[103:46] in the US it's only up to 500 a month
+[103:48] but or a year a year but I believe Cod
+[103:51] is a great equalizer that's why share
+[103:53] every single line of code I create every
+[103:55] day I do this through streaming my code
+[103:58] of trading alos every single
+[104:00] day now I understand that's that's hard
+[104:05] to watch that it
+[104:09] is I understand
+[104:13] that it is hard to watch hard to watch
+[104:17] all the streams and videos and I get a
+[104:19] lot of people asking me to make shorter
+[104:21] more digestible videos unfortunately I
+[104:23] am fully focused on algo
+[104:26] trading and achieving all my wildest
+[104:28] goals in Quant so I can't spend my time
+[104:31] searching for the good parts of my
+[104:32] videos editing them and clipping them so
+[104:35] I've created two ways for you to help
+[104:37] spread coding knowledge while
+[104:39] earning manual clippy download cap cut
+[104:42] find interesting parts of my videos and
+[104:44] make 5 minute to 2our Clips create
+[104:47] engaging thumbnails and titles posts on
+[104:49] YouTube no
+[104:50] shorts AI agent clipping box
+[104:53] put log videos in the
+[104:56] source data raw clips and it ends in the
+[104:59] Finish Clips run the AI agent and wait
+[105:01] for the process Clips add thumbnail
+[105:04] title and upload to Youtube the earning
+[105:06] structure here is 10,000 views per month
+[105:09] you get $69 per 10,000 views if you get
+[105:12] 30,000 it's 89 per 10,000 views if you
+[105:15] get 50,000 it's 100 per 10,000 views if
+[105:18] you get 100,000 views per month you get
+[105:21] 149 per 10,000 views that's that's
+[105:24] aggressive dude I'm going to change that
+[105:26] to 129 because that's a little
+[105:28] aggressive for
+[105:34] now okay so bonus hit 10,000 views a
+[105:38] month to access the clips Channel with
+[105:40] view growing training so this is the
+[105:43] clips Channel I will go ahead and add
+[105:45] training to this I will add I will give
+[105:47] you everything dude I will teach you
+[105:49] everything that I know
+[106:01] so it's 129 that's double dude wait is
+[106:03] that double no it's not it's 139 it's
+[106:06] double let's make it 139
+[106:12] then clip spot I made it
+[106:14] 139 okay my YouTube channel Google to
+[106:17] download them okay so you could go to my
+[106:19] YouTube channel and download any of
+[106:22] these videos
+[106:24] [ __ ] I might have just got flagged for
+[106:26] that but
+[106:31] um examples success examples check out
+[106:34] these channels crushing it and you can
+[106:37] see there my YouTube channel okay
+[106:39] Dropbox here this will get you all of
+[106:40] the videos that we have so far uploaded
+[106:43] but you can also use any of the YouTube
+[106:45] videos you have full permission and this
+[106:48] is my permission this is me giving you
+[106:49] permission dude so full permission if
+[106:52] you're doing it for Clips if you're
+[106:53] doing it for some other stuff then
+[106:55] obviously ask me
+[106:56] but I'm a chill guy I'm a chill guy so
+[106:59] anyways that's all the videos there I
+[107:01] don't know why it's taking so long to
+[107:02] open up maybe because it's a fat folder
+[107:04] now but whatever um here's some examples
+[107:08] important notes YouTube only USA
+[107:11] residents are limited 500 per year
+[107:13] unlimited for the rest of the world
+[107:15] payments via crypto 1 and 15th of each
+[107:18] month uh email Mev onyt with your links
+[107:22] and stats you hit 10K views here's the
+[107:24] videos that we have so far you could use
+[107:27] and you have you could see 8 gbt 6 GB 13
+[107:30] gbes a lot of [ __ ] videos dude a lot
+[107:33] of good content here dude so I think
+[107:37] this is everything does anybody have any
+[107:40] questions because I think that this is
+[107:42] I've explained everything and you have
+[107:45] everything now do you guys have any
+[107:48] questions your ideas and execution are
+[107:51] lit bro I hope hope to get to your level
+[107:54] of coding thank you bro much love to
+[108:06] you okay so anybody have any questions
+[108:10] about this any questions about the clip
+[108:13] agent let's go ahead and make sure it's
+[108:16] up there let's go to my uh GitHub here
+[108:20] cursor I think it is and let's go ahead
+[108:23] here go to the read me and say
+[108:28] 25 x here and say 25
+[108:32] here and let's say clip
+[108:35] agent clip agent to make money
+[108:41] completed and let's just go to it
+[108:45] dude it's uh clip agent Clips agent
+[108:48] Clips
+[108:50] agent make money by
+[108:54] clipping my videos my
+[108:59] streams into short
+[109:03] digestible
+[109:07] videos um
+[109:11] okay clips agent.
+[109:15] py and you can see full training here
+[109:21] and then we'll go ahead and put that
+[109:22] that here in the um put the Discord link
+[109:28] there so the Discord link should be
+[109:31] Clips agent and then let's go here to
+[109:34] that
+[109:37] Discord okay let's go to Clips agent
+[109:41] here go to read me here and let's go
+[109:44] ahead and paste it in there okay and
+[109:46] then say get ad do get oh and also
+[109:51] actually
+[109:53] Clips agent
+[109:55] Clips
+[109:59] agent 2.010 stay focused on the task at
+[110:02] hand every line of code closer to go
+[110:05] that helps clip long videos into shorter
+[110:12] ones so you can upload to to your
+[110:16] YouTube to your
+[110:18] YouTube and get paid
+[110:22] more
+[110:25] info more info is in the code notes end
+[110:33] here okay let's say get add dot
+[110:41] get add. get
+[110:46] commitm clip agent to make
+[110:51] money get push now I have something for
+[110:54] you guys to like make money because
+[110:56] everybody comes to me Mev please I need
+[110:59] to make some money and it's like dude
+[111:02] you're in the wrong place because if you
+[111:03] have zero dollars you literally can't
+[111:05] trade and if you're trading with a tiny
+[111:07] bit of money you're going to end up
+[111:09] using too much leverage and you're going
+[111:10] to get wrecked bro so you got to get
+[111:13] your cash up if you want to trade bro so
+[111:16] this is probably it's what's called
+[111:18] machine learning easiest way on the
+[111:19] internet so you find
+[111:23] things that are predictive you might
+[111:26] guess oh such and such should be
+[111:30] predictive might be predictive and you
+[111:32] test it out on the computer and maybe it
+[111:33] isn't maybe it isn't you test it out on
+[111:36] longterm historical
+[111:38] data and uh price data and other things
+[111:41] and then you add to the system this if
+[111:44] it if it works and if it doesn't you you
+[111:47] throw it out so there aren't elaborate
+[111:49] equations at least not for
+[111:58] um let's go to the thing again and say
+[112:03] uh okay so that's good let's go ahead
+[112:06] and back out of that and then let's go
+[112:08] to this post that post
+[112:20] here should be like AI security or our
+[112:24] post or Discord Discord security here
+[112:28] and then let's go ahead and say Clips
+[112:31] agent here copy Channel
+[112:41] ID and let's add this
+[112:51] F
+[113:21] for e
+[113:56] go
+[113:58] here x that out
+[114:31] I will never ask you to send me
+[114:42] money so
+[114:44] please be
+[114:47] careful of scammers okay so let's go to
+[114:52] screen R
+[114:56] security uh screen
+[114:59] LS security security security Discord
+[115:06] security screen R here and then let's go
+[115:10] ahead and run this back so this new
+[115:12] security thing will have the Clips in it
+[115:15] just so you can see it
+[115:34] okay so that's that's solid
+[115:55] okay this security message is better
+[116:01] now make money but to grow your Capital
+[116:04] if you find an edge if you need to make
+[116:06] money now and want to learn to code go
+[116:08] here I will never ask you to send money
+[116:11] so okay perfect so now the clips thing
+[116:14] that spam you guys every day will now
+[116:15] spam you with that as well so you
+[116:18] literally have everything and now I can
+[116:21] get back to just coded and I'm just
+[116:23] going to code for the next year at least
+[116:26] dude I'm going to I'm going to keep
+[116:28] going and streaming this stuff exactly
+[116:31] everything I build dude so now you have
+[116:33] access to everything for the people that
+[116:36] come in here and be like yo I'm trying
+[116:38] to make a a bunch of money I have no
+[116:41] money well there you go you have the
+[116:42] clips Channel now because remember you
+[116:45] need money to trade and you have to find
+[116:48] a a certified Edge so this game is hard
+[116:51] bro just be careful and I'm never gonna
+[116:54] I'm never going to message you and say
+[116:56] hey send me money or anything like that
+[117:00] to join my bit plexo or whatever like
+[117:03] there's these scamers that hit you up
+[117:05] you got to see them if you're in the
+[117:06] drop or in the Discord so be careful out
+[117:08] there so now the clips channel is here
+[117:11] it shows everything and that's all I got
+[117:14] for you dude so I just wanted to show
+[117:15] you this today and get this agent up so
+[117:17] I can help you
+[117:24] just so I can help you bro bro and let's
+[117:27] see what else dude I wanted to make a
+[117:30] quick little yeah okay so I'm GNA stop
+[117:33] recording now
