@@ -1,0 +1,41 @@
+STRATEGY_NAME: VoltaicBreakout
+
+STRATEGY_DETAILS:
+The VoltaicBreakout strategy is a volatility-based trading approach that combines MACD momentum signals with Bollinger Bands' volatility expansion patterns. It focuses on identifying potential trend reversals during periods of increasing market volatility.
+
+Key Strategy Components:
+1. MACD (12,26,9) - Momentum indicator
+2. Bollinger Bands (20,2) - Volatility indicator
+3. Volatility expansion detection
+4. Trend phase analysis
+
+Entry Rules:
+1. MACD must be bullish (MACD line above signal line)
+2. Bollinger Bands must be in a downtrend phase (price below middle band)
+3. Bollinger Bands width must be expanding (increasing volatility)
+4. Enter long when all conditions are met
+
+Exit Rules:
+1. Primary exit: When price breaches the lower Bollinger Band
+2. Optional exit: When MACD turns bearish (MACD line crosses below signal line)
+3. Consider trailing stop loss at the middle Bollinger Band
+
+Risk Management:
+1. Position sizing based on volatility (use Bollinger Band width as guide)
+2. Stop loss placed below recent swing low or lower Bollinger Band
+3. Risk per trade should not exceed 1-2% of account equity
+4. Consider reducing position size during high volatility periods
+
+Required Indicators:
+1. MACD (12,26,9)
+2. Bollinger Bands (20,2)
+3. Bollinger Band Width indicator (optional for visual confirmation)
+
+Additional Notes:
+- This strategy works best in trending markets with clear volatility expansions
+- Avoid trading during low volatility periods (narrow Bollinger Bands)
+- Combine with higher timeframe analysis for better context
+- Consider using volume confirmation for stronger signals
+- Backtest thoroughly to determine optimal parameters for your trading instrument
+
+This strategy capitalizes on the combination of momentum confirmation (MACD) and volatility expansion (Bollinger Bands) to identify potential trend reversals during periods of market uncertainty. The unique aspect of this strategy is its focus on trading against the prevailing trend during volatility expansions, making it particularly effective in volatile market conditions.

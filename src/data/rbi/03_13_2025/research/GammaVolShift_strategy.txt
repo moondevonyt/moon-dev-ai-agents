@@ -1,0 +1,39 @@
+STRATEGY_NAME: GammaVolShift
+
+STRATEGY_DETAILS:
+The GammaVolShift strategy is a volatility-focused trading approach that combines gamma hedging dynamics with VIX-based market sentiment analysis. It aims to capitalize on mean-reversion in implied volatility by identifying stocks with high gamma hedge ratios during periods of low market volatility.
+
+Key Strategy Components:
+1. Gamma Hedge Ratio: Focuses on stocks with a gamma hedge ratio >1.2, indicating significant options market activity and potential for rapid price movements.
+2. VIX Analysis: Utilizes the VIX index (<20) to identify periods of market complacency and low implied volatility.
+3. Volatility Mean-Reversion: Anticipates a shift from low to higher volatility regimes, benefiting from the associated price movements.
+
+Entry Rules:
+1. Identify stocks with a gamma hedge ratio >1.2
+2. Confirm VIX is below 20, indicating low market volatility
+3. Enter long positions in selected stocks
+
+Exit Rules:
+1. Close positions when VIX rises above 25, indicating increased market volatility
+2. Implement a trailing stop-loss at 5% below the entry price
+3. Exit if gamma hedge ratio falls below 0.8, signaling reduced options activity
+
+Risk Management:
+1. Position sizing based on portfolio risk tolerance (1-2% per trade)
+2. Diversify across multiple high gamma stocks
+3. Use stop-loss orders to limit downside risk
+4. Monitor VIX daily for potential market regime changes
+
+Required Indicators:
+1. Gamma Hedge Ratio (real-time options data)
+2. VIX Index (CBOE Volatility Index)
+3. Implied Volatility (IV) for selected stocks
+4. Price charts with volume indicators
+
+Additional Considerations:
+- Focus on liquid stocks with high options trading volume
+- Monitor earnings calendars to avoid unexpected volatility events
+- Consider using options strategies to hedge positions
+- Regularly review and adjust the gamma hedge ratio threshold based on market conditions
+
+This strategy is particularly effective during periods of market stability transitioning to increased volatility, allowing traders to benefit from both the gamma effect and volatility expansion.

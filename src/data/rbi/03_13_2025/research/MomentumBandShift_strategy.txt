@@ -1,0 +1,48 @@
+STRATEGY_NAME: MomentumBandShift
+
+STRATEGY_DETAILS:
+The MomentumBandShift strategy combines RSI-based momentum signals with Bollinger Band and moving average analysis to identify directional trades. It focuses on capturing momentum shifts while incorporating trend confirmation through moving averages and volatility bands.
+
+### Key Strategy Components:
+1. **RSI Momentum Signal**: Uses a 5-period RSI to identify oversold conditions relative to recent price action.
+2. **Price Action Low**: Compares the RSI level to the lowest price action low over the past 3 periods.
+3. **Bollinger Band Confirmation**: Uses a 20-period Bollinger Band to assess volatility and trend direction.
+4. **Moving Average Filter**: A 10-period moving average acts as a trend filter for short positions.
+
+### Entry Rules:
+1. **Long Entry**:
+   - Trigger: 5-period RSI falls below the lowest price action low of the past 3 periods.
+   - Confirmation: Price must be above the 10-period moving average (optional, for additional trend confirmation).
+   - Action: Enter a long position.
+
+2. **Short Entry**:
+   - Trigger: 10-period moving average is above a declining 20-period Bollinger Band.
+   - Confirmation: Price must be below the 10-period moving average.
+   - Action: Enter a short position.
+
+### Exit Rules:
+1. **Long Exit**:
+   - Exit when the 5-period RSI crosses above 70 (overbought condition).
+   - Alternatively, exit when price closes below the 10-period moving average.
+
+2. **Short Exit**:
+   - Exit when the 10-period moving average crosses below the 20-period Bollinger Band.
+   - Alternatively, exit when price closes above the 10-period moving average.
+
+### Risk Management:
+1. **Stop Loss**:
+   - Longs: Set a stop loss at the recent swing low or a fixed percentage below the entry price.
+   - Shorts: Set a stop loss at the recent swing high or a fixed percentage above the entry price.
+2. **Position Sizing**: Use a fixed percentage of account equity per trade (e.g., 1-2%).
+3. **Take Profit**: Use a risk-reward ratio of at least 1:2, or trail the stop loss using the 10-period moving average.
+
+### Required Indicators:
+1. **5-period RSI**: To identify momentum shifts and oversold conditions.
+2. **10-period Moving Average**: To filter trades and confirm trends.
+3. **20-period Bollinger Band**: To assess volatility and trend direction.
+4. **Price Action Low Calculation**: To compare RSI levels with recent price lows.
+
+### Additional Notes:
+- This strategy works best in trending markets with clear momentum shifts.
+- Backtest on multiple timeframes to identify optimal settings for your trading style.
+- Consider adding volume confirmation to filter out low-probability setups.

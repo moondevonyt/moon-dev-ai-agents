@@ -1,0 +1,55 @@
+STRATEGY_NAME: MomentumReversion
+
+STRATEGY_DETAILS:
+The MomentumReversion strategy is a unique approach that combines momentum analysis with mean reversion principles. It focuses on identifying underperforming stocks with strong fundamentals (as indicated by high sell-side ratings) that are showing signs of recovery, while simultaneously taking profits from overextended winners.
+
+Key Components:
+1. Momentum Analysis: Identifies stocks that have breached all-time highs since the start of the year
+2. Mean Reversion: Targets underperforming stocks showing signs of recovery
+3. Fundamental Filter: Uses sell-side ratings as a quality indicator
+4. Technical Filter: Utilizes the 50-day moving average as a trend confirmation tool
+
+Entry Rules:
+1. For Long Positions:
+   - Stock must be underperforming relative to its sector or market
+   - Must have a sell-side rating above 4.0 (on a 5-point scale)
+   - Price must be above its 50-day moving average
+   - Volume should be increasing over the past 5 days
+
+2. For Short Positions/Profit Taking:
+   - Stock must have breached its all-time high since the start of the year
+   - Price must be showing signs of weakness (e.g., bearish candlestick patterns)
+   - Volume should be decreasing over the past 5 days
+
+Exit Rules:
+1. For Long Positions:
+   - Take profit at 15% gain
+   - Stop loss at 7% below entry price
+   - Exit if price falls below 50-day moving average
+
+2. For Short Positions/Profit Taking:
+   - Cover position when RSI drops below 40
+   - Stop loss at 5% above entry price
+   - Exit if price makes a new high
+
+Risk Management:
+1. Position sizing: No more than 2% of portfolio in any single position
+2. Sector diversification: No more than 20% exposure to any single sector
+3. Maximum portfolio exposure: 50% long positions, 30% short positions
+4. Daily review of all positions
+5. Weekly rebalancing of portfolio
+
+Required Indicators:
+1. 50-day Simple Moving Average (SMA)
+2. Relative Strength Index (RSI)
+3. Volume indicators (OBV or Volume SMA)
+4. All-time high price levels
+5. Sell-side ratings (from financial data providers)
+
+Additional Considerations:
+- Monitor earnings calendar to avoid holding positions through earnings
+- Adjust position sizes based on market volatility (VIX levels)
+- Consider macroeconomic factors that might affect overall market momentum
+- Regularly review and update the sell-side rating threshold based on market conditions
+
+This strategy is particularly effective in trending markets and requires disciplined execution of both the momentum and mean reversion components. The combination of fundamental and technical filters helps to identify high-probability trades while managing risk through strict position sizing and stop-loss rules.

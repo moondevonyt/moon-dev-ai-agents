@@ -1,0 +1,81 @@
+STRATEGY_NAME: GoldenVolatility
+
+STRATEGY_DETAILS:
+The GoldenVolatility strategy combines the Stochastic Oscillator (SO), Bollinger Bands, and a Golden Ratio filter to identify high-probability entry and exit points during overbought/oversold conditions. It also incorporates dynamic position sizing based on volatility spikes to optimize risk management.
+
+### Key Strategy Components:
+1. **Stochastic Oscillator (SO):**
+   - Used to identify overbought (above 80) and oversold (below 20) conditions.
+   - Look for crossovers of the %K and %D lines to confirm momentum shifts.
+
+2. **Bollinger Bands:**
+   - Used to measure volatility and identify potential breakout or reversal points.
+   - The middle band (20-period SMA) acts as a baseline, while the upper and lower bands indicate volatility extremes.
+
+3. **Golden Ratio Filter:**
+   - Applies a Fibonacci-based filter (e.g., 0.618 or 1.618) to refine entry/exit signals.
+   - Ensures trades align with key price levels derived from the Golden Ratio.
+
+4. **Volatility-Based Position Sizing:**
+   - Adjusts position size based on the width of Bollinger Bands (volatility spikes).
+   - Larger positions during low volatility and smaller positions during high volatility.
+
+---
+
+### Entry Rules:
+1. **Long Entry:**
+   - Stochastic Oscillator is in oversold territory (below 20).
+   - %K line crosses above the %D line, indicating bullish momentum.
+   - Price is near the lower Bollinger Band or a Golden Ratio support level.
+   - Confirm with a bullish candlestick pattern (e.g., hammer, engulfing).
+
+2. **Short Entry:**
+   - Stochastic Oscillator is in overbought territory (above 80).
+   - %K line crosses below the %D line, indicating bearish momentum.
+   - Price is near the upper Bollinger Band or a Golden Ratio resistance level.
+   - Confirm with a bearish candlestick pattern (e.g., shooting star, engulfing).
+
+---
+
+### Exit Rules:
+1. **Take Profit:**
+   - Close the trade when the Stochastic Oscillator reaches the opposite extreme (overbought for long trades, oversold for short trades).
+   - Alternatively, use the middle Bollinger Band (20-period SMA) as a trailing stop.
+
+2. **Stop Loss:**
+   - Place the stop loss just below the nearest Golden Ratio support level for long trades.
+   - Place the stop loss just above the nearest Golden Ratio resistance level for short trades.
+
+---
+
+### Risk Management:
+1. **Position Sizing:**
+   - Calculate position size based on the width of Bollinger Bands.
+   - Use the formula: Position Size = (Account Risk % * Account Balance) / (Stop Loss Distance * Volatility Multiplier).
+   - Volatility Multiplier adjusts based on Bollinger Band width (e.g., wider bands = smaller position).
+
+2. **Risk Per Trade:**
+   - Limit risk to 1-2% of the account balance per trade.
+
+3. **Volatility Filter:**
+   - Avoid trading during extreme volatility spikes (e.g., Bollinger Bands expanding rapidly).
+
+---
+
+### Required Indicators:
+1. **Stochastic Oscillator (14, 3, 3):**
+   - Default settings for identifying overbought/oversold conditions.
+
+2. **Bollinger Bands (20, 2):**
+   - 20-period SMA with 2 standard deviations for volatility measurement.
+
+3. **Golden Ratio Levels:**
+   - Use Fibonacci retracement tool to plot key levels (e.g., 0.618, 1.618).
+
+4. **Candlestick Patterns:**
+   - Monitor for confirmation patterns (e.g., hammer, engulfing, shooting star).
+
+---
+
+### Summary:
+The GoldenVolatility strategy is a sophisticated approach that combines momentum, volatility, and Fibonacci-based price levels to identify high-probability trades. By dynamically adjusting position sizing based on volatility, it ensures optimal risk management while capitalizing on overbought/oversold conditions. This strategy is ideal for traders who prefer a systematic, rules-based approach with a focus on precision and risk control.

@@ -1,0 +1,36 @@
+STRATEGY_NAME: ShortSqueezeGap
+
+STRATEGY_DETAILS:
+The ShortSqueezeGap strategy focuses on identifying stocks with high short interest coverage and strong put-call ratios, aiming to capitalize on potential short squeezes and gap-down fills. The strategy involves buying stocks at lower price levels and targeting 10-20% gains on the upside. Below are the key components, entry/exit rules, risk management, and required indicators for this strategy:
+
+### Key Strategy Components:
+1. **High Short Interest Coverage**: Stocks with a high short interest ratio (short interest/float) are more likely to experience short squeezes, where short sellers are forced to cover their positions, driving the price up.
+2. **Strong Put-Call Ratio**: A high put-call ratio indicates that there is a significant amount of bearish sentiment in the market, which can lead to a short squeeze if the stock starts to move higher.
+3. **Lower Price Levels**: Buying at lower price levels provides a better risk-reward ratio and increases the potential for significant upside gains.
+4. **Gap-Down Fills**: The strategy targets stocks that have recently gapped down, as these are more likely to experience a rebound or short squeeze.
+
+### Entry Rules:
+1. **Identify Stocks with High Short Interest**: Look for stocks with a short interest ratio above 20% (this can be adjusted based on market conditions).
+2. **Check Put-Call Ratio**: Ensure the put-call ratio is above 1.5, indicating strong bearish sentiment.
+3. **Price Level**: Enter the trade when the stock is trading near its recent lows or has gapped down significantly.
+4. **Volume Confirmation**: Ensure there is a spike in trading volume, which can indicate the start of a short squeeze.
+
+### Exit Rules:
+1. **Target Gain**: Exit the trade when the stock has gained 10-20% from the entry price.
+2. **Stop-Loss**: Set a stop-loss at 5-7% below the entry price to manage risk.
+3. **Time-Based Exit**: If the stock does not move in the desired direction within a set period (e.g., 5-10 trading days), consider exiting the trade to free up capital for other opportunities.
+
+### Risk Management:
+1. **Position Sizing**: Limit each trade to a small percentage of the total portfolio (e.g., 2-5%) to minimize risk.
+2. **Diversification**: Avoid concentrating all capital in a single stock or sector. Spread investments across multiple stocks to reduce exposure to any single event.
+3. **Stop-Loss Orders**: Always use stop-loss orders to protect against significant losses.
+4. **Monitoring**: Continuously monitor the market and news for any changes in sentiment or conditions that could affect the trade.
+
+### Required Indicators:
+1. **Short Interest Ratio**: To identify stocks with high short interest.
+2. **Put-Call Ratio**: To gauge market sentiment and potential for a short squeeze.
+3. **Volume Indicators**: To confirm the start of a short squeeze or gap-down fill.
+4. **Price Levels**: To determine entry points near recent lows or after significant gap-downs.
+
+### Summary:
+The ShortSqueezeGap strategy is designed to exploit the potential for short squeezes in stocks with high short interest and strong bearish sentiment. By entering at lower price levels and targeting 10-20% gains, the strategy aims to capitalize on the rebound or squeeze that often follows a gap-down. Proper risk management, including position sizing, stop-loss orders, and diversification, is crucial to the success of this strategy.

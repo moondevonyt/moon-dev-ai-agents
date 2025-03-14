@@ -1,3 +1,0 @@
-**Answer:**
-
-The name for this strategy is **FibonacciResBreak**. This concise two-word name effectively captures the essence of using Fibonacci retracement levels (Fibonacci) with a focus on resistance levels (Res) and the action of breaking out or reversing (Break). It provides clarity and conciseness, aligning well with the described strategy.

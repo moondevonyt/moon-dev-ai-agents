@@ -1,91 +1,89 @@
 import pandas as pd
-import numpy as np
-from datetime import datetime
-import talib as ta
-from backtesting import Backtrader, BTLog, Strategy
-from backtesting indicators import I
+import talib
+import pandas_ta as ta
+from backtesting import Backtest, Strategy
+from backtesting.lib import crossover
 
-# Step 1: Load and clean data
-def load_data(data_path):
-    data = pd.read_csv(data_path)
-    
-    # Clean column names by removing spaces and making lowercase
-    data.columns = data.columns.str.strip().str.lower()
-    
-    # Remove any unnamed columns
-    data = data.drop(columns=[col for col in data.columns if 'unnamed' in col.lower()])
-    
-    # Convert datetime to proper format
-    data['datetime'] = data['datetime'].apply(lambda x: datetime.fromisoformat(x))
-    
-    # Set datetime as index and sort it
-    data.set_index('datetime', inplace=True)
-    data.sort_index(inplace=True)
-    
-    return data
-
-# Step 2: AdaptiveSynergy Strategy Implementation
 class AdaptiveSynergy(Strategy):
-    def __init__(self):
-        # Initialize indicators with proper parameters
-        self.ama_period = 14
-        self.rsi_period = 14
-        self.sto_period = 14
+    def init(self):
+        # Calculate indicators with Moon Dev precision 🌙
+        self.macd_line, self.macd_signal_line, _ = self.I(talib.MACD, self.data.Close, 12, 26, 9)
+        self.rsi_series = self.I(talib.RSI, self.data.Close, 14)
+        self.upper_bb, self.middle_bb, self.lower_bb = self.I(talib.BBANDS, self.data.Close, 20, 2, 2)
+        self.atr_series = self.I(talib.ATR, self.data.High, self.data.Low, self.data.Close, 14)
         
-        # Calculate necessary indicators using TA-Lib within I() wrapper
-        self.data.I(ama=ta.MA(self.data.close, timeperiod=self.ama_period), name="AMA")
-        self.data.I(rsi=ta.RSI(self.data.close, timeperiod=self.rsi_period), name="RSI")
-        self.data.I(sto=ta.STOCH(self.data.close, timeperiod=self.sto_period), name="STO")
-        
+        # Calculate VWAP using pandas_ta
+        vwap_values = ta.vwap(
+            high=self.data.High,
+            low=self.data.Low,
+            close=self.data.Close,
+            volume=self.data.Volume
+        )
+        self.I(vwap_values, name='VWAP')
+
     def next(self):
-        # Check if indicators are available (only after at least 14 periods)
-        if self.position.size == 0:
-            # Entry logic
-            if (self.rsi.last() < 30 and self.ama.last() > self.ama.last()) or \
-               (self.sto.last() < 20 and self.ama.last() > self.ama.last()):
-                # Potential bullish divergence - consider entry
-                BTLog(f"Potential bullish divergence detected: RSI={self.rsi.last():.2f}, STO={self.sto.last():.2f}")
+        current_close = self.data.Close[-1]
+        print(f"🌙 Moon Dev Pulse | Close: {current_close:.2f} | MACD: {self.macd_line[-1]:.2f} | RSI: {self.rsi_series[-1]:.2f}")
+
+        if not self.position:
+            # Entry conditions with Moon Dev precision 🌙
+            entry_conditions = [
+                crossover(self.macd_line, self.macd_signal_line),
+                50 < self.rsi_series[-1] < 70,
+                current_close > self.upper_bb[-1],
+                current_close > self.data.VWAP[-1]
+            ]
+            
+            if all(entry_conditions):
+                risk_percent = 0.01
+                equity = self.broker.equity
+                risk_amount = equity * risk_percent
+                entry_price = self.data.Open[-1]  # Next candle's open
+                atr_value = self.atr_series[-1]
                 
-                # Close any existing positions to reduce risk
+                stop_loss = entry_price - 1.5 * atr_value
+                risk_per_share = entry_price - stop_loss
+                
+                if risk_per_share > 0:
+                    position_size = int(round(risk_amount / risk_per_share))
+                    take_profit = entry_price + 2 * atr_value
+                    
+                    self.buy(
+                        size=position_size,
+                        sl=stop_loss,
+                        tp=take_profit
+                    )
+                    print(f"🚀🌙 Moon Dev LONG Launch | Size: {position_size} | Entry: {entry_price:.2f} | SL: {stop_loss:.2f} | TP: {take_profit:.2f}")
+
+        else:
+            # Exit conditions with Moon Dev vigilance 🌙
+            exit_conditions = [
+                crossover(self.macd_signal_line, self.macd_line),
+                self.rsi_series[-1] >= 70,
+                current_close < self.middle_bb[-1],
+                current_close < self.data.VWAP[-1]
+            ]
+            
+            if any(exit_conditions):
                 self.position.close()
-                
-                # Define stop-loss and take-profit levels (example values)
-                stop_loss = 0.5  # 50% of position size as stop loss
-                
-                # Calculate position size based on risk tolerance percentage (e.g., 2% risk per trade)
-                position_size = self.broker.equity * 0.02 / abs(self.sto.last() - 1) if abs(self.sto.last() - 1) > 0 else 0
-                # Ensure position size is rounded to avoid floating point issues
-                position_size = round(position_size, 4)
-                
-                self.position = self.buy()
-        
-        elif self.position.size != 0:
-            # Exit logic based on divergence reversal or other conditions
-            if (self.rsi.last() > 30 and self.ama.last() < self.ama.last()) or \
-               (self.sto.last() > 20 and self.ama.last() < self.ama.last()):
-                BTLog(f"Potential bearish divergence detected: RSI={self.rsi.last():.2f}, STO={self.sto.last():.2f}")
-                
-                # Close position before significant price movement
-                self.position.close()
-        
-        # Print current balance and log activity for debugging
-        self.broker.print_balance()
-        BTLog(f"Strategy status: {self.status.__name__}")
+                print(f"🌑🌙 Moon Dev Exit Signal | Price: {current_close:.2f} | Equity: {self.broker.equity:.2f}")
 
-# Step 3: Backtest Execution
-def backtest-adaptivesynergy():
-    data = load_data("data/ADAPTIVE_SYNERGY_DATA.csv")
-    
-    # Initialize the strategy and broker
-    cerebro = Backtrader()
-    cerebro.addstrategy(AdaptiveSynergy)
-    cerebro.broker.setcommission(commission=0.0)
+# Moon Dev Data Preparation Ritual 🌙✨
+data = pd.read_csv('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv')
+data.columns = data.columns.str.strip().str.lower()
+data = data.drop(columns=[col for col in data.columns if 'unnamed' in col])
+data = data.rename(columns={
+    'open': 'Open',
+    'high': 'High',
+    'low': 'Low',
+    'close': 'Close',
+    'volume': 'Volume'
+})
+data['datetime'] = pd.to_datetime(data['datetime'])
+data = data.set_index('datetime')
 
-    # Run backtest
-    cerebro.run(data, plot=True, faststart=False)
-    
-    # Print full statistics
-    cerebro.broker.print_stats()
-
-if __name__ == '__main__':
-    backtest-adaptivesynergy()
+# Execute Moon Dev Backtest Ritual 🌙💫
+bt = Backtest(data, AdaptiveSynergy, cash=1_000_000, commission=.002)
+stats = bt.run()
+print(stats)
+print(stats._strategy)

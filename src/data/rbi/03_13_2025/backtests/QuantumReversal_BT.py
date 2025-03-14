@@ -1,92 +1,103 @@
+```python
+# 🌙 QuantumReversal Backtest by Moon Dev AI 🌙
+from backtesting import Backtest, Strategy
+from backtesting.lib import crossover
 import pandas as pd
-from backtrader import BackCommission
-from backtrader.indicators import MACD, RSI
-from backtrader.dataSource import FileSource
-from backtraderstrategy import Strategy
+import talib
+import numpy as np
 
-# Step 1: Data Handling
-def load_data():
-    data = pd.read_csv(
-        '/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv',
-        parse_dates=['datetime'],
-        index_col='datetime'
-    )
-    
-    # Clean column names
-    data.columns = data.columns.str.strip().str.lower()
-    
-    # Ensure required columns are present and correct case
-    if not all(col in data.columns for col in ['open', 'high', 'low', 'close', 'volume']):
-        raise ValueError("Required columns missing from the data file.")
-        
-    return FileSource(data, name='BTC-USD')
+# ========================
+# 🌌 DATA PREPARATION
+# ========================
+data_path = "/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv"
+data = pd.read_csv(data_path, parse_dates=['datetime'], index_col='datetime')
 
-# Step 2: Strategy Implementation
+# 🧹 Cleanse cosmic dust from column names
+data.columns = data.columns.str.strip().str.lower()
+data = data.drop(columns=[col for col in data.columns if 'unnamed' in col.lower()])
+
+# 🌌 Align celestial coordinates (column mapping)
+data = data.rename(columns={
+    'open': 'Open',
+    'high': 'High',
+    'low': 'Low',
+    'close': 'Close',
+    'volume': 'Volume'
+})
+
+# ========================
+# 🚀 QUANTUM REVERSAL STRATEGY
+# ========================
 class QuantumReversal(Strategy):
-    
-    # Initialize strategy parameters (adjust as needed)
-    params = (
-        ('risk_parameter', 0.5),   # Risk percentage
-        ('volatility_threshold', 20), # ATR volatility threshold
-        ('order_flow_timeframes', [1, 3, 5]), # OFI time frames to consider
-        ('fractal_timeframes', [1, 3, 5]) # Proxy for fractals using multiple time frames
-    )
-    
-    def __init__(self):
-        self.data = self.datas[0]
-        
-        # Calculate indicators
-        self.ofi_list = []
-        self.rsi = RSI(self.data.close, period=14)
-        self.atr = self.data.getattr('ATR', 14)
-        
-        for timeframe in self.params['order_flow_timeframes']:
-            self.ofi = self.I(talib.CMO,
-                             self.data.close.rolling(timeperiod=timeframe).mean(),
-                             self.data Volume.rolling(timeperiod=timeframe).mean())
-            self.ofi_list.append(self.ofi)
-            
-    def prenext(self):
-        # Calculate fractals using multiple OFI indicators
-        self.fractal_dimension = (len(self.ofi_list[0][::-1]) > 5 and 
-                                len(self.ofi_list[1][::-1]) > 5 and 
-                                len(self.ofi_list[2][::-1]) > 5)
-        
-    def next(self):
-        # Calculate maximum drawdown as a percentage of initial capital
-        self.equity_curve = [d.equity for d in self.history]
-        self.max_drawdown_pct = (max(self.equity_curve) - min(self.equity_curve)) / max(self.equity_curve) * 100
-        
-        if (self.rsi < 30 and 
-            any([of > 50 for of in self.ofi_list]) and 
-            any([of < -50 for of in self.ofi_list]) and 
-            self.atr > self.data.close * self.params['volatility_threshold']):
-            
-            # Calculate position size based on risk parameter
-            max_risk = self.params['risk_parameter'] / 100
-            risk_amount = (max_risk * self capitals[0].equity) / 2
-            
-            if risk_amount > 0:
-                # Calculate number of shares
-                position_size = int((risk_amount / self.data.close) * 100)
-                
-                # Place gamma order with padding for market neutrality
-                size = abs(position_size) + 50
-                
-                # Place the order
-                if self.data.close > max(0, (self.data.close * (1 - position_size * 0.25)) / 1)):
-                    print(f"Placing gamma short order at {size} shares with stop loss at {(self.data.close * 0.95)}")
-                    self.order(btord=-size, price=self.data.close, stop_loss=(self.data.close * 0.95))
-                else:
-                    print("Stop loss not triggered; position size reduced.")
-        
-        # Print next iteration for debugging
-        super().pnext()
+    risk_percent = 0.01  # 1% risk per trade 🌕
+    bb_period = 20
+    rsi_period = 14
+    macd_fast = 12
+    macd_slow = 26
+    macd_signal = 9
+    volume_sma_period = 20
 
-    def run(self):
-        # Execute the backtest with default parameters
-        print("\nStarting backtest...")
-        self cerebro.run()
-        print(f"Backtest complete. Results: {self.results}")
-        print("\nStrategy statistics:")
-        self.printstats()
+    def init(self):
+        # 🌠 Cosmic Indicators Configuration
+        close = self.data.Close
+        volume = self.data.Volume
+        
+        # 🌗 Bollinger Bands
+        upper, _, lower = talib.BBANDS(close, timeperiod=self.bb_period, nbdevup=2, nbdevdn=2)
+        self.I(lambda: upper, name='BB_upper')
+        self.I(lambda: lower, name='BB_lower')
+        
+        # 🌓 RSI
+        self.I(talib.RSI, close, self.rsi_period, name='RSI')
+        
+        # 🌍 MACD
+        macd, signal, _ = talib.MACD(close, self.macd_fast, self.macd_slow, self.macd_signal)
+        self.I(lambda: macd, name='MACD')
+        self.I(lambda: signal, name='MACD_signal')
+        
+        # 🌊 Volume Momentum
+        self.I(talib.SMA, volume, self.volume_sma_period, name='Volume_SMA')
+
+    def next(self):
+        # 🛑 Check for existing quantum entanglement (open positions)
+        if self.position:
+            return
+
+        # 🌠 Current celestial alignment
+        price = self.data.Close[-1]
+        bb_lower = self.data.BB_lower[-1]
+        bb_upper = self.data.BB_upper[-1]
+        rsi = self.data.RSI[-1]
+        macd = self.data.MACD[-1]
+        macd_prev = self.data.MACD[-2]
+        signal = self.data.MACD_signal[-1]
+        signal_prev = self.data.MACD_signal[-2]
+        volume = self.data.Volume[-1]
+        vol_sma = self.data.Volume_SMA[-1]
+
+        # 🌌 LONG Entry: Quantum Fluctuation Detected!
+        if (price <= bb_lower and 
+            rsi < 30 and 
+            crossover(macd, signal) and 
+            volume > vol_sma):
+            
+            # 🎯 Risk Management Calculations
+            sl = bb_lower * 0.995  # 0.5% quantum shield
+            tp = price + 2*(price - sl)  # 1:2 star alignment
+            
+            risk_amount = self.equity * self.risk_percent
+            position_size = int(round(risk_amount / (price - sl)))
+            
+            # 🚀 Engage Hyperdrive (Long)
+            self.buy(size=position_size, sl=sl, tp=tp)
+            print(f"🌙✨🚀 LONG SIGNAL: Price {price:.2f} | Size {position_size} | Shield {sl:.2f} | Target {tp:.2f}")
+
+        # 🌌 SHORT Entry: Cosmic Overextension!
+        elif (price >= bb_upper and 
+              rsi > 70 and 
+              crossover(signal, macd) and 
+              volume > vol_sma):
+            
+            # 🎯 Risk Management Calculations
+            sl = bb_upper * 1.005  # 0.5% event horizon
+            tp = price - 2*(sl - price)  # 1:2 black hole

@@ -1,0 +1,37 @@
+STRATEGY_NAME: BandShiftTrail
+
+STRATEGY_DETAILS:
+The BandShiftTrail strategy is a dynamic approach that combines Bollinger Bands and Simple Moving Averages to identify trend direction and manage risk with a trailing stop mechanism. Here's a detailed breakdown:
+
+### Key Strategy Components:
+1. **50-period Bollinger Band Midpoint (BBMP)**: The midpoint of the Bollinger Bands, calculated as (Upper Band + Lower Band) / 2.
+2. **Simple Moving Average (SMA)**: A baseline trend indicator used to confirm the direction of the market.
+3. **Trailing Stop**: A dynamic stop-loss set at 2 standard deviations from the BBMP to protect profits and limit losses.
+
+### Entry Rules:
+- **Long Entry**: Enter a long position when the 50-period BBMP crosses above the SMA. This indicates a potential upward trend and bullish momentum.
+- **Confirmation**: Ensure the price is trading above the SMA to confirm the trend direction.
+
+### Exit Rules:
+- **Exit Signal**: Exit the long position when the 50-period BBMP crosses below the SMA. This suggests a potential reversal or weakening of the bullish trend.
+- **Trailing Stop**: Use a trailing stop set at 2 standard deviations below the BBMP. This stop level adjusts dynamically as the BBMP moves, locking in profits while allowing room for the trade to develop.
+
+### Risk Management:
+- **Position Sizing**: Use a fixed percentage of your account balance per trade (e.g., 1-2%) to manage risk.
+- **Stop-Loss**: The trailing stop acts as the primary risk management tool, ensuring losses are minimized if the market reverses.
+- **Avoid Overtrading**: Only enter trades when the BBMP and SMA alignment is clear, avoiding choppy or sideways markets.
+
+### Required Indicators:
+1. **Bollinger Bands (50-period)**:
+   - Upper Band: SMA + (2 * Standard Deviation)
+   - Lower Band: SMA - (2 * Standard Deviation)
+   - Midpoint (BBMP): (Upper Band + Lower Band) / 2
+2. **Simple Moving Average (SMA)**: 50-period SMA of the closing price.
+3. **Standard Deviation**: Used to calculate the trailing stop level (2 standard deviations from the BBMP).
+
+### Additional Notes:
+- **Timeframe**: This strategy works best on higher timeframes (e.g., 1-hour, 4-hour, or daily charts) to reduce noise and false signals.
+- **Market Conditions**: Ideal for trending markets. Avoid using this strategy in highly volatile or range-bound conditions.
+- **Backtesting**: Always backtest the strategy on historical data to ensure its effectiveness in your chosen market and timeframe.
+
+By combining the BBMP and SMA for trend confirmation and using a trailing stop for dynamic risk management, the BandShiftTrail strategy provides a structured approach to capturing trends while minimizing downside risk.

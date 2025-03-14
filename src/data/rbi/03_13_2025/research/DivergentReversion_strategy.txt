@@ -1,0 +1,39 @@
+STRATEGY_NAME: DivergentReversion
+
+STRATEGY_DETAILS:
+This is a mean-reversion strategy that capitalizes on divergences between the RSI and Stochastic Oscillator indicators. The strategy focuses on identifying overbought or oversold conditions and uses a combination of moving averages and oscillator crossovers to generate entry and exit signals.
+
+### Key Strategy Components:
+1. **RSI (20-period)**: Used to identify overbought or oversold conditions.
+2. **Stochastic Oscillator (8,20)**: Used to confirm momentum divergences.
+3. **20-period Moving Average (MA)**: Acts as a filter for both RSI and Stochastic Oscillator signals.
+4. **Price Targets**: Fixed exit points at $10 (for short trades) and $50 (for long trades).
+
+### Entry Rules:
+- **Short Entry**: 
+  - RSI(20) > 20-period MA (indicating potential overbought conditions).
+  - Stochastic Oscillator (8) < 20-period MA (confirming bearish momentum divergence).
+- **Long Entry**: 
+  - RSI(20) < 20-period MA (indicating potential oversold conditions).
+  - Stochastic Oscillator (8) > 20-period MA (confirming bullish momentum divergence).
+
+### Exit Rules:
+- **Reversion Exit**: 
+  - Exit when the Stochastic Oscillator and RSI revert to their respective moving averages (e.g., Stochastic Oscillator crosses above/below the 20-period MA or RSI crosses below/above the 20-period MA).
+- **Price Target Exit**: 
+  - Exit the trade if the price reaches the predefined targets ($10 for short trades, $50 for long trades).
+
+### Risk Management:
+1. **Position Sizing**: Use a fixed percentage of capital per trade (e.g., 1-2% of total account balance).
+2. **Stop-Loss**: Set a stop-loss based on recent support/resistance levels or a fixed percentage (e.g., 2-3% below/above entry price).
+3. **Risk-Reward Ratio**: Aim for a minimum 1:2 risk-reward ratio by adjusting position size and stop-loss levels.
+
+### Required Indicators:
+1. **RSI (20-period)**: To identify overbought/oversold conditions.
+2. **Stochastic Oscillator (8,20)**: To confirm momentum divergences.
+3. **20-period Moving Average (MA)**: To filter signals and act as a dynamic threshold.
+
+### Additional Notes:
+- This strategy works best in ranging or sideways markets where mean-reversion tendencies are stronger.
+- Avoid using this strategy during strong trending markets, as divergences may persist longer than expected.
+- Backtest the strategy on historical data to optimize parameters and validate performance.

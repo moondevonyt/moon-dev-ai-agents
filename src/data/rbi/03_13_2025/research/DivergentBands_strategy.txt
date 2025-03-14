@@ -1,0 +1,98 @@
+STRATEGY_NAME: DivergentBands
+
+STRATEGY_DETAILS:
+The DivergentBands strategy is a mean-reversion approach that combines Bollinger Bands, RSI divergence, and volume analysis to identify overextended market conditions and potential reversals. Here's a detailed breakdown of the strategy:
+
+### Key Components:
+1. **Bollinger Bands (BB)**: Used to identify overextended price levels. The strategy focuses on price touching or exceeding the upper or lower bands.
+2. **Relative Strength Index (RSI)**: Analyzes divergence between RSI and price action to confirm potential reversals.
+3. **Volume Spikes**: Acts as a confirmation signal, indicating increased participation during potential reversal setups.
+4. **Average True Range (ATR)**: Used to set dynamic exit points based on market volatility.
+5. **Contract Rollback**: A secondary exit condition to manage positions during futures contract rollovers.
+
+---
+
+### Entry Rules:
+1. **Overextended Bollinger Bands**: 
+   - Look for price touching or exceeding the upper or lower Bollinger Bands (e.g., 2 standard deviations).
+   - This indicates potential overbought or oversold conditions.
+
+2. **RSI Divergence**:
+   - For a long entry: Price makes a lower low, but RSI makes a higher low (bullish divergence).
+   - For a short entry: Price makes a higher high, but RSI makes a lower high (bearish divergence).
+
+3. **Volume Confirmation**:
+   - A significant spike in volume must accompany the divergence and Bollinger Band touch.
+   - Volume should be above its 20-period moving average to confirm participation.
+
+4. **Entry Execution**:
+   - Enter a long position when all conditions align for a bullish setup.
+   - Enter a short position when all conditions align for a bearish setup.
+
+---
+
+### Exit Rules:
+1. **ATR-Based Exits**:
+   - Use a multiple of ATR (e.g., 1.5x or 2x) to set a trailing stop or take-profit level.
+   - For long positions: Exit if price drops below the entry price minus (ATR * multiplier).
+   - For short positions: Exit if price rises above the entry price plus (ATR * multiplier).
+
+2. **Contract Rollback**:
+   - Exit positions before futures contract rollover dates to avoid unnecessary slippage or volatility.
+
+---
+
+### Risk Management:
+1. **Position Sizing**:
+   - Risk no more than 1-2% of the trading capital per trade.
+   - Use the ATR-based stop-loss to calculate position size.
+
+2. **Stop-Loss**:
+   - Set initial stop-loss at the ATR-based level or a fixed percentage (e.g., 1-2% of account equity).
+
+3. **Diversification**:
+   - Avoid overconcentration in a single asset or sector.
+   - Trade multiple instruments to spread risk.
+
+---
+
+### Required Indicators:
+1. **Bollinger Bands**:
+   - Period: 20
+   - Standard Deviation: 2
+
+2. **Relative Strength Index (RSI)**:
+   - Period: 14
+   - Overbought Level: 70
+   - Oversold Level: 30
+
+3. **Volume**:
+   - 20-period moving average for volume confirmation.
+
+4. **Average True Range (ATR)**:
+   - Period: 14
+   - Multiplier: 1.5x or 2x (adjust based on market volatility).
+
+---
+
+### Example Setup:
+1. **Bullish Setup**:
+   - Price touches the lower Bollinger Band.
+   - RSI shows bullish divergence (higher low while price makes a lower low).
+   - Volume spikes above its 20-period moving average.
+   - Enter long with a stop-loss at (entry price - 1.5x ATR).
+   - Exit at (entry price + 2x ATR) or contract rollback.
+
+2. **Bearish Setup**:
+   - Price touches the upper Bollinger Band.
+   - RSI shows bearish divergence (lower high while price makes a higher high).
+   - Volume spikes above its 20-period moving average.
+   - Enter short with a stop-loss at (entry price + 1.5x ATR).
+   - Exit at (entry price - 2x ATR) or contract rollback.
+
+---
+
+### Notes:
+- This strategy works best in ranging or mildly trending markets.
+- Avoid using it during strong trending conditions, as Bollinger Bands can remain overextended for extended periods.
+- Regularly backtest and optimize parameters (e.g., ATR multiplier, RSI period) for specific instruments and timeframes.

@@ -1,0 +1,40 @@
+STRATEGY_NAME: VolatilityDivergence
+
+STRATEGY_DETAILS:
+The VolatilityDivergence strategy is a sophisticated approach that combines MACD divergence, RSI divergence, and ATR-based volatility measurements to identify high-probability trading opportunities. This strategy is particularly effective in volatile markets where price action and momentum indicators often diverge, signaling potential reversals or continuations.
+
+Key Strategy Components:
+1. MACD Divergence: The strategy focuses on identifying divergences between the MACD indicator and price action. A bullish divergence occurs when price makes a lower low while MACD makes a higher low. A bearish divergence occurs when price makes a higher high while MACD makes a lower high.
+
+2. RSI Divergence: Confirms the MACD divergence by looking for similar patterns in the RSI indicator. This double confirmation increases the reliability of the signal.
+
+3. ATR-Based Position Sizing: Uses the Average True Range (ATR) to determine position size and set stop-loss levels, adapting to current market volatility.
+
+Entry Rules:
+1. Wait for both MACD and RSI to show divergence from price action in the same direction (both bullish or both bearish).
+2. Confirm that the current ATR is above its 20-period moving average, indicating sufficient volatility.
+3. Enter long positions on bullish divergence or short positions on bearish divergence.
+
+Exit Rules:
+1. Set initial stop-loss at 1.5x ATR from entry price.
+2. Take profit at 2.5x ATR from entry price.
+3. If price moves favorably by 1x ATR, move stop-loss to break-even.
+4. Exit if MACD and RSI show convergence with price action, indicating the divergence trade is no longer valid.
+
+Risk Management:
+1. Risk no more than 1% of account equity on any single trade.
+2. Use ATR-based position sizing to ensure consistent risk across trades.
+3. Maximum daily loss limit of 3% of account equity.
+4. Maximum weekly loss limit of 5% of account equity.
+
+Required Indicators:
+1. MACD (12,26,9)
+2. RSI (14)
+3. ATR (14)
+4. 20-period moving average of ATR
+
+Additional Notes:
+- This strategy performs best in trending markets with moderate to high volatility.
+- Avoid trading during low volatility periods when ATR is below its 20-period moving average.
+- Consider using this strategy on liquid currency pairs or indices where volatility patterns are more reliable.
+- Backtest thoroughly across different market conditions to understand its performance characteristics.

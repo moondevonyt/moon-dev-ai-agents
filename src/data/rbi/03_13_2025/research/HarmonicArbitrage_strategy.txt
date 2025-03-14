@@ -1,1 +1,0 @@
-The name chosen for the strategy is **"DynamicBreakoutWithinFib."** This name encapsulates the adaptability of the price action through "Dynamic," highlights the breakouts using "Breakout," and incorporates the Fibonacci time zones with "Within Fib."

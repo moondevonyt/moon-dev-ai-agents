@@ -48,6 +48,8 @@ from termcolor import cprint, colored
 import pandas as pd
 import sys
 import threading
+import shutil
+import textwrap
 
 # Import model factory from RBI agent
 import sys
@@ -62,24 +64,46 @@ IDEAS_CSV = DATA_DIR / "strategy_ideas.csv"
 
 # Model configurations
 MODELS = [
-    {"type": "ollama", "name": "DeepSeek-R1:latest"},
-    {"type": "ollama", "name": "llama3.2:latest"},
-    {"type": "ollama", "name": "gemma:2b"}
+    # {"type": "ollama", "name": "DeepSeek-R1:latest"},
+    # {"type": "ollama", "name": "llama3.2:latest"},
+    # {"type": "ollama", "name": "gemma:2b"}
+    {"type": "deepseek", "name": "deepseek-chat"},
+    {"type": "deepseek", "name": "deepseek-reasoner"}
 ]
 
 # Fun emojis for animation
 EMOJIS = ["🚀", "💫", "✨", "🌟", "💎", "🔮", "🌙", "⭐", "🌠", "💰", "📈", "🧠"]
 MOON_PHASES = ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"]
 
-def animate_text(text, color="white", bg_color="on_blue", delay=0.05):
-    """Animate text with a typewriter effect"""
+# Get terminal width for better formatting
+TERM_WIDTH = shutil.get_terminal_size().columns
+
+def clear_line():
+    """Clear the current line in the terminal"""
+    print("\r" + " " * TERM_WIDTH, end="\r", flush=True)
+
+def animate_text(text, color="yellow", bg_color="on_blue", delay=0.03):
+    """Animate text with a typewriter effect - terminal friendly with background color"""
+    # Make sure we start with a clean line
+    clear_line()
+    
+    # Ensure we're working with a single line of text
+    text = ' '.join(text.split())
+    
+    result = ""
     for char in text:
-        print(colored(char, color, bg_color), end='', flush=True)
+        result += char
+        # Clear the line first to prevent ghosting
+        print("\r" + " " * len(result), end="\r", flush=True)
+        # Then print the updated text
+        print(f"\r{colored(result, color, bg_color)}", end='', flush=True)
         time.sleep(delay)
-    print()
+    
+    # End with a newline
+    print()  # New line after animation
 
 def animate_loading(duration=3, message="Generating idea", emoji="🌙"):
-    """Show a fun loading animation"""
+    """Show a fun loading animation - terminal friendly version with background colors"""
     frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
     colors = ["cyan", "magenta", "blue", "green", "yellow"]
     bg_colors = ["on_blue", "on_magenta", "on_cyan"]
@@ -89,20 +113,21 @@ def animate_loading(duration=3, message="Generating idea", emoji="🌙"):
     
     while time.time() < end_time:
         frame = frames[i % len(frames)]
-        color = colors[i % len(colors)]
-        bg = bg_colors[i % len(bg_colors)]
+        color = colors[(i // 3) % len(colors)]  # Change color less frequently
+        bg_color = bg_colors[(i // 6) % len(bg_colors)]  # Change background even less frequently
         
-        # Clear the line and print the new frame
-        print(f"\r{colored(' ' * 80, 'white', bg)}", end="", flush=True)
-        print(f"\r{colored(f' {frame} {message} {emoji} ', 'white', bg)}", end="", flush=True)
+        # Simple animation that won't flicker
+        clear_line()
+        print(f"\r{colored(f' {frame} {message} {emoji} ', color, bg_color)}", end="", flush=True)
         
-        time.sleep(0.1)
+        time.sleep(0.2)  # Slower animation
         i += 1
     
+    clear_line()
     print()  # New line after animation
 
 def animate_moon_dev():
-    """Show a fun Moon Dev animation"""
+    """Show a fun Moon Dev animation - terminal friendly with background colors"""
     moon_dev = [
         "  __  __                         ____                 ",
         " |  \\/  |  ___    ___   _ __   |  _ \\   ___  __   __ ",
@@ -111,19 +136,22 @@ def animate_moon_dev():
         " |_|  |_| \\___/  \\___/ |_| |_| |____/  \\___|   \\_/   "
     ]
     
-    bg_colors = ["on_blue", "on_cyan", "on_magenta"]
+    colors = ["white", "white", "white", "white", "white"]
+    bg_colors = ["on_blue", "on_cyan", "on_magenta", "on_green", "on_blue"]
     
+    print()  # Start with a blank line
     for i, line in enumerate(moon_dev):
+        color = colors[i % len(colors)]
         bg = bg_colors[i % len(bg_colors)]
-        cprint(line, "white", bg)
-        time.sleep(0.2)
+        cprint(line, color, bg)
+        time.sleep(0.3)  # Slower animation
     
     # Add some sparkles
-    for _ in range(5):
+    for _ in range(3):
         emoji = random.choice(EMOJIS)
-        position = random.randint(0, 50)
+        position = random.randint(0, min(50, TERM_WIDTH-5))
         print(" " * position + emoji)
-        time.sleep(0.1)
+        time.sleep(0.3)  # Slower animation
 
 def setup_files():
     """Set up the necessary files if they don't exist"""
@@ -140,7 +168,7 @@ def setup_files():
     
     # Create ideas CSV if it doesn't exist
     if not IDEAS_CSV.exists():
-        cprint(f"📊 Creating ideas CSV at {IDEAS_CSV}", "yellow", "on_magenta")
+        cprint(f"📊 Creating ideas CSV at {IDEAS_CSV}", "white", "on_magenta")
         with open(IDEAS_CSV, 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(['timestamp', 'model', 'idea'])
@@ -177,31 +205,46 @@ def generate_idea(model_config):
     """Generate a trading strategy idea using the specified model"""
     try:
         # Fun animated header
-        print("\n" + "=" * 60)
+        print("\n" + "=" * min(60, TERM_WIDTH))
         cprint(f" 🧙‍♂️ MOON DEV'S IDEA GENERATOR 🧙‍♂️ ", "white", "on_magenta")
-        print("=" * 60)
+        print("=" * min(60, TERM_WIDTH))
         
         cprint(f"\n🧠 Using {model_config['type']} - {model_config['name']}...", "cyan")
+        time.sleep(0.5)  # Pause for readability
         
-        # Start loading animation in a separate thread
-        stop_animation = threading.Event()
+        # Simple loading animation
+        print()
+        emoji = random.choice(EMOJIS)
+        cprint(f"🔮 Asking {model_config['name']} for trading ideas...", "yellow", "on_blue")
+        time.sleep(0.5)  # Pause for readability
         
-        def animation_thread():
-            emoji = random.choice(EMOJIS)
-            while not stop_animation.is_set():
-                animate_loading(1, f"Asking {model_config['name']} for ideas", emoji)
+        # Show generation progress with black text on white background
+        progress_messages = [
+            "🔍 Scanning market patterns...",
+            "📊 Analyzing technical indicators...",
+            "🧮 Calculating optimal parameters...",
+            "🔮 Exploring strategy combinations...",
+            "💡 Formulating unique approach...",
+            "🌟 Polishing trading concept...",
+            "🚀 Finalizing strategy idea..."
+        ]
         
-        animation = threading.Thread(target=animation_thread)
-        animation.daemon = True
-        animation.start()
+        # Display progress messages with animation
+        for msg in progress_messages:
+            clear_line()
+            cprint(f" {msg} ", "black", "on_white")
+            time.sleep(0.7)  # Show each message briefly
+            animate_loading(1, f"{msg}", emoji)
         
         # Get model from factory
         model = model_factory.get_model(model_config["type"], model_config["name"])
         if not model:
-            stop_animation.set()
-            animation.join()
             cprint(f"❌ Could not initialize {model_config['type']} model!", "white", "on_red")
             return None
+        
+        # Show generation in progress message
+        cprint(f"\n⏳ GENERATING TRADING STRATEGY IDEA...", "black", "on_white")
+        time.sleep(0.5)  # Pause for readability
         
         # Generate response
         response = model.generate_response(
@@ -209,10 +252,6 @@ def generate_idea(model_config):
             user_content="Generate one unique trading strategy idea.",
             temperature=0.8  # Higher temperature for more creativity
         )
-        
-        # Stop the animation
-        stop_animation.set()
-        animation.join()
         
         # Handle different response types
         if isinstance(response, str):
@@ -225,17 +264,24 @@ def generate_idea(model_config):
         # Clean up the idea
         idea = clean_idea(idea)
         
-        # Display the idea with animation
-        cprint("\n💡 TRADING STRATEGY IDEA GENERATED!", "white", "on_blue")
-        animate_text(idea, "yellow", "on_blue", 0.01)
+        # Display the idea with animation - only once
+        print()
+        cprint("💡 TRADING STRATEGY IDEA GENERATED!", "white", "on_green")
+        time.sleep(0.5)  # Pause for readability
+        
+        # Clear any previous output to avoid duplication
+        clear_line()
+        
+        # Animate the idea text - only once
+        animate_text(idea, "yellow", "on_blue")
         
         # Add some fun emojis
         print()
-        for _ in range(3):
-            position = random.randint(0, 50)
+        for _ in range(2):
+            position = random.randint(0, min(40, TERM_WIDTH-5))
             emoji = random.choice(EMOJIS)
             print(" " * position + emoji)
-            time.sleep(0.1)
+            time.sleep(0.3)
         
         return idea
         
@@ -247,7 +293,7 @@ def clean_idea(idea):
     """Clean up the generated idea text"""
     # Remove thinking tags if present (for DeepSeek-R1)
     if "<think>" in idea and "</think>" in idea:
-        cprint("🧠 Detected thinking tags, cleaning...", "yellow", "on_blue")
+        cprint("🧠 Detected thinking tags, cleaning...", "yellow")
         import re
         idea = re.sub(r'<think>.*?</think>', '', idea, flags=re.DOTALL).strip()
     
@@ -255,7 +301,7 @@ def clean_idea(idea):
     import re
     bold_match = re.search(r'\*\*"?(.*?)"?\*\*', idea)
     if bold_match:
-        cprint("🔍 Extracting core idea from markdown formatting...", "yellow", "on_magenta")
+        cprint("🔍 Extracting core idea from markdown formatting...", "yellow")
         idea = bold_match.group(1).strip()
     
     # Handle common prefixes from models
@@ -290,7 +336,7 @@ def clean_idea(idea):
     # Truncate if too long (aim for 1-2 sentences)
     sentences = re.split(r'[.!?]+', idea)
     if len(sentences) > 2:
-        cprint("✂️ Truncating to first two sentences...", "yellow", "on_blue")
+        cprint("✂️ Truncating to first two sentences...", "yellow")
         idea = '.'.join(sentences[:2]).strip() + '.'
     
     # Ensure first letter is capitalized
@@ -306,11 +352,13 @@ def log_idea(idea, model_config):
     
     # Animated saving sequence
     cprint("\n💾 SAVING IDEA TO DATABASE...", "white", "on_blue")
+    time.sleep(0.5)  # Pause for readability
     
-    # Animate moon phases
+    # Animate moon phases - simplified
     for phase in MOON_PHASES:
-        print(f"\r{phase} Saving...", end="", flush=True)
-        time.sleep(0.1)
+        clear_line()
+        print(f"\r{colored(' ' + phase + ' Saving to Moon Dev database... ', 'white', 'on_magenta')}", end="", flush=True)
+        time.sleep(0.3)  # Slower animation
     print()
     
     # Log to CSV
@@ -334,14 +382,32 @@ def log_idea(idea, model_config):
             f.write(f"{idea}\n")
     
     # Success message with animation
+    time.sleep(0.5)  # Pause for readability
     cprint("✅ IDEA SAVED SUCCESSFULLY!", "white", "on_green")
-    cprint(f"📊 CSV entry: {timestamp}, {model_name}", "cyan")
-    cprint(f"📝 Added to ideas.txt", "magenta")
+    time.sleep(0.3)
     
-    # Show the idea with a fancy border
-    print("\n" + "★" * 60)
-    cprint(f" 💡 {idea}", "yellow", "on_blue")
-    print("★" * 60 + "\n")
+    # Display save details with alternating colors
+    cprint(f"📊 CSV entry: {timestamp}", "black", "on_white")
+    time.sleep(0.2)
+    cprint(f"🤖 Model used: {model_name}", "white", "on_blue")
+    time.sleep(0.2)
+    cprint(f"📝 Added to ideas.txt", "white", "on_magenta")
+    
+    # Show the idea with a fancy border - ensure no duplication
+    border = "★" * min(60, TERM_WIDTH)
+    print("\n" + border)
+    
+    # Display the idea with a clean presentation
+    clear_line()
+    idea_display = f" 💡 {idea}"
+    # Wrap long ideas
+    if len(idea_display) > TERM_WIDTH - 4:
+        wrapped_idea = textwrap.fill(idea_display, width=TERM_WIDTH - 4)
+        cprint(wrapped_idea, "yellow", "on_blue")
+    else:
+        cprint(idea_display, "yellow", "on_blue")
+    
+    print(border + "\n")
 
 def run_idea_generation_loop(interval=10):
     """Run the idea generation loop with a specified interval between generations"""
@@ -349,14 +415,18 @@ def run_idea_generation_loop(interval=10):
     
     # Fancy startup animation
     animate_moon_dev()
+    time.sleep(0.5)  # Pause for readability
     cprint("\n🌟 MOON DEV'S RESEARCH AGENT ACTIVATED! 🌟", "white", "on_magenta")
+    time.sleep(0.5)  # Pause for readability
     cprint("🔄 Beginning continuous idea generation loop", "cyan")
+    time.sleep(1)  # Pause for readability
     
     try:
         while True:
             # Load existing ideas to check for duplicates
             existing_ideas = load_existing_ideas()
             cprint(f"📚 Loaded {len(existing_ideas)} existing ideas for duplicate checking", "white", "on_blue")
+            time.sleep(1)  # Pause for readability
             
             # Select a random model
             model_config = random.choice(MODELS)
@@ -375,25 +445,25 @@ def run_idea_generation_loop(interval=10):
             
             # Fun waiting animation - exactly 10 seconds
             cprint(f"\n⏱️ COOLDOWN PERIOD ACTIVATED", "white", "on_blue")
+            time.sleep(0.5)  # Pause for readability
             
-            # Show a colorful countdown for exactly 10 seconds
+            # Show a colorful countdown - simplified for terminal
             moon_emojis = ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"]
             bg_colors = ["on_blue", "on_magenta", "on_cyan", "on_green"]
-            text_colors = ["white", "yellow", "cyan"]
             
             for i in range(10):  # Always exactly 10 seconds
-                # Cycle through colors and emojis
-                bg_color = bg_colors[i % len(bg_colors)]
-                text_color = text_colors[i % len(text_colors)]
-                left_emoji = moon_emojis[i % len(moon_emojis)]
-                right_emoji = moon_emojis[(i + 4) % len(moon_emojis)]
+                # Cycle through emojis and backgrounds
+                emoji = moon_emojis[i % len(moon_emojis)]
+                bg = bg_colors[i % len(bg_colors)]
                 
-                # Display countdown with changing colors
+                # Display countdown with simple animation
                 remaining = 10 - i
-                cprint(f"\r{left_emoji} Next idea in: {remaining} seconds {right_emoji}", text_color, bg_color, end="", flush=True)
+                clear_line()
+                print(f"\r{colored(f' {emoji} Next idea in: {remaining} seconds ', 'white', bg)}", end="", flush=True)
                 time.sleep(1)
             
-            print("\n" + "=" * 60)
+            clear_line()
+            print("\n" + "=" * min(60, TERM_WIDTH))
             
     except KeyboardInterrupt:
         cprint("\n👋 MOON DEV'S RESEARCH AGENT SHUTTING DOWN...", "white", "on_yellow")
@@ -401,7 +471,7 @@ def run_idea_generation_loop(interval=10):
         # Shutdown animation
         for i in range(5):
             print(f"\r{'.' * i}", end="", flush=True)
-            time.sleep(0.2)
+            time.sleep(0.3)
         
         cprint("\n🌙 Thank you for using Moon Dev's Research Agent! 🌙", "white", "on_magenta")
     except Exception as e:
@@ -415,12 +485,16 @@ def test_run(num_ideas=1, interval=10):
     
     # Fancy startup animation
     animate_moon_dev()
+    time.sleep(0.5)  # Pause for readability
     cprint("\n🧪 MOON DEV'S RESEARCH AGENT - TEST MODE", "white", "on_magenta")
+    time.sleep(0.5)  # Pause for readability
     cprint(f"🔄 Will generate {num_ideas} ideas with {interval} seconds interval", "cyan")
+    time.sleep(1)  # Pause for readability
     
     try:
         existing_ideas = load_existing_ideas()
         cprint(f"📚 Loaded {len(existing_ideas)} existing ideas for duplicate checking", "white", "on_blue")
+        time.sleep(1)  # Pause for readability
         
         ideas_generated = 0
         while ideas_generated < num_ideas:
@@ -444,36 +518,38 @@ def test_run(num_ideas=1, interval=10):
             if ideas_generated < num_ideas:
                 # Fun waiting animation - always 10 seconds
                 cprint(f"\n⏱️ COOLDOWN PERIOD ACTIVATED", "white", "on_blue")
+                time.sleep(0.5)  # Pause for readability
                 
-                # Show a colorful countdown for exactly 10 seconds
+                # Show a colorful countdown - simplified for terminal
                 moon_emojis = ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"]
                 bg_colors = ["on_blue", "on_magenta", "on_cyan", "on_green"]
-                text_colors = ["white", "yellow", "cyan"]
                 
                 # Always use exactly 10 seconds regardless of the interval parameter
                 for i in range(10):
-                    # Cycle through colors and emojis
-                    bg_color = bg_colors[i % len(bg_colors)]
-                    text_color = text_colors[i % len(text_colors)]
-                    left_emoji = moon_emojis[i % len(moon_emojis)]
-                    right_emoji = moon_emojis[(i + 4) % len(moon_emojis)]
+                    # Cycle through emojis and backgrounds
+                    emoji = moon_emojis[i % len(moon_emojis)]
+                    bg = bg_colors[i % len(bg_colors)]
                     
-                    # Display countdown with changing colors
+                    # Display countdown with simple animation
                     remaining = 10 - i
-                    cprint(f"\r{left_emoji} Next idea in: {remaining} seconds {right_emoji}", text_color, bg_color, end="", flush=True)
+                    clear_line()
+                    print(f"\r{colored(f' {emoji} Next idea in: {remaining} seconds ', 'white', bg)}", end="", flush=True)
                     time.sleep(1)
+                
+                clear_line()
                 print()
         
         # Success animation
         cprint(f"\n✅ TEST COMPLETED SUCCESSFULLY!", "white", "on_green")
+        time.sleep(0.5)  # Pause for readability
         cprint(f"Generated {ideas_generated} ideas", "yellow")
         
         # Show some celebratory emojis
-        for _ in range(10):
-            position = random.randint(0, 50)
+        for _ in range(5):
+            position = random.randint(0, min(40, TERM_WIDTH-5))
             emoji = random.choice(EMOJIS)
             print(" " * position + emoji)
-            time.sleep(0.1)
+            time.sleep(0.3)
         
     except KeyboardInterrupt:
         cprint("\n👋 Test interrupted", "white", "on_yellow")

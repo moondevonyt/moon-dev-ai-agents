@@ -1,0 +1,69 @@
+STRATEGY_NAME: DivergentSync
+
+STRATEGY_DETAILS:
+The DivergentSync strategy is a sophisticated trend-following approach that combines RSI divergence, MACD divergence, and volume confirmation to identify high-probability trade setups. The strategy focuses on aligning multiple technical indicators to confirm trend reversals or continuations, with exits based on ATR multiples for dynamic risk management.
+
+### Key Strategy Components:
+1. **RSI Divergence**: Identifies potential trend reversals when price action and RSI move in opposite directions.
+2. **MACD Divergence**: Confirms the RSI divergence by ensuring the MACD histogram or signal line also diverges from price action.
+3. **Volume Confirmation**: High volume acts as a confirming signal, indicating strong participation in the price move.
+4. **ATR-Based Exits**: Uses Average True Range (ATR) multiples to set dynamic stop-loss and take-profit levels.
+
+### Entry Rules:
+1. **Long Entry**:
+   - RSI shows bullish divergence (price makes lower lows, RSI makes higher lows).
+   - MACD shows bullish divergence (MACD histogram or signal line makes higher lows while price makes lower lows).
+   - Volume is above its 20-period moving average, confirming strong buying interest.
+   - Enter long at the close of the candle confirming the divergence.
+
+2. **Short Entry**:
+   - RSI shows bearish divergence (price makes higher highs, RSI makes lower highs).
+   - MACD shows bearish divergence (MACD histogram or signal line makes lower highs while price makes higher highs).
+   - Volume is above its 20-period moving average, confirming strong selling interest.
+   - Enter short at the close of the candle confirming the divergence.
+
+### Exit Rules:
+1. **Take-Profit**:
+   - Set take-profit at 2x ATR from the entry price for long trades.
+   - Set take-profit at 2x ATR from the entry price for short trades.
+
+2. **Stop-Loss**:
+   - Set stop-loss at 1x ATR from the entry price for long trades.
+   - Set stop-loss at 1x ATR from the entry price for short trades.
+
+3. **Trailing Stop**:
+   - Use a trailing stop of 0.5x ATR to lock in profits as the trade moves in your favor.
+
+### Risk Management:
+1. **Position Sizing**:
+   - Risk no more than 1-2% of your trading capital on any single trade.
+   - Calculate position size based on the distance between entry and stop-loss levels.
+
+2. **Trade Filtering**:
+   - Only take trades where the RSI and MACD divergences are clear and confirmed by volume.
+   - Avoid trading during low-volume periods or when the market is choppy.
+
+### Required Indicators:
+1. **RSI (Relative Strength Index)**:
+   - Period: 14 (default).
+   - Used to identify divergences between price and momentum.
+
+2. **MACD (Moving Average Convergence Divergence)**:
+   - Fast Length: 12.
+   - Slow Length: 26.
+   - Signal Length: 9.
+   - Used to confirm RSI divergences and identify momentum shifts.
+
+3. **Volume**:
+   - Use a 20-period moving average of volume to filter for high-volume confirmation.
+
+4. **ATR (Average True Range)**:
+   - Period: 14 (default).
+   - Used to set dynamic stop-loss and take-profit levels.
+
+### Additional Notes:
+- This strategy works best on higher timeframes (e.g., 1-hour, 4-hour, or daily charts) to reduce noise and false signals.
+- Backtest the strategy on multiple instruments and timeframes to ensure robustness.
+- Combine with fundamental analysis or market context (e.g., support/resistance levels) for additional confirmation.
+
+The DivergentSync strategy is designed to capture strong trending moves while minimizing risk through precise entry and exit rules. By aligning multiple indicators and using ATR for dynamic risk management, it provides a systematic approach to trend-following trading.

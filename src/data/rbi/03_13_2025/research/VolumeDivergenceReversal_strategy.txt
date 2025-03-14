@@ -1,0 +1,32 @@
+STRATEGY_NAME: VolumeDivergenceReversal
+
+STRATEGY_DETAILS:
+The VolumeDivergenceReversal strategy is designed to identify potential short-selling opportunities in an uptrend market by detecting bearish divergences between price action and volume dynamics. The strategy combines RSI overbought conditions with volume analysis to spot weakening momentum in an uptrend, signaling a potential reversal.
+
+Key Strategy Components:
+1. **RSI Overbought Condition**: RSI above 70 indicates overbought conditions, suggesting the asset may be overextended and due for a pullback.
+2. **Volume Divergence**: Upside volume (buying pressure) outperforms downside volume (selling pressure) despite the overbought condition, indicating weakening bullish momentum.
+3. **Uptrend Confirmation**: The market must be in a confirmed uptrend, as identified by higher highs and higher lows or a moving average crossover.
+
+Entry Rules:
+1. Confirm the market is in an uptrend using a moving average (e.g., 50-period SMA above 200-period SMA) or trendline analysis.
+2. Wait for RSI to cross above 70, signaling overbought conditions.
+3. Analyze volume data: Ensure upside volume is greater than downside volume during the overbought condition.
+4. Enter a short position when these conditions align, preferably on a bearish candlestick pattern or rejection at a key resistance level.
+
+Exit Rules:
+1. Set a take-profit level at the nearest support level or use a risk-reward ratio (e.g., 1:2).
+2. Exit the trade if RSI drops below 50, indicating a loss of bearish momentum.
+3. Use a trailing stop-loss to lock in profits if the price moves favorably.
+
+Risk Management:
+1. Position sizing should be based on a fixed percentage of the trading account (e.g., 1-2% risk per trade).
+2. Place a stop-loss above the recent swing high or a key resistance level to limit potential losses.
+3. Avoid trading during high-impact news events or low liquidity periods to reduce volatility risks.
+
+Required Indicators:
+1. **RSI (Relative Strength Index)**: Set to a 14-period default for overbought/oversold conditions.
+2. **Volume Indicators**: Use volume bars or a volume oscillator to compare upside and downside volume.
+3. **Moving Averages**: Use a 50-period SMA and 200-period SMA to confirm the uptrend.
+
+This strategy is particularly effective in trending markets and requires careful monitoring of volume dynamics to confirm bearish divergences. It is best suited for traders who can interpret volume data and RSI signals in the context of broader market trends.

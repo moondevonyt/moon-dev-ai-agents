@@ -1,0 +1,34 @@
+STRATEGY_NAME: VoltaicConvergence
+
+STRATEGY_DETAILS:
+The VoltaicConvergence strategy is a volatility-based trading approach designed to identify breakout opportunities during consolidation phases using moving averages and RSI divergence. The strategy focuses on capturing price movements when volatility expands after periods of low volatility, while ensuring exits are timed when momentum indicators and price action converge.
+
+### Key Strategy Components:
+1. **Volatility Filter**: Identifies consolidation phases using Bollinger Bands or ATR (Average True Range) to detect periods of low volatility.
+2. **Moving Averages**: Utilizes a combination of short-term (e.g., 20-period) and long-term (e.g., 50-period) moving averages to confirm trend direction and potential breakout levels.
+3. **RSI Divergence**: Monitors RSI (Relative Strength Index) for bullish or bearish divergence to confirm momentum shifts during consolidation.
+4. **Breakout Confirmation**: Requires price to break above/below a key level (e.g., Bollinger Band or moving average) with increased volume or momentum.
+
+### Entry Rules:
+1. **Consolidation Identification**: Wait for price to trade within a narrow range (e.g., Bollinger Bands contract or ATR drops below a threshold).
+2. **RSI Divergence**: Look for bullish divergence (price makes lower lows while RSI makes higher lows) or bearish divergence (price makes higher highs while RSI makes lower highs).
+3. **Breakout Confirmation**: Enter a long position when price breaks above the upper Bollinger Band or short-term moving average with bullish RSI divergence. Enter a short position when price breaks below the lower Bollinger Band or short-term moving average with bearish RSI divergence.
+4. **Volume/Momentum Check**: Ensure the breakout is accompanied by increased volume or momentum (e.g., RSI crossing above/below 50).
+
+### Exit Rules:
+1. **Convergence Signal**: Exit the trade when the moving averages and RSI converge (e.g., RSI crosses back below 70 in a long trade or above 30 in a short trade, and price closes below/above the short-term moving average).
+2. **Stop Loss**: Place a stop loss below the recent swing low (for long trades) or above the recent swing high (for short trades).
+3. **Take Profit**: Use a trailing stop or a fixed risk-reward ratio (e.g., 2:1) based on the volatility of the asset.
+
+### Risk Management:
+1. **Position Sizing**: Use a fixed percentage of capital (e.g., 1-2%) per trade to manage risk.
+2. **Stop Loss**: Always use a stop loss to limit downside risk.
+3. **Volatility Adjustment**: Adjust position size based on the current volatility of the asset (e.g., smaller positions during high volatility).
+
+### Required Indicators:
+1. **Bollinger Bands** (20-period, 2 standard deviations) or **ATR** (14-period) for volatility filtering.
+2. **Moving Averages** (e.g., 20-period SMA and 50-period SMA) for trend confirmation.
+3. **RSI** (14-period) for divergence and momentum analysis.
+4. **Volume Indicator** (optional) to confirm breakout strength.
+
+The VoltaicConvergence strategy is ideal for traders looking to capitalize on breakout opportunities during low-volatility phases while managing risk through clear entry and exit signals. Its focus on volatility and momentum convergence makes it particularly effective in trending markets with periodic consolidation.

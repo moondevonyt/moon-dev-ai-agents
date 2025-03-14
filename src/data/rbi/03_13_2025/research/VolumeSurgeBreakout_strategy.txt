@@ -1,0 +1,40 @@
+STRATEGY_NAME: VolumeSurge Breakout
+
+STRATEGY_DETAILS:
+The VolumeSurge Breakout strategy is designed to capitalize on significant price movements following periods of oversold conditions, confirmed by a surge in trading volume. This strategy combines volume analysis with oscillator-based oversold signals to identify high-probability breakout opportunities.
+
+Key Strategy Components:
+1. Volume Analysis: Uses a volume-based indicator to detect unusual trading activity
+2. Oversold Conditions: Identifies potential reversal points using an oscillator
+3. Breakout Confirmation: Requires price to break above a key resistance level
+
+Required Indicators:
+1. Volume Weighted Moving Average (VWMA) - 20 period
+2. Relative Strength Index (RSI) - 14 period
+3. Average True Range (ATR) - 14 period
+4. Volume Spike Detector (custom indicator or 2x average volume)
+
+Entry Rules:
+1. RSI must be below 30 (oversold condition)
+2. Volume must spike to at least 2x the 20-period average volume
+3. Price must close above the 20-period VWMA
+4. The breakout candle must have a range greater than 1.5x ATR
+
+Exit Rules:
+1. Take Profit: 2x ATR from entry point
+2. Stop Loss: 1x ATR below entry point
+3. Trailing Stop: Activate at 1x ATR profit, trail at 0.5x ATR
+
+Risk Management:
+1. Position size limited to 1-2% of account equity per trade
+2. Maximum daily loss limit of 5%
+3. No new entries if 3 consecutive losing trades occur
+4. Trade only during high liquidity hours (market open + first 2 hours)
+
+Additional Notes:
+- This strategy works best in trending markets
+- Avoid trading during major news events
+- Use on liquid assets with consistent volume patterns
+- Combine with fundamental analysis for higher probability setups
+
+The VolumeSurge Breakout strategy is particularly effective in capturing early momentum in reversals from oversold conditions, with the volume spike providing confirmation of institutional interest and potential trend continuation.

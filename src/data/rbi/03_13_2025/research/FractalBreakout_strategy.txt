@@ -1,0 +1,30 @@
+STRATEGY_NAME: FractalBreakout
+
+FRACTAL_BREAKOUT strategy is a high-probability breakout trading system designed for volatility-driven markets. The strategy focuses on identifying high-probability breakout opportunities using fractal analysis, combined with momentum and mean reversion principles.
+
+KEY STRATEGY COMPONENTS:
+1. **Fractal Analysis**: The strategy uses fractal geometry to identify self-similar patterns in price action. This helps to pinpoint potential breakouts by analyzing the scale-invariance of price movements.
+2. **Momentum Indicator**: A custom-built momentum indicator is used to gauge the strength and direction of price movements. This indicator is based on a combination of exponential moving averages (EMAs) with different time periods.
+3. **Mean Reversion Principle**: The strategy incorporates mean reversion principles to identify potential support and resistance levels. These levels are calculated using historical data and statistical methods.
+
+ENTRY/EXIT RULES:
+1. **Breakout Entry**: A breakout occurs when the price breaks above or below a predetermined fractal level, as identified by the fractal analysis component.
+2. **Momentum Confirmation**: A trade is confirmed when the momentum indicator shows a strong bullish (upward) or bearish (downward) signal, indicating the direction of the break.
+3. **Mean Reversion Exit**: A trade is closed when the price reaches a predetermined mean reversion level, as identified by the statistical analysis component.
+
+RISK MANAGEMENT:
+1. **Position Sizing**: Positions are sized based on the trader's risk tolerance and available capital. The strategy recommends allocating no more than 2% of the account balance to each trade.
+2. **Stop-Loss Orders**: Stop-loss orders are set at a predetermined distance from the entry price, using a combination of fractal levels and statistical analysis. This helps to limit potential losses in case the breakout fails.
+3. **Take-Profit Targets**: Take-profit targets are set based on the momentum indicator's signals and the mean reversion levels. These targets aim to maximize profit while minimizing risk.
+
+REQUIRED INDICATORS:
+1. **Fractal Analysis Tool**: A custom-built fractal analysis tool that plots fractal dimensions, box-counting dimensions, and other relevant metrics.
+2. **Momentum Indicator**: A custom-built momentum indicator based on EMAs with different time periods.
+3. **Mean Reversion Level Calculator**: A statistical tool that calculates mean reversion levels using historical data.
+
+REQUIREMENTS:
+1. **Trading Platform**: The strategy requires a trading platform capable of executing multiple chart types, including fractal plots and momentum indicators.
+2. **Market Conditions**: The strategy is designed for volatility-driven markets, making it suitable for high-frequency trading or scalping strategies.
+3. **Risk Tolerance**: Traders with moderate to high risk tolerance are recommended, as the strategy involves potential losses in case of a failed breakout.
+
+By combining fractal analysis, momentum indicators, and mean reversion principles, FractalBreakout aims to identify high-probability breakout opportunities in volatility-driven markets, providing traders with a unique trading edge.

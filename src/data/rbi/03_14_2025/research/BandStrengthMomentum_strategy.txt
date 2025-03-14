@@ -1,0 +1,48 @@
+STRATEGY_NAME: BandStrength Momentum
+
+STRATEGY_DETAILS:
+The BandStrength Momentum strategy combines Bollinger Bands and Relative Strength (RS) to identify high-probability entry and exit points in trending markets. This strategy focuses on capturing momentum while managing risk through volatility-based indicators.
+
+### Key Strategy Components:
+1. **Bollinger Bands**: Used to measure volatility and identify overbought/oversold conditions. The bands consist of a middle line (20-period SMA) and two outer bands (standard deviations above and below the SMA).
+2. **Relative Strength (RS)**: A momentum indicator that compares the performance of the asset to a benchmark or another asset. It helps confirm the strength of the trend.
+
+### Entry Rules:
+1. **Long Entry**:
+   - Price crosses above the lower Bollinger Band, indicating a potential reversal or continuation of an uptrend.
+   - Relative Strength (RS) is above a predefined threshold (e.g., 50), confirming strong momentum.
+   - Wait for a bullish candlestick pattern (e.g., bullish engulfing or hammer) for additional confirmation.
+
+2. **Short Entry**:
+   - Price crosses below the upper Bollinger Band, indicating a potential reversal or continuation of a downtrend.
+   - Relative Strength (RS) is below a predefined threshold (e.g., 50), confirming weak momentum.
+   - Wait for a bearish candlestick pattern (e.g., bearish engulfing or shooting star) for additional confirmation.
+
+### Exit Rules:
+1. **Take Profit**:
+   - For long positions, exit when price touches the upper Bollinger Band or when RS starts to decline significantly.
+   - For short positions, exit when price touches the lower Bollinger Band or when RS starts to rise significantly.
+
+2. **Stop Loss**:
+   - Place a stop loss just below the lower Bollinger Band for long positions.
+   - Place a stop loss just above the upper Bollinger Band for short positions.
+
+### Risk Management:
+1. **Position Sizing**: Use a fixed percentage of your trading capital (e.g., 1-2%) per trade to manage risk.
+2. **Volatility Adjustment**: Adjust position size based on the width of the Bollinger Bands. Wider bands indicate higher volatility, so reduce position size accordingly.
+3. **Trailing Stop**: Consider using a trailing stop based on the middle Bollinger Band to lock in profits as the trend progresses.
+
+### Required Indicators:
+1. **Bollinger Bands**:
+   - Period: 20
+   - Standard Deviation: 2
+2. **Relative Strength (RS)**:
+   - Compare the asset to a benchmark (e.g., S&P 500 or another relevant index).
+   - Threshold: 50 (adjust based on market conditions).
+
+### Additional Notes:
+- This strategy works best in trending markets. Avoid using it during periods of low volatility or choppy price action.
+- Backtest the strategy on historical data to optimize the RS threshold and Bollinger Band settings for your specific asset and timeframe.
+- Combine with other technical analysis tools (e.g., volume indicators) for additional confirmation if needed.
+
+By combining Bollinger Bands with Relative Strength, the BandStrength Momentum strategy provides a robust framework for identifying high-probability trades while managing risk effectively.

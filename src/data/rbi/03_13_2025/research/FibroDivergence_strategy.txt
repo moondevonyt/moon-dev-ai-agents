@@ -1,0 +1,64 @@
+STRATEGY_NAME: FibroDivergence
+
+STRATEGY_DETAILS:
+The FibroDivergence strategy combines RSI divergence analysis with Fibonacci retracement levels and ATR-based exits to identify high-probability reversal trades. This strategy is particularly effective in trending markets where price retraces to key Fibonacci levels while showing divergence between price action and RSI.
+
+### Key Strategy Components:
+1. **RSI Divergence**: 
+   - Use a 14-period RSI to identify divergence between price action and momentum.
+   - Bullish divergence: Price makes lower lows while RSI makes higher lows.
+   - Bearish divergence: Price makes higher highs while RSI makes lower highs.
+
+2. **Fibonacci Retracement Levels**:
+   - Apply Fibonacci retracement levels (38.2%, 50%, 61.8%) to the most recent significant swing high and low.
+   - Focus on trades where price is retracing to one of these key levels.
+
+3. **ATR (Average True Range)**:
+   - Use a 14-period ATR to determine exit points based on multiples of volatility.
+
+### Entry Rules:
+1. **Bullish Entry**:
+   - Price must be at or near a key Fibonacci retracement level (38.2%, 50%, 61.8%).
+   - RSI must show bullish divergence (price lower lows, RSI higher lows).
+   - Enter a long position when price starts moving upward after the divergence confirmation.
+
+2. **Bearish Entry**:
+   - Price must be at or near a key Fibonacci retracement level.
+   - RSI must show bearish divergence (price higher highs, RSI lower highs).
+   - Enter a short position when price starts moving downward after the divergence confirmation.
+
+### Exit Rules:
+1. **Take Profit**:
+   - Use ATR multiples to set take-profit levels.
+   - For long trades, set take profit at 1x, 2x, or 3x ATR above the entry price.
+   - For short trades, set take profit at 1x, 2x, or 3x ATR below the entry price.
+
+2. **Stop Loss**:
+   - Place stop loss below the recent swing low for long trades or above the recent swing high for short trades.
+   - Alternatively, use 1x ATR below/above the entry price for tighter risk management.
+
+### Risk Management:
+1. **Position Sizing**:
+   - Risk no more than 1-2% of your trading capital on any single trade.
+   - Adjust position size based on the distance between entry and stop-loss levels.
+
+2. **Trade Filtering**:
+   - Only take trades where the RSI divergence is clear and confirmed by price action.
+   - Avoid trading during low-volume periods or when price is consolidating.
+
+### Required Indicators:
+1. **RSI (14-period)**:
+   - Used to identify divergence between price and momentum.
+
+2. **Fibonacci Retracement Tool**:
+   - Applied to the most recent significant swing high and low.
+
+3. **ATR (14-period)**:
+   - Used to determine exit levels based on volatility.
+
+### Additional Notes:
+- This strategy works best in trending markets with clear swing highs and lows.
+- Always wait for confirmation of the divergence before entering a trade.
+- Combine this strategy with higher timeframe analysis to improve accuracy.
+
+By combining Fibonacci retracement levels, RSI divergence, and ATR-based exits, the FibroDivergence strategy provides a structured approach to trading reversals with clear risk management rules.

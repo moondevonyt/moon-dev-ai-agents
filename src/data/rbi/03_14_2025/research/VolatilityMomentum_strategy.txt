@@ -1,0 +1,29 @@
+STRATEGY_NAME: VolatilityMomentum
+
+STRATEGY_DETAILS:
+The VolatilityMomentum strategy is a momentum-based approach that capitalizes on overbought conditions by leveraging key volatility indicators. The strategy focuses on the VIX (CBOE Volatility Index) and the VIX-based Gamma Skew index to identify optimal entry points during periods of low implied volatility and bullish sentiment.
+
+### Key Strategy Components:
+1. **Implied Volatility (VIX)**: The VIX measures market expectations of near-term volatility conveyed by S&P 500 index options. A VIX level below its historical average by 20% indicates a low-volatility environment, often associated with bullish market conditions.
+2. **Gamma Skew Index**: This index reflects the skewness of the VIX options market. A bullish crossover occurs when the Gamma Skew index rises above its three-month moving average, signaling a shift in market sentiment toward bullishness.
+
+### Entry Rules:
+1. **VIX Condition**: Buy when the VIX falls below 20% of its historical average. This indicates a low-volatility environment, often preceding a bullish market phase.
+2. **Gamma Skew Crossover**: Confirm the entry when the Gamma Skew index crosses above its three-month moving average, indicating a bullish sentiment shift.
+
+### Exit Rules:
+1. **VIX Reversion**: Exit the trade when the VIX rises back to or above its historical average, signaling increased volatility and potential market uncertainty.
+2. **Gamma Skew Reversal**: Exit if the Gamma Skew index crosses below its three-month moving average, indicating a bearish sentiment shift.
+
+### Risk Management:
+1. **Position Sizing**: Use a fixed percentage of capital (e.g., 2-5%) per trade to manage risk.
+2. **Stop-Loss**: Set a stop-loss at a predefined level (e.g., 5-10% below the entry price) to limit downside risk.
+3. **Take-Profit**: Implement a trailing stop or take-profit level (e.g., 15-20% above the entry price) to lock in gains during strong momentum phases.
+
+### Required Indicators:
+1. **VIX (CBOE Volatility Index)**: To measure implied volatility and identify low-volatility conditions.
+2. **Gamma Skew Index**: To assess market sentiment and confirm bullish crossovers.
+3. **Historical VIX Average**: To determine the 20% threshold below the average for entry signals.
+4. **Three-Month Moving Average of Gamma Skew**: To identify bullish crossovers and reversals.
+
+This strategy is ideal for traders looking to capitalize on low-volatility, high-momentum market conditions while managing risk through clear entry and exit rules.

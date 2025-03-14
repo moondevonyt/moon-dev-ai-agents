@@ -1,0 +1,38 @@
+STRATEGY_NAME: ReversalBandTrigger
+
+STRATEGY_DETAILS:
+The ReversalBandTrigger strategy is a sophisticated trend reversal approach that combines moving averages, RSI, and Bollinger Bands to identify potential long opportunities. Here's a detailed breakdown of the strategy:
+
+1. **Key Strategy Components**:
+   - **50-period Moving Average (MA)**: Used to identify short-term price trends.
+   - **200-period Moving Average (MA)**: Represents the long-term trend.
+   - **Relative Strength Index (RSI)**: Measures momentum and overbought/oversold conditions.
+   - **20-day Bollinger Bands**: Tracks volatility and price extremes.
+
+2. **Entry Rules**:
+   - A long position is triggered when the following conditions are met:
+     1. The 50-period MA crosses **below** the 200-period MA (indicating a potential trend reversal).
+     2. The short-term RSI (14-period) is **above 40** (confirming bullish momentum).
+     3. The price has breached the **upper limit** of the 20-day Bollinger Bands (indicating a potential breakout or overextension).
+
+3. **Exit Rules**:
+   - Exit the long position when the RSI resets below 40, signaling a loss of bullish momentum.
+   - Alternatively, consider exiting if the price closes below the 50-period MA, confirming a reversal of the short-term trend.
+
+4. **Risk Management**:
+   - Set a stop-loss below the recent swing low or a fixed percentage (e.g., 2-3%) below the entry price.
+   - Use a trailing stop to lock in profits as the trade moves in your favor.
+   - Position sizing should be based on account risk tolerance (e.g., risking no more than 1-2% of the account per trade).
+
+5. **Required Indicators**:
+   - 50-period Simple Moving Average (SMA).
+   - 200-period Simple Moving Average (SMA).
+   - 14-period Relative Strength Index (RSI).
+   - 20-day Bollinger Bands with 2 standard deviations.
+
+6. **Additional Notes**:
+   - This strategy works best in trending or volatile markets where Bollinger Bands and moving averages can effectively identify reversals.
+   - Backtest the strategy on historical data to ensure its effectiveness in your chosen market and timeframe.
+   - Combine this strategy with fundamental analysis or other technical tools for higher confidence in trade setups.
+
+By focusing on the convergence of moving averages, RSI momentum, and Bollinger Band breakouts, the ReversalBandTrigger strategy aims to capture early trend reversals with a high probability of success.

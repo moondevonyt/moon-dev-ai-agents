@@ -1,0 +1,40 @@
+STRATEGY_NAME: VoltaicTrend
+
+STRATEGY_DETAILS:
+The VoltaicTrend strategy is a sophisticated trend-following approach that combines EMA-based trend identification with Bollinger Bands Width (BWW) for volatility control and RSI for confirmation. This strategy is designed to capture strong trending moves while avoiding false signals during periods of low volatility or weak momentum.
+
+Key Components:
+1. EMA (Exponential Moving Average) - Primary trend identification
+2. Bollinger Bands Width (BWW) - Volatility filter
+3. RSI (Relative Strength Index) - Momentum confirmation
+
+Entry Rules:
+1. EMA Crossover: Wait for a bullish EMA crossover (shorter EMA crossing above longer EMA)
+2. BWW Expansion: Confirm rising Bollinger Bands Width (indicating increasing volatility)
+3. RSI Strength: Verify RSI above 50 (preferably above 60 for stronger confirmation)
+4. All three conditions must align for a valid entry
+
+Exit Rules:
+1. BWW Contraction: Exit when Bollinger Bands Width starts contracting
+2. RSI Divergence: Exit when price makes new highs but RSI fails to confirm
+3. EMA Crossover: Exit when shorter EMA crosses below longer EMA
+4. Any one of these conditions can trigger an exit
+
+Risk Management:
+1. Position sizing based on volatility (use BWW as guide)
+2. Initial stop-loss placed below recent swing low or Bollinger Band lower band
+3. Trailing stop using EMA or Bollinger Bands
+4. Risk per trade limited to 1-2% of account
+
+Required Indicators:
+1. Two EMAs (e.g., 20-period and 50-period)
+2. Bollinger Bands (standard 20,2 settings)
+3. RSI (14-period standard setting)
+
+Additional Notes:
+- This strategy performs best in trending markets
+- Avoid trading during low volatility periods (flat BWW)
+- Combine with higher timeframe analysis for better context
+- Consider using volume confirmation for additional reliability
+
+The VoltaicTrend strategy is particularly effective in capturing strong momentum moves while filtering out false signals through its multi-layered confirmation system. The combination of EMA trend identification, BWW volatility control, and RSI momentum confirmation creates a robust framework for trend-following trades.

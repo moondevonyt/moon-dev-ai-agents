@@ -1,0 +1,38 @@
+STRATEGY_NAME: DivergentMomentum
+
+STRATEGY_DETAILS:
+The DivergentMomentum strategy is a unique approach that combines overbought RSI conditions with strong trend confirmation from ADX to identify potential long trades. The strategy focuses on entering trades when momentum is strong but potentially overextended, while using divergence and ADX weakening as exit signals.
+
+Key Components:
+1. RSI (Relative Strength Index) - Used to identify overbought conditions (typically above 70)
+2. ADX (Average Directional Index) - Used to confirm trend strength (typically above 25)
+3. Price Action - Used to identify potential divergences
+
+Entry Rules:
+1. Wait for RSI to cross above 70 (overbought condition)
+2. Confirm ADX is above 25 and rising (strong trend confirmation)
+3. Enter long position on next candle open after both conditions are met
+
+Exit Rules:
+1. Primary Exit: Look for bearish divergence between price and RSI (price makes higher high while RSI makes lower high)
+2. Secondary Exit: ADX begins to decline significantly (suggesting weakening trend)
+3. Emergency Exit: If price drops below recent swing low
+
+Risk Management:
+1. Set stop-loss below recent swing low or based on ATR (Average True Range)
+2. Use position sizing based on account risk tolerance (1-2% per trade)
+3. Consider trailing stop based on ATR or moving average
+
+Required Indicators:
+1. RSI (14 period recommended)
+2. ADX (14 period recommended)
+3. Optional: ATR for stop-loss placement
+
+Additional Notes:
+- This strategy works best in trending markets
+- Consider using on higher timeframes (1H or above) for better reliability
+- Combine with fundamental analysis for additional confirmation
+- Backtest thoroughly before live trading
+- Monitor for false signals during choppy market conditions
+
+The DivergentMomentum strategy is particularly effective in strong trending markets where overbought conditions can persist longer than expected, allowing traders to ride the momentum while maintaining clear exit signals through divergence and trend strength analysis.

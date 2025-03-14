@@ -1,0 +1,30 @@
+STRATEGY_NAME: OpenInterestPut
+
+STRATEGY_DETAILS:
+The OpenInterestPut strategy is designed to capitalize on declining futures contracts by selling put options when open interest is high and exiting when open interest starts to increase. This strategy leverages the relationship between open interest and price movements to identify potential selling opportunities in the options market.
+
+Key Strategy Components:
+1. **High Open Interest in Declining Futures**: The strategy focuses on futures contracts that are in a downtrend, as indicated by declining prices. High open interest in these contracts suggests a strong bearish sentiment among traders.
+2. **Sell Put Options**: Selling put options allows the trader to collect premiums while betting that the underlying asset will not fall below the strike price before expiration.
+3. **Exit on Increasing Open Interest**: The strategy exits the position when open interest begins to increase, signaling a potential reversal or stabilization in the futures contract.
+
+Entry Rules:
+1. **Identify Declining Futures Contracts**: Monitor futures contracts that are showing a consistent downtrend in price.
+2. **Check for High Open Interest**: Confirm that the open interest in these declining futures contracts is high, indicating strong bearish sentiment.
+3. **Sell Put Options**: Sell put options on the identified futures contracts. Choose strike prices that are below the current price but still within a range that reflects the expected continuation of the downtrend.
+
+Exit Rules:
+1. **Monitor Open Interest**: Continuously monitor the open interest in the futures contracts.
+2. **Exit on Increasing Open Interest**: Close the put option positions when open interest begins to increase, as this may indicate a potential reversal or stabilization in the futures contract price.
+
+Risk Management:
+1. **Position Sizing**: Limit the size of each position to a small percentage of the total portfolio to manage risk.
+2. **Stop-Loss Orders**: Consider using stop-loss orders to limit potential losses if the futures contract price moves against the position.
+3. **Diversification**: Diversify across different futures contracts and expiration dates to spread risk.
+
+Required Indicators:
+1. **Price Chart**: To identify declining futures contracts.
+2. **Open Interest Data**: To monitor the level of open interest in the futures contracts.
+3. **Options Pricing Data**: To determine the premiums for selling put options.
+
+By following the OpenInterestPut strategy, traders can potentially profit from the bearish sentiment in declining futures contracts while managing risk through careful monitoring of open interest and position sizing.

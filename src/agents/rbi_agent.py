@@ -36,9 +36,14 @@ Remember: Past performance doesn't guarantee future results!
 
 # Model Configuration
 # Using a mix of Ollama models and DeepSeek API
+# RESEARCH_CONFIG = {
+#     "type": "ollama",
+#     "name": "llama3.2"  # Using Llama 3.2 for research
+# }
+
 RESEARCH_CONFIG = {
-    "type": "ollama",
-    "name": "llama3.2"  # Using Llama 3.2 for research
+    "type": "deepseek",
+    "name": "deepseek-chat"  # Using Llama 3.2 for research
 }
 
 BACKTEST_CONFIG = {
@@ -47,14 +52,25 @@ BACKTEST_CONFIG = {
 }
 
 DEBUG_CONFIG = {
-    "type": "ollama",
-    "name": "deepseek-r1"  # Using Ollama's DeepSeek-R1 for debugging
+    "type": "deepseek",
+    "name": "deepseek-chat"  # Using Ollama's DeepSeek-R1 for debugging
 }
 
+# DEBUG_CONFIG = {
+#     "type": "ollama",
+#     "name": "deepseek-r1"  # Using Ollama's DeepSeek-R1 for debugging
+# }
+
 PACKAGE_CONFIG = {
-    "type": "ollama",
-    "name": "llama3.2"  # Using Llama 3.2 for package optimization
+    "type": "deepseek",
+    "name": "deepseek-chat"  # Using Llama 3.2 for package optimization
 }
+
+# PACKAGE_CONFIG = {
+#     "type": "ollama",
+#     "name": "llama3.2"  # Using Llama 3.2 for package optimization
+# }
+
 
 # DeepSeek Model Selection per Agent
 # "gemma:2b",     # Google's Gemma 2B model

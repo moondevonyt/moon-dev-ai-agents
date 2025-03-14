@@ -1,0 +1,36 @@
+STRATEGY_NAME: MomentumCrossReversal
+
+STRATEGY_DETAILS:
+The MomentumCrossReversal strategy is a momentum-based reversal system that identifies potential trend reversals by analyzing the relationship between three key moving averages. The strategy focuses on capturing shifts in momentum when the difference between a 50-period moving average (MA) and a 200-period MA crosses above a 20-period exponential moving average (EMA). This unique combination of moving averages helps filter out noise and provides a clear signal for potential trend reversals.
+
+### Key Strategy Components:
+1. **50-Period Moving Average (MA):** Represents the medium-term trend.
+2. **200-Period Moving Average (MA):** Represents the long-term trend.
+3. **20-Period Exponential Moving Average (EMA):** Acts as a dynamic threshold for momentum shifts.
+4. **Momentum Reversal Signal:** The difference between the 50-period MA and 200-period MA crossing above the 20-period EMA.
+
+### Entry Rules:
+- **Long Entry:** Enter a long position when the difference between the 50-period MA and 200-period MA crosses above the 20-period EMA. This indicates a potential reversal in momentum favoring an upward trend.
+- **Confirmation:** Wait for the price to close above the 20-period EMA to confirm the signal.
+
+### Exit Rules:
+- **Take Profit:** Set a take-profit level based on a predefined risk-reward ratio (e.g., 2:1 or 3:1).
+- **Stop Loss:** Place a stop-loss order below the most recent swing low or below the 20-period EMA, whichever is closer.
+- **Trailing Stop:** Optionally, use a trailing stop to lock in profits as the trend continues.
+
+### Risk Management:
+- **Position Sizing:** Use a fixed percentage of the trading capital (e.g., 1-2%) per trade to manage risk.
+- **Stop Loss:** Ensure the stop-loss level is placed at a logical support level to minimize losses.
+- **Risk-Reward Ratio:** Aim for a minimum risk-reward ratio of 2:1 to ensure profitability over time.
+
+### Required Indicators:
+1. **50-Period Simple Moving Average (MA):** To identify the medium-term trend.
+2. **200-Period Simple Moving Average (MA):** To identify the long-term trend.
+3. **20-Period Exponential Moving Average (EMA):** To act as a dynamic threshold for momentum shifts.
+
+### Additional Notes:
+- **Timeframe:** This strategy works best on higher timeframes (e.g., 1-hour, 4-hour, or daily charts) to reduce noise and false signals.
+- **Market Conditions:** Ideal for trending markets or markets transitioning from a downtrend to an uptrend.
+- **Backtesting:** Always backtest the strategy on historical data to validate its effectiveness before applying it to live trading.
+
+The MomentumCrossReversal strategy is designed to capture early momentum shifts while minimizing false signals, making it a robust tool for traders looking to capitalize on trend reversals.

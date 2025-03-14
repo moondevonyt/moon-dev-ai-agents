@@ -1,0 +1,58 @@
+STRATEGY_NAME: FractalStochastic
+
+STRATEGY_DETAILS:
+The FractalStochastic strategy is a trend-following approach that combines fractal channel analysis with stochastic oscillator signals to identify high-probability trade setups. This strategy is designed to capture trends while filtering out false signals using the stochastic oscillator's overbought/oversold conditions.
+
+### Key Strategy Components:
+1. **Fractal Channels**: 
+   - Fractal channels are used to identify the overall trend direction and potential breakout levels.
+   - Upper and lower fractal levels act as dynamic support and resistance zones.
+   - A breakout above the upper fractal channel confirms an uptrend, while a breakout below the lower fractal channel confirms a downtrend.
+
+2. **Stochastic Oscillator**:
+   - The stochastic oscillator (14,3,3) is used to identify overbought and oversold conditions.
+   - Overbought conditions (above 80) suggest potential pullbacks in an uptrend.
+   - Oversold conditions (below 20) suggest potential reversals in a downtrend.
+   - The stochastic crossover (e.g., %K crossing above %D) is used to confirm momentum shifts.
+
+### Entry Rules:
+1. **Long Entry**:
+   - Price breaks above the upper fractal channel, confirming an uptrend.
+   - Stochastic oscillator is below 20 (oversold) and begins to rise, indicating momentum is shifting upward.
+   - Enter a long position when the stochastic %K crosses above %D.
+
+2. **Short Entry**:
+   - Price breaks below the lower fractal channel, confirming a downtrend.
+   - Stochastic oscillator is above 80 (overbought) and begins to decline, indicating momentum is shifting downward.
+   - Enter a short position when the stochastic %K crosses below %D.
+
+### Exit Rules:
+1. **Take Profit**:
+   - Use the opposite fractal channel as a take-profit target. For example, in a long trade, exit when price reaches the lower fractal channel.
+   - Alternatively, use a trailing stop based on recent fractal levels.
+
+2. **Stop Loss**:
+   - Place a stop loss just below the most recent fractal low for long trades or above the most recent fractal high for short trades.
+   - Adjust the stop loss as new fractal levels form to lock in profits.
+
+### Risk Management:
+1. **Position Sizing**:
+   - Risk no more than 1-2% of your trading capital on any single trade.
+   - Calculate position size based on the distance between entry and stop loss levels.
+
+2. **Trade Filtering**:
+   - Avoid trading during low volatility periods when fractal channels are too narrow.
+   - Wait for stochastic confirmation to reduce false breakouts.
+
+### Required Indicators:
+1. **Fractal Channels**:
+   - Use a fractal indicator to plot upper and lower fractal levels dynamically.
+
+2. **Stochastic Oscillator (14,3,3)**:
+   - Set to standard settings (14-period %K, 3-period %D, 3-period smoothing).
+
+### Additional Notes:
+- This strategy works best on higher timeframes (e.g., 1-hour, 4-hour, or daily charts) to reduce noise and improve signal accuracy.
+- Combine with fundamental analysis or news events to avoid trading against major market-moving events.
+
+By combining fractal channel breakouts with stochastic oscillator confirmation, the FractalStochastic strategy provides a robust framework for identifying and trading trends with controlled risk.

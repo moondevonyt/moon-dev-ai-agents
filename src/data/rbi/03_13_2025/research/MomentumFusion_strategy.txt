@@ -1,0 +1,37 @@
+STRATEGY_NAME: MomentumFusion
+
+STRATEGY_DETAILS:
+The MomentumFusion strategy is a sophisticated momentum-driven trend-following approach that combines the Average True Range (ATR) with a proprietary 'momentum-score' derived from the product of RSI and Bollinger Bands. This strategy is designed to capitalize on strong trends while managing risk effectively through ATR-based position sizing.
+
+Key Strategy Components:
+1. **Momentum-Score Calculation**: The momentum-score is derived by multiplying the RSI (Relative Strength Index) value by the Bollinger Bands %B value. This unique combination helps identify overbought or oversold conditions with a higher degree of accuracy.
+2. **ATR for Risk Management**: The Average True Range (ATR) is used to determine the volatility of the asset, which in turn helps in setting stop-loss levels and position sizing.
+3. **RSI Divergence**: The strategy looks for bullish RSI divergence (price making lower lows while RSI makes higher lows) for long entries and bearish RSI divergence (price making higher highs while RSI making lower highs) for short entries.
+
+Entry Rules:
+1. **Long Entry**: 
+   - Identify bullish RSI divergence.
+   - Ensure the momentum-score is above a predefined threshold (e.g., 70).
+   - Enter a long position when the price breaks above the upper Bollinger Band.
+2. **Short Entry**: 
+   - Identify bearish RSI divergence.
+   - Ensure the momentum-score is below a predefined threshold (e.g., 30).
+   - Enter a short position when the price breaks below the lower Bollinger Band.
+
+Exit Rules:
+1. **Long Exit**: 
+   - Exit the long position when the price closes below the middle Bollinger Band or when the RSI crosses below a predefined level (e.g., 50).
+2. **Short Exit**: 
+   - Exit the short position when the price closes above the middle Bollinger Band or when the RSI crosses above a predefined level (e.g., 50).
+
+Risk Management:
+1. **Position Sizing**: Use the ATR to determine the position size. For example, risk a fixed percentage of the account (e.g., 1%) per trade, with the position size adjusted based on the ATR value.
+2. **Stop-Loss**: Set stop-loss levels based on the ATR. For long positions, set the stop-loss below the entry price by a multiple of the ATR (e.g., 2x ATR). For short positions, set the stop-loss above the entry price by a multiple of the ATR (e.g., 2x ATR).
+3. **Take-Profit**: Consider using a trailing stop based on the ATR or a fixed risk-reward ratio (e.g., 2:1).
+
+Required Indicators:
+1. **RSI (Relative Strength Index)**: Used to identify divergence and overbought/oversold conditions.
+2. **Bollinger Bands**: Used to identify volatility and potential breakout points.
+3. **ATR (Average True Range)**: Used for risk management and position sizing.
+
+This strategy is designed to be robust and adaptable, leveraging the strengths of both momentum and volatility indicators to capture trends while managing risk effectively.

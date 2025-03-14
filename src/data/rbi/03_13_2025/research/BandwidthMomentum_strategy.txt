@@ -1,0 +1,52 @@
+STRATEGY_NAME: BandwidthMomentum
+
+STRATEGY_DETAILS:
+The BandwidthMomentum strategy is a momentum-based approach that capitalizes on periods of low volatility followed by potential breakouts. It uses Bollinger Bands and RSI to identify entry and exit points, focusing on the relationship between volatility contraction and momentum expansion.
+
+### Key Strategy Components:
+1. **Bollinger Bands (50-period)**: Used to measure volatility and identify periods of contraction (squeeze).
+2. **RSI (20-period)**: Used to gauge momentum and overbought conditions.
+3. **Bollinger Band Width**: Calculated as (Upper Band - Lower Band) / Middle Band, indicating volatility levels.
+4. **RSI-to-Upper Band Ratio**: A unique metric comparing RSI values to the Bollinger Band upper band.
+
+---
+
+### Entry Rules:
+1. **Volatility Contraction**: Wait for the 50-period Bollinger Band width to contract significantly, indicating a period of low volatility (squeeze).
+2. **Long Entry**: Enter a long position when the Bollinger Band width begins to expand after the contraction, signaling a potential breakout.
+
+---
+
+### Exit Rules:
+1. **Momentum Threshold**: Monitor the ratio of the 20-period RSI to the Bollinger Band upper band.
+2. **Exit Condition**: Close the long position when the RSI-to-Upper Band ratio exceeds 1.5, indicating overbought conditions or excessive momentum.
+
+---
+
+### Risk Management:
+1. **Stop Loss**: Place a stop loss below the lower Bollinger Band or at a predefined percentage (e.g., 2-3%) below the entry price.
+2. **Position Sizing**: Use a fixed percentage of capital per trade (e.g., 1-2%) to manage risk.
+3. **Trailing Stop**: Consider using a trailing stop to lock in profits as the price moves in your favor.
+
+---
+
+### Required Indicators:
+1. **Bollinger Bands (50-period)**:
+   - Middle Band: 50-period SMA
+   - Upper Band: Middle Band + (2 * Standard Deviation)
+   - Lower Band: Middle Band - (2 * Standard Deviation)
+2. **RSI (20-period)**:
+   - Standard RSI calculation with a 20-period lookback.
+3. **Bollinger Band Width**:
+   - Calculated as (Upper Band - Lower Band) / Middle Band.
+4. **RSI-to-Upper Band Ratio**:
+   - Calculated as RSI / Upper Band.
+
+---
+
+### Additional Notes:
+- This strategy works best in trending markets or during periods of high volatility expansion.
+- Backtest the strategy on multiple timeframes (e.g., 1H, 4H, Daily) to identify optimal settings.
+- Combine with volume analysis or other confirmation indicators to reduce false signals during low-volume periods.
+
+By focusing on the interplay between volatility contraction and momentum expansion, the BandwidthMomentum strategy provides a systematic approach to capturing breakout opportunities while managing risk effectively.

@@ -1,0 +1,38 @@
+STRATEGY_NAME: BearishBreakout
+
+STRATEGY_DETAILS:
+The BearishBreakout strategy focuses on identifying and trading high-probability breakout opportunities within bearish engulfing patterns. This strategy combines candlestick pattern recognition with breakout trading techniques to capitalize on potential downward price movements.
+
+Key Strategy Components:
+1. Bearish Engulfing Pattern: A two-candle pattern where the second candle completely engulfs the body of the previous bullish candle, indicating potential reversal.
+2. Breakout Confirmation: Price action breaking below the low of the engulfing pattern.
+3. Volume Analysis: Increased volume during the breakout for confirmation.
+4. Trend Context: The pattern should occur in an overall downtrend or after a significant upward retracement.
+
+Entry Rules:
+1. Wait for a bearish engulfing pattern to form.
+2. Enter a short position when price breaks below the low of the engulfing pattern.
+3. Confirm the breakout with increased volume.
+
+Exit Rules:
+1. Set a stop-loss above the high of the engulfing pattern.
+2. Take profit at a 1:2 risk-reward ratio or when price reaches significant support levels.
+3. Exit if price closes back above the engulfing pattern low.
+
+Risk Management:
+1. Risk no more than 1-2% of account capital per trade.
+2. Use proper position sizing based on stop-loss distance.
+3. Avoid trading during major news events or low liquidity periods.
+
+Required Indicators:
+1. Candlestick chart for pattern recognition
+2. Volume indicator for breakout confirmation
+3. Moving averages (optional) for trend context
+
+Additional Considerations:
+- Look for bearish engulfing patterns near key resistance levels for higher probability setups.
+- Combine with other technical indicators like RSI or MACD for additional confirmation.
+- Avoid trading this pattern in strong uptrends without clear reversal signals.
+- Consider the overall market context and sector performance.
+
+This strategy works best in trending markets and can be applied to various timeframes, though higher timeframes (4-hour and above) tend to provide more reliable signals. Always backtest and paper trade before applying this strategy to live markets.

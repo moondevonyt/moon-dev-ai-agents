@@ -1,0 +1,33 @@
+STRATEGY_NAME: VoltaicBreakout
+
+STRATEGY_DETAILS:
+The VoltaicBreakout strategy is designed to capitalize on high-probability breakout opportunities during periods of consolidation by combining volatility analysis, moving averages, and RSI divergence. This strategy is particularly effective in identifying potential breakouts when the market is range-bound, offering clear entry and exit points with robust risk management.
+
+### Key Strategy Components:
+1. **Volatility Analysis**: Use Bollinger Bands or Average True Range (ATR) to measure market volatility. Narrowing Bollinger Bands or low ATR values indicate consolidation, signaling potential breakout opportunities.
+2. **Moving Averages**: Utilize a combination of short-term (e.g., 20-period) and long-term (e.g., 50-period) moving averages to confirm the trend direction and filter out false signals.
+3. **RSI Divergence**: Identify bullish or bearish divergences using the Relative Strength Index (RSI) to confirm momentum shifts before a breakout occurs.
+
+### Entry Rules:
+1. **Consolidation Identification**: Wait for Bollinger Bands to narrow significantly or for ATR to drop below a predefined threshold, indicating low volatility and consolidation.
+2. **Moving Average Alignment**: Ensure the short-term moving average is above the long-term moving average for a bullish breakout (or below for a bearish breakout).
+3. **RSI Divergence Confirmation**: Look for bullish divergence (price making lower lows while RSI makes higher lows) for a long entry or bearish divergence (price making higher highs while RSI making lower highs) for a short entry.
+4. **Breakout Trigger**: Enter a trade when the price breaks above the upper Bollinger Band (for a long) or below the lower Bollinger Band (for a short) with increased volume.
+
+### Exit Rules:
+1. **Take Profit**: Set a take-profit level at a multiple of the ATR (e.g., 2x ATR) from the entry point to capture the breakout move.
+2. **Stop Loss**: Place a stop loss just below the breakout level (for a long) or above the breakout level (for a short) to minimize losses if the breakout fails.
+3. **Trailing Stop**: Use a trailing stop based on the ATR or a percentage of the price movement to lock in profits as the trend continues.
+
+### Risk Management:
+1. **Position Sizing**: Limit risk per trade to 1-2% of the total account balance.
+2. **Volatility Filter**: Avoid trading during periods of extremely high volatility, as breakouts may be less reliable.
+3. **Confirmation**: Only take trades that meet all criteria (volatility, moving averages, and RSI divergence) to ensure high-probability setups.
+
+### Required Indicators:
+1. **Bollinger Bands** (20-period, 2 standard deviations) or **ATR** (14-period) for volatility analysis.
+2. **Moving Averages** (20-period and 50-period) for trend confirmation.
+3. **RSI** (14-period) for divergence identification.
+4. **Volume Indicator** to confirm breakout strength.
+
+The VoltaicBreakout strategy is a systematic approach to trading breakouts during consolidation, combining technical indicators to filter out noise and focus on high-probability setups. By adhering to the rules and risk management principles, traders can effectively capitalize on these opportunities while minimizing risk.

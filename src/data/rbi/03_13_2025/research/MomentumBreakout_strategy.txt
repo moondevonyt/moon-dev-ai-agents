@@ -1,0 +1,36 @@
+STRATEGY_NAME: MomentumBreakout
+
+STRATEGY_DETAILS:
+The MomentumBreakout strategy is a momentum-based trading approach that focuses on identifying oversold conditions and breakout opportunities. It combines the Relative Strength Index (RSI) for momentum analysis, a moving average for trend confirmation, and the Average True Range (ATR) for dynamic stop-loss placement.
+
+### Key Strategy Components:
+1. **50-period RSI**: Used to identify oversold conditions (below 30) as a potential entry signal.
+2. **20-period Moving Average (MA)**: Acts as a trailing exit level to capture profits during pullbacks.
+3. **20% ATR Stop-Loss**: Provides a dynamic stop-loss level based on market volatility.
+
+### Entry Rules:
+- Enter a **long position** when:
+  1. The 50-period RSI crosses below 30, indicating an oversold condition.
+  2. The price breaks above a recent resistance level or shows strong upward momentum.
+
+### Exit Rules:
+- Exit the position when:
+  1. The price pulls back to the 20-period moving average level, signaling a potential trend reversal or consolidation.
+  2. The stop-loss level (20% ATR above the entry point) is hit, protecting against excessive losses.
+
+### Risk Management:
+- **Stop-Loss Placement**: Set the stop-loss at 20% of the 14-period ATR above the entry price. This ensures the stop-loss adapts to market volatility.
+- **Position Sizing**: Use a fixed percentage of the account balance (e.g., 1-2%) per trade to manage risk.
+- **No Overtrading**: Only take trades when the RSI condition and breakout criteria are met.
+
+### Required Indicators:
+1. **50-period RSI**: To identify oversold conditions.
+2. **20-period Moving Average**: For exit signals.
+3. **14-period ATR**: For dynamic stop-loss placement.
+
+### Additional Notes:
+- This strategy works best in trending markets with clear momentum shifts.
+- Avoid using it in highly volatile or choppy markets, as false breakouts may occur.
+- Backtest the strategy on historical data to optimize parameters (e.g., RSI period, ATR multiplier) for specific instruments and timeframes.
+
+By combining momentum analysis with breakout signals and dynamic risk management, the MomentumBreakout strategy aims to capture strong upward moves while minimizing losses during pullbacks.

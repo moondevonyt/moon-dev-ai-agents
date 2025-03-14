@@ -1,0 +1,52 @@
+STRATEGY_NAME: FractalVolatility
+
+STRATEGY_DETAILS:
+The FractalVolatility strategy combines fractal analysis with Bollinger Bands and ATR-based volatility measurements to identify high-probability trading opportunities. The strategy focuses on divergence patterns between price action and fractal indicators, while using Bollinger Bands as a confirmation tool. Exits are determined by ATR multiples during periods of increased volatility, ensuring risk is managed effectively.
+
+### Key Strategy Components:
+1. **Fractal Indicator**: Identifies potential reversal points in price action.
+2. **Bollinger Bands**: Used to confirm the strength of the divergence and identify overbought/oversold conditions.
+3. **ATR (Average True Range)**: Measures volatility to determine exit points and position sizing.
+4. **Price Action Alignment**: Ensures trades are taken in the direction of the prevailing trend.
+
+### Entry Rules:
+1. **Divergence Identification**:
+   - Look for bullish divergence when price makes a lower low, but the fractal indicator makes a higher low.
+   - Look for bearish divergence when price makes a higher high, but the fractal indicator makes a lower high.
+2. **Bollinger Bands Confirmation**:
+   - For bullish divergence, ensure price is near the lower Bollinger Band.
+   - For bearish divergence, ensure price is near the upper Bollinger Band.
+3. **Price Action Alignment**:
+   - Enter a long trade if the divergence is bullish and price breaks above a recent swing high.
+   - Enter a short trade if the divergence is bearish and price breaks below a recent swing low.
+
+### Exit Rules:
+1. **ATR-Based Exits**:
+   - Calculate the ATR value over a 14-period lookback.
+   - Set the initial stop-loss at 1.5x ATR from the entry price.
+   - For take-profit, use 2x ATR from the entry price.
+2. **Volatility Adjustment**:
+   - If volatility increases (ATR rises by more than 20% during the trade), tighten the stop-loss to 1x ATR.
+   - If volatility decreases (ATR drops by more than 20% during the trade), consider exiting early to lock in profits.
+
+### Risk Management:
+1. **Position Sizing**:
+   - Risk no more than 1-2% of the trading account on any single trade.
+   - Use ATR to adjust position size based on current volatility.
+2. **Stop-Loss Placement**:
+   - Always use the ATR-based stop-loss to limit downside risk.
+3. **Trade Filtering**:
+   - Only take trades when the divergence is clear and confirmed by Bollinger Bands.
+   - Avoid trading during low-volume periods or when ATR is below its 20-period average.
+
+### Required Indicators:
+1. **Fractal Indicator**: To identify potential reversals and divergence patterns.
+2. **Bollinger Bands (20,2)**: To confirm overbought/oversold conditions and divergence strength.
+3. **ATR (14)**: To measure volatility and determine stop-loss/take-profit levels.
+
+### Additional Notes:
+- This strategy works best on higher timeframes (e.g., 1-hour, 4-hour, or daily charts) to reduce noise and false signals.
+- Combine with fundamental analysis or news events to avoid trading during high-impact news releases.
+- Regularly backtest and optimize the ATR multiples and Bollinger Band settings to suit the specific asset being traded.
+
+By following the FractalVolatility strategy, traders can capitalize on divergence patterns while effectively managing risk through volatility-based exits.

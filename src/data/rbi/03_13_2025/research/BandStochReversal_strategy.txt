@@ -1,0 +1,87 @@
+STRATEGY_NAME: BandStoch Reversal
+
+STRATEGY_DETAILS:
+The BandStoch Reversal strategy combines Bollinger Bands and the Stochastic Oscillator to identify potential market reversals. This approach leverages the volatility-based Bollinger Bands to detect overbought/oversold conditions and the Stochastic Oscillator to confirm momentum shifts. Here's a detailed breakdown of the strategy:
+
+---
+
+### **Key Strategy Components**
+1. **Bollinger Bands (BB):**
+   - Upper Band: 20-period SMA + (2 * Standard Deviation)
+   - Middle Band: 20-period SMA
+   - Lower Band: 20-period SMA - (2 * Standard Deviation)
+   - Bollinger Bands help identify overbought (price near upper band) and oversold (price near lower band) conditions.
+
+2. **Stochastic Oscillator:**
+   - %K: 14-period Stochastic %K (fast line)
+   - %D: 3-period SMA of %K (slow line)
+   - Overbought: Above 80
+   - Oversold: Below 20
+   - The Stochastic Oscillator confirms momentum shifts and divergence patterns.
+
+---
+
+### **Entry Rules**
+1. **Long Entry:**
+   - Price touches or crosses below the lower Bollinger Band (oversold condition).
+   - Stochastic Oscillator is below 20 (oversold confirmation).
+   - Stochastic %K crosses above %D (momentum shift to the upside).
+   - Enter a long position when all three conditions are met.
+
+2. **Short Entry:**
+   - Price touches or crosses above the upper Bollinger Band (overbought condition).
+   - Stochastic Oscillator is above 80 (overbought confirmation).
+   - Stochastic %K crosses below %D (momentum shift to the downside).
+   - Enter a short position when all three conditions are met.
+
+---
+
+### **Exit Rules**
+1. **Long Exit:**
+   - Price touches or crosses the middle Bollinger Band (20-period SMA).
+   - Stochastic Oscillator crosses below 80 (momentum weakening).
+   - Exit the long position when either condition is met.
+
+2. **Short Exit:**
+   - Price touches or crosses the middle Bollinger Band (20-period SMA).
+   - Stochastic Oscillator crosses above 20 (momentum weakening).
+   - Exit the short position when either condition is met.
+
+---
+
+### **Risk Management**
+1. **Stop Loss:**
+   - Long Position: Place stop loss slightly below the lower Bollinger Band.
+   - Short Position: Place stop loss slightly above the upper Bollinger Band.
+   - Adjust stop loss levels based on volatility (e.g., 1.5x the band width).
+
+2. **Position Sizing:**
+   - Risk no more than 1-2% of your trading capital per trade.
+   - Use the distance between entry and stop loss to calculate position size.
+
+3. **Take Profit:**
+   - Set a take profit level at the opposite Bollinger Band (e.g., upper band for long trades, lower band for short trades).
+   - Alternatively, use a trailing stop based on the middle Bollinger Band.
+
+---
+
+### **Required Indicators**
+1. **Bollinger Bands:**
+   - Period: 20
+   - Standard Deviation: 2
+   - Applied to closing prices.
+
+2. **Stochastic Oscillator:**
+   - %K Period: 14
+   - %D Period: 3
+   - Smoothing: 3
+   - Levels: 20 (oversold) and 80 (overbought).
+
+---
+
+### **Additional Notes**
+- This strategy works best in ranging or mildly trending markets. Avoid using it during strong trending conditions, as Bollinger Bands can lead to false signals.
+- Combine with price action confirmation (e.g., candlestick patterns) for higher accuracy.
+- Backtest the strategy on multiple timeframes (e.g., 1H, 4H, Daily) to identify optimal settings for your trading style.
+
+By combining Bollinger Bands and the Stochastic Oscillator, the BandStoch Reversal strategy provides a robust framework for identifying potential reversals with clear entry and exit rules.

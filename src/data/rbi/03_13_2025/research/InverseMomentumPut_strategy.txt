@@ -1,0 +1,39 @@
+STRATEGY_NAME: InverseMomentumPut
+
+STRATEGY_DETAILS:
+The InverseMomentumPut strategy is a unique options trading approach that combines inverse ETFs, moving average crossovers, and momentum indicators to identify potential selling opportunities for put options. This strategy is designed to capitalize on bearish momentum reversals in inverse ETFs, which are typically used to profit from declining markets.
+
+Key Strategy Components:
+1. Inverse ETF Selection: Choose an inverse ETF that corresponds to a specific market index or sector (e.g., SQQQ for Nasdaq-100, SPXU for S&P 500).
+2. 3-Day Moving Average Crossover: Use a short-term moving average crossover system to identify momentum shifts.
+3. Momentum Indicator: Incorporate a momentum oscillator (e.g., RSI, Stochastic) to confirm the strength of the trend.
+
+Entry Rules:
+1. Wait for a bearish crossover on the 3-day moving average (shorter MA crosses below longer MA) on the inverse ETF.
+2. Confirm the momentum indicator shows overbought conditions (e.g., RSI above 70).
+3. Sell out-of-the-money (OTM) put options on the inverse ETF with an expiration date that aligns with your trading horizon.
+
+Exit Rules:
+1. Close the position when the inverse ETF price moves below your sold put strike price.
+2. Exit if the 3-day moving average crossover reverses to bullish (shorter MA crosses above longer MA).
+3. Close the position if the momentum indicator shows oversold conditions (e.g., RSI below 30).
+
+Risk Management:
+1. Position sizing: Limit the total capital allocated to any single trade to a small percentage of your portfolio (e.g., 1-2%).
+2. Stop-loss: Set a maximum loss threshold based on the premium received and your risk tolerance.
+3. Diversification: Avoid concentrating all positions in a single inverse ETF or sector.
+
+Required Indicators:
+1. 3-day Simple Moving Average (SMA)
+2. Longer-term SMA (e.g., 9-day) for crossover signals
+3. Momentum oscillator (e.g., 14-period RSI)
+4. Inverse ETF price chart
+5. Options chain for the selected inverse ETF
+
+Additional Considerations:
+- Monitor implied volatility levels when selecting strike prices and expiration dates.
+- Be aware of the leveraged nature of inverse ETFs and their potential for amplified losses.
+- Consider the impact of time decay on the sold put options as expiration approaches.
+- Stay informed about macroeconomic events that could affect the underlying index or sector.
+
+This strategy requires careful monitoring and a solid understanding of both options trading and inverse ETFs. It's particularly suited for traders who are comfortable with the risks associated with selling options and trading leveraged instruments.

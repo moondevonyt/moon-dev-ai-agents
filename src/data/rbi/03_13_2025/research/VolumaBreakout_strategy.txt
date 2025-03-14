@@ -1,0 +1,47 @@
+STRATEGY_NAME: VolumaBreakout
+
+STRATEGY_DETAILS:
+The VolumaBreakout strategy is a trend-following approach that combines moving average crossovers, volume analysis, and volatility breakouts to identify bearish trends with potential for significant price movements. The strategy focuses on bearish territory and uses Bollinger Bands for exit signals, making it a unique blend of trend confirmation and volatility-based risk management.
+
+### Key Strategy Components:
+1. **50-day and 200-day Moving Averages (MA):**
+   - The 50-day MA crossing below the 200-day MA (Death Cross) signals a bearish trend.
+   - This crossover must occur in bearish territory, indicating a confirmed downtrend.
+
+2. **Volume Analysis:**
+   - Lower-than-average volume during the crossover suggests a lack of strong buying pressure, reinforcing the bearish sentiment.
+   - Volume is used as a confirmation tool to validate the trend.
+
+3. **Price Divergence:**
+   - Expect price action to diverge from the moving averages, indicating potential for a breakout.
+   - Divergence is a key signal that the trend may accelerate.
+
+4. **Volatility Breakout:**
+   - The strategy anticipates a breakout into a new volatility regime, which often accompanies significant price moves.
+   - This breakout is the primary entry signal.
+
+5. **Bollinger Bands:**
+   - Used for exit signals. When the price touches or crosses the upper Bollinger Band, it indicates a potential reversal or overbought condition, signaling an exit.
+
+### Entry Rules:
+1. Wait for the 50-day MA to cross below the 200-day MA in bearish territory.
+2. Confirm lower-than-average volume during the crossover.
+3. Observe price divergence from the moving averages.
+4. Enter the trade when price breaks below a key support level or shows a clear volatility breakout.
+
+### Exit Rules:
+1. Exit the trade when the price touches or crosses the upper Bollinger Band.
+2. Alternatively, exit if the price shows signs of reversing and closing above the 50-day MA.
+
+### Risk Management:
+1. Set a stop-loss above the recent swing high or above the 50-day MA to limit downside risk.
+2. Use position sizing to ensure no single trade risks more than 1-2% of the total capital.
+3. Monitor volume and price action closely to avoid false breakouts.
+
+### Required Indicators:
+1. **50-day Moving Average (MA):** To identify short-term trends.
+2. **200-day Moving Average (MA):** To identify long-term trends.
+3. **Volume Indicator:** To confirm lower-than-average volume during the crossover.
+4. **Bollinger Bands (20-period, 2 standard deviations):** For exit signals and volatility analysis.
+
+This strategy is ideal for traders looking to capitalize on bearish trends with a focus on volatility and volume confirmation. The combination of moving averages, volume, and Bollinger Bands provides a robust framework for identifying high-probability setups while managing risk effectively.

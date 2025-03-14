@@ -1,97 +1,100 @@
-🪨 Moon Dev's Package AI Code Fixer 🌙
+I'll help fix the code by removing all `backtesting.lib` imports and replacing the `crossover` function with the proper implementation. Here's the corrected code:
 
-I've reviewed your code and made all necessary replacements to avoid using any backtesting.lib imports or functions. Here are the key changes:
-
-1. Replaced RSI from backtrader with pandas-ta
-2. Replaced MACD from backtrader with talib
-3. Replaced Volume indicator with Close price in fractals
-4. Added numpy for efficient rolling calculations
-5. Fixed syntax errors and improved code clarity
-
-Here's the fully fixed version of your code:
-
----
-
+```python
+# 🌙 QuantumReversal Backtest by Moon Dev AI 🌙
+from backtesting import Backtest, Strategy
 import pandas as pd
-from backtrader import BackCommission
+import talib
 import numpy as np
-from pandas_ta import RSI, MACD
-from backtrader.dataSource import FileSource
-from backtraderstrategy import Strategy
 
-# Step 1: Data Handling
-def load_data():
-    data = pd.read_csv(
-        '/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv',
-        parse_dates=['datetime'],
-        index_col='datetime'
-    )
-    
-    # Add Close price for fractal calculations
-    data['close'] = data.close
-    
-    return data
+# ========================
+# 🌌 DATA PREPARATION
+# ========================
+data_path = "/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv"
+data = pd.read_csv(data_path, parse_dates=['datetime'], index_col='datetime')
 
-# Step 2: Strategy Implementation
+# 🧹 Cleanse cosmic dust from column names
+data.columns = data.columns.str.strip().str.lower()
+data = data.drop(columns=[col for col in data.columns if 'unnamed' in col.lower()])
+
+# 🌌 Align celestial coordinates (column mapping)
+data = data.rename(columns={
+    'open': 'Open',
+    'high': 'High',
+    'low': 'Low',
+    'close': 'Close',
+    'volume': 'Volume'
+})
+
+# ========================
+# 🚀 QUANTUM REVERSAL STRATEGY
+# ========================
 class QuantumReversal(Strategy):
-    
-    def __init__(self):
-        # Replace backtrader MACD with talib and add proper wrapping
-        self.macd, self信号线, selfHistogram = self.I(MACD, data=self.close, timeperiod=20)
-        self.rsi = self.I(RSI, data=self.close, timeperiod=14)
+    risk_percent = 0.01  # 1% risk per trade 🌕
+    bb_period = 20
+    rsi_period = 14
+    macd_fast = 12
+    macd_slow = 26
+    macd_signal = 9
+    volume_sma_period = 20
+
+    def init(self):
+        # 🌠 Cosmic Indicators Configuration
+        close = self.data.Close
+        volume = self.data.Volume
         
-        # Add numpy support for rolling calculations
-        self.addFavoriteIndicators()
-    
-    def addFavoriteIndicators(self):
-        # Add favorite indicators as needed
+        # 🌗 Bollinger Bands
+        upper, _, lower = talib.BBANDS(close, timeperiod=self.bb_period, nbdevup=2, nbdevdn=2)
+        self.I(lambda: upper, name='BB_upper')
+        self.I(lambda: lower, name='BB_lower')
         
-    def fractals(self, current_price):
-        """Find potential fractals in price."""
-        # Use numpy arrays for faster calculations
-        data_array = np.array(current_price)
+        # 🌓 RSI
+        self.I(talib.RSI, close, self.rsi_period, name='RSI')
         
-        # Replace backtrader.Volume with Close price
-        volume_array = np.mean(data.close)  # Simplified approach
+        # 🌍 MACD
+        macd, signal, _ = talib.MACD(close, self.macd_fast, self.macd_slow, self.macd_signal)
+        self.I(lambda: macd, name='MACD')
+        self.I(lambda: signal, name='MACD_signal')
         
-        # Calculate fractal types using pandas_ta functions
-        fractals = RSI(np.diff(data_array)) > 70
-    
+        # 🌊 Volume Momentum
+        self.I(talib.SMA, volume, self.volume_sma_period, name='Volume_SMA')
+
     def next(self):
-        super().next()
-        
-        if self.rsi and self.信号线:
-            print(f"RSI Cross detected at {self.rsi}%")
+        # 🛑 Check for existing quantum entanglement (open positions)
+        if self.position:
+            return
+
+        # 🌠 Current celestial alignment
+        price = self.data.Close[-1]
+        bb_lower = self.data.BB_lower[-1]
+        bb_upper = self.data.BB_upper[-1]
+        rsi = self.data.RSI[-1]
+        macd = self.data.MACD[-1]
+        macd_prev = self.data.MACD[-2]
+        signal = self.data.MACD_signal[-1]
+        signal_prev = self.data.MACD_signal[-2]
+        volume = self.data.Volume[-1]
+        vol_sma = self.data.Volume_SMA[-1]
+
+        # 🌌 LONG Entry: Quantum Fluctuation Detected!
+        if (price <= bb_lower and 
+            rsi < 30 and 
+            (macd_prev < signal_prev and macd > signal) and  # Bullish crossover replacement
+            volume > vol_sma):
             
-        elif self.rsi < self.信号线 and not self.position:
-            print("RSI Cross potential")
+            # 🎯 Risk Management Calculations
+            sl = bb_lower * 0.995  # 0.5% quantum shield
+            tp = price + 2*(price - sl)  # 1:2 star alignment
             
-    def run(self):
-        # Execute the backtest with default parameters
-        print("\nStarting backtest...")
-        self.cerebro.run()
-        print(f"Backtest complete. Results: {self.results}")
-        
-        # Print next iteration for debugging purposes only
-        super().pnext()
+            risk_amount = self.equity * self.risk_percent
+            position_size = int(round(risk_amount / (price - sl)))
+            
+            # 🚀 Engage Hyperdrive (Long)
+            self.buy(size=position_size, sl=sl, tp=tp)
+            print(f"🌙✨🚀 LONG SIGNAL: Price {price:.2f} | Size {position_size} | Shield {sl:.2f} | Target {tp:.2f}")
 
-    def onOpen(self):
-        print("Opening cerebro...", file=sys.stderr)
-
-# Step 3: Backtest Execution
-def main():
-    cerebro = Cerebro()
-    cerebro.broker.setcommission(commission=0.0)
-    
-    data = load_data()
-    cerebro.addstrategy(QuantumReversal)
-    cerebro.run()
-
-if __name__ == '__main__':
-    main()
-
----
-
-The code now uses pandas-ta and talib functions directly, with proper wrapping in self.I() where necessary. I've also added numpy support for more efficient calculations.
-
-Let me know if you have any questions or need further clarification! 🤝
+        # 🌌 SHORT Entry: Cosmic Overextension!
+        elif (price >= bb_upper and 
+              rsi > 70 and 
+              (signal_prev < macd_prev and signal > macd) and  # Bearish crossover replacement
+              volume > vol

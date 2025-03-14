@@ -1,0 +1,32 @@
+STRATEGY_NAME: ContrarianEarnings
+
+STRATEGY_DETAILS:
+The ContrarianEarnings strategy is designed to capitalize on the momentum reversal of stocks that have underperformed following their earnings release. This strategy is based on the premise that stocks often overreact to earnings news, creating opportunities for contrarian investors to profit from subsequent price corrections.
+
+Key Strategy Components:
+1. Earnings Release Focus: The strategy specifically targets stocks that have recently released earnings, as these events often lead to significant price movements.
+2. Contrarian Approach: Instead of following the crowd, the strategy looks for stocks that have underperformed post-earnings, anticipating a potential reversal.
+3. Momentum Reversal: The strategy aims to capture the momentum shift that occurs when the initial overreaction to earnings subsides.
+
+Entry Rules:
+1. Identify stocks that have released earnings within the last three days.
+2. Select stocks that have underperformed (i.e., experienced a price drop) following the earnings release.
+3. Wait for three full trading days after the earnings release to allow the initial market reaction to stabilize.
+4. Enter a long position in the stock on the fourth trading day after the earnings release.
+
+Exit Rules:
+1. Set a stop-loss order at a 2% price drop from the entry point to manage risk.
+2. Monitor the stock for signs of momentum reversal and consider exiting the position if the stock shows significant upward movement, indicating that the anticipated reversal has occurred.
+3. Alternatively, set a profit target based on historical performance of similar contrarian trades, or exit after a predetermined holding period (e.g., 10 trading days).
+
+Risk Management:
+1. Position Sizing: Allocate a fixed percentage of the portfolio to each trade to ensure that no single trade can significantly impact the overall portfolio.
+2. Stop-Loss Orders: Use a 2% stop-loss threshold to limit potential losses on each trade.
+3. Diversification: Spread investments across multiple stocks and sectors to reduce exposure to any single stock or sector.
+
+Required Indicators:
+1. Earnings Calendar: To identify stocks that have recently released earnings.
+2. Price Data: To track the performance of stocks post-earnings and identify underperformed stocks.
+3. Technical Indicators: Optional, but can be used to confirm momentum reversal signals (e.g., RSI, MACD).
+
+By following the ContrarianEarnings strategy, traders can systematically identify and capitalize on the momentum reversal opportunities that arise from the overreaction to earnings news, while effectively managing risk through disciplined position sizing and stop-loss orders.

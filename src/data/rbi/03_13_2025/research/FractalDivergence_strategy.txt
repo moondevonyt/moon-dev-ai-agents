@@ -1,0 +1,37 @@
+STRATEGY_NAME: FractalDivergence
+
+STRATEGY_DETAILS:
+FractalDivergence is a self-similar pattern recognition strategy that utilizes fractal analysis to identify price patterns and divergent movements from Fibonacci retracement levels.
+
+Key Strategy Components:
+
+1. **Fractal Analysis**: The strategy uses fractal geometry to identify self-similar patterns in the price data, allowing for the identification of potential trading opportunities.
+2. **Fibonacci Retracement Levels**: The strategy enters trades when there is a divergence between the price action and Fibonacci retracement levels, indicating a potential reversal or continuation of the trend.
+3. **Divergence Indicators**: The strategy uses divergent indicators to identify the points of divergence between the price action and Fibonacci retracement levels.
+
+Entry/Exit Rules:
+
+1. **Long Entry**: Enter a long position when:
+	* A divergence occurs between the price action and Fibonacci retracement level (e.g., bearish divergence on a downward trend).
+	* The fractal analysis indicates a potential reversal point.
+2. **Short Entry**: Enter a short position when:
+	* A divergence occurs between the price action and Fibonacci retracement level (e.g., bullish divergence on an upward trend).
+	* The fractal analysis indicates a potential reversal point.
+3. **Exit Rules**:
+	* Close all positions when:
+		+ The price action reverts to the original trend line.
+		+ The fractal analysis indicates a return to normal pattern behavior.
+
+Risk Management:
+
+1. **Position Sizing**: Use a fixed percentage of your account balance for each trade (e.g., 2%).
+2. **Stop-Loss**: Set a stop-loss at a predetermined distance from the entry price (e.g., 10% below entry price).
+3. **Take-Profit**: Set a take-profit target at a predetermined price level above or below the entry price (e.g., 15% above entry price).
+
+Required Indicators:
+
+1. **Fibonacci Retracement Indicator**: A custom indicator that displays Fibonacci retracement levels on the chart.
+2. **Fractal Analysis Tool**: A custom tool that analyzes the fractal geometry of the price data to identify self-similar patterns.
+3. **Divergence Indicator**: A custom indicator that identifies divergent movements between the price action and Fibonacci retracement levels.
+
+By combining fractal analysis with divergence indicators, FractalDivergence aims to identify potential trading opportunities based on self-similar price patterns and divergent movements from Fibonacci retracement levels.

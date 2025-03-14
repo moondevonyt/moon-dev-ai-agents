@@ -1,0 +1,31 @@
+STRATEGY_NAME: AngleConfirm
+
+STRATEGY_DETAILS:
+AngleConfirm is a technical analysis-based trading strategy that utilizes the principles of William D. Gann's angular analysis, combined with the simplicity and effectiveness of a 5-period Simple Moving Average (SMA) to confirm trend direction during intraday trading.
+
+**Key Strategy Components:**
+
+1. **Gann Angle Analysis**: The strategy employs Gann's angular analysis to identify potential price movements based on the intersection of two lines representing the angle between two time periods.
+2. **5-Period SMA Confirmation**: A 5-period Simple Moving Average is used to confirm trend direction, providing a clear indication of the market's momentum.
+
+**Entry/Exit Rules:**
+
+1. **Long Entry**: When the short-term Gann angle line (dashed line) intersects above the long-term Gann angle line (solid line), and the 5-period SMA is trending upwards, enter a long position.
+2. **Short Entry**: Conversely, when the short-term Gann angle line intersects below the long-term Gann angle line, and the 5-period SMA is trending downwards, enter a short position.
+3. **Profit Targets**: Set profit targets at the intersection points of the two Gann angle lines, as these areas are believed to be significant price levels based on Gann's theory.
+
+**Risk Management:**
+
+1. **Position Sizing**: Set a fixed risk-reward ratio (e.g., 2:1) for each trade, allocating a small portion of the account balance to each position.
+2. **Stop-Loss Orders**: Place stop-loss orders at 5-10 pips below the entry price for long positions and above the entry price for short positions.
+
+**Required Indicators:**
+
+1. **Gann Angle Lines**: Create two lines using Gann's angular analysis, with one line representing the short-term trend (dashed) and the other line representing the long-term trend (solid).
+2. **5-Period SMA**: Use a 5-period Simple Moving Average to confirm trend direction.
+
+**Additional Considerations:**
+
+1. **Intraday Trading**: This strategy is designed for intraday trading, focusing on short-term price movements.
+2. **Market Conditions**: AngleConfirm may perform better in markets with strong trends and fewer news events that impact market sentiment.
+3. **Gann's Theory**: While Gann's angular analysis provides a unique perspective, it is essential to understand the underlying principles and limitations of this approach.

@@ -1,0 +1,33 @@
+STRATEGY_NAME: BandReversalEdge
+
+STRATEGY_DETAILS:
+The BandReversalEdge strategy is a mean-reversion approach that capitalizes on extreme price movements relative to Bollinger Bands, combined with precise risk management using ATR-based stop-loss levels. The strategy identifies potential reversal opportunities when price is oversold relative to the Bollinger Bands and sets clear exit conditions to lock in profits or minimize losses.
+
+### Key Strategy Components:
+1. **Bollinger Bands (20,2)**: Used to identify overextended price levels. The 50-period Bollinger Bands provide a broader context for price action.
+2. **ATR (Average True Range)**: Used for dynamic stop-loss placement to account for market volatility.
+3. **Time Constraint**: The strategy focuses on a 3-bar window for potential reversals, ensuring trades are short-term and momentum-driven.
+
+### Entry Rules:
+- **Condition 1**: The 50-period Bollinger Bands (20,2) must be above the current price, indicating a bearish trend or oversold conditions.
+- **Condition 2**: Price must be below the lower Bollinger Band, signaling an extreme deviation from the mean.
+- **Entry Action**: Enter a long position when both conditions are met, anticipating a reversal back toward the mean.
+
+### Exit Rules:
+- **Profit Target**: Exit the trade if price touches or crosses above the upper Bollinger Band within the next 3 bars.
+- **Time-Based Exit**: If the price does not reach the upper band within 3 bars, exit the trade regardless of profit or loss.
+- **Stop-Loss**: Place a stop-loss at a distance of 0.5 ATR below the entry price to manage risk effectively.
+
+### Risk Management:
+- **Stop-Loss**: The stop-loss is dynamically calculated using 0.5 ATR, ensuring it adapts to current market volatility.
+- **Position Sizing**: Use a fixed percentage of capital per trade (e.g., 1-2%) to ensure consistent risk exposure.
+- **Time Constraint**: The 3-bar window limits exposure to prolonged unfavorable price movements.
+
+### Required Indicators:
+1. **Bollinger Bands (20,2)**: Set to a 50-period timeframe for broader context.
+2. **ATR (14-period)**: Used to calculate the stop-loss distance.
+
+### Additional Notes:
+- This strategy works best in ranging or mildly trending markets where mean-reversion tendencies are strong.
+- Avoid using this strategy during strong trending markets, as price may continue to move against the mean for extended periods.
+- Backtest the strategy on multiple timeframes and asset classes to ensure robustness before live trading.

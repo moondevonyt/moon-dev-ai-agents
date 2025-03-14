@@ -1,0 +1,44 @@
+STRATEGY_NAME: OvernightErod
+
+STRATEGY_DETAILS:
+The OvernightErod strategy is a specialized approach designed to capitalize on overnight price movements while incorporating sector rotation analysis. Here's a detailed breakdown of the strategy:
+
+1. Key Strategy Components:
+- Focuses on 60-minute highs during the overnight session (typically 6 PM to 6 AM EST)
+- Utilizes the EROD (Earnings Relative to Outstanding Debt) ratio for sector rotation analysis
+- Incorporates ATR (Average True Range) for dynamic stop-loss placement
+- Targets specific sectors showing strength based on fundamental metrics
+
+2. Entry Rules:
+- Identify 60-minute highs during the overnight session
+- Confirm sector strength using EROD ratio (higher ratio indicates stronger sector)
+- Enter long positions when:
+  a) Price breaks above the 60-minute high
+  b) The sector shows an EROD ratio above its 20-day moving average
+  c) Volume is at least 20% above the 10-day average
+
+3. Exit Rules:
+- Primary Exit: Take profit at 2:1 risk-reward ratio
+- Secondary Exit: Close position if price falls below the 60-minute low
+- Time-based Exit: Exit all positions before the market open (6 AM EST)
+
+4. Risk Management:
+- Set stop-loss at 5% below entry price
+- Use ATR to confirm stop-loss placement (minimum 1.5x ATR)
+- Position sizing based on 1% risk per trade
+- Maximum overnight exposure limited to 5% of total portfolio
+
+5. Required Indicators:
+- 60-minute high/low levels
+- EROD ratio (sector-specific)
+- 20-day moving average of EROD ratio
+- ATR (14-period)
+- Volume indicator (10-day average)
+
+6. Additional Considerations:
+- Monitor economic calendar for overnight news events
+- Adjust position sizing during high-impact news periods
+- Use sector ETFs for broader exposure when individual stocks show weak signals
+- Regularly update EROD ratio calculations to reflect latest earnings and debt data
+
+This strategy combines technical breakout patterns with fundamental sector analysis, making it particularly effective during periods of strong sector rotation. The overnight focus allows traders to capitalize on extended-hours movements while maintaining strict risk controls.

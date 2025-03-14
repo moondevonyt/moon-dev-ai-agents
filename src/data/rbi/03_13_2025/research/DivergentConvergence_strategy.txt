@@ -1,0 +1,72 @@
+STRATEGY_NAME: DivergentConvergence
+
+STRATEGY_DETAILS:
+The DivergentConvergence strategy combines Relative Strength Index (RSI) divergence with Stochastic Oscillator convergence to identify potential trend reversals. This approach leverages the synergy between momentum indicators and price action to generate high-probability trading signals.
+
+### Key Strategy Components:
+1. **Relative Strength Index (RSI):**
+   - Used to identify divergence between price action and momentum.
+   - Bullish divergence occurs when price makes a lower low, but RSI makes a higher low.
+   - Bearish divergence occurs when price makes a higher high, but RSI makes a lower high.
+
+2. **Stochastic Oscillator:**
+   - Used to confirm convergence, indicating a potential reversal.
+   - Bullish convergence occurs when the Stochastic %K line crosses above the %D line in oversold territory (below 20).
+   - Bearish convergence occurs when the Stochastic %K line crosses below the %D line in overbought territory (above 80).
+
+3. **Price Action:**
+   - The strategy relies on clear price patterns (higher highs, lower lows) to confirm divergence and convergence signals.
+
+---
+
+### Entry Rules:
+1. **Long Entry:**
+   - RSI shows bullish divergence (price makes a lower low, RSI makes a higher low).
+   - Stochastic Oscillator shows bullish convergence (%K crosses above %D in oversold territory).
+   - Enter a long position when both conditions are met.
+
+2. **Short Entry:**
+   - RSI shows bearish divergence (price makes a higher high, RSI makes a lower high).
+   - Stochastic Oscillator shows bearish convergence (%K crosses below %D in overbought territory).
+   - Enter a short position when both conditions are met.
+
+---
+
+### Exit Rules:
+1. **Take Profit:**
+   - Use a fixed risk-reward ratio (e.g., 1:2 or 1:3).
+   - Alternatively, exit when the Stochastic Oscillator reaches overbought (for long trades) or oversold (for short trades) levels.
+
+2. **Stop Loss:**
+   - Place a stop loss below the recent swing low (for long trades) or above the recent swing high (for short trades).
+   - Alternatively, use a percentage-based stop loss (e.g., 1-2% of the entry price).
+
+---
+
+### Risk Management:
+1. **Position Sizing:**
+   - Risk no more than 1-2% of your trading capital on a single trade.
+   - Adjust position size based on the distance between entry and stop loss levels.
+
+2. **Trade Filtering:**
+   - Only take trades in the direction of the higher timeframe trend for better accuracy.
+   - Avoid trading during low liquidity or high-impact news events.
+
+---
+
+### Required Indicators:
+1. **Relative Strength Index (RSI):**
+   - Period: 14 (default).
+   - Levels: 30 (oversold), 70 (overbought).
+
+2. **Stochastic Oscillator:**
+   - %K Period: 14.
+   - %D Period: 3.
+   - Levels: 20 (oversold), 80 (overbought).
+
+---
+
+### Additional Notes:
+- This strategy works best in trending or ranging markets but may underperform in highly volatile or choppy conditions.
+- Always backtest the strategy on historical data before applying it to live trading.
+- Consider combining this strategy with other technical tools (e.g., moving averages, trendlines) for additional confirmation.

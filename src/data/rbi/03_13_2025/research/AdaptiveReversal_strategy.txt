@@ -1,6 +1,0 @@
-STRATEGY_NAME: AdaptiveReversal
-
-STRATEGY_DETAILS:
-This statistical arbitrage strategy identifies and exploits price discrepancies between futures contracts and Exchange for Physical (EFP) contracts in commodities markets. By analyzing non-synchronous bid-ask spreads, the strategy enters long positions when the difference between futures prices and EFP settle exceeds 2%. The entry is based on this divergence as a signal of potential reversion.
-
-For exit signals, the strategy waits until the spread returns to within that threshold, indicating a possible price correction. Risk management involves dynamic position sizing using volatility indicators like Bollinger Bands or Average True Range (ATR) to adjust exposure based on market conditions.

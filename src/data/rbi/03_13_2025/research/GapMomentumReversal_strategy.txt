@@ -1,0 +1,29 @@
+STRATEGY_NAME: GapMomentumReversal
+
+STRATEGY_DETAILS:
+The GapMomentumReversal strategy is a momentum-based approach designed to capture directional changes in stock prices by focusing on the top and bottom 20% of daily bar range gaps. This strategy leverages the concept of price gaps to identify potential reversals and capitalize on momentum shifts.
+
+### Key Strategy Components:
+1. **Daily Bar Range Gaps**: The strategy calculates the daily bar range gaps, which are the differences between the high and low prices of each trading day.
+2. **Top and Bottom 20%**: The strategy identifies the top 20% and bottom 20% of these daily bar range gaps to determine potential entry points.
+3. **Momentum Reversal**: The strategy aims to capture momentum reversals by buying when the price is in the top 20% of the daily range gaps and selling when the price is in the bottom 20%.
+
+### Entry Rules:
+1. **Buy Signal**: Enter a long position when the price is in the top 20% of the daily bar range gaps. This indicates a potential upward momentum reversal.
+2. **Sell Signal**: Enter a short position when the price is in the bottom 20% of the daily bar range gaps. This indicates a potential downward momentum reversal.
+
+### Exit Rules:
+1. **Long Position Exit**: Exit the long position when the price moves out of the top 20% of the daily bar range gaps or when a predefined stop-loss or take-profit level is reached.
+2. **Short Position Exit**: Exit the short position when the price moves out of the bottom 20% of the daily bar range gaps or when a predefined stop-loss or take-profit level is reached.
+
+### Risk Management:
+1. **Stop-Loss**: Set a stop-loss order at a predetermined percentage below the entry price for long positions and above the entry price for short positions to limit potential losses.
+2. **Take-Profit**: Set a take-profit order at a predetermined percentage above the entry price for long positions and below the entry price for short positions to lock in profits.
+3. **Position Sizing**: Use a fixed percentage of the total portfolio value for each trade to manage risk and avoid overexposure.
+
+### Required Indicators:
+1. **Daily High and Low Prices**: To calculate the daily bar range gaps.
+2. **Percentage Calculation**: To determine the top and bottom 20% of the daily bar range gaps.
+3. **Price Data**: Historical and real-time price data to monitor and execute trades based on the strategy's rules.
+
+The GapMomentumReversal strategy is designed to be simple yet effective, focusing on capturing momentum reversals through the analysis of daily bar range gaps. By adhering to the entry and exit rules and implementing robust risk management, traders can potentially capitalize on short-term price movements and directional changes in stock prices.

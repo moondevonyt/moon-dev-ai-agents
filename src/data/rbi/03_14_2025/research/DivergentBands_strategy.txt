@@ -1,0 +1,51 @@
+STRATEGY_NAME: DivergentBands
+
+STRATEGY_DETAILS:
+The DivergentBands strategy is a mean-reversion approach that capitalizes on price divergences between Bollinger Bands' upper and lower bands, combined with decreasing volume, to identify potential reversal opportunities. The strategy uses ATR (Average True Range) multiples to determine exit points, ensuring a systematic approach to risk management.
+
+### Key Strategy Components:
+1. **Bollinger Bands Divergence**: The strategy focuses on the divergence between the upper and lower Bollinger Bands. Specifically, it looks for situations where the price action near the lower band diverges from the upper band, indicating potential oversold conditions.
+2. **Volume Confirmation**: Decreasing volume during the divergence is used as a confirming signal, suggesting weakening momentum and a higher probability of a reversal.
+3. **ATR-Based Exits**: The strategy uses ATR multiples to set dynamic exit points, ensuring that trades are closed based on volatility-adjusted levels rather than fixed price targets.
+
+### Entry Rules:
+1. **Bollinger Bands Setup**: 
+   - Use a 20-period Bollinger Bands with 2 standard deviations.
+   - Identify when the price is near the lower band and diverging from the upper band (i.e., the distance between the upper and lower bands is increasing while the price remains near the lower band).
+2. **Volume Confirmation**:
+   - Ensure that volume is decreasing during the divergence, indicating weakening selling pressure.
+3. **Entry Trigger**:
+   - Enter a long position when the above conditions are met, signaling a potential mean reversion opportunity.
+
+### Exit Rules:
+1. **ATR-Based Exit**:
+   - Calculate the ATR (14-period) and multiply it by a predefined factor (e.g., 2x or 3x) to determine the exit level.
+   - Set a stop-loss at the lower band minus the ATR multiple.
+   - Set a take-profit at the mean (middle band) plus the ATR multiple.
+2. **Time-Based Exit**:
+   - If the price does not reach the take-profit or stop-loss within a specified time frame (e.g., 5-10 bars), exit the trade to avoid prolonged exposure.
+
+### Risk Management:
+1. **Position Sizing**:
+   - Use a fixed percentage of the account balance (e.g., 1-2%) per trade to manage risk.
+2. **Stop-Loss**:
+   - The stop-loss is dynamically set using the ATR multiple, ensuring it adapts to current market volatility.
+3. **Take-Profit**:
+   - The take-profit is also based on the ATR multiple, providing a volatility-adjusted target.
+
+### Required Indicators:
+1. **Bollinger Bands**:
+   - Period: 20
+   - Standard Deviation: 2
+2. **Volume**:
+   - Use standard volume indicator to confirm decreasing volume during divergence.
+3. **ATR (Average True Range)**:
+   - Period: 14
+   - Multiplier: 2x or 3x (adjust based on backtesting results)
+
+### Additional Notes:
+- **Backtesting**: Before live trading, backtest the strategy on historical data to optimize the ATR multiplier and time-based exit parameters.
+- **Market Conditions**: This strategy performs best in ranging or slightly trending markets. Avoid using it during strong trending conditions, as mean-reversion strategies tend to underperform in such environments.
+- **Timeframe**: Suitable for intraday to swing trading timeframes (e.g., 1-hour to daily charts).
+
+By combining Bollinger Bands divergence, volume confirmation, and ATR-based exits, the DivergentBands strategy provides a systematic and volatility-adjusted approach to mean-reversion trading.

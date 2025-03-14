@@ -1,0 +1,73 @@
+STRATEGY_NAME: BandStoch Breakout
+
+STRATEGY_DETAILS:
+The BandStoch Breakout strategy combines Bollinger Bands and the Stochastic Oscillator to identify high-probability breakout opportunities. This strategy focuses on detecting periods of low volatility followed by potential price expansion, using the Stochastic Oscillator to confirm momentum strength.
+
+### Key Strategy Components:
+1. **Bollinger Bands (BB):**
+   - Settings: 20-period SMA with 2 standard deviations.
+   - Purpose: Identifies periods of low volatility (squeeze) and potential breakout levels.
+
+2. **Stochastic Oscillator:**
+   - Settings: 14, 3, 3 (standard settings).
+   - Purpose: Confirms momentum strength and overbought/oversold conditions.
+
+3. **Price Action:**
+   - Monitors for breakouts above/below Bollinger Bands.
+   - Confirms with Stochastic Oscillator readings.
+
+---
+
+### Entry Rules:
+1. **Bullish Breakout:**
+   - Price closes above the upper Bollinger Band.
+   - Stochastic Oscillator is above 50 and rising (confirming bullish momentum).
+   - Enter a long position on the next candle's open.
+
+2. **Bearish Breakout:**
+   - Price closes below the lower Bollinger Band.
+   - Stochastic Oscillator is below 50 and falling (confirming bearish momentum).
+   - Enter a short position on the next candle's open.
+
+---
+
+### Exit Rules:
+1. **Take Profit:**
+   - Use the opposite Bollinger Band as a target (e.g., for a long trade, target the lower band).
+   - Alternatively, use a fixed risk-reward ratio (e.g., 2:1).
+
+2. **Stop Loss:**
+   - Place the stop loss just outside the breakout level (e.g., below the upper band for a long trade or above the lower band for a short trade).
+
+3. **Stochastic Reversal:**
+   - Exit if the Stochastic Oscillator reverses direction (e.g., crosses below 80 for a long trade or above 20 for a short trade).
+
+---
+
+### Risk Management:
+1. **Position Sizing:**
+   - Risk no more than 1-2% of your account per trade.
+   - Adjust position size based on the distance between the entry price and stop loss.
+
+2. **Avoid False Breakouts:**
+   - Wait for a confirmed close above/below the Bollinger Band.
+   - Ensure the Stochastic Oscillator confirms the breakout direction.
+
+3. **Market Conditions:**
+   - Best used in trending or range-bound markets.
+   - Avoid using during high-impact news events or extreme volatility.
+
+---
+
+### Required Indicators:
+1. **Bollinger Bands (20, 2).**
+2. **Stochastic Oscillator (14, 3, 3).**
+
+---
+
+### Additional Notes:
+- This strategy works best on higher timeframes (e.g., 1H, 4H, Daily) to reduce noise.
+- Combine with volume analysis for additional confirmation.
+- Backtest thoroughly to optimize parameters for your specific trading instrument. 
+
+The BandStoch Breakout strategy is designed to capitalize on volatility expansions with strong momentum confirmation, making it a robust tool for breakout traders.

@@ -1,0 +1,32 @@
+STRATEGY_NAME: VolumetricReversal
+
+STRATEGY_DETAILS:
+The VolumetricReversal strategy is designed to identify potential reversal points in stocks that are exhibiting consolidation patterns, using a combination of Bollinger Bands, Stochastic Oscillator, and volume analysis. The strategy focuses on breakouts accompanied by a significant increase in volume, which often signals a strong move in the direction of the breakout.
+
+### Key Strategy Components:
+1. **Bollinger Bands**: Used to identify the consolidation phase and potential breakout points. The bands consist of a middle line (20-period SMA) and two outer bands (standard deviations above and below the middle line).
+2. **Stochastic Oscillator**: Helps to identify overbought or oversold conditions, which can signal potential reversals. The Stochastic Oscillator typically uses a 14-period %K and 3-period %D.
+3. **Volume Analysis**: A significant increase in volume during the breakout is crucial for confirming the strength of the move.
+
+### Entry Rules:
+1. **Consolidation Identification**: Look for a stock that is trading within a narrow range, as indicated by the Bollinger Bands. The bands should be relatively close together, indicating low volatility.
+2. **Volume Spike**: Wait for a significant increase in volume, which often precedes a breakout.
+3. **Stochastic Confirmation**: Ensure that the Stochastic Oscillator is in overbought (above 80) or oversold (below 20) territory, depending on the direction of the breakout.
+4. **Breakout Confirmation**: Enter a long position if the price breaks above the upper Bollinger Band with increased volume and the Stochastic Oscillator is in overbought territory. Conversely, enter a short position if the price breaks below the lower Bollinger Band with increased volume and the Stochastic Oscillator is in oversold territory.
+
+### Exit Rules:
+1. **Profit Target**: Set a profit target based on the width of the Bollinger Bands at the time of the breakout. For example, if the width of the bands is 2%, set a profit target at 2% above the breakout point for a long position or 2% below for a short position.
+2. **Stop Loss**: Place a stop loss just below the middle Bollinger Band (20-period SMA) for a long position or just above the middle band for a short position.
+3. **Stochastic Reversal**: Exit the position if the Stochastic Oscillator reverses direction and moves out of overbought or oversold territory, indicating a potential reversal.
+
+### Risk Management:
+1. **Position Sizing**: Determine the position size based on the distance between the entry point and the stop loss, ensuring that the potential loss does not exceed a predetermined percentage of the trading capital (e.g., 1-2%).
+2. **Diversification**: Avoid concentrating all capital in a single trade. Spread risk across multiple positions in different sectors or asset classes.
+3. **Review and Adjust**: Regularly review the performance of the strategy and adjust parameters (e.g., Bollinger Band period, Stochastic Oscillator settings) as needed to adapt to changing market conditions.
+
+### Required Indicators:
+1. **Bollinger Bands**: 20-period SMA with 2 standard deviations.
+2. **Stochastic Oscillator**: 14-period %K and 3-period %D.
+3. **Volume Indicator**: Standard volume indicator to monitor volume spikes.
+
+The VolumetricReversal strategy is particularly effective in markets where stocks are transitioning from periods of low volatility (consolidation) to high volatility (breakout), providing clear entry and exit signals based on the combination of technical indicators and volume analysis.

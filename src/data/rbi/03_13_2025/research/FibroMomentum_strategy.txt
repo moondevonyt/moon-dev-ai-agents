@@ -1,0 +1,61 @@
+STRATEGY_NAME: FibroMomentum
+
+STRATEGY_DETAILS:
+The FibroMomentum strategy combines Fibonacci retracement levels with momentum confirmation to identify high-probability trade setups. This approach focuses on price retracements within a trend, using Fibonacci levels as potential reversal zones, and momentum indicators to validate the strength of the retracement.
+
+### Key Strategy Components:
+1. **Fibonacci Retracement Levels**: 
+   - Identify a significant swing high and swing low in the price chart.
+   - Draw Fibonacci retracement levels (23.6%, 38.2%, 50%, 61.8%, and 78.6%) between these points.
+   - Focus on the 38.2%, 50%, and 61.8% levels as key areas for potential reversals.
+
+2. **Momentum Confirmation**:
+   - Use the Relative Strength Index (RSI) or Moving Average Convergence Divergence (MACD) to confirm momentum.
+   - For bullish setups, look for RSI to be above 50 or MACD histogram to be rising.
+   - For bearish setups, look for RSI to be below 50 or MACD histogram to be falling.
+
+3. **Trend Identification**:
+   - Use a moving average (e.g., 50-period EMA) to confirm the overall trend.
+   - Only trade in the direction of the trend (e.g., long in an uptrend, short in a downtrend).
+
+### Entry Rules:
+1. **Bullish Entry**:
+   - Price retraces to a key Fibonacci level (38.2%, 50%, or 61.8%) in an uptrend.
+   - Momentum indicator (RSI or MACD) shows rising momentum (RSI > 50 or MACD histogram rising).
+   - Enter a long position when price shows signs of reversal (e.g., bullish candlestick pattern or break above a short-term resistance level).
+
+2. **Bearish Entry**:
+   - Price retraces to a key Fibonacci level (38.2%, 50%, or 61.8%) in a downtrend.
+   - Momentum indicator (RSI or MACD) shows falling momentum (RSI < 50 or MACD histogram falling).
+   - Enter a short position when price shows signs of reversal (e.g., bearish candlestick pattern or break below a short-term support level).
+
+### Exit Rules:
+1. **Take Profit**:
+   - Set take profit levels at the next Fibonacci extension level (e.g., 127.2% or 161.8%).
+   - Alternatively, use a risk-reward ratio of 1:2 or 1:3 based on the stop-loss distance.
+
+2. **Stop Loss**:
+   - Place stop loss just below the Fibonacci retracement level for long trades.
+   - Place stop loss just above the Fibonacci retracement level for short trades.
+   - Ensure the stop-loss distance aligns with your risk management rules (e.g., 1-2% of account balance).
+
+### Risk Management:
+1. **Position Sizing**:
+   - Calculate position size based on stop-loss distance and risk tolerance.
+   - Never risk more than 1-2% of your account balance on a single trade.
+
+2. **Trade Filtering**:
+   - Only take trades where the Fibonacci level aligns with other support/resistance zones or trendlines.
+   - Avoid trading during low liquidity periods or major news events.
+
+### Required Indicators:
+1. **Fibonacci Retracement Tool** (available on most charting platforms).
+2. **Relative Strength Index (RSI)** or **MACD** for momentum confirmation.
+3. **50-period Exponential Moving Average (EMA)** for trend identification.
+
+### Additional Notes:
+- This strategy works best in trending markets. Avoid using it in choppy or sideways markets.
+- Combine with price action analysis (e.g., candlestick patterns) for higher accuracy.
+- Backtest the strategy on historical data to optimize parameters and confirm its effectiveness.
+
+By combining Fibonacci retracement levels with momentum confirmation, the FibroMomentum strategy aims to capture high-probability reversals within the context of a prevailing trend.

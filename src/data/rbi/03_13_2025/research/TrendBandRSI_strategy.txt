@@ -1,0 +1,35 @@
+STRATEGY_NAME: TrendBandRSI
+
+STRATEGY_DETAILS:
+TrendBandRSI is a trading strategy that combines the strengths of trend following with band-based breakout detection using RSI (Relative Strength Index). This strategy is designed to capitalize on trending markets while limiting exposure to sideways or range-bound conditions.
+
+**Key Strategy Components:**
+
+1. **Rising/ Falling Trend**: The strategy enters trades when the RSI crosses above/below its upper/lower Bollinger Band, respectively, during a strong trend. This indicates that the price is breaking through the bands, indicating increasing/sDecreasing momentum.
+2. **Band-Based Breakout Detection**: The use of Bollinger Bands provides a clear indication of overbought/oversold conditions, allowing for more precise entry and exit points.
+3. **Trend Confirmation**: To ensure that the trade is entering a strong trend, additional filters can be applied to confirm the trend direction.
+
+**Entry Rules:**
+
+1. **Long Entry**: Enter long trades when the RSI crosses above its upper Bollinger Band during an uptrend.
+2. **Short Entry**: Enter short trades when the RSI crosses below its lower Bollinger Band during a downtrend.
+3. **Confirming Trend**: Use additional indicators, such as a 50-period Simple Moving Average (SMA) or a trend line, to confirm that the trend is strong and in the desired direction.
+
+**Exit Rules:**
+
+1. **Price Reversion**: Exit trades when the price reverts back to the original level of support/resistance.
+2. **Bollinger Band Re-Alignment**: If the Bollinger Bands realign with each other, it can be a sign that the trend is weakening, and trades should be exited.
+
+**Risk Management:**
+
+1. **Position Sizing**: Use position sizing techniques, such as the 2% rule or a fixed amount of capital per trade.
+2. **Stop-Loss**: Set a stop-loss order at a reasonable distance from the entry price to limit potential losses.
+3. **Take-Profit**: Set a take-profit target at a reasonable distance from the exit price to lock in profits.
+
+**Required Indicators:**
+
+1. **RSI (Relative Strength Index)**: Used for band-based breakout detection and trend confirmation.
+2. **Bollinger Bands**: Used for band-based breakout detection and trend identification.
+3. **SMA (Simple Moving Average)** or a **Trend Line**: Optional indicators used to confirm the trend direction.
+
+By combining trend following with band-based breakout detection, TrendBandRSI offers a unique approach to trading that capitalizes on trending markets while limiting exposure to sideways or range-bound conditions.

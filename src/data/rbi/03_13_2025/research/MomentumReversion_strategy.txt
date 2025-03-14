@@ -1,0 +1,72 @@
+STRATEGY_NAME: MomentumReversion
+
+STRATEGY_DETAILS:
+The MomentumReversion strategy is a sophisticated approach that combines momentum and mean reversion principles, leveraging the interplay between moving averages, MACD delta deviations, and volatility scaling. Here's a detailed breakdown of the strategy:
+
+---
+
+### **Key Strategy Components**
+1. **Momentum Capture**:  
+   - Uses a 50-period Simple Moving Average (SMA) and Exponential Moving Average (EMA) crossover to identify momentum shifts.  
+   - The spread between SMA and EMA acts as a momentum filter, ensuring trades align with the prevailing trend.
+
+2. **Mean Reversion Rate (MRR)**:  
+   - The MACD delta indicator measures deviations from its average value, providing insights into overbought or oversold conditions.  
+   - MRR is calculated as the difference between the MACD delta and its moving average, signaling potential reversals.
+
+3. **Volatility Scaling**:  
+   - The Average True Range (ATR) ratio is used to adjust position sizes based on market volatility.  
+   - Higher volatility reduces position size, while lower volatility increases it, ensuring risk-adjusted exposure.
+
+---
+
+### **Entry Rules**
+1. **Long Entry**:  
+   - Triggered when the 50-period EMA crosses above the 50-period SMA (bullish momentum).  
+   - Simultaneously, the MACD delta must be below its average value (indicating oversold conditions).  
+   - Confirm with a rising ATR ratio to ensure volatility supports the trade.
+
+2. **Short Entry**:  
+   - Triggered when the 50-period EMA crosses below the 50-period SMA (bearish momentum).  
+   - Simultaneously, the MACD delta must be above its average value (indicating overbought conditions).  
+   - Confirm with a rising ATR ratio to ensure volatility supports the trade.
+
+---
+
+### **Exit Rules**
+1. **Take Profit**:  
+   - Exit when the MACD delta crosses back above its average value for long trades or below its average value for short trades.  
+   - Alternatively, use a trailing stop based on the ATR (e.g., 2x ATR).
+
+2. **Stop Loss**:  
+   - Set a stop loss at 1.5x ATR from the entry price to limit downside risk.  
+   - Adjust dynamically as volatility changes.
+
+---
+
+### **Risk Management**
+1. **Position Sizing**:  
+   - Use the ATR ratio to scale positions. For example:  
+     - If ATR is high, reduce position size to 1% of capital.  
+     - If ATR is low, increase position size to 2% of capital.  
+
+2. **Maximum Drawdown**:  
+   - Limit total exposure to 5% of capital per trade.  
+   - Avoid overtrading by limiting the number of simultaneous positions.
+
+---
+
+### **Required Indicators**
+1. **50-period SMA and EMA**:  
+   - Used to identify momentum crossovers.  
+
+2. **MACD Delta Indicator**:  
+   - Measures deviations from its average value to calculate MRR.  
+
+3. **ATR (Average True Range)**:  
+   - Used for volatility scaling and stop-loss placement.  
+
+---
+
+### **Summary**
+The MomentumReversion strategy is a hybrid approach that combines momentum and mean reversion principles, making it adaptable to both trending and ranging markets. By leveraging SMA/EMA crossovers, MACD delta deviations, and ATR-based volatility scaling, it provides a robust framework for capturing trends while managing risk effectively.

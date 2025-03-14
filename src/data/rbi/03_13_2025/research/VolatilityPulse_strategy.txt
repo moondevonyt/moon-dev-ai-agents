@@ -1,0 +1,56 @@
+STRATEGY_NAME: VolatilityPulse
+
+STRATEGY_DETAILS:
+The VolatilityPulse strategy is a dynamic trading approach that leverages market volatility to identify high-probability entry and exit points. This strategy is designed to capitalize on periods of increased market activity while avoiding low-volatility conditions that often lead to false signals or choppy price action.
+
+Key Strategy Components:
+1. Volatility Measurement: Uses ATR (Average True Range) to quantify market volatility
+2. Trend Identification: Employs a 50-period EMA (Exponential Moving Average) to determine the overall trend direction
+3. Entry Signals: Combines volatility spikes with price action confirmation
+4. Exit Strategy: Utilizes trailing stops based on ATR multiples
+
+Required Indicators:
+- ATR (14-period)
+- EMA (50-period)
+- Price Action (Candlestick Patterns)
+
+Entry Rules:
+1. Long Entry:
+   - Price must be above the 50 EMA (uptrend)
+   - Current ATR value must be at least 1.5x the 14-period ATR average
+   - Bullish candlestick pattern confirmation (e.g., bullish engulfing, hammer)
+   
+2. Short Entry:
+   - Price must be below the 50 EMA (downtrend)
+   - Current ATR value must be at least 1.5x the 14-period ATR average
+   - Bearish candlestick pattern confirmation (e.g., bearish engulfing, shooting star)
+
+Exit Rules:
+1. Trailing Stop:
+   - Set initial stop at 1x ATR from entry point
+   - Adjust stop to 0.5x ATR once price moves 2x ATR in favor
+   - Continue trailing at 0.5x ATR intervals
+
+2. Time-Based Exit:
+   - Close position if no significant movement occurs within 3 bars after entry
+
+Risk Management:
+1. Position Sizing:
+   - Risk no more than 1% of account equity per trade
+   - Calculate position size based on ATR stop distance
+
+2. Volatility Filter:
+   - Avoid trading when ATR is below its 20-period average (low volatility conditions)
+   - Reduce position size by 50% when ATR is above 2x its 20-period average (extreme volatility)
+
+3. Daily Loss Limit:
+   - Stop trading for the day after 3 consecutive losses
+   - Maximum daily drawdown limit of 3% of account equity
+
+Additional Notes:
+- This strategy performs best in trending markets with clear volatility pulses
+- Ideal for 1-hour and 4-hour timeframes
+- Requires patience to wait for proper volatility conditions
+- Backtest across multiple instruments to ensure robustness
+
+The VolatilityPulse strategy is particularly effective in markets that experience regular volatility expansions and contractions, making it suitable for forex, commodities, and indices trading. Its adaptive nature allows it to adjust to changing market conditions while maintaining a disciplined approach to risk management.

@@ -1,0 +1,42 @@
+STRATEGY_NAME: FractalTrender
+
+STRATEGY_DETAILS:
+The FractalTrender strategy is a trend-following approach that leverages fractal patterns to identify and capitalize on emerging trends in the market. Fractals are self-similar patterns that repeat at different scales, and in trading, they are used to pinpoint potential reversal points or continuation signals. This strategy combines fractal analysis with trend confirmation to ensure high-probability entries and exits.
+
+### Key Strategy Components:
+1. **Fractal Indicator**: Identifies potential reversal points (fractal highs and lows) on the price chart.
+2. **Trend Confirmation**: Uses a moving average (e.g., 50-period SMA) to confirm the overall trend direction.
+3. **Entry Filters**: Ensures trades are taken only in the direction of the confirmed trend.
+4. **Exit Rules**: Utilizes trailing stops or fractal-based exit signals to lock in profits.
+
+### Entry Rules:
+1. **Bullish Entry**:
+   - A bullish fractal (higher low) forms below the price.
+   - The price is above the 50-period SMA, confirming an uptrend.
+   - Enter a long position when the price breaks above the high of the bullish fractal.
+
+2. **Bearish Entry**:
+   - A bearish fractal (lower high) forms above the price.
+   - The price is below the 50-period SMA, confirming a downtrend.
+   - Enter a short position when the price breaks below the low of the bearish fractal.
+
+### Exit Rules:
+1. **Trailing Stop**: Use a trailing stop-loss set at a fixed percentage (e.g., 1-2%) or based on recent fractal levels.
+2. **Fractal Reversal**: Exit the trade if a new opposing fractal forms (e.g., a bearish fractal in a long trade or a bullish fractal in a short trade).
+
+### Risk Management:
+1. **Position Sizing**: Risk no more than 1-2% of the trading capital per trade.
+2. **Stop-Loss**: Place a stop-loss below the most recent fractal low for long trades or above the most recent fractal high for short trades.
+3. **Risk-Reward Ratio**: Aim for a minimum risk-reward ratio of 1:2 or higher.
+
+### Required Indicators:
+1. **Fractal Indicator**: To identify fractal highs and lows.
+2. **50-period Simple Moving Average (SMA)**: To confirm the trend direction.
+3. **Trailing Stop**: For dynamic exit management.
+
+### Additional Notes:
+- This strategy works best on higher timeframes (e.g., 1-hour, 4-hour, or daily charts) to avoid false signals.
+- Combine with volume analysis or momentum indicators (e.g., RSI) for additional confirmation.
+- Backtest thoroughly on historical data to optimize parameters and ensure robustness.
+
+The FractalTrender strategy is ideal for traders who prefer a systematic, rules-based approach to trend-following while incorporating fractal patterns for precise entries and exits.

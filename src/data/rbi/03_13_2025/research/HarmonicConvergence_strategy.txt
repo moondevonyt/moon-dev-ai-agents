@@ -1,0 +1,48 @@
+STRATEGY_NAME: HarmonicConvergence
+
+STRATEGY_DETAILS:
+The HarmonicConvergence strategy is a trend-following system that combines the Harmonic Oscillator and Moving Average Convergence (MAC) to identify and capitalize on strong market trends. This strategy is designed to filter out noise and focus on high-probability trend continuations, making it ideal for trending markets.
+
+### Key Strategy Components:
+1. **Harmonic Oscillator**: A momentum indicator that measures the rate of change in price movements. It helps identify overbought and oversold conditions while confirming trend strength.
+2. **Moving Average Convergence (MAC)**: A custom moving average system that uses two or more moving averages to confirm trend direction and momentum. The convergence or divergence of these moving averages provides additional confirmation for trend entries.
+
+### Entry Rules:
+1. **Trend Confirmation**:
+   - The MAC must show a clear trend direction (e.g., shorter moving average above the longer moving average for an uptrend, or vice versa for a downtrend).
+   - The Harmonic Oscillator should align with the trend direction (e.g., positive values for an uptrend, negative values for a downtrend).
+2. **Entry Signal**:
+   - For a long entry: The Harmonic Oscillator should cross above a predefined threshold (e.g., 0) while the MAC confirms an uptrend.
+   - For a short entry: The Harmonic Oscillator should cross below a predefined threshold (e.g., 0) while the MAC confirms a downtrend.
+
+### Exit Rules:
+1. **Trend Reversal**:
+   - Exit the trade when the Harmonic Oscillator crosses back below the threshold (for long trades) or above the threshold (for short trades).
+   - Alternatively, exit when the MAC shows a reversal (e.g., shorter moving average crosses below the longer moving average for long trades, or vice versa for short trades).
+2. **Stop Loss**:
+   - Place a stop loss below the recent swing low (for long trades) or above the recent swing high (for short trades).
+3. **Take Profit**:
+   - Use a trailing stop or a fixed risk-reward ratio (e.g., 2:1) to lock in profits as the trend progresses.
+
+### Risk Management:
+1. **Position Sizing**:
+   - Risk no more than 1-2% of the trading capital on any single trade.
+2. **Stop Loss Placement**:
+   - Adjust the stop loss based on market volatility (e.g., use ATR to determine stop distance).
+3. **Diversification**:
+   - Avoid over-concentration in a single asset or market. Spread risk across multiple instruments.
+
+### Required Indicators:
+1. **Harmonic Oscillator**:
+   - Custom formula: `Harmonic Oscillator = (Price - EMA(Price, N)) / ATR(Price, N) * 100`
+   - Parameters: N (period for EMA and ATR, e.g., 14).
+2. **Moving Average Convergence (MAC)**:
+   - Use two moving averages (e.g., 50-period and 200-period) to confirm trend direction.
+   - Shorter moving average (e.g., 50-period) for momentum, longer moving average (e.g., 200-period) for trend confirmation.
+
+### Additional Notes:
+- This strategy performs best in trending markets. Avoid using it during choppy or sideways market conditions.
+- Backtest the strategy on multiple timeframes (e.g., 1H, 4H, Daily) to ensure robustness.
+- Regularly review and optimize the parameters (e.g., moving average periods, Harmonic Oscillator thresholds) based on market conditions.
+
+By combining the Harmonic Oscillator's momentum insights with the MAC's trend confirmation, the HarmonicConvergence strategy provides a systematic approach to capturing sustained trends while minimizing false signals.

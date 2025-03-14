@@ -1,8 +1,40 @@
 STRATEGY_NAME: QuantumReversal
 
 STRATEGY_DETAILS:
-This strategy leverages quantum-inspired momentum to identify and capitalize on short-term price reversals. The core approach involves analyzing order flow imbalance across multiple time frames (15-60 minutes) using fractal patterns as a leading indicator of reversal potential. Confirmation is provided by high volatility metrics such as the Average True Range (ATR). 
+The QuantumReversal strategy is a sophisticated trading approach that combines mean reversion principles with advanced momentum analysis to identify high-probability reversal opportunities in the market. This strategy is designed to capitalize on overextended price movements and subsequent reversals, leveraging a unique combination of technical indicators and price action analysis.
 
-Entry rules are triggered when these conditions converge, signaling an intra-day price reversal likelihood. The strategy then sets up gamma short positions to hedge against market moves while maintaining limited downside risk through position sizing based on current volatility levels.
+Key Strategy Components:
+1. **Mean Reversion Framework**: The strategy identifies overbought and oversold conditions using a combination of Bollinger Bands and RSI (Relative Strength Index). When price touches or exceeds the upper Bollinger Band and RSI is above 70, it signals a potential overbought condition. Conversely, when price touches or falls below the lower Bollinger Band and RSI is below 30, it signals a potential oversold condition.
 
-Risk management incorporates stop-loss thresholds proportional to expected profit targets and dynamic adjustments for changing market conditions. A trailing stop is also employed during trending periods to lock in profits or limit losses.
+2. **Momentum Confirmation**: To confirm the reversal, the strategy uses the MACD (Moving Average Convergence Divergence) indicator. A bearish crossover (MACD line crossing below the signal line) is required for short entries during overbought conditions, and a bullish crossover (MACD line crossing above the signal line) is required for long entries during oversold conditions.
+
+3. **Volume Analysis**: The strategy incorporates volume analysis to ensure that the reversal is supported by strong market participation. A significant increase in volume during the reversal signal adds confidence to the trade setup.
+
+Entry Rules:
+- **Long Entry**: 
+  - Price touches or falls below the lower Bollinger Band.
+  - RSI is below 30, indicating oversold conditions.
+  - MACD shows a bullish crossover (MACD line crosses above the signal line).
+  - Volume increases significantly, confirming the reversal.
+- **Short Entry**: 
+  - Price touches or exceeds the upper Bollinger Band.
+  - RSI is above 70, indicating overbought conditions.
+  - MACD shows a bearish crossover (MACD line crosses below the signal line).
+  - Volume increases significantly, confirming the reversal.
+
+Exit Rules:
+- **Take Profit**: The strategy uses a fixed risk-reward ratio of 1:2. The take profit level is set at twice the distance of the stop loss from the entry point.
+- **Stop Loss**: The stop loss is placed just beyond the opposite Bollinger Band. For long positions, the stop loss is placed slightly below the lower Bollinger Band. For short positions, the stop loss is placed slightly above the upper Bollinger Band.
+
+Risk Management:
+- **Position Sizing**: The strategy employs a fixed percentage risk model, where no more than 1% of the trading capital is risked on any single trade.
+- **Diversification**: Trades are spread across different asset classes and timeframes to reduce correlation risk.
+- **Max Drawdown Limit**: The strategy includes a maximum drawdown limit of 10%. If the drawdown exceeds this limit, trading is paused, and the strategy is reviewed.
+
+Required Indicators:
+1. **Bollinger Bands**: To identify overbought and oversold conditions.
+2. **RSI (Relative Strength Index)**: To confirm overbought and oversold conditions.
+3. **MACD (Moving Average Convergence Divergence)**: To confirm momentum shifts.
+4. **Volume Indicator**: To validate the strength of the reversal.
+
+The QuantumReversal strategy is a robust and disciplined approach to trading reversals, combining multiple layers of confirmation to ensure high-probability setups. It is particularly effective in ranging or mean-reverting markets but can also be adapted to trending markets with appropriate adjustments.

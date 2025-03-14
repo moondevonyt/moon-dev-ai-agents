@@ -1,0 +1,36 @@
+STRATEGY_NAME: LiquidityCrush
+
+STRATEGY_DETAILS:
+The LiquidityCrush strategy is a bearish options trading approach that capitalizes on periods of low liquidity in index ETFs. This strategy involves buying put spreads to profit from potential downward price movements during these illiquid conditions. Here's a detailed breakdown of the strategy:
+
+1. **Key Strategy Components:**
+   - Focus on index ETFs (e.g., SPY, QQQ, IWM)
+   - Identify periods of low liquidity (e.g., holidays, pre-market, post-market, or low-volume trading sessions)
+   - Use put spreads (buying one put and selling another at a lower strike price) to limit risk and reduce premium costs
+
+2. **Entry Rules:**
+   - Monitor liquidity indicators such as trading volume, bid-ask spreads, and market depth
+   - Enter the trade when liquidity is significantly lower than average (e.g., volume below 50% of the 20-day average)
+   - Buy an at-the-money (ATM) or slightly out-of-the-money (OTM) put option
+   - Simultaneously sell a lower strike put option to create a vertical spread
+   - Ensure the expiration date is within 1-2 weeks to maximize time decay benefits
+
+3. **Exit Rules:**
+   - Close the position if the ETF price drops significantly, capturing the profit from the spread
+   - Exit if liquidity returns to normal levels, as the strategy's edge diminishes
+   - Close the trade if the spread reaches 70-80% of its maximum potential profit
+   - Use a stop-loss if the ETF price moves against the position (e.g., a 20% loss on the premium paid)
+
+4. **Risk Management:**
+   - Limit position size to 1-2% of the total portfolio per trade
+   - Use defined-risk spreads to cap potential losses
+   - Avoid over-leveraging, as low liquidity can exacerbate losses
+   - Monitor macroeconomic events or news that could impact the index ETF
+
+5. **Required Indicators:**
+   - Volume analysis (e.g., 20-day average volume)
+   - Bid-ask spread monitoring
+   - Implied volatility (IV) to assess option pricing
+   - Technical indicators like RSI or MACD to confirm bearish momentum (optional)
+
+This strategy is best suited for experienced options traders who understand the risks of trading during low-liquidity periods. It requires careful monitoring and disciplined execution to avoid being caught in unfavorable price movements.

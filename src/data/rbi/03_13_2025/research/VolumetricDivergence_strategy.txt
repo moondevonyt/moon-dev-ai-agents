@@ -1,0 +1,49 @@
+STRATEGY_NAME: VolumetricDivergence
+
+STRATEGY_DETAILS:
+The VolumetricDivergence strategy is a sophisticated approach that combines volume analysis with price divergence to identify high-probability trading opportunities. This strategy is particularly effective in detecting potential reversals or continuations in trending markets by analyzing the relationship between price action and volume momentum.
+
+### Key Strategy Components:
+1. **Volume Oscillator**: A custom oscillator that measures the difference between two volume moving averages (e.g., 14-period and 28-period). This helps identify shifts in volume momentum.
+2. **Price Divergence**: The strategy looks for divergence between price action and the Volume Oscillator. Bullish divergence occurs when price makes lower lows while the Volume Oscillator makes higher lows. Bearish divergence occurs when price makes higher highs while the Volume Oscillator makes lower highs.
+3. **Confirmation Indicators**: Additional tools like RSI (Relative Strength Index) or MACD (Moving Average Convergence Divergence) are used to confirm signals and filter out false positives.
+
+### Entry Rules:
+1. **Bullish Entry**:
+   - Identify a bullish divergence (price lower lows, Volume Oscillator higher lows).
+   - Wait for the Volume Oscillator to cross above its signal line or a predefined threshold.
+   - Confirm with RSI above 30 or MACD histogram turning positive.
+   - Enter a long position at the close of the candle confirming the signal.
+
+2. **Bearish Entry**:
+   - Identify a bearish divergence (price higher highs, Volume Oscillator lower highs).
+   - Wait for the Volume Oscillator to cross below its signal line or a predefined threshold.
+   - Confirm with RSI below 70 or MACD histogram turning negative.
+   - Enter a short position at the close of the candle confirming the signal.
+
+### Exit Rules:
+1. **Take Profit**:
+   - Use a fixed risk-reward ratio (e.g., 1:2 or 1:3).
+   - Alternatively, exit when the Volume Oscillator shows signs of reversal (e.g., crossing back below/above its signal line).
+
+2. **Stop Loss**:
+   - Place stop-loss orders below the recent swing low for long positions or above the recent swing high for short positions.
+   - Alternatively, use a percentage-based stop-loss (e.g., 1-2% of account equity).
+
+### Risk Management:
+1. **Position Sizing**: Risk no more than 1-2% of your account equity on any single trade.
+2. **Diversification**: Avoid over-concentration in a single asset or market.
+3. **Trailing Stops**: Consider using trailing stops to lock in profits as the trade moves in your favor.
+
+### Required Indicators:
+1. **Volume Oscillator**: Custom indicator calculating the difference between two volume moving averages.
+2. **RSI (14-period)**: For confirming overbought/oversold conditions.
+3. **MACD (12, 26, 9)**: For additional momentum confirmation.
+4. **Price Chart**: Candlestick or bar chart for identifying divergence patterns.
+
+### Additional Notes:
+- This strategy works best in trending or range-bound markets. Avoid using it during low-volume or choppy conditions.
+- Backtest the strategy on historical data to optimize parameters like Volume Oscillator periods and confirmation thresholds.
+- Combine with fundamental analysis or news events for higher accuracy in volatile markets.
+
+The VolumetricDivergence strategy is a powerful tool for traders who want to capitalize on the interplay between volume and price action, offering a systematic way to identify high-probability setups with clear risk management rules.

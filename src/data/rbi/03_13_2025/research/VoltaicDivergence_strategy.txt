@@ -1,0 +1,44 @@
+STRATEGY_NAME: VoltaicDivergence
+
+STRATEGY_DETAILS:
+The VoltaicDivergence strategy is a high-frequency trading approach designed to capitalize on short-term volatility and RSI divergence patterns. This strategy is particularly effective in fast-moving markets where price and momentum often diverge, creating exploitable opportunities.
+
+### Key Strategy Components:
+1. **RSI Divergence Detection**: The strategy identifies divergences between price action and the Relative Strength Index (RSI). Bullish divergence occurs when price makes a lower low while RSI makes a higher low, indicating potential upward momentum. Bearish divergence occurs when price makes a higher high while RSI makes a lower high, signaling potential downward momentum.
+2. **Volatility Filter**: A volatility filter is applied to ensure trades are only taken during periods of high market activity, as measured by the Average True Range (ATR) or Bollinger Bands width.
+3. **High-Frequency Execution**: The strategy is designed for quick entries and exits, often holding positions for minutes to hours, depending on market conditions.
+
+### Entry Rules:
+1. **Bullish Entry**:
+   - Price makes a lower low.
+   - RSI makes a higher low (bullish divergence).
+   - Volatility is above a predefined threshold (e.g., ATR > 0.5% of the asset price).
+   - Enter a long position at the close of the candle confirming the divergence.
+
+2. **Bearish Entry**:
+   - Price makes a higher high.
+   - RSI makes a lower high (bearish divergence).
+   - Volatility is above a predefined threshold.
+   - Enter a short position at the close of the candle confirming the divergence.
+
+### Exit Rules:
+1. **Profit Target**: Set a fixed profit target based on a multiple of the ATR (e.g., 1.5x ATR).
+2. **Stop Loss**: Place a stop loss at a level that is a fraction of the ATR (e.g., 0.75x ATR) from the entry point.
+3. **Time-Based Exit**: If the profit target or stop loss is not hit within a predefined time frame (e.g., 2 hours), exit the position to avoid overnight risk or extended exposure.
+
+### Risk Management:
+1. **Position Sizing**: Use a fixed percentage of the trading capital per trade (e.g., 1-2%) to manage risk.
+2. **Volatility Adjustment**: Adjust position sizes based on current market volatility. Reduce position size during periods of extreme volatility to avoid excessive risk.
+3. **Maximum Daily Loss**: Set a daily loss limit (e.g., 5% of total capital) to prevent significant drawdowns.
+
+### Required Indicators:
+1. **Relative Strength Index (RSI)**: Set to a 14-period for divergence detection.
+2. **Average True Range (ATR)**: Set to a 14-period to measure volatility and set stop loss/profit targets.
+3. **Bollinger Bands (Optional)**: Can be used as an additional volatility filter.
+
+### Additional Considerations:
+- **Backtesting**: Ensure the strategy is thoroughly backtested across different market conditions to validate its effectiveness.
+- **Execution Speed**: Given the high-frequency nature, ensure low-latency execution to capitalize on short-term opportunities.
+- **Market Selection**: Focus on highly liquid markets to minimize slippage and ensure smooth execution.
+
+The VoltaicDivergence strategy is a sophisticated approach that combines technical analysis with high-frequency trading principles, making it suitable for traders who can monitor the markets closely and execute trades swiftly.

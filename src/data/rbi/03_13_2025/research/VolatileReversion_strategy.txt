@@ -1,0 +1,50 @@
+STRATEGY_NAME: VolatileReversion
+
+STRATEGY_DETAILS:
+The VolatileReversion strategy is a mean-reversion approach that combines RSI and MACD divergence signals with volatility-based exits using the VIX. This strategy is designed to capitalize on overextended price movements while managing risk during periods of heightened market volatility.
+
+Key Components:
+1. RSI (Relative Strength Index) - Used to identify overbought/oversold conditions
+2. MACD (Moving Average Convergence Divergence) - Used to confirm divergence signals
+3. VIX (Volatility Index) - Used as an exit signal during volatility spikes
+
+Entry Rules:
+1. Look for RSI to cross below 30 (oversold) or above 70 (overbought)
+2. Confirm with MACD divergence:
+   - For long entries: Price makes lower low while MACD makes higher low
+   - For short entries: Price makes higher high while MACD makes lower high
+3. Enter trade when both conditions align:
+   - Long: RSI < 30 + bullish MACD divergence
+   - Short: RSI > 70 + bearish MACD divergence
+
+Exit Rules:
+1. Primary Exit: VIX spikes above its 20-period moving average by 15%
+2. Secondary Exit: RSI returns to neutral zone (40 for long trades, 60 for short trades)
+3. Stop Loss: 1.5x ATR (Average True Range) from entry point
+
+Risk Management:
+1. Position sizing based on 1% risk per trade
+2. Maximum portfolio exposure of 5% at any time
+3. Daily loss limit of 3% across all positions
+4. Weekly drawdown limit of 7%
+
+Required Indicators:
+1. RSI (14-period)
+2. MACD (12,26,9 settings)
+3. VIX (with 20-period SMA)
+4. ATR (14-period)
+
+Additional Notes:
+- Best suited for 4-hour or daily timeframes
+- Works well in range-bound markets
+- Avoid trading during major news events
+- Combine with sector/industry analysis for better results
+- Monitor correlation with broader market indices
+
+Optimization Tips:
+- Adjust RSI thresholds based on market conditions
+- Experiment with different MACD settings for specific instruments
+- Consider using VIX futures for more precise volatility measurements
+- Implement a trailing stop after initial profit targets are hit
+
+This strategy combines traditional mean-reversion techniques with modern volatility management, making it particularly effective in both trending and ranging markets while protecting against sudden market shocks.

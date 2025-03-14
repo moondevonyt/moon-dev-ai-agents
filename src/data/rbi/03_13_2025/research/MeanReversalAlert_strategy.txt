@@ -1,0 +1,20 @@
+STRATEGY_NAME: MeanReversalAlert
+
+STRATEGY_DETAILS:
+Mean Reversal Alert is a mean-reversion strategy that leverages the volatility indicator Bollinger Bands to identify potential re-entry points. The strategy enters a long position when the lower band of the Bollinger Bands exceeds the 20-period moving average, indicating overbought conditions. This triggers an alert for potential re-tests.
+
+To manage risk, two times ATR (Average True Range) stops are used as exit rules. These stops aim to capture the re-test opportunities by allowing the price to revisit the previous support or resistance level before closing out the trade.
+
+Key components of this strategy include:
+
+1. 20-period moving average: This is used as a baseline for identifying overbought conditions.
+2.  Bollinger Bands: The upper and lower bands serve as volatility indicators, signaling potential mean-reversion opportunities.
+3. Two times ATR stops: These stop-loss levels help manage risk by providing a cushion between the entry point and the exit point.
+
+Required indicators include:
+
+*   Moving Average (20-period)
+*   Bollinger Bands
+*   Average True Range (ATR)
+
+This strategy is suitable for traders who prefer to enter trades based on mean-reversion opportunities, often triggered by volatility indicators like Bollinger Bands.

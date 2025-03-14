@@ -1,0 +1,35 @@
+STRATEGY_NAME: CorrelationReversal
+
+STRATEGY_DETAILS:
+CorrelationReversal is a volatility-based options trading strategy that leverages the relationship between VIX and S&P 500 to generate profits from put option expirations.
+
+**Key Strategy Components:**
+
+1. **VIX-S&P 500 Correlation**: The strategy focuses on selling put options when the correlation between VIX (volatility index) and S&P 500 is within a specific band (5% in this case). This indicates that the market is experiencing a relatively stable period, making it an attractive time to sell puts.
+2. **Daily High Entry Trigger**: The strategy enters a long position (buying put options) when the daily high price of the S&P 500 is reached. This provides a strong entry point and limits potential losses if the market opens lower.
+3. **Exit Target: Next Day's Low**: The strategy exits the long position when the next day's low price is reached, locking in profits or limiting potential losses.
+
+**Entry/Exit Rules:**
+
+1. Enter a long put option position when:
+	* Daily high price of S&P 500 is reached
+	* VIX-S&P 500 correlation falls within the 5% band
+2. Exit the long position when:
+	* Next day's low price is reached
+
+**Risk Management:**
+
+1. **Position Sizing**: The strategy uses a fixed position size to manage risk, which can be adjusted based on account size and market conditions.
+2. **Stop-Loss**: A stop-loss order is set at breakeven (next day's high) to limit potential losses if the market moves against the strategy.
+
+**Required Indicators:**
+
+1. VIX Index
+2. S&P 500 Index
+3. Daily High Price of S&P 500
+
+**Additional Considerations:**
+
+1. **Volatility**: The strategy is designed for periods of relatively stable market conditions, making it less suitable for highly volatile markets.
+2. **Market Hours**: The strategy is best executed during regular trading hours when the market is more liquid and prices are more accurate.
+3. **Options Expiration**: The strategy sells put options at expiration, which means that the strategy will close out its position before the option expires.

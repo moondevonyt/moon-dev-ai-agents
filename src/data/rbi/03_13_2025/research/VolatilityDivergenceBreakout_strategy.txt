@@ -1,0 +1,41 @@
+STRATEGY_NAME: VolatilityDivergenceBreakout
+
+STRATEGY_DETAILS:
+
+The Volatility Divergence Breakout Strategy is a technical analysis-based trading strategy that combines the principles of volatility, divergence, and breakout techniques to identify high-probability trading opportunities. This strategy focuses on identifying divergences between price movements and volatility metrics, followed by breakouts above or below established resistance or support levels.
+
+**Key Strategy Components:**
+
+1. **Volatility Metrics:** The strategy uses historical volatility (HV) and absolute volatility (AV) to measure market uncertainty.
+2. **Divergence Patterns:** The strategy looks for divergences between price movements and volatility metrics, specifically:
+	* Bullish Divergence: Price makes a lower low, while HV or AV increases.
+	* Bearish Divergence: Price makes a higher high, while HV or AV decreases.
+3. **Breakout Levels:** Establish resistance or support levels using the 50-period moving average (MA) and the Relative Strength Index (RSI).
+4. **Risk Management:** The strategy uses a 2:1 risk-reward ratio to manage potential losses.
+
+**Entry/Exit Rules:**
+
+1. **Long Entry:** Buy when:
+	* Price breaks above established resistance.
+	* Bullish Divergence is confirmed with HV or AV increasing.
+	* RSI reaches 30 (oversold condition).
+2. **Short Entry:** Sell when:
+	* Price breaks below established support.
+	* Bearish Divergence is confirmed with HV or AV decreasing.
+	* RSI reaches 70 (overbought condition).
+3. **Exit Rules:**
+	* Take profits when the trade reaches a 5% profit target.
+	* Close positions if the trade reaches a 8% loss stop-loss.
+
+**Required Indicators:**
+
+1. **Relative Strength Index (RSI):** Used to identify oversold or overbought conditions.
+2. **Historical Volatility (HV):** Measures market uncertainty and volatility.
+3. **Absolute Volatility (AV):** Measures absolute price fluctuations and market uncertainty.
+4. **50-period Moving Average:** Establishes resistance or support levels.
+
+**Additional Notes:**
+
+1. The strategy requires a minimum trading period of 30 days to ensure adequate data for divergence pattern analysis.
+2. Use a sufficient account size and risk management techniques to minimize potential losses.
+3. Monitor the strategy's performance regularly and adjust parameters as needed to optimize results.

@@ -1,0 +1,53 @@
+STRATEGY_NAME: ClusterBreakout
+
+STRATEGY_DETAILS:
+The ClusterBreakout strategy is a volume-based trading approach that identifies key price levels with significant volume accumulation (clusters) and trades breakouts from these levels. The strategy leverages the concept that high-volume areas often act as support or resistance zones, and breakouts from these zones can lead to strong directional moves.
+
+### Key Strategy Components:
+1. **Volume Clusters**: Identify price levels where significant volume has accumulated over a specific period. These clusters represent areas of high trading activity and potential support/resistance.
+2. **Breakout Confirmation**: Use price action and volume spikes to confirm breakouts from these clusters.
+3. **Trend Filter**: Apply a trend filter (e.g., moving average) to ensure trades align with the broader market direction.
+
+### Entry Rules:
+1. **Cluster Identification**:
+   - Use a volume profile or volume-by-price indicator to identify high-volume clusters.
+   - Mark the upper and lower boundaries of these clusters as potential breakout levels.
+2. **Breakout Confirmation**:
+   - Enter a long position when the price breaks above the upper boundary of a volume cluster with a significant increase in volume.
+   - Enter a short position when the price breaks below the lower boundary of a volume cluster with a significant increase in volume.
+3. **Trend Filter**:
+   - For long trades, ensure the price is above a key moving average (e.g., 50-period SMA).
+   - For short trades, ensure the price is below a key moving average.
+
+### Exit Rules:
+1. **Profit Target**:
+   - Set a profit target based on a multiple of the average true range (ATR) or a fixed risk-reward ratio (e.g., 2:1).
+2. **Stop Loss**:
+   - Place a stop loss just below the breakout level for long trades or above the breakout level for short trades.
+3. **Trailing Stop**:
+   - Use a trailing stop to lock in profits as the trade moves in your favor.
+
+### Risk Management:
+1. **Position Sizing**:
+   - Risk no more than 1-2% of your trading capital on any single trade.
+2. **Stop Loss Placement**:
+   - Ensure the stop loss is placed at a logical level (e.g., below the volume cluster for long trades) to avoid being stopped out by normal market noise.
+3. **Diversification**:
+   - Avoid over-concentration in a single asset or market. Spread risk across multiple instruments.
+
+### Required Indicators:
+1. **Volume Profile or Volume-by-Price**:
+   - To identify high-volume clusters.
+2. **Moving Average (e.g., 50-period SMA)**:
+   - To filter trades in the direction of the trend.
+3. **Average True Range (ATR)**:
+   - To set profit targets and stop losses.
+4. **Volume Indicator**:
+   - To confirm breakout volume spikes.
+
+### Additional Notes:
+- This strategy works best in trending markets with clear volume accumulation zones.
+- Avoid trading during low-volume periods or choppy market conditions.
+- Backtest the strategy on historical data to fine-tune parameters like cluster size, breakout confirmation criteria, and profit targets.
+
+By focusing on volume clusters and breakouts, the ClusterBreakout strategy aims to capture high-probability trades with strong momentum, while managing risk effectively.

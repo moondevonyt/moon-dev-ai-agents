@@ -1,4 +1,0 @@
-STRATEGY_NAME: AdaptiveDivergence
-
-STRATEGY_DETAILS:
-This strategy employs sentiment analysis from social media data to identify trading opportunities where negative sentiment precedes downward trends in specific sectors. The approach leverages adaptive techniques to respond to changing market conditions and uses divergence as a signal for potential trend reversals, ensuring specificity by focusing on sectoral trends influenced by emotional indicators derived from online sentiment.

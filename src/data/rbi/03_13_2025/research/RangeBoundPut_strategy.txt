@@ -1,0 +1,57 @@
+STRATEGY_NAME: RangeBoundPut
+
+STRATEGY_DETAILS:
+The RangeBoundPut strategy is a systematic approach to selling put options on futures contracts that exhibit a strong bullish trend, as indicated by their position relative to the 200-period moving average. The strategy focuses on capitalizing on the mean-reverting tendencies of price action within a defined range, while managing risk through precise stop-loss and limit-up levels.
+
+### Key Strategy Components:
+1. **200-Period Moving Average (MA):**  
+   - The 200-period MA serves as a key indicator of the overall trend. Futures contracts must have closed above this MA consistently over the past month to qualify for the strategy.
+   - This ensures the underlying asset is in a strong bullish phase, reducing the likelihood of sharp downward moves.
+
+2. **Price Range Analysis:**  
+   - The strategy focuses on assets that have demonstrated stability within a defined price range, as confirmed by their position relative to the 200-period MA.
+
+3. **Option Selling:**  
+   - Sell out-of-the-money (OTM) put options on qualifying futures contracts. This allows the trader to collect premium income while betting on the asset's continued strength.
+
+4. **Stop-Loss and Limit-Up Levels:**  
+   - **Stop-Loss:** Set at 20% below the current price action to protect against significant downside moves.  
+   - **Limit-Up:** Set at 10% above the current price action to lock in profits if the price moves favorably.
+
+### Entry Rules:
+1. Identify futures contracts that have closed above their 200-period MA for at least the past 20 trading days (one month).
+2. Confirm that the asset has shown stability within a defined range, with no extreme volatility or erratic price movements.
+3. Sell OTM put options on the qualifying futures contracts.
+
+### Exit Rules:
+1. **Stop-Loss Exit:**  
+   - Exit the position if the underlying asset's price drops to 20% below the current price action. This prevents excessive losses in case of a sudden reversal.
+   
+2. **Limit-Up Exit:**  
+   - Exit the position if the underlying asset's price rises to 10% above the current price action. This locks in profits and avoids overexposure to potential reversals.
+
+3. **Expiration Exit:**  
+   - If neither the stop-loss nor limit-up levels are triggered, hold the position until the option expires, allowing the trader to retain the full premium collected.
+
+### Risk Management:
+1. **Position Sizing:**  
+   - Allocate no more than 2-5% of the trading capital to any single position to ensure diversification and reduce risk exposure.
+
+2. **Stop-Loss Discipline:**  
+   - Strictly adhere to the 20% stop-loss rule to prevent catastrophic losses.
+
+3. **Premium Collection:**  
+   - Focus on selling options with sufficient premium to justify the risk, ensuring a favorable risk-reward ratio.
+
+### Required Indicators:
+1. **200-Period Moving Average (MA):**  
+   - Used to identify the overall trend and confirm the asset's bullish phase.
+
+2. **Price Action Analysis:**  
+   - Monitor the asset's price movements to ensure stability within the defined range.
+
+3. **Option Pricing Tools:**  
+   - Use tools to calculate the premium, delta, and implied volatility of the put options being sold.
+
+### Summary:
+The RangeBoundPut strategy is designed for traders who want to capitalize on the stability of bullish futures contracts while managing risk through defined stop-loss and limit-up levels. By focusing on assets above their 200-period MA and selling OTM put options, the strategy aims to generate consistent premium income with controlled risk exposure.

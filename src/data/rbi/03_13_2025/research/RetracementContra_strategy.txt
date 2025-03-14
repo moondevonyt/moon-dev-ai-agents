@@ -1,0 +1,34 @@
+STRATEGY_NAME: RetracementContra
+
+STRATEGY_DETAILS:
+RetracementContra is a mean reversion strategy that combines the power of Fibonacci retracement levels with contracting ATR bands to capture profitable trades in an uptrend with decreasing volatility.
+
+**Key Strategy Components:**
+
+1. **Fibonacci Retracement Levels:** Use Fibonacci retracement levels (23.6%, 38.2%, 50%) to identify potential support and resistance areas.
+2. **Contracting ATR Bands:** Calculate contracting ATR bands using a suitable time frame (e.g., 15-minute, 30-minute) to determine the upper and lower bounds of price movement.
+3. **Uptrend with Decreasing Volatility:** Identify uptrends with decreasing volatility by checking for decreasing average true range values over time.
+
+**Entry Rules:**
+
+1. **Touch at Fibonacci Level:** When the price touches a Fibonacci retracement level during an uptrend, enter a long position if the trend indicator (e.g., MACD, RSI) is oversold.
+2. **Volatility Contraction:** Ensure that the volatility contraction level has been breached, indicating decreasing volatility.
+
+**Exit Rules:**
+
+1. **Breakout:** Close all positions when the price breaks out of the contracting ATR bands, signaling a potential trend reversal.
+2. **Maximum Drawdown:** Set a maximum drawdown limit (e.g., 20%) to prevent excessive losses.
+
+**Risk Management:**
+
+1. **Position Size:** Calculate position size based on the available capital and risk tolerance.
+2. **Stop-Loss:** Place stop-loss orders at the previous high-low range to limit potential losses.
+3. **Position Closing:** Close positions when the price breaks out of the contracting ATR bands or reaches the maximum drawdown limit.
+
+**Required Indicators:**
+
+1. **Fibonacci Retracement Tool:** Use a Fibonacci retracement tool (e.g., NinjaTrader, TradingView) to calculate and display Fibonacci levels.
+2. **Contracting ATR Indicator:** Calculate and display contracting ATR bands using an indicator like the ATR Band Filter or the Volatility Breakout System.
+3. **Trend Indicators:** Use trend indicators like MACD or RSI to confirm oversold conditions during uptrends.
+
+By combining Fibonacci retracement levels with contracting ATR bands, RetracementContra aims to capture profitable trades in an uptrend with decreasing volatility while managing risk through position sizing and stop-loss orders.

@@ -1,0 +1,65 @@
+STRATEGY_NAME: FractalRangeBreak
+
+STRATEGY_DETAILS:
+The FractalRangeBreak strategy combines dynamic range breakout principles with fractal-based support and resistance levels to identify high-probability trading opportunities. This strategy is designed to capture breakouts while leveraging fractal analysis to confirm key levels and filter false signals.
+
+### Key Strategy Components:
+1. **Dynamic Range Calculation**:
+   - The range is calculated dynamically based on recent price action, typically using the Average True Range (ATR) or a percentage of the recent high/low.
+   - The upper range boundary is set as the recent high plus the dynamic range value.
+   - The lower range boundary is set as the recent low minus the dynamic range value.
+
+2. **Fractal Support and Resistance**:
+   - Fractals are used to identify significant support and resistance levels. A fractal is a five-candle pattern where the middle candle is the highest (for resistance) or lowest (for support).
+   - These fractal levels act as confirmation points for breakouts, ensuring that the price has established meaningful levels before breaking out.
+
+3. **Breakout Confirmation**:
+   - A breakout is confirmed when the price closes above the upper range boundary (for a long entry) or below the lower range boundary (for a short entry).
+   - The breakout must also align with a fractal level to ensure the move has structural significance.
+
+### Entry Rules:
+1. **Long Entry**:
+   - Wait for the price to close above the upper range boundary.
+   - Confirm that the breakout aligns with a fractal resistance level.
+   - Enter a long position on the next candle's open.
+
+2. **Short Entry**:
+   - Wait for the price to close below the lower range boundary.
+   - Confirm that the breakout aligns with a fractal support level.
+   - Enter a short position on the next candle's open.
+
+### Exit Rules:
+1. **Take Profit**:
+   - Use a trailing stop based on the ATR or a fixed percentage/point target.
+   - Alternatively, exit when the price reaches the next significant fractal level in the opposite direction.
+
+2. **Stop Loss**:
+   - Place the stop loss below the most recent fractal support level for long positions or above the most recent fractal resistance level for short positions.
+   - Ensure the stop loss is within an acceptable risk tolerance (e.g., 1-2% of account equity).
+
+### Risk Management:
+1. **Position Sizing**:
+   - Calculate position size based on the distance between the entry price and the stop loss level, ensuring that the maximum risk per trade does not exceed a predefined percentage of the account (e.g., 1-2%).
+
+2. **Risk-Reward Ratio**:
+   - Aim for a minimum risk-reward ratio of 1:2 or higher to ensure profitability over the long term.
+
+3. **Trade Filtering**:
+   - Avoid trading during low volatility periods or when the range is too narrow, as this increases the likelihood of false breakouts.
+
+### Required Indicators:
+1. **Average True Range (ATR)**:
+   - Used to calculate the dynamic range and set stop-loss levels.
+
+2. **Fractal Indicator**:
+   - Identifies key support and resistance levels for breakout confirmation.
+
+3. **Price Action**:
+   - Monitor candlestick patterns and closing prices to confirm breakouts.
+
+### Additional Notes:
+- This strategy performs best in trending markets with clear support and resistance levels.
+- Backtest the strategy on multiple timeframes (e.g., 1-hour, 4-hour, daily) to identify optimal settings for your trading style.
+- Combine with additional filters, such as volume analysis or trend indicators (e.g., moving averages), to further refine entries and exits.
+
+By combining dynamic range breakouts with fractal-based support and resistance, the FractalRangeBreak strategy provides a robust framework for capturing high-probability trades while minimizing false signals.

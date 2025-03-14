@@ -1,19 +1,36 @@
 STRATEGY_NAME: AdaptiveSynergy
 
 STRATEGY_DETAILS:
-This strategy combines momentum analysis with relative strength (RS) and stochastic oscillator (Sto) to identify trading opportunities. Here's how it works:
+The AdaptiveSynergy strategy is designed to leverage unique combinations of technical indicators to identify high-probability trading opportunities. This strategy focuses on the synergy between multiple indicators, ensuring that trades are only taken when multiple signals align, thereby increasing the likelihood of success.
 
-1. **Key Strategy Components**:
-   - **Adaptive Moving Average (AMA)**: Calculates momentum dynamically, adjusting based on market conditions.
-   - **Relative Strength Index (RSI)**: Measures the strength of a security's price action.
-   - **Stochastic Oscillator (Sto)**: Identifies potential reversals by comparing closing prices to recent price ranges.
+Key Strategy Components:
+1. **Moving Average Convergence Divergence (MACD)**: Used to identify momentum and trend direction.
+2. **Relative Strength Index (RSI)**: Helps in identifying overbought or oversold conditions.
+3. **Bollinger Bands**: Provides insights into volatility and potential price breakouts.
+4. **Volume Weighted Average Price (VWAP)**: Used to confirm the strength of the trend based on volume.
 
-2. **Entry/Exit Rules**:
-   - **Entry**: Buy when RSI or Sto diverges from a bullish AMA, indicating a possible trend reversal.
-   - **Exit**: Close trades when the divergence reverses or a price correction occurs.
+Entry Rules:
+1. **MACD Crossover**: Enter a long position when the MACD line crosses above the signal line, indicating bullish momentum.
+2. **RSI Confirmation**: Ensure that the RSI is above 50 but not in the overbought zone (above 70) for a long position.
+3. **Bollinger Band Breakout**: Confirm the entry with a price breakout above the upper Bollinger Band, indicating potential upward momentum.
+4. **VWAP Confirmation**: The price should be above the VWAP, confirming the strength of the bullish trend.
 
-3. **Risk Management**:
-   - Use stop-loss orders at entry points to limit losses.
-   - Adjust position sizing based on risk tolerance percentages.
+Exit Rules:
+1. **MACD Reversal**: Exit the position when the MACD line crosses below the signal line, indicating a potential reversal.
+2. **RSI Overbought**: Exit if the RSI enters the overbought zone (above 70), suggesting a possible pullback.
+3. **Bollinger Band Reversion**: Exit if the price reverts back inside the Bollinger Bands, indicating a loss of momentum.
+4. **VWAP Break**: Exit if the price falls below the VWAP, signaling a weakening trend.
 
-By integrating these elements, the strategy aims for high-probability trades with adaptability to market shifts.
+Risk Management:
+1. **Stop-Loss**: Set a stop-loss at 1.5 times the Average True Range (ATR) below the entry price for long positions.
+2. **Position Sizing**: Risk no more than 1-2% of the total trading capital on any single trade.
+3. **Take-Profit**: Set a take-profit level at 2 times the ATR above the entry price to ensure a favorable risk-reward ratio.
+
+Required Indicators:
+1. **MACD**: For momentum and trend direction.
+2. **RSI**: For overbought/oversold conditions.
+3. **Bollinger Bands**: For volatility and breakout confirmation.
+4. **VWAP**: For trend strength confirmation.
+5. **ATR**: For setting stop-loss and take-profit levels.
+
+The AdaptiveSynergy strategy is a robust approach that combines multiple indicators to filter out low-probability trades and focus on high-conviction setups. By ensuring that multiple indicators align before entering a trade, this strategy aims to maximize the probability of success while minimizing risk.

@@ -1,0 +1,45 @@
+STRATEGY_NAME: SymmetricVolatility
+
+STRATEGY_DETAILS:
+The SymmetricVolatility strategy combines fractal symmetry analysis with Fibonacci retracement levels to identify high-probability reversal points, while using volatility spikes as exit signals. This approach leverages the confluence of geometric patterns and key price levels to time entries, with dynamic exits based on market volatility.
+
+### Key Strategy Components:
+1. **Fractal Symmetry**: Identifies repeating price patterns and key support/resistance levels.
+2. **Fibonacci Retracement**: Confirms reversal zones using Fibonacci levels (38.2%, 50%, 61.8%).
+3. **Volatility Spikes**: Uses ATR (Average True Range) or Bollinger Band width to detect exit conditions.
+
+### Entry Rules:
+1. **Fractal Identification**: 
+   - Use a fractal indicator to identify recent highs and lows.
+   - Look for symmetry in price action (e.g., similar swing patterns on both sides of a pivot point).
+2. **Fibonacci Confluence**:
+   - Draw Fibonacci retracement levels from the most recent swing high to swing low (or vice versa).
+   - Wait for price to retrace to a key Fibonacci level (38.2%, 50%, or 61.8%) that aligns with fractal symmetry.
+3. **Reversal Confirmation**:
+   - Enter a long trade if price reverses upward at the Fibonacci level with bullish candlestick patterns (e.g., hammer, engulfing).
+   - Enter a short trade if price reverses downward at the Fibonacci level with bearish candlestick patterns (e.g., shooting star, bearish engulfing).
+
+### Exit Rules:
+1. **Volatility Spike Detection**:
+   - Use ATR (14-period) or Bollinger Band width to monitor volatility.
+   - Exit the trade if ATR increases by more than 20% from its average or if Bollinger Bands widen significantly.
+2. **Profit Target**:
+   - Set a profit target at the next Fibonacci extension level (e.g., 127.2% or 161.8%).
+3. **Stop Loss**:
+   - Place a stop loss below the recent fractal low for long trades or above the recent fractal high for short trades.
+
+### Risk Management:
+1. **Position Sizing**:
+   - Risk no more than 1-2% of your account per trade.
+2. **Stop Loss Placement**:
+   - Ensure stop loss is placed at a logical level (e.g., below/above fractal symmetry points).
+3. **Volatility Filter**:
+   - Avoid trading during periods of extreme volatility (e.g., news events) unless volatility aligns with the strategy's exit rules.
+
+### Required Indicators:
+1. **Fractal Indicator**: To identify symmetry and key price levels.
+2. **Fibonacci Retracement Tool**: To confirm reversal zones.
+3. **ATR (14-period)**: To measure volatility and determine exit conditions.
+4. **Candlestick Patterns**: For reversal confirmation (e.g., hammer, engulfing, shooting star).
+
+This strategy is ideal for traders who appreciate the confluence of geometric patterns and dynamic market conditions, offering a structured yet adaptable approach to trading reversals.

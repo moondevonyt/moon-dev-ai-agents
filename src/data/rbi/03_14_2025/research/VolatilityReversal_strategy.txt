@@ -1,0 +1,49 @@
+STRATEGY_NAME: VolatilityReversal
+
+STRATEGY_DETAILS:
+The VolatilityReversal strategy is designed to capitalize on market reversals and trend breaks by combining volatility analysis with key support and resistance zones. This approach is particularly effective in ranging or volatile markets where price tends to oscillate between established levels.
+
+### Key Strategy Components:
+1. **Volatility Measurement**: Use the Average True Range (ATR) to gauge market volatility. A higher ATR indicates increased volatility, which is ideal for this strategy.
+2. **Support and Resistance Zones**: Identify key support and resistance levels using recent swing highs and lows. These zones act as potential reversal points.
+3. **Price Action Confirmation**: Look for candlestick patterns (e.g., pin bars, engulfing patterns) or divergence signals to confirm reversals at these zones.
+
+### Entry Rules:
+1. **Reversal Entry**:
+   - Wait for price to approach a key support or resistance zone.
+   - Confirm with a reversal candlestick pattern (e.g., bullish engulfing at support or bearish engulfing at resistance).
+   - Ensure the ATR is above a predefined threshold (e.g., 1.5x the average ATR over the last 20 periods) to confirm sufficient volatility.
+   - Enter a long position at support or a short position at resistance.
+
+2. **Breakout Entry**:
+   - If price breaks through a support or resistance zone with strong momentum (e.g., a large bullish/bearish candle closing beyond the zone).
+   - Confirm with a rising ATR to indicate increasing volatility.
+   - Enter a position in the direction of the breakout.
+
+### Exit Rules:
+1. **Take Profit**:
+   - Set a take-profit level at the next key support/resistance zone or a multiple of the ATR (e.g., 2x ATR from entry).
+2. **Stop Loss**:
+   - Place a stop-loss just below the support zone for long trades or above the resistance zone for short trades.
+   - Alternatively, use a trailing stop based on ATR to lock in profits as the trade moves in your favor.
+
+### Risk Management:
+1. **Position Sizing**:
+   - Risk no more than 1-2% of your trading capital per trade.
+   - Adjust position size based on the distance between entry and stop-loss levels.
+2. **Volatility Filter**:
+   - Avoid trading during low volatility periods (ATR below a certain threshold) as reversals are less likely to be significant.
+
+### Required Indicators:
+1. **Average True Range (ATR)**: To measure volatility and set stop-loss/take-profit levels.
+2. **Support and Resistance Zones**: Manually drawn or identified using recent swing highs/lows.
+3. **Candlestick Patterns**: For confirmation of reversals (e.g., engulfing, pin bars).
+
+### Example Setup:
+- **Scenario**: Price approaches a key resistance zone with an ATR reading of 1.8x the 20-period average.
+- **Confirmation**: A bearish engulfing pattern forms at the resistance zone.
+- **Entry**: Short position is opened at the close of the engulfing candle.
+- **Stop Loss**: Placed just above the resistance zone.
+- **Take Profit**: Set at the next support level or 2x ATR from entry.
+
+This strategy works best on higher timeframes (e.g., 1H, 4H, Daily) where support/resistance zones are more reliable and volatility is more pronounced. Always backtest and refine the parameters to suit your trading style and market conditions.

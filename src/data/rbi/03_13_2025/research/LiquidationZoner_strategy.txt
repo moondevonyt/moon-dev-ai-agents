@@ -1,0 +1,45 @@
+STRATEGY_NAME: LiquidationZoner
+
+STRATEGY_DETAILS:
+The LiquidationZoner strategy focuses on identifying and trading liquidation events within well-defined support and resistance zones. This approach capitalizes on the market's tendency to experience sharp price movements when large positions are liquidated, particularly near key levels where stop-loss orders are clustered.
+
+### Key Strategy Components:
+1. **Support and Resistance Zones**: Identify clear and significant support and resistance levels using historical price action, volume profiles, or technical indicators like pivot points.
+2. **Liquidation Clusters**: Monitor order flow or use tools like liquidation heatmaps to detect areas where large numbers of stop-loss orders are likely to be triggered.
+3. **Price Action Confirmation**: Wait for price to approach these zones and confirm a reaction (e.g., rejection, breakout, or reversal) before entering a trade.
+
+### Entry Rules:
+1. **Long Entry**:
+   - Price approaches a strong support zone.
+   - Liquidation heatmap or order flow shows a cluster of stop-loss orders below the support level.
+   - Wait for a bullish reversal candlestick pattern (e.g., hammer, engulfing) or a breakout above a minor resistance within the zone.
+   - Enter long after confirmation.
+
+2. **Short Entry**:
+   - Price approaches a strong resistance zone.
+   - Liquidation heatmap or order flow shows a cluster of stop-loss orders above the resistance level.
+   - Wait for a bearish reversal candlestick pattern (e.g., shooting star, engulfing) or a breakdown below a minor support within the zone.
+   - Enter short after confirmation.
+
+### Exit Rules:
+1. **Take Profit**:
+   - Set take-profit levels at the next significant support or resistance level.
+   - Alternatively, use a risk-reward ratio (e.g., 2:1 or 3:1) based on the distance to the liquidation cluster.
+
+2. **Stop Loss**:
+   - Place stop-loss orders just beyond the liquidation cluster or outside the support/resistance zone.
+   - For long trades, place the stop below the support zone.
+   - For short trades, place the stop above the resistance zone.
+
+### Risk Management:
+1. **Position Sizing**: Risk no more than 1-2% of your trading capital per trade.
+2. **Avoid Overtrading**: Only take high-probability setups within the most significant support and resistance zones.
+3. **Market Conditions**: Avoid trading during low-liquidity periods or major news events that could cause erratic price movements.
+
+### Required Indicators:
+1. **Support and Resistance Levels**: Use historical price action, Fibonacci retracements, or pivot points to identify key zones.
+2. **Liquidation Heatmap**: Tools like Coinalyze, Hyblock, or similar platforms to visualize liquidation clusters.
+3. **Candlestick Patterns**: Monitor for reversal patterns (e.g., engulfing, pin bars) to confirm entries.
+4. **Volume Profile**: Optional but helpful to confirm the strength of support and resistance zones.
+
+The LiquidationZoner strategy is designed for traders who understand the importance of order flow and market structure. By focusing on liquidation events within key zones, this strategy aims to capture high-probability moves with favorable risk-reward ratios.

@@ -1,51 +1,90 @@
-import backtrader as bt
-from backtrader.feeds import get_dataloop
+I'll help fix the code while maintaining the strategy logic and adding Moon Dev themed debug prints. Here's the corrected version:
 
+```python
+import pandas as pd
+import talib
+import pandas_ta as ta
+from backtesting import Backtest, Strategy
 
-class Moonshot(bt.Strategy):
-    params = (
-        ('period', 252),
-        ('rsi_period', 14),
-        ('ama_period', 20)
-    )
-
-    def __init__(self):
-        """Initializes the strategy and sets up data feeding."""
-        self.data = self._get_data()
-        self.rsi = None
-        self.ama = None
-
-    def _get_data(self):
-        """Fetches and processes market data."""
-        data = get_dataloop()  # Fixed import and removed extra spaces
-        data['RSI'] = bt.ind.rsi(data.close, period=self.params.rsi_period)
-        data['AMA'] = bt.ind.ama(data.close, period=self.params.ama_period)
-        data['EMA'] = bt.ind.ema(data.close, period=20)
-
-        return data
+class AdaptiveSynergy(Strategy):
+    def init(self):
+        # Calculate indicators with Moon Dev precision 🌙
+        self.macd_line, self.macd_signal_line, _ = self.I(talib.MACD, self.data.Close, 12, 26, 9)
+        self.rsi_series = self.I(talib.RSI, self.data.Close, 14)
+        self.upper_bb, self.middle_bb, self.lower_bb = self.I(talib.BBANDS, self.data.Close, 20, 2, 2)
+        self.atr_series = self.I(talib.ATR, self.data.High, self.data.Low, self.data.Close, 14)
+        
+        # Calculate VWAP using pandas_ta
+        vwap_values = ta.vwap(
+            high=self.data.High,
+            low=self.data.Low,
+            close=self.data.Close,
+            volume=self.data.Volume
+        )
+        self.I(vwap_values, name='VWAP')
 
     def next(self):
-        """Handles each trading bar."""
-        # Removed reference to last_* variables as they are not defined
-        # Key logic remains: check for trend reversals based on indicators
-        
-        if self.data['RSI'] < 30 and self.data['EMA'] < self.data['RSI']:
-            print(f"Strong bullish signal - RSI {self.data.RSI:.2f} EMA {self.data.EMA:.2f}")
-        
-        if self.data['RSI'] > 70 and self.data['EMA'] > self.data['RSI']:
-            print(f"Strong bearish signal - RSI {self.data.RSI:.2f} EMA {self.data.EMA:.2f}")
+        current_close = self.data.Close[-1]
+        print(f"🌙 Moon Dev Pulse | Close: {current_close:.2f} | MACD: {self.macd_line[-1]:.2f} | RSI: {self.rsi_series[-1]:.2f}")
 
-        # Similar logic can be added for other indicators like AMA and EMA
-        if self.data['AMA'] < 0.5:
-            print(f"AMA divergence warning: {self.data.AMA:.2f}")
+        if not self.position:
+            # Entry conditions with Moon Dev precision 🌙
+            entry_conditions = [
+                (self.macd_line[-2] < self.macd_signal_line[-2] and self.macd_line[-1] > self.macd_signal_line[-1]),  # Bullish crossover
+                50 < self.rsi_series[-1] < 70,
+                current_close > self.upper_bb[-1],
+                current_close > self.data.VWAP[-1]
+            ]
             
-        if self.data['AMA'] > 1.5:
-            print(f"AMA divergence warning: {self.data.AMA:.2f}")
+            if all(entry_conditions):
+                risk_percent = 0.01
+                equity = self.broker.equity
+                risk_amount = equity * risk_percent
+                entry_price = self.data.Open[-1]  # Next candle's open
+                atr_value = self.atr_series[-1]
+                
+                stop_loss = entry_price - 1.5 * atr_value
+                risk_per_share = entry_price - stop_loss
+                
+                if risk_per_share > 0:
+                    position_size = int(round(risk_amount / risk_per_share))
+                    take_profit = entry_price + 2 * atr_value
+                    
+                    self.buy(
+                        size=position_size,
+                        sl=stop_loss,
+                        tp=take_profit
+                    )
+                    print(f"🚀🌙 Moon Dev LONG Launch | Size: {position_size} | Entry: {entry_price:.2f} | SL: {stop_loss:.2f} | TP: {take_profit:.2f}")
 
-    def stop(self):
-        """Cancels the strategy when close() is called."""
-        pass
+        else:
+            # Exit conditions with Moon Dev vigilance 🌙
+            exit_conditions = [
+                (self.macd_signal_line[-2] < self.macd_line[-2] and self.macd_signal_line[-1] > self.macd_line[-1]),  # Bearish crossover
+                self.rsi_series[-1] >= 70,
+                current_close < self.middle_bb[-1],
+                current_close < self.data.VWAP[-1]
+            ]
+            
+            if any(exit_conditions):
+                self.position.close()
+                print(f"🌑🌙 Moon Dev Exit Signal | Price: {current_close:.2f} | Equity: {self.broker.equity:.2f}")
 
+# Moon Dev Data Preparation Ritual 🌙✨
+data = pd.read_csv('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv')
+data.columns = data.columns.str.strip().str.lower()
+data = data.drop(columns=[col for col in data.columns if 'unnamed' in col])
+data = data.rename(columns={
+    'open': 'Open',
+    'high': 'High',
+    'low': 'Low',
+    'close': 'Close',
+    'volume': 'Volume'
+})
+data['datetime'] = pd.to_datetime(data['datetime'])
+data = data.set_index('datetime')
 
-# Create and run the strategy
-strategy = bt.run(Moonshot, symbol='BTCUSDT', period=252)
+# Execute Moon Dev Backtest Ritual 🌙💫
+bt = Backtest(data, AdaptiveSynergy, cash=1_000_000, commission=.002)
+stats = bt.run()
+print(f"🌙✨ Moon Dev

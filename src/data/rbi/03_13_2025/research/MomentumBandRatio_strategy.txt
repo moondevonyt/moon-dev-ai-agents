@@ -1,0 +1,54 @@
+STRATEGY_NAME: MomentumBandRatio
+
+STRATEGY_DETAILS:
+The MomentumBandRatio strategy is a sophisticated momentum-based approach that combines RSI, moving averages, and Bollinger Bands to identify high-probability trading opportunities. Here's a detailed breakdown of the strategy:
+
+### Key Strategy Components:
+1. **RSI Oscillator (20-period):** Used to identify oversold conditions.
+2. **5-period Moving Average (MA):** Acts as a short-term trend filter.
+3. **50-day Simple Exponential Moving Average (SEMA):** Provides a long-term trend context.
+4. **Bollinger Bands:** Used to assess price volatility and adjust trade sizing or risk parameters.
+
+---
+
+### Entry Rules:
+1. **Primary Condition:** The 20-period RSI must be below 30, indicating an oversold condition.
+2. **Trend Confirmation:** The 5-period MA must be above the 50-day SEMA, ensuring the short-term trend aligns with the long-term bullish bias.
+3. **Bollinger Bands Adjustment:** 
+   - Calculate the ratio of the current price movement relative to the Bollinger Bands' width.
+   - If the price is near the lower Bollinger Band and the ratio suggests a potential reversal, it strengthens the entry signal.
+
+---
+
+### Exit Rules:
+1. **Take Profit:** 
+   - Exit when the 20-period RSI crosses above 70, indicating overbought conditions.
+   - Alternatively, use a trailing stop based on the Bollinger Bands' upper band.
+2. **Stop Loss:** 
+   - Place a stop loss below the recent swing low or at a fixed percentage below the entry price.
+   - Adjust the stop loss dynamically based on the Bollinger Bands' lower band.
+
+---
+
+### Risk Management:
+1. **Position Sizing:** 
+   - Use the Bollinger Bands' width to determine position size. Narrower bands suggest lower volatility, allowing for larger positions, while wider bands suggest higher volatility, requiring smaller positions.
+2. **Risk per Trade:** Limit risk to 1-2% of the trading capital per trade.
+3. **Diversification:** Avoid overconcentration in a single asset by diversifying across multiple instruments.
+
+---
+
+### Required Indicators:
+1. **20-period RSI:** To identify oversold conditions.
+2. **5-period Moving Average:** For short-term trend confirmation.
+3. **50-day Simple Exponential Moving Average (SEMA):** For long-term trend alignment.
+4. **Bollinger Bands (20-period, 2 standard deviations):** To assess volatility and adjust trade parameters.
+
+---
+
+### Additional Notes:
+- This strategy works best in trending markets with clear momentum shifts.
+- Backtest the strategy across different timeframes and asset classes to ensure robustness.
+- Regularly monitor and adjust the Bollinger Bands' parameters to adapt to changing market conditions.
+
+By combining momentum, trend confirmation, and volatility adjustments, the MomentumBandRatio strategy provides a structured yet flexible approach to trading.

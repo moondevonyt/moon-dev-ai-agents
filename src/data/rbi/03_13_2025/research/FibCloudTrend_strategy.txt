@@ -1,0 +1,60 @@
+STRATEGY_NAME: FibCloudTrend
+
+STRATEGY_DETAILS:
+The FibCloudTrend strategy combines Fibonacci Retracement levels with the Ichimoku Cloud to identify and follow strong trends while managing risk effectively. This approach leverages the confluence of Fibonacci support/resistance levels and the Ichimoku Cloud's dynamic zones to confirm trend direction and potential entry/exit points.
+
+### Key Strategy Components:
+1. **Fibonacci Retracement**: Used to identify potential support/resistance levels during pullbacks in a trend.
+2. **Ichimoku Cloud**: Provides a comprehensive view of trend direction, momentum, and dynamic support/resistance.
+   - **Tenkan-Sen (Conversion Line)**: Short-term trend indicator.
+   - **Kijun-Sen (Base Line)**: Medium-term trend indicator.
+   - **Senkou Span A/B (Cloud)**: Defines dynamic support/resistance zones.
+   - **Chikou Span (Lagging Line)**: Confirms trend strength.
+
+### Entry Rules:
+1. **Trend Confirmation**:
+   - Price must be above the Ichimoku Cloud for an uptrend or below the Cloud for a downtrend.
+   - Chikou Span should be above/below price for confirmation.
+2. **Pullback to Fibonacci Level**:
+   - Wait for price to retrace to a key Fibonacci level (38.2%, 50%, or 61.8%) within the trend.
+3. **Ichimoku Confirmation**:
+   - Tenkan-Sen should cross above Kijun-Sen for a long entry or below for a short entry.
+   - Price should bounce off the Fibonacci level and remain above/below the Cloud.
+
+### Exit Rules:
+1. **Take Profit**:
+   - Use the next Fibonacci extension level (e.g., 127.2%, 161.8%) as a target.
+   - Alternatively, exit when price breaks below/above the Cloud.
+2. **Stop Loss**:
+   - Place stop loss below/above the most recent swing low/high or below/above the Cloud.
+
+### Risk Management:
+1. **Position Sizing**:
+   - Risk no more than 1-2% of the account per trade.
+2. **Stop Loss Placement**:
+   - Ensure the stop loss distance aligns with your risk tolerance.
+3. **Trailing Stop**:
+   - Use the Kijun-Sen or Cloud boundaries as a trailing stop to lock in profits.
+
+### Required Indicators:
+1. **Fibonacci Retracement Tool**:
+   - Draw from the most recent swing low to swing high (uptrend) or swing high to swing low (downtrend).
+2. **Ichimoku Cloud**:
+   - Default settings (9, 26, 52) are recommended.
+
+### Example Setup:
+- **Uptrend**:
+  - Price is above the Ichimoku Cloud.
+  - Price retraces to the 50% Fibonacci level.
+  - Tenkan-Sen crosses above Kijun-Sen.
+  - Enter long with a stop loss below the Cloud or swing low.
+  - Target the 127.2% Fibonacci extension level.
+
+- **Downtrend**:
+  - Price is below the Ichimoku Cloud.
+  - Price retraces to the 61.8% Fibonacci level.
+  - Tenkan-Sen crosses below Kijun-Sen.
+  - Enter short with a stop loss above the Cloud or swing high.
+  - Target the 161.8% Fibonacci extension level.
+
+This strategy is ideal for traders looking to capitalize on strong trends while using Fibonacci levels and the Ichimoku Cloud to manage risk and confirm entries.
