@@ -21,10 +21,10 @@ eth-account==0.11.0
 web3==6.20.1
 
 # ========== Data & Analysis ==========
-pandas==2.1.4
-numpy==1.26.2
-pandas-ta==0.3.14b0
-TA-Lib==0.4.32  # Technical indicators
+pandas>=2.3.2
+numpy==2.2.6
+pandas-ta==0.4.71b0
+# TA-Lib==0.4.32  # Technical indicators
 Backtesting==0.3.3  # Backtesting framework
 yfinance==0.2.43  # For fetching Yahoo Finance data
 
