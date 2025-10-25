@@ -77,8 +77,13 @@ USE_SWARM_MODE = True  # True = 6-model swarm consensus (~45-60s per token)
                         # False = Single model fast execution (~10s per token)
 
 # 📈 TRADING MODE SETTINGS
-LONG_ONLY = True  # True = Long positions only (Solana on-chain, no shorting available)
-                  # False = Long & Short positions (HyperLiquid perpetuals)
+EXCHANGE = 'binance'  # Options: 'solana', 'hyperliquid', 'binance'
+                     # 'solana' = Long positions only (Solana on-chain)
+                     # 'hyperliquid' = Long & Short positions (HyperLiquid perpetuals)
+                     # 'binance' = Spot trading on Binance
+
+LONG_ONLY = True  # True = Long positions only (Solana/Binance spot)
+                  # False = Long & Short positions (HyperLiquid perpetuals only)
                   #
                   # When LONG_ONLY = True:
                   #   - "Buy" = Opens/maintains long position
@@ -91,40 +96,90 @@ LONG_ONLY = True  # True = Long positions only (Solana on-chain, no shorting ava
                   #   - Full long/short capability (for HyperLiquid)
 
 # 🤖 SINGLE MODEL SETTINGS (only used when USE_SWARM_MODE = False)
-AI_MODEL_TYPE = 'xai'  # Options: 'groq', 'openai', 'claude', 'deepseek', 'xai', 'ollama'
-AI_MODEL_NAME = None   # None = use default, or specify: 'grok-4-fast-reasoning', 'claude-3-5-sonnet-latest', etc.
+# ALSO used for portfolio allocation when swarm finds BUY signals!
+AI_MODEL_TYPE = 'openrouter'  # Options: 'groq', 'openai', 'claude', 'deepseek', 'xai', 'ollama', 'openrouter'
+AI_MODEL_NAME = 'meta-llama/llama-3.1-405b-instruct'   # Using OpenRouter Llama for portfolio allocation (fast & reliable)
 AI_TEMPERATURE = 0.7   # Creativity vs precision (0-1)
 AI_MAX_TOKENS = 1024   # Max tokens for AI response
 
-# 💰 POSITION SIZING & RISK MANAGEMENT
-usd_size = 25                    # Target position size in USD
-max_usd_order_size = 3           # Maximum order chunk size in USD
-MAX_POSITION_PERCENTAGE = 30     # Max % of portfolio per position (0-100)
-CASH_PERCENTAGE = 20             # Minimum % to keep in USDC cash buffer (0-100)
+# 💰 POSITION SIZING & RISK MANAGEMENT (OPTION B - AGGRESSIVE)
+usd_size = 200                   # Target position size in USD (up from $25)
+max_usd_order_size = 50          # Maximum order chunk size in USD (up from $3)
+MAX_POSITION_PERCENTAGE = 40     # Max % of portfolio per position (up from 30%)
+CASH_PERCENTAGE = 15             # Minimum % to keep in USDT cash buffer (down from 20%)
 
 # 📊 MARKET DATA COLLECTION
 DAYSBACK_4_DATA = 3              # Days of historical data to fetch
 DATA_TIMEFRAME = '1H'            # Bar timeframe: 1m, 3m, 5m, 15m, 30m, 1H, 2H, 4H, 6H, 8H, 12H, 1D, 3D, 1W, 1M
                                  # Current: 3 days @ 1H = ~72 bars
                                  # For 15-min: '15m' = ~288 bars
+
+# 🎯 MULTI-TIMEFRAME ANALYSIS (ADVANCED)
+USE_MULTI_TIMEFRAME = True       # True = Analyze multiple timeframes for each token (more comprehensive)
+                                 # False = Single timeframe analysis (faster)
+MULTI_TIMEFRAMES = ['15m', '1H', '4H']  # List of timeframes for multi-timeframe analysis
+                                        # 15m = Short-term entry/exit signals
+                                        # 1H = Medium-term trend confirmation
+                                        # 4H = Long-term trend direction
 SAVE_OHLCV_DATA = False          # True = save data permanently, False = temp data only
+
+# 🛡️ RISK MANAGEMENT - CIRCUIT BREAKERS
+USE_RISK_CHECKS = True           # True = Enable circuit breakers before each trade cycle
+MAX_TOTAL_POSITION_USD = 1600    # Maximum total USD across all positions (8 tokens × $200)
+MAX_POSITION_LOSS_PERCENT = 15   # Max % loss on any single position before force-close
+MAX_PORTFOLIO_LOSS_PERCENT = 10  # Max % loss on total portfolio before halt trading
+MIN_USDT_BALANCE = 1             # Minimum USDT balance to maintain (lowered for moderate trading)
 
 # ⚡ TRADING EXECUTION SETTINGS
 slippage = 199                   # Slippage tolerance (199 = ~2%)
-SLEEP_BETWEEN_RUNS_MINUTES = 15  # Minutes between trading cycles
+SLEEP_BETWEEN_RUNS_MINUTES = 5   # Minutes between trading cycles (faster = more opportunities)
+
+# 🎯 FEE OPTIMIZATION SETTINGS (Option B - Moderate + Stop-Loss)
+MIN_CONFIDENCE_FOR_TRADE = 62    # Minimum confidence % to execute BUY signal (filters weak signals)
+AUTO_TAKE_PROFIT_PERCENT = 0     # Auto-exit positions at +3% profit (0 = disabled) - TEMPORARILY DISABLED DUE TO API HANG
+AUTO_STOP_LOSS_PERCENT = 0       # Auto-exit positions at -5% loss (0 = disabled) - TEMPORARILY DISABLED DUE TO API HANG
 
 # 🎯 TOKEN CONFIGURATION
-USDC_ADDRESS = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"  # Never trade
-SOL_ADDRESS = "So11111111111111111111111111111111111111111"   # Never trade
-EXCLUDED_TOKENS = [USDC_ADDRESS, SOL_ADDRESS]
+if EXCHANGE == 'solana':
+    USDC_ADDRESS = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"  # Never trade
+    SOL_ADDRESS = "So11111111111111111111111111111111111111111"   # Never trade
+    EXCLUDED_TOKENS = [USDC_ADDRESS, SOL_ADDRESS]
 
-# ⚠️ IMPORTANT: The swarm will analyze ALL tokens in this list (one at a time)
-# Each token takes ~45-60 seconds in swarm mode
-# Comment out tokens you don't want to trade (add # at start of line)
-MONITORED_TOKENS = [
-    '9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump',    # 🌬️ FART (DISABLED)
-    #'DitHyRMQiSDhn5cnKMJV2CDDt6sVct96YrECiM49pump',   # 🏠 housecoin (ACTIVE)
-]
+    # ⚠️ IMPORTANT: The swarm will analyze ALL tokens in this list (one at a time)
+    # Each token takes ~45-60 seconds in swarm mode
+    # Comment out tokens you don't want to trade (add # at start of line)
+    MONITORED_TOKENS = [
+        '9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump',    # 🌬️ FART (DISABLED)
+        #'DitHyRMQiSDhn5cnKMJV2CDDt6sVct96YrECiM49pump',   # 🏠 housecoin (ACTIVE)
+    ]
+
+elif EXCHANGE == 'binance':
+    # For Binance, we use trading pair symbols (e.g., BTCUSDT)
+    USDC_ADDRESS = "USDT"  # Treat USDT as our cash position on Binance
+    EXCLUDED_TOKENS = [USDC_ADDRESS]
+
+    MONITORED_TOKENS = [
+        'BTCUSDT',    # Bitcoin
+        'ETHUSDT',    # Ethereum
+        'BNBUSDT',    # Binance Coin
+        'SOLUSDT',    # Solana
+        'ADAUSDT',    # Cardano
+        'XRPUSDT',    # Ripple
+        'DOGEUSDT',   # Dogecoin
+        'DOTUSDT',    # Polkadot
+    ]
+
+elif EXCHANGE == 'hyperliquid':
+    # HyperLiquid uses token symbols
+    USDC_ADDRESS = "USDC"
+    EXCLUDED_TOKENS = []
+    MONITORED_TOKENS = [
+        'BTC',    # Bitcoin perpetual
+        'ETH',    # Ethereum perpetual
+    ]
+
+else:
+    raise ValueError(f"❌ Unsupported exchange: {EXCHANGE}. Choose 'solana', 'hyperliquid', or 'binance'")
 
 # Example: To trade multiple tokens, uncomment the ones you want:
 # MONITORED_TOKENS = [
@@ -169,6 +224,8 @@ Remember:
 ALLOCATION_PROMPT = """
 You are Moon Dev's Portfolio Allocation Assistant 🌙
 
+CRITICAL: Your response MUST be ONLY a JSON object. No explanations, no code, no text before or after.
+
 Given the total portfolio size and trading recommendations, allocate capital efficiently.
 Consider:
 1. Position sizing based on confidence levels
@@ -176,20 +233,27 @@ Consider:
 3. Keep cash buffer as specified
 4. Maximum allocation per position
 
-Format your response as a Python dictionary:
-{
-    "token_address": allocated_amount,  # In USD
-    ...
-    "USDC_ADDRESS": remaining_cash  # Always use USDC_ADDRESS for cash
-}
+RESPOND WITH ONLY THIS JSON FORMAT (nothing else):
+{{
+    "token_address": allocated_amount_in_usd,
+    "USDT": remaining_cash_in_usd
+}}
 
-Remember:
+Example valid response:
+{{
+    "BTCUSDT": 50.0,
+    "ETHUSDT": 40.0,
+    "USDT": 110.0
+}}
+
+Rules:
 - Total allocations must not exceed total_size
 - Higher confidence should get larger allocations
 - Never allocate more than {MAX_POSITION_PERCENTAGE}% to a single position
-- Keep at least {CASH_PERCENTAGE}% in USDC as safety buffer
+- Keep at least {CASH_PERCENTAGE}% in USDT as safety buffer
 - Only allocate to BUY recommendations
-- Cash must be stored as USDC using USDC_ADDRESS: {USDC_ADDRESS}
+- DO NOT include explanations or Python code
+- RESPOND WITH ONLY THE JSON OBJECT
 """
 
 SWARM_TRADING_PROMPT = """You are an expert cryptocurrency trading AI analyzing market data.
@@ -230,6 +294,14 @@ from src import nice_funcs as n
 from src.data.ohlcv_collector import collect_all_tokens
 from src.models.model_factory import model_factory
 from src.agents.swarm_agent import SwarmAgent
+
+# Import exchange-specific modules
+try:
+    from src import binance_nice_funcs as bn
+    from src.data.binance_ohlcv_collector import binance_collect_all_tokens, binance_collect_multi_timeframe
+    BINANCE_AVAILABLE = True
+except ImportError:
+    BINANCE_AVAILABLE = False
 
 # Load environment variables
 load_dotenv()
@@ -273,12 +345,24 @@ class TradingAgent:
 
         # Show trading mode
         cprint("📈 Trading Mode:", "yellow", attrs=['bold'])
-        if LONG_ONLY:
-            cprint("   📊 LONG ONLY - Solana on-chain (no shorting)", "cyan")
+        if EXCHANGE == 'solana':
+            cprint("   📊 SOLANA - Long positions only (on-chain)", "cyan")
             cprint("   💡 SELL signals close positions, can't open shorts", "white")
-        else:
-            cprint("   ⚡ LONG/SHORT - HyperLiquid perpetuals", "green")
+        elif EXCHANGE == 'binance':
+            if not BINANCE_AVAILABLE:
+                cprint("   ❌ BINANCE - python-binance not available!", "red")
+                cprint("   💡 Run: pip install python-binance", "yellow")
+                sys.exit(1)
+            cprint("   🏦 BINANCE - Spot trading", "green")
+            cprint("   💡 SELL signals close positions to USDT", "white")
+        elif EXCHANGE == 'hyperliquid':
+            cprint("   ⚡ HYPERLIQUID - Long & Short perpetuals", "green")
             cprint("   💡 SELL signals can close longs OR open shorts", "white")
+
+        if LONG_ONLY and EXCHANGE == 'hyperliquid':
+            cprint("   ⚠️  WARNING: LONG_ONLY=True but using HyperLiquid (supports shorts)", "yellow")
+        elif not LONG_ONLY and EXCHANGE != 'hyperliquid':
+            cprint("   ⚠️  WARNING: LONG_ONLY=False only supported on HyperLiquid", "yellow")
 
         cprint("\n🤖 Moon Dev's LLM Trading Agent initialized!", "green")
 
@@ -301,14 +385,106 @@ class TradingAgent:
             cprint(f"❌ AI model error: {e}", "red")
             return None
 
+    def check_risk_limits(self):
+        """🛡️ Risk Management - Circuit Breakers"""
+        if not USE_RISK_CHECKS:
+            return True  # Risk checks disabled, allow trading
+
+        try:
+            cprint("\n🛡️ Running Risk Checks (Circuit Breakers)...", "cyan", attrs=['bold'])
+
+            # Get all account balances
+            total_position_usd = 0
+            usdt_balance = 0
+            position_details = []
+
+            if EXCHANGE == 'binance':
+                # Get Binance account balances
+                for symbol in MONITORED_TOKENS:
+                    try:
+                        position_usd = bn.binance_get_token_balance_usd(symbol)
+                        if position_usd > 0:
+                            total_position_usd += position_usd
+                            position_details.append((symbol, position_usd))
+                            cprint(f"  💰 {symbol}: ${position_usd:.2f}", "yellow")
+                    except Exception as e:
+                        cprint(f"  ⚠️ Could not get balance for {symbol}: {e}", "yellow")
+
+                # Get USDT balance
+                try:
+                    from binance.client import Client
+                    client = Client(os.getenv("BINANCE_API_KEY"), os.getenv("BINANCE_SECRET_KEY"))
+                    usdt_asset = client.get_asset_balance(asset='USDT')
+                    usdt_balance = float(usdt_asset['free']) + float(usdt_asset['locked'])
+                    cprint(f"  💵 USDT Balance: ${usdt_balance:.2f}", "green")
+                except Exception as e:
+                    cprint(f"  ⚠️ Could not get USDT balance: {e}", "yellow")
+
+            # Check #1: Minimum USDT Balance
+            if usdt_balance < MIN_USDT_BALANCE:
+                cprint(f"\n⛔ CIRCUIT BREAKER: USDT balance (${usdt_balance:.2f}) below minimum (${MIN_USDT_BALANCE})", "white", "on_red")
+                cprint("🛑 Trading halted to preserve capital", "red")
+                return False
+
+            # Check #2: Maximum Total Position Size
+            if total_position_usd > MAX_TOTAL_POSITION_USD:
+                cprint(f"\n⛔ CIRCUIT BREAKER: Total position (${total_position_usd:.2f}) exceeds max (${MAX_TOTAL_POSITION_USD})", "white", "on_red")
+                cprint("🛑 Trading halted - positions too large", "red")
+                return False
+
+            # Check #3: Portfolio Loss Percentage (if we have historical data)
+            portfolio_value = total_position_usd + usdt_balance
+            cprint(f"\n💼 Total Portfolio Value: ${portfolio_value:.2f}", "cyan")
+
+            cprint("\n✅ All risk checks passed - trading allowed", "green", attrs=['bold'])
+            return True
+
+        except Exception as e:
+            cprint(f"❌ Error in risk checks: {e}", "red")
+            # On error, default to safe side - halt trading
+            return False
+
     def _format_market_data_for_swarm(self, token, market_data):
         """Format market data into a clean, readable format for swarm analysis"""
         try:
             # Print market data visibility for confirmation
             cprint(f"\n📊 MARKET DATA RECEIVED FOR {token[:8]}...", "cyan", attrs=['bold'])
 
-            # Check if market_data is a DataFrame
-            if isinstance(market_data, pd.DataFrame):
+            # Check if multi-timeframe data (dict of DataFrames)
+            if isinstance(market_data, dict) and all(isinstance(v, pd.DataFrame) for v in market_data.values() if not isinstance(v, (str, list))):
+                cprint(f"🎯 Multi-timeframe data received: {list(market_data.keys())}", "green")
+
+                # Build multi-timeframe analysis prompt
+                formatted = f"TOKEN: {token}\n"
+                formatted += f"MULTI-TIMEFRAME ANALYSIS ({len(market_data)} timeframes)\n"
+                formatted += "="*80 + "\n\n"
+
+                # Add each timeframe
+                for timeframe, df in market_data.items():
+                    if not isinstance(df, pd.DataFrame):
+                        continue
+
+                    cprint(f"  📈 {timeframe}: {len(df)} bars from {df.index[0]} to {df.index[-1]}", "yellow")
+
+                    formatted += f"""
+TIMEFRAME: {timeframe}
+TOTAL BARS: {len(df)}
+DATE RANGE: {df.index[0]} to {df.index[-1]}
+
+RECENT PRICE ACTION (Last 5 bars):
+{df.tail(5).to_string()}
+
+"""
+
+                formatted += "\n" + "="*80 + "\n"
+                formatted += "ANALYSIS GUIDELINES:\n"
+                formatted += "- 15m timeframe: Look for short-term entry/exit signals and momentum shifts\n"
+                formatted += "- 1H timeframe: Confirm medium-term trend and support/resistance levels\n"
+                formatted += "- 4H timeframe: Identify long-term trend direction and major reversals\n"
+                formatted += "- Consider alignment across timeframes for higher confidence signals\n"
+
+            # Check if single timeframe data (DataFrame)
+            elif isinstance(market_data, pd.DataFrame):
                 cprint(f"✅ DataFrame received: {len(market_data)} bars", "green")
                 cprint(f"📅 Date range: {market_data.index[0]} to {market_data.index[-1]}", "yellow")
                 cprint(f"🕐 Timeframe: {DATA_TIMEFRAME}", "yellow")
@@ -335,11 +511,11 @@ FULL DATASET:
 {market_data.to_string()}
 """
             else:
-                # If it's not a DataFrame, show what we got
-                cprint(f"⚠️ Market data is not a DataFrame: {type(market_data)}", "yellow")
+                # If it's not a DataFrame or multi-timeframe dict, show what we got
+                cprint(f"⚠️ Market data format unexpected: {type(market_data)}", "yellow")
                 formatted = f"TOKEN: {token}\nMARKET DATA:\n{str(market_data)}"
 
-            # Add strategy signals if available
+            # Add strategy signals if available (for dict-based data)
             if isinstance(market_data, dict) and 'strategy_signals' in market_data:
                 formatted += f"\n\nSTRATEGY SIGNALS:\n{json.dumps(market_data['strategy_signals'], indent=2)}"
 
@@ -590,16 +766,19 @@ Example format:
             print("\n🚀 Moon Dev executing portfolio allocations...")
             
             for token, amount in allocation_dict.items():
-                # Skip USDC and other excluded tokens
-                if token in EXCLUDED_TOKENS:
+                # Skip stablecoin allocation (treated as cash)
+                if token == USDC_ADDRESS:
                     print(f"💵 Keeping ${amount:.2f} in {token}")
                     continue
                     
                 print(f"\n🎯 Processing allocation for {token}...")
                 
                 try:
-                    # Get current position value
-                    current_position = n.get_token_balance_usd(token)
+                    # Get current position value based on exchange
+                    if EXCHANGE == 'binance':
+                        current_position = bn.binance_get_token_balance_usd(token)
+                    else:
+                        current_position = n.get_token_balance_usd(token)
                     target_allocation = amount
                     
                     print(f"🎯 Target allocation: ${target_allocation:.2f} USD")
@@ -607,7 +786,10 @@ Example format:
                     
                     if current_position < target_allocation:
                         print(f"✨ Executing entry for {token}")
-                        n.ai_entry(token, amount)
+                        if EXCHANGE == 'binance':
+                            bn.binance_ai_entry(token, amount)
+                        else:
+                            n.ai_entry(token, amount)
                         print(f"✅ Entry complete for {token}")
                     else:
                         print(f"⏸️ Position already at target size for {token}")
@@ -636,21 +818,96 @@ Example format:
             action = row['action']
 
             # Check if we have a position
-            current_position = n.get_token_balance_usd(token)
+            if EXCHANGE == 'binance':
+                current_position = bn.binance_get_token_balance_usd(token)
+            else:
+                current_position = n.get_token_balance_usd(token)
 
             cprint(f"\n{'='*60}", "cyan")
             cprint(f"🎯 Token: {token_short}", "cyan", attrs=['bold'])
             cprint(f"🤖 Swarm Signal: {action} ({row['confidence']}% confidence)", "yellow", attrs=['bold'])
             cprint(f"💼 Current Position: ${current_position:.2f}", "white")
+
+            # 🎯 Check for auto take-profit AND stop-loss (Option C)
+            should_take_profit = False
+            should_stop_loss = False
+            if current_position > 0 and (AUTO_TAKE_PROFIT_PERCENT > 0 or AUTO_STOP_LOSS_PERCENT > 0):
+                try:
+                    # Get current price and calculate profit %
+                    if EXCHANGE == 'binance':
+                        from binance.client import Client
+                        client = Client(os.getenv("BINANCE_API_KEY"), os.getenv("BINANCE_SECRET_KEY"))
+
+                        # Get current price
+                        ticker = client.get_symbol_ticker(symbol=token)
+                        current_price = float(ticker['price'])
+
+                        # Get all trades for this symbol to find average entry price
+                        trades = client.get_my_trades(symbol=token, limit=100)
+                        if trades:
+                            # Calculate weighted average entry price
+                            total_qty = 0
+                            total_cost = 0
+                            for trade in trades:
+                                if trade['isBuyer']:  # Only count buy trades
+                                    qty = float(trade['qty'])
+                                    price = float(trade['price'])
+                                    total_qty += qty
+                                    total_cost += qty * price
+
+                            if total_qty > 0:
+                                avg_entry_price = total_cost / total_qty
+                                profit_pct = ((current_price / avg_entry_price) - 1) * 100
+
+                                cprint(f"📊 Entry: ${avg_entry_price:.4f} | Current: ${current_price:.4f} | P&L: {profit_pct:+.2f}%", "yellow")
+
+                                # Check take-profit
+                                if profit_pct >= AUTO_TAKE_PROFIT_PERCENT and AUTO_TAKE_PROFIT_PERCENT > 0:
+                                    should_take_profit = True
+                                    cprint(f"🎯 AUTO TAKE-PROFIT TRIGGERED! (+{profit_pct:.2f}% >= +{AUTO_TAKE_PROFIT_PERCENT}%)", "white", "on_green")
+
+                                # Check stop-loss
+                                elif profit_pct <= -AUTO_STOP_LOSS_PERCENT and AUTO_STOP_LOSS_PERCENT > 0:
+                                    should_stop_loss = True
+                                    cprint(f"🛑 AUTO STOP-LOSS TRIGGERED! ({profit_pct:.2f}% <= -{AUTO_STOP_LOSS_PERCENT}%)", "white", "on_red")
+                except Exception as e:
+                    cprint(f"⚠️ Could not calculate P&L: {e}", "yellow")
+
             cprint(f"{'='*60}", "cyan")
 
             if current_position > 0:
+                # 🎯 Take-profit and stop-loss take priority over all other signals
+                if should_take_profit:
+                    cprint(f"💰 TAKE-PROFIT TRIGGERED - CLOSING POSITION FOR PROFIT", "white", "on_green")
+                    try:
+                        cprint(f"📈 Executing chunk_kill (${max_usd_order_size} chunks)...", "yellow")
+                        if EXCHANGE == 'binance':
+                            bn.binance_chunk_kill(token, max_usd_order_size, slippage)
+                        else:
+                            n.chunk_kill(token, max_usd_order_size, slippage)
+                        cprint(f"✅ Position closed with profit!", "white", "on_green")
+                    except Exception as e:
+                        cprint(f"❌ Error closing position: {str(e)}", "white", "on_red")
+                elif should_stop_loss:
+                    cprint(f"🛑 STOP-LOSS TRIGGERED - CLOSING POSITION TO LIMIT LOSS", "white", "on_red")
+                    try:
+                        cprint(f"📉 Executing chunk_kill (${max_usd_order_size} chunks)...", "yellow")
+                        if EXCHANGE == 'binance':
+                            bn.binance_chunk_kill(token, max_usd_order_size, slippage)
+                        else:
+                            n.chunk_kill(token, max_usd_order_size, slippage)
+                        cprint(f"✅ Position closed - loss limited to -5%", "white", "on_yellow")
+                    except Exception as e:
+                        cprint(f"❌ Error closing position: {str(e)}", "white", "on_red")
                 # We have a position - take action based on signal
-                if action == "SELL":
+                elif action == "SELL":
                     cprint(f"🚨 SELL signal with position - CLOSING POSITION", "white", "on_red")
                     try:
                         cprint(f"📉 Executing chunk_kill (${max_usd_order_size} chunks)...", "yellow")
-                        n.chunk_kill(token, max_usd_order_size, slippage)
+                        if EXCHANGE == 'binance':
+                            bn.binance_chunk_kill(token, max_usd_order_size, slippage)
+                        else:
+                            n.chunk_kill(token, max_usd_order_size, slippage)
                         cprint(f"✅ Position closed successfully!", "white", "on_green")
                     except Exception as e:
                         cprint(f"❌ Error closing position: {str(e)}", "white", "on_red")
@@ -685,24 +942,42 @@ Example format:
             
             print("🔍 Raw response received:")
             print(response)
-            
-            # Find the JSON block between curly braces
-            start = response.find('{')
-            end = response.rfind('}') + 1
-            if start == -1 or end == 0:
+
+            # Find ALL JSON blocks using regex
+            import re
+            json_pattern = r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}'
+            json_matches = re.findall(json_pattern, response)
+
+            if not json_matches:
                 raise ValueError("No JSON object found in response")
-            
-            json_str = response[start:end]
-            
-            # More aggressive JSON cleaning
-            json_str = (json_str
-                .replace('\n', '')          # Remove newlines
-                .replace('    ', '')        # Remove indentation
-                .replace('\t', '')          # Remove tabs
-                .replace('\\n', '')         # Remove escaped newlines
-                .replace(' ', '')           # Remove all spaces
-                .strip())                   # Remove leading/trailing whitespace
-            
+
+            # Try parsing each JSON block, starting from the LAST one (most likely to be the final allocation)
+            json_str = None
+            for candidate in reversed(json_matches):
+                try:
+                    # Clean the candidate
+                    cleaned = re.sub(r'#[^\n]*', '', candidate)  # Remove Python comments
+                    cleaned = re.sub(r'//[^\n]*', '', cleaned)    # Remove JS comments
+                    cleaned = (cleaned
+                        .replace('\n', '')
+                        .replace('    ', '')
+                        .replace('\t', '')
+                        .replace('\\n', '')
+                        .replace(' ', '')
+                        .strip())
+
+                    # Try to parse it
+                    test_parse = json.loads(cleaned)
+                    # If we get here, it's valid JSON - use it!
+                    json_str = cleaned
+                    print(f"\n✅ Found valid JSON allocation (tried {len(json_matches) - json_matches.index(candidate)} candidates)")
+                    break
+                except json.JSONDecodeError:
+                    continue  # Try next candidate
+
+            if not json_str:
+                raise ValueError("No valid JSON object could be parsed from response")
+
             print("\n🧹 Cleaned JSON string:")
             print(json_str)
             
@@ -768,17 +1043,45 @@ Example format:
         try:
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             cprint(f"\n⏰ AI Agent Run Starting at {current_time}", "white", "on_green")
-            
+
+            # 🛡️ Run risk checks FIRST - before any trading analysis
+            if not self.check_risk_limits():
+                cprint("\n⛔ TRADING HALTED - Risk limits breached", "white", "on_red")
+                cprint("🛡️ System will retry next cycle after conditions improve", "yellow")
+                return
+
             # Collect OHLCV data for all tokens using this agent's config
             cprint("📊 Collecting market data...", "white", "on_blue")
             cprint(f"🎯 Tokens to collect: {MONITORED_TOKENS}", "yellow")
-            cprint(f"📅 Settings: {DAYSBACK_4_DATA} days @ {DATA_TIMEFRAME}", "yellow")
 
-            market_data = collect_all_tokens(
-                tokens=MONITORED_TOKENS,
-                days_back=DAYSBACK_4_DATA,
-                timeframe=DATA_TIMEFRAME
-            )
+            if USE_MULTI_TIMEFRAME:
+                cprint(f"⏱️  Multi-timeframe mode: {MULTI_TIMEFRAMES}", "yellow")
+            else:
+                cprint(f"📅 Settings: {DAYSBACK_4_DATA} days @ {DATA_TIMEFRAME}", "yellow")
+
+            # Use appropriate data collector based on exchange and mode
+            if EXCHANGE == 'binance':
+                if USE_MULTI_TIMEFRAME:
+                    # Multi-timeframe collection
+                    market_data = binance_collect_multi_timeframe(
+                        symbols=MONITORED_TOKENS,
+                        days_back=DAYSBACK_4_DATA,
+                        timeframes=MULTI_TIMEFRAMES
+                    )
+                else:
+                    # Single timeframe collection
+                    market_data = binance_collect_all_tokens(
+                        symbols=MONITORED_TOKENS,
+                        days_back=DAYSBACK_4_DATA,
+                        timeframe=DATA_TIMEFRAME
+                    )
+            else:
+                # Default to Solana collector for solana/hyperliquid (single timeframe only for now)
+                market_data = collect_all_tokens(
+                    tokens=MONITORED_TOKENS,
+                    days_back=DAYSBACK_4_DATA,
+                    timeframe=DATA_TIMEFRAME
+                )
 
             cprint(f"📦 Market data received for {len(market_data)} tokens", "green")
             if len(market_data) == 0:
@@ -808,7 +1111,16 @@ Example format:
             self.handle_exits()
 
             # Portfolio allocation (only run if there are BUY recommendations)
-            buy_recommendations = self.recommendations_df[self.recommendations_df['action'] == 'BUY']
+            # 🎯 Filter for minimum confidence threshold to avoid weak signals
+            buy_recommendations = self.recommendations_df[
+                (self.recommendations_df['action'] == 'BUY') &
+                (self.recommendations_df['confidence'] >= MIN_CONFIDENCE_FOR_TRADE)
+            ]
+
+            # Show filtered vs total BUY signals
+            total_buys = len(self.recommendations_df[self.recommendations_df['action'] == 'BUY'])
+            if total_buys > len(buy_recommendations):
+                cprint(f"\n📊 {total_buys} BUY signals found, {total_buys - len(buy_recommendations)} filtered out (confidence < {MIN_CONFIDENCE_FOR_TRADE}%)", "yellow")
 
             if len(buy_recommendations) > 0:
                 cprint(f"\n💰 Found {len(buy_recommendations)} BUY signal(s) - Calculating portfolio allocation...", "white", "on_green")

@@ -314,7 +314,7 @@ class SentimentAgent:
         try:
             if not os.path.exists("cookies.json"):
                 cprint("❌ No cookies.json found! Please run twitter_login.py first", "red")
-                sys.exit(1)
+                return None  # Changed from sys.exit(1) to prevent killing orchestrator
 
             cprint("🌙 Moon Dev's Sentiment Agent starting up...", "cyan")
             client = Client()
@@ -328,7 +328,7 @@ class SentimentAgent:
                 os.remove("cookies.json")
                 cprint("🗑️ Removed invalid cookies file", "yellow")
                 cprint("🔄 Please run twitter_login.py again", "yellow")
-            sys.exit(1)
+            return None  # Changed from sys.exit(1) to prevent killing orchestrator
 
     async def get_tweets(self, query):
         """Get tweets with proper error handling"""
@@ -513,4 +513,4 @@ if __name__ == "__main__":
         cprint("\n👋 Moon Dev's Sentiment Agent shutting down gracefully...", "yellow")
     except Exception as e:
         cprint(f"\n❌ Fatal error: {str(e)}", "red")
-        sys.exit(1)
+        # sys.exit(1) - Commented out to prevent killing orchestrator when run as module
