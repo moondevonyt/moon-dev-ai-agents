@@ -1,0 +1,154 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "moon-dev-eda-kafka"
+version = "0.1.0"
+description = "Moon Dev Real-Time Event-Driven Architecture with Kafka"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Moon Dev Team", email = "dev@moondev.ai"}
+]
+keywords = ["trading", "eda", "kafka", "event-driven", "llm", "async"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "kafka-python==2.0.2",
+    "psycopg2-binary==2.9.9",
+    "sqlalchemy==2.0.23",
+    "alembic==1.12.1",
+    "redis==5.0.1",
+    "fastapi==0.104.1",
+    "uvicorn==0.24.0",
+    "websockets==12.0",
+    "pydantic==2.5.0",
+    "pydantic-settings==2.1.0",
+    "httpx==0.25.2",
+    "aioredis==2.0.1",
+    "asyncpg==0.29.0",
+    "python-dateutil==2.8.2",
+    "python-dotenv==1.0.0",
+    "structlog==23.2.0",
+    "prometheus-client==0.19.0",
+    "ta-lib==0.4.28",
+    "pandas==2.1.3",
+    "numpy==1.26.2",
+    "anthropic==0.7.1",
+    "openai==1.3.9",
+    "requests==2.31.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==7.4.3",
+    "pytest-asyncio==0.21.1",
+    "pytest-cov==4.1.0",
+    "black==23.12.0",
+    "ruff==0.1.8",
+    "mypy==1.7.1",
+    "isort==5.13.2",
+    "pre-commit==3.5.0",
+]
+test = [
+    "pytest==7.4.3",
+    "pytest-asyncio==0.21.1",
+    "pytest-cov==4.1.0",
+    "testcontainers==3.7.0",
+]
+docs = [
+    "sphinx==7.2.6",
+    "sphinx-rtd-theme==2.0.0",
+]
+load-test = [
+    "locust==2.17.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/moondevonyt/moon-dev-ai-agents"
+Repository = "https://github.com/moondevonyt/moon-dev-ai-agents"
+Issues = "https://github.com/moondevonyt/moon-dev-ai-agents/issues"
+Documentation = "https://docs.moondev.ai"
+
+[tool.setuptools]
+packages = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "."
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+addopts = "-v --tb=short --strict-markers --cov=src --cov-report=term-missing --cov-report=html"
+asyncio_mode = "auto"
+markers = [
+    "unit: unit tests",
+    "integration: integration tests",
+    "load: load tests",
+    "slow: slow tests",
+]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+follow_imports = "normal"
+
+[[tool.mypy.overrides]]
+module = [
+    "kafka.*",
+    "ta.*",
+    "testcontainers.*",
+]
+ignore_missing_imports = true
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_mode = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 100
+skip_glob = ["*/migrations/*"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "W", "I", "N", "B", "A", "C4", "RUF"]
+ignore = ["E501"]
+target-version = "py310"

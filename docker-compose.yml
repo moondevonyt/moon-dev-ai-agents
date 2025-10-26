@@ -1,0 +1,329 @@
+version: '3.8'
+
+# ============================================================================
+# Moon Dev EDA - Local Development Environment
+# ============================================================================
+# Services:
+# - Kafka: 3-node cluster for event streaming
+# - TimescaleDB: Time-series database for event storage
+# - Redis: Cache layer for state management
+# - Prometheus: Metrics collection
+# - Grafana: Metrics visualization
+# - Jaeger: Distributed tracing (optional)
+#
+# Quick Start:
+#   docker-compose up -d
+#   docker-compose logs -f
+#   docker-compose down
+# ============================================================================
+
+services:
+  # =========================================================================
+  # Apache Kafka Cluster (3 brokers for HA)
+  # =========================================================================
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_INIT_LIMIT: 5
+    ports:
+      - "2181:2181"
+    networks:
+      - moon-dev
+    healthcheck:
+      test: echo ruok | nc localhost 2181 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kafka-1:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka-1
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    ports:
+      - "9091:9091"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:29091,PLAINTEXT_HOST://kafka-1:9091
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_LOG_RETENTION_HOURS: 168
+      KAFKA_LOG_SEGMENT_BYTES: 1073741824
+    networks:
+      - moon-dev
+    healthcheck:
+      test: kafka-broker-api-versions --bootstrap-server localhost:9091 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kafka-2:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka-2
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:29092,PLAINTEXT_HOST://kafka-2:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+    networks:
+      - moon-dev
+    healthcheck:
+      test: kafka-broker-api-versions --bootstrap-server localhost:9092 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kafka-3:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka-3
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    ports:
+      - "9093:9093"
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-3:29093,PLAINTEXT_HOST://kafka-3:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+    networks:
+      - moon-dev
+    healthcheck:
+      test: kafka-broker-api-versions --bootstrap-server localhost:9093 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # =========================================================================
+  # TimescaleDB - Time-Series Database
+  # =========================================================================
+
+  timescaledb:
+    image: timescale/timescaledb:latest-pg15
+    container_name: timescaledb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: moon_dev
+      POSTGRES_INITDB_ARGS: >-
+        -c max_connections=1000
+        -c shared_buffers=256MB
+        -c effective_cache_size=1GB
+        -c maintenance_work_mem=64MB
+        -c checkpoint_completion_target=0.9
+        -c wal_buffers=16MB
+        -c default_statistics_target=100
+    volumes:
+      - tsdb_data:/var/lib/postgresql/data
+      - ./infrastructure/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - moon-dev
+    healthcheck:
+      test: pg_isready -U postgres
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # =========================================================================
+  # Redis - Cache Layer (3-node cluster simulation)
+  # =========================================================================
+
+  redis-master:
+    image: redis:7-alpine
+    container_name: redis-master
+    command: redis-server --appendonly yes --port 6379
+    volumes:
+      - redis_master_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - moon-dev
+    healthcheck:
+      test: redis-cli ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis-replica-1:
+    image: redis:7-alpine
+    container_name: redis-replica-1
+    command: redis-server --slaveof redis-master 6379 --port 6380
+    depends_on:
+      - redis-master
+    volumes:
+      - redis_replica1_data:/data
+    ports:
+      - "6380:6380"
+    networks:
+      - moon-dev
+    healthcheck:
+      test: redis-cli -p 6380 ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis-replica-2:
+    image: redis:7-alpine
+    container_name: redis-replica-2
+    command: redis-server --slaveof redis-master 6379 --port 6381
+    depends_on:
+      - redis-master
+    volumes:
+      - redis_replica2_data:/data
+    ports:
+      - "6381:6381"
+    networks:
+      - moon-dev
+    healthcheck:
+      test: redis-cli -p 6381 ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # =========================================================================
+  # Prometheus - Metrics Collection
+  # =========================================================================
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./infrastructure/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=30d"
+    ports:
+      - "9090:9090"
+    networks:
+      - moon-dev
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://localhost:9090/-/healthy || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # =========================================================================
+  # Grafana - Metrics Visualization
+  # =========================================================================
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_INSTALL_PLUGINS: redis-datasource
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./infrastructure/grafana/provisioning:/etc/grafana/provisioning
+      - ./infrastructure/grafana/dashboards:/var/lib/grafana/dashboards
+    ports:
+      - "3000:3000"
+    networks:
+      - moon-dev
+    depends_on:
+      - prometheus
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://localhost:3000/api/health || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # =========================================================================
+  # Jaeger - Distributed Tracing (Optional)
+  # =========================================================================
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: jaeger
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+    ports:
+      - "16686:16686"  # Jaeger UI
+      - "4317:4317"    # OTLP gRPC receiver
+      - "4318:4318"    # OTLP HTTP receiver
+    networks:
+      - moon-dev
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://localhost:16686 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # =========================================================================
+  # Elasticsearch - Log Storage
+  # =========================================================================
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.9.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - moon-dev
+    healthcheck:
+      test: curl -s http://localhost:9200 >/dev/null || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # =========================================================================
+  # Kibana - Log Visualization
+  # =========================================================================
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.9.0
+    container_name: kibana
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    networks:
+      - moon-dev
+    depends_on:
+      - elasticsearch
+    healthcheck:
+      test: curl -s http://localhost:5601/api/status >/dev/null || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  moon-dev:
+    driver: bridge
+
+volumes:
+  tsdb_data:
+  redis_master_data:
+  redis_replica1_data:
+  redis_replica2_data:
+  prometheus_data:
+  grafana_data:
+  elasticsearch_data:

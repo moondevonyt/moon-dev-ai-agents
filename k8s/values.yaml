@@ -1,0 +1,273 @@
+# Moon Dev EDA Helm Values
+# This file contains default configuration for the EDA system deployment
+# Maps to T-1.1, T-1.2, T-1.3, T-1.4 (Infrastructure Setup)
+
+# Global configuration
+global:
+  namespace: moon-dev-eda
+  environment: development  # dev, staging, production
+  registry: docker.io
+  imagePullPolicy: IfNotPresent
+
+# Kafka Configuration (T-1.2: Kafka Cluster Deployment)
+kafka:
+  enabled: true
+  replicaCount: 3
+  persistence:
+    enabled: true
+    size: 100Gi
+    storageClass: default
+  resources:
+    limits:
+      memory: 4Gi
+      cpu: 2000m
+    requests:
+      memory: 2Gi
+      cpu: 1000m
+  broker:
+    jvmHeapSize: 3G
+  # Topics to create (T-1.2.2)
+  topics:
+    - name: price.ticks
+      partitions: 10
+      replicationFactor: 3
+      retention: 604800000  # 7 days
+    - name: signal.generated
+      partitions: 5
+      replicationFactor: 3
+      retention: 604800000
+    - name: trade.executed
+      partitions: 5
+      replicationFactor: 3
+      retention: 2592000000  # 30 days for audit
+    - name: liquidation.events
+      partitions: 3
+      replicationFactor: 3
+      retention: 604800000
+    - name: sentiment.updates
+      partitions: 3
+      replicationFactor: 3
+      retention: 604800000
+    - name: risk.alerts
+      partitions: 3
+      replicationFactor: 3
+      retention: 604800000
+    - name: state.changes
+      partitions: 5
+      replicationFactor: 3
+      retention: 2592000000
+
+# TimescaleDB Configuration (T-1.3: TimescaleDB Setup)
+timescaledb:
+  enabled: true
+  replicaCount: 2
+  auth:
+    username: postgres
+    password: "change-me"  # Override in production
+    database: moon_dev
+  resources:
+    limits:
+      memory: 8Gi
+      cpu: 4000m
+    requests:
+      memory: 4Gi
+      cpu: 2000m
+  persistence:
+    enabled: true
+    size: 500Gi
+    storageClass: default
+  backup:
+    enabled: true
+    schedule: "0 2 * * *"  # Daily at 2 AM
+    retention: 30  # days
+  # Hypertable configuration (T-1.3.2)
+  hypertable:
+    name: events
+    timeColumn: timestamp
+    chunkInterval: 86400000  # 1 day in milliseconds
+
+# Redis Configuration (T-1.4: Redis Cluster Setup)
+redis:
+  enabled: true
+  replicaCount: 3
+  persistence:
+    enabled: true
+    size: 64Gi
+    storageClass: default
+  auth:
+    password: "change-me"  # Override in production
+  resources:
+    limits:
+      memory: 32Gi
+      cpu: 8000m
+    requests:
+      memory: 16Gi
+      cpu: 4000m
+  aof:
+    enabled: true
+  rdb:
+    enabled: true
+    schedule: "0 * * * *"  # Hourly
+
+# Application Services
+services:
+  # EventProducer/Consumer services
+  eventSystem:
+    replicaCount: 2
+    image: moon-dev-eda:latest
+    resources:
+      limits:
+        memory: 2Gi
+        cpu: 1000m
+      requests:
+        memory: 1Gi
+        cpu: 500m
+
+  # Risk Agent (T-3.1)
+  riskAgent:
+    enabled: true
+    replicaCount: 1
+    image: moon-dev-eda:latest
+    env:
+      - name: AGENT_NAME
+        value: "risk_agent"
+      - name: MAX_LEVERAGE
+        value: "10.0"
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 500m
+      requests:
+        memory: 512Mi
+        cpu: 250m
+
+  # Trading Agent (T-3.2)
+  tradingAgent:
+    enabled: true
+    replicaCount: 2
+    image: moon-dev-eda:latest
+    env:
+      - name: AGENT_NAME
+        value: "trading_agent"
+      - name: USE_LLM
+        value: "true"
+    secrets:
+      - name: ANTHROPIC_API_KEY
+        key: anthropic-api-key
+    resources:
+      limits:
+        memory: 2Gi
+        cpu: 1000m
+      requests:
+        memory: 1Gi
+        cpu: 500m
+
+  # Sentiment Agent (T-3.3)
+  sentimentAgent:
+    enabled: true
+    replicaCount: 1
+    image: moon-dev-eda:latest
+    env:
+      - name: AGENT_NAME
+        value: "sentiment_agent"
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 500m
+      requests:
+        memory: 512Mi
+        cpu: 250m
+
+# Monitoring and Observability (T-5.1: Monitoring & Alerting)
+monitoring:
+  enabled: true
+  prometheus:
+    enabled: true
+    retention: 15d
+    scrapeInterval: 30s
+    resources:
+      limits:
+        memory: 4Gi
+      requests:
+        memory: 2Gi
+  grafana:
+    enabled: true
+    adminPassword: "change-me"
+    dashboards:
+      - name: system-overview
+      - name: kafka-metrics
+      - name: database-performance
+      - name: agent-health
+  alertmanager:
+    enabled: true
+    alertingRules:
+      - name: latency-sla
+        threshold: 100  # ms
+      - name: error-rate
+        threshold: 0.01  # 1%
+      - name: consumer-lag
+        threshold: 10000
+
+# Logging (T-5.1.4: Log Aggregation ELK)
+logging:
+  enabled: true
+  elasticsearch:
+    enabled: true
+    replicaCount: 3
+    resources:
+      limits:
+        memory: 4Gi
+      requests:
+        memory: 2Gi
+  kibana:
+    enabled: true
+  logstash:
+    enabled: true
+
+# Security (T-5.3: Security Hardening)
+security:
+  tls:
+    enabled: true
+    issuer: letsencrypt-prod
+  rbac:
+    enabled: true
+  networkPolicy:
+    enabled: true
+  secrets:
+    encryptionAtRest: true
+
+# Ingress Configuration
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: api.moondev.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: moondev-tls
+      hosts:
+        - api.moondev.local
+
+# Node Affinity (T-1.1: Kubernetes Configuration)
+nodeSelector: {}
+  # node-type: data-processing
+
+tolerations: []
+
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values:
+                  - kafka
+                  - timescaledb
+          topologyKey: kubernetes.io/hostname
