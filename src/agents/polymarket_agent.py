@@ -61,8 +61,8 @@ MARKETS_TO_DISPLAY = 20  # Number of recent markets to print after each update
 
 # AI Configuration
 USE_SWARM_MODE = False  # Use swarm AI (multiple models) instead of single model
-AI_MODEL_PROVIDER = "anthropic"  # Model to use if USE_SWARM_MODE = False
-AI_MODEL_NAME = "claude-3-5-sonnet-20241022"  # Model name if not using swarm
+AI_MODEL_PROVIDER = "deepseek"  # Model to use if USE_SWARM_MODE = False
+AI_MODEL_NAME = "deepseek-chat"  # Model name if not using swarm
 
 # Data paths
 DATA_FOLDER = os.path.join(project_root, "src/data/polymarket")
