@@ -1,0 +1,60 @@
+# ============================================================================
+# Prometheus Configuration for Moon Dev EDA
+# ============================================================================
+
+global:
+  scrape_interval: 15s      # Default scrape interval
+  evaluation_interval: 15s  # Default evaluation interval
+  external_labels:
+    cluster: 'moon-dev'
+    environment: 'local'
+
+# ============================================================================
+# Alerting Configuration
+# ============================================================================
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+
+# ============================================================================
+# Scrape Configurations
+# ============================================================================
+
+scrape_configs:
+  # Self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Moon Dev EDA API
+  - job_name: 'moon-dev-api'
+    scrape_interval: 5s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['localhost:8000']
+        labels:
+          service: 'api'
+          component: 'main'
+
+  # Kafka Exporter (if running)
+  - job_name: 'kafka'
+    static_configs:
+      - targets: ['kafka-1:9091', 'kafka-2:9092', 'kafka-3:9093']
+        labels:
+          service: 'kafka'
+
+  # Prometheus Node Exporter (if running)
+  - job_name: 'node'
+    static_configs:
+      - targets: ['localhost:9100']
+        labels:
+          service: 'node'
+
+  # Docker Metrics
+  - job_name: 'docker'
+    static_configs:
+      - targets: ['localhost:9323']
+        labels:
+          service: 'docker'
