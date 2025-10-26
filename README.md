@@ -247,6 +247,7 @@ The agent will automatically download and cache the data.
 
 Once you've developed and validated profitable strategies through backtesting, you can explore the live trading agents:
 
+### Traditional Trading Agents
 - **Trading Agent** (`trading_agent.py`): Dual-mode AI trading system with swarm consensus
 - **Strategy Agent** (`strategy_agent.py`): Manages and executes strategies from the strategies folder
 - **Risk Agent** (`risk_agent.py`): Monitors and manages portfolio risk
@@ -258,6 +259,33 @@ Once you've developed and validated profitable strategies through backtesting, y
 - **Liquidation Agent** (`liquidation_agent.py`): Tracks liquidation events
 
 Plus 30+ other specialized agents for various trading tasks.
+
+### 🔬 Quantitative Trading Agents (Jim Simons-Style)
+
+**NEW**: Event-driven quantitative agents inspired by Renaissance Technologies:
+
+- **Anomaly Detection Agent**: Detects statistical anomalies in market data (z-score > 2σ)
+- **Signal Aggregation Agent**: Combines weak signals into strong predictions (70% consensus)
+- **Transaction Cost Agent**: Analyzes and validates transaction costs (square-root model)
+- **Backtesting Validation Agent**: Rigorous walk-forward analysis with statistical testing
+- **Capacity Monitoring Agent**: Tracks strategy capacity limits and slippage
+- **Signal Decay Agent**: Detects and retires degraded signals (Sharpe < 0.5)
+- **Regime Detection Agent**: Identifies market regimes (volatility, trend, liquidity)
+- **Correlation Matrix Agent**: Discovers hidden correlations across assets
+- **Portfolio Optimization Agent**: MPT optimization with Kelly Criterion sizing
+- **Alternative Data Agent**: Ingests social media, on-chain, and GitHub metrics
+
+**Key Features**:
+- 🎯 Event-driven architecture with Kafka
+- 📊 Statistical rigor (p-values, Sharpe ratios, significance testing)
+- 🔄 Automatic signal decay detection and retirement
+- 💰 Transaction cost modeling and capacity monitoring
+- 🧮 Modern Portfolio Theory optimization
+- 📈 Walk-forward backtesting validation
+
+**Quick Start**: See [QUANT_AGENTS_QUICKSTART.md](MOON_DEV_EDA_IMPLEMENTATION/QUANT_AGENTS_QUICKSTART.md)  
+**Integration Guide**: See [QUANT_AGENTS_INTEGRATION_GUIDE.md](MOON_DEV_EDA_IMPLEMENTATION/QUANT_AGENTS_INTEGRATION_GUIDE.md)  
+**Full Documentation**: See [src/agents/quant/README.md](MOON_DEV_EDA_IMPLEMENTATION/src/agents/quant/README.md)
 
 **For detailed live trading documentation, see:** [TRADING.md](TRADING.md)
 

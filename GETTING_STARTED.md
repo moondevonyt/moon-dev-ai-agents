@@ -321,7 +321,7 @@ asyncio.run(test_cache())
 
 Maps to T-3.1, T-3.2, T-3.3, T-3.4
 
-### Run Agents Locally
+### Run Traditional Agents Locally
 
 ```bash
 # In separate terminals:
@@ -341,6 +341,35 @@ python -m src.main --agent trading_agent \
 python -m src.main --agent sentiment_agent \
   --kafka-servers localhost:9092
 ```
+
+### Run Quantitative Agents Locally
+
+```bash
+# Enable quant agents in src/main.py
+# Edit ACTIVE_AGENTS dict to enable desired agents
+
+# Run all enabled quant agents (background thread)
+python src/main.py
+
+# Or run individual quant agents for testing:
+
+# Terminal 1: Anomaly Detection
+python -m src.agents.quant.anomaly_detection_agent
+
+# Terminal 2: Signal Aggregation
+python -m src.agents.quant.signal_aggregation_agent
+
+# Terminal 3: Transaction Cost Analysis
+python -m src.agents.quant.transaction_cost_agent
+
+# Terminal 4: Portfolio Optimization
+python -m src.agents.quant.portfolio_optimization_agent
+```
+
+**Quant Agent Configuration**:
+- All settings in `src/config.py` under "QUANTITATIVE TRADING AGENT CONFIGURATION"
+- 60+ configurable parameters for fine-tuning
+- See [QUANT_AGENTS_INTEGRATION_GUIDE.md](QUANT_AGENTS_INTEGRATION_GUIDE.md) for details
 
 ### Generate Test Data
 
@@ -635,6 +664,54 @@ redis-cli CONFIG REWRITE
 
 ---
 
+## Quantitative Agents Setup
+
+### Quick Start with Quant Agents
+
+```bash
+# 1. Apply database schema
+psql -U postgres -d moon_dev -f infrastructure/schema_quant.sql
+
+# 2. Install additional dependencies
+pip install numpy scipy pandas
+
+# 3. Enable agents in src/main.py
+# Edit ACTIVE_AGENTS dict:
+ACTIVE_AGENTS = {
+    'quant_anomaly': True,
+    'quant_signal_agg': True,
+    'quant_transaction': True,
+    'quant_backtest': True,
+    'quant_capacity': True,
+    'quant_decay': True,
+    'quant_regime': True,
+    'quant_correlation': True,
+    'quant_portfolio': True,
+    'quant_altdata': True,
+}
+
+# 4. Run the system
+python src/main.py
+```
+
+### Quant Agent Documentation
+
+- **Quick Start**: [QUANT_AGENTS_QUICKSTART.md](QUANT_AGENTS_QUICKSTART.md)
+- **Integration Guide**: [QUANT_AGENTS_INTEGRATION_GUIDE.md](QUANT_AGENTS_INTEGRATION_GUIDE.md)
+- **Implementation Status**: [QUANT_AGENTS_IMPLEMENTATION_STATUS.md](QUANT_AGENTS_IMPLEMENTATION_STATUS.md)
+- **Agent Details**: [src/agents/quant/README.md](src/agents/quant/README.md)
+
+### Key Features
+
+- **Event-Driven**: All agents communicate via Kafka
+- **Statistical Rigor**: p-values, Sharpe ratios, significance testing
+- **Automatic Decay Detection**: Signals automatically retired when degraded
+- **Transaction Cost Modeling**: Square-root market impact model
+- **Portfolio Optimization**: MPT with Kelly Criterion sizing
+- **Walk-Forward Backtesting**: 12 rolling windows with statistical validation
+
+---
+
 ## Next Steps
 
 1. **Deploy to Staging**: Follow Phase 5 deployment steps
@@ -642,15 +719,23 @@ redis-cli CONFIG REWRITE
 3. **Monitor Metrics**: Set up Grafana dashboards and alerts
 4. **Document Runbooks**: Create operational procedures for common scenarios
 5. **Train Team**: Ensure all team members understand system architecture
+6. **Enable Quant Agents**: Start with a few agents and gradually enable more
 
 ---
 
 ## Support & Documentation
 
+### General Documentation
 - **Architecture**: See `DESIGN.md` in parent folder
 - **Requirements**: See `REQUIREMENTS.md` in parent folder  
 - **Tasks & Timeline**: See `TASKS.md` in parent folder
 - **Real-time Architecture**: See `MOON_DEV_REALTIME_ARCHITECTURE.md`
+
+### Quantitative Agents Documentation
+- **Quick Start**: [QUANT_AGENTS_QUICKSTART.md](QUANT_AGENTS_QUICKSTART.md)
+- **Integration Guide**: [QUANT_AGENTS_INTEGRATION_GUIDE.md](QUANT_AGENTS_INTEGRATION_GUIDE.md)
+- **Implementation Status**: [QUANT_AGENTS_IMPLEMENTATION_STATUS.md](QUANT_AGENTS_IMPLEMENTATION_STATUS.md)
+- **Agent Details**: [src/agents/quant/README.md](src/agents/quant/README.md)
 
 ---
 

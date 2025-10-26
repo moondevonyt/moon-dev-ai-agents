@@ -41,6 +41,24 @@ class EventType(str, Enum):
     STATE_SNAPSHOT = "state.snapshot"
     STATE_CHANGED = "state.changed"
     PORTFOLIO_UPDATED = "portfolio.updated"
+    
+    # Quantitative Events (Jim Simons-style quant system)
+    SIGNAL_ANOMALY = "signal.anomaly"
+    SIGNAL_AGGREGATED = "signal.aggregated"
+    SIGNAL_CONSENSUS_FAILED = "signal.consensus_failed"
+    SIGNAL_CORRELATION = "signal.correlation"
+    SIGNAL_RETIRED = "signal.retired"
+    STRATEGY_SUBMITTED = "strategy.submitted"
+    STRATEGY_VALIDATED = "strategy.validated"
+    STRATEGY_REJECTED = "strategy.rejected"
+    STRATEGY_CAPACITY_WARNING = "strategy.capacity_warning"
+    STRATEGY_CAPACITY_EXCEEDED = "strategy.capacity_exceeded"
+    DATA_ALTERNATIVE = "data.alternative"
+    MARKET_REGIME_CHANGE = "market.regime_change"
+    TRADE_COST_ANALYSIS = "trade.cost_analysis"
+    TRADE_COST_REJECTED = "trade.cost_rejected"
+    PORTFOLIO_REBALANCE = "portfolio.rebalance"
+    POSITION_UPDATED = "position.updated"
 
 
 class Event(BaseModel):

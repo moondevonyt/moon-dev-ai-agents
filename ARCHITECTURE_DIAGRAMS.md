@@ -844,7 +844,149 @@ graph TB
 
 ## 6. Agent Interaction Diagrams
 
-### 6.1 Agent Communication Pattern
+### 6.1 Quantitative Agents Architecture
+
+```mermaid
+graph TB
+    subgraph "Quantitative Trading Agents (Jim Simons-Style)"
+        subgraph "Signal Generation Layer"
+            ANOM[Anomaly Detection Agent]
+            CORR[Correlation Matrix Agent]
+            REG[Regime Detection Agent]
+            ALT[Alternative Data Agent]
+        end
+        
+        subgraph "Signal Processing Layer"
+            AGG[Signal Aggregation Agent]
+            DECAY[Signal Decay Agent]
+        end
+        
+        subgraph "Validation Layer"
+            BACK[Backtesting Validation Agent]
+            COST[Transaction Cost Agent]
+            CAP[Capacity Monitoring Agent]
+        end
+        
+        subgraph "Execution Layer"
+            PORT[Portfolio Optimization Agent]
+        end
+    end
+    
+    subgraph "Event Bus"
+        K[Kafka]
+    end
+    
+    subgraph "Data Sources"
+        PRICE[Price Ticks]
+        SOCIAL[Social Media]
+        CHAIN[On-Chain Data]
+    end
+    
+    subgraph "Storage"
+        TSDB[(TimescaleDB)]
+        REDIS[(Redis Cache)]
+    end
+    
+    %% Data ingestion
+    PRICE -->|price.tick| K
+    SOCIAL -->|social.update| K
+    CHAIN -->|chain.metrics| K
+    
+    %% Signal generation
+    K -->|price.tick| ANOM
+    K -->|price.tick| CORR
+    K -->|price.tick| REG
+    K -->|scheduled| ALT
+    
+    ANOM -->|signal.anomaly| K
+    CORR -->|signal.correlation| K
+    REG -->|market.regime| K
+    ALT -->|data.alternative| K
+    
+    %% Signal processing
+    K -->|signal.*| AGG
+    K -->|trade.executed| DECAY
+    
+    AGG -->|signal.aggregated| K
+    DECAY -->|signal.retired| K
+    
+    %% Validation
+    K -->|signal.aggregated| COST
+    K -->|strategy.submitted| BACK
+    K -->|trade.executed| CAP
+    
+    COST -->|trade.cost_analysis| K
+    BACK -->|strategy.validated| K
+    CAP -->|strategy.capacity_warning| K
+    
+    %% Execution
+    K -->|signal.aggregated| PORT
+    K -->|strategy.capacity| PORT
+    
+    PORT -->|portfolio.rebalance| K
+    
+    %% Storage
+    ANOM -.->|persist| TSDB
+    AGG -.->|cache weights| REDIS
+    PORT -.->|cache portfolio| REDIS
+    
+    style ANOM fill:#ff6b6b
+    style AGG fill:#4ecdc4
+    style COST fill:#95e1d3
+    style PORT fill:#50c878
+    style K fill:#ff9900
+    style TSDB fill:#4a90e2
+    style REDIS fill:#e24a4a
+```
+
+### 6.2 Quant Agent Event Flow
+
+```mermaid
+sequenceDiagram
+    participant PRICE as Price Feed
+    participant K as Kafka
+    participant ANOM as Anomaly Agent
+    participant AGG as Aggregation Agent
+    participant COST as Cost Agent
+    participant PORT as Portfolio Agent
+    participant EX as Exchange
+
+    Note over PRICE,EX: Quantitative Signal Processing Pipeline
+
+    PRICE->>K: price.tick (BTC: $43,250)
+    
+    K->>ANOM: Consume: price.tick
+    ANOM->>ANOM: Calculate z-score: 2.3σ
+    ANOM->>ANOM: Statistical test: p=0.02
+    ANOM->>K: Emit: signal.anomaly (score: 75)
+    
+    Note over AGG: Collect signals for 5 seconds
+    
+    K->>AGG: signal.anomaly (score: 75)
+    K->>AGG: signal.correlation (score: 82)
+    K->>AGG: signal.regime (score: 68)
+    
+    AGG->>AGG: Weighted average: 74.6
+    AGG->>AGG: Check consensus: > 70%
+    AGG->>K: Emit: signal.aggregated
+    
+    K->>COST: Consume: signal.aggregated
+    COST->>COST: Calculate market impact
+    COST->>COST: Cost = 0.15% (< 0.3% threshold)
+    COST->>K: Emit: trade.cost_analysis (approved)
+    
+    K->>PORT: Consume: cost_analysis
+    PORT->>PORT: MPT optimization
+    PORT->>PORT: Kelly sizing: 2.5% of portfolio
+    PORT->>K: Emit: portfolio.rebalance
+    
+    K->>EX: Execute trade
+    EX-->>K: trade.executed
+    
+    Note over PRICE,EX: Total latency: 150-200ms
+```
+
+### 6.3 Agent Communication Pattern
 
 ```mermaid
 graph TB

@@ -133,3 +133,88 @@ EXIT_ALL_POSITIONS = False
 DO_NOT_TRADE_LIST = ['777']
 CLOSED_POSITIONS_TXT = '777'
 minimum_trades_in_last_hour = 777
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 📊 QUANTITATIVE TRADING AGENT CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+# Anomaly Detection Settings
+ANOMALY_DETECTION_WINDOW_DAYS = 30  # Rolling window for mean reversion
+ANOMALY_DETECTION_SIGMA_THRESHOLD = 2.0  # Standard deviations for anomaly
+ANOMALY_DETECTION_P_VALUE_THRESHOLD = 0.05  # Statistical significance
+ANOMALY_CORRELATION_CHANGE_THRESHOLD = 0.3  # Correlation change threshold
+ANOMALY_CORRELATION_WINDOW_DAYS = 7  # Window for correlation changes
+
+# Signal Aggregation Settings
+SIGNAL_AGGREGATION_WINDOW_SECONDS = 5  # Time window to collect signals
+SIGNAL_AGGREGATION_MIN_SOURCES = 3  # Minimum signal sources for consensus
+SIGNAL_AGGREGATION_CONSENSUS_THRESHOLD = 70  # Consensus threshold percentage
+SIGNAL_AGGREGATION_WEIGHT_ALPHA = 0.1  # EMA alpha for weight updates
+SIGNAL_AGGREGATION_MIN_OBSERVATIONS = 10  # Min observations before full weight
+
+# Transaction Cost Settings
+MAX_TRANSACTION_COST_PCT = 0.3  # Maximum transaction cost percentage
+MARKET_IMPACT_COEFFICIENT = 0.01  # Initial market impact coefficient (k)
+SLIPPAGE_CALIBRATION_DAYS = 7  # Days of data for cost model calibration
+
+# Backtesting Validation Settings
+BACKTEST_MIN_YEARS = 3  # Minimum years of historical data
+BACKTEST_P_VALUE_THRESHOLD = 0.05  # Statistical significance threshold
+BACKTEST_MIN_SHARPE_RATIO = 1.5  # Minimum Sharpe ratio for validation
+BACKTEST_MAX_DRAWDOWN_PCT = 20  # Maximum drawdown percentage
+BACKTEST_MIN_WIN_RATE_PCT = 45  # Minimum win rate percentage
+BACKTEST_WALK_FORWARD_WINDOWS = 12  # Number of rolling windows
+
+# Capacity Monitoring Settings
+CAPACITY_SLIPPAGE_THRESHOLD_PCT = 0.5  # Slippage threshold for capacity
+CAPACITY_WARNING_UTILIZATION_PCT = 80  # Warning at 80% capacity
+CAPACITY_EXCEEDED_UTILIZATION_PCT = 100  # Exceeded at 100% capacity
+CAPACITY_POSITION_REDUCTION_PCT = 50  # Reduce position by 50% when exceeded
+CAPACITY_CALIBRATION_DAYS = 30  # Days of data for capacity estimation
+CAPACITY_UPDATE_FREQUENCY_DAYS = 7  # Update capacity estimates weekly
+
+# Signal Decay Monitoring Settings
+SIGNAL_DECAY_WINDOW_DAYS = 30  # Rolling window for performance tracking
+SIGNAL_DECAY_SHARPE_THRESHOLD = 0.5  # Sharpe threshold for degradation
+SIGNAL_DECAY_DEGRADED_DAYS = 14  # Days before marking as degraded
+SIGNAL_DECAY_RETIREMENT_DAYS = 30  # Days before retirement
+SIGNAL_DECAY_MIN_WIN_RATE_PCT = 40  # Minimum win rate before retirement
+SIGNAL_DECAY_WEIGHT_REDUCTION_PCT = 50  # Weight reduction when degraded
+
+# Regime Detection Settings
+REGIME_VOLATILITY_HIGH_MULTIPLIER = 1.5  # High volatility threshold
+REGIME_VOLATILITY_LOW_MULTIPLIER = 0.7  # Low volatility threshold
+REGIME_VOLATILITY_WINDOW_DAYS = 30  # Rolling window for volatility
+REGIME_TREND_ADX_TRENDING_THRESHOLD = 25  # ADX threshold for trending
+REGIME_TREND_ADX_MEANREV_THRESHOLD = 20  # ADX threshold for mean reversion
+REGIME_LIQUIDITY_LIQUID_SPREAD_PCT = 0.1  # Liquid spread threshold
+REGIME_LIQUIDITY_ILLIQUID_SPREAD_PCT = 0.5  # Illiquid spread threshold
+REGIME_MIN_PERSISTENCE_HOURS = 4  # Minimum hours before regime change
+
+# Correlation Matrix Settings
+CORRELATION_WINDOWS_DAYS = [30, 90, 180]  # Multiple correlation windows
+CORRELATION_CHANGE_THRESHOLD = 0.4  # Significant correlation change
+CORRELATION_CHANGE_LOOKBACK_DAYS = 14  # Lookback for change detection
+CORRELATION_LAG_MIN_MINUTES = 1  # Minimum lag to test
+CORRELATION_LAG_MAX_HOURS = 24  # Maximum lag to test
+CORRELATION_LAG_INCREMENT_MINUTES = 15  # Lag increment
+CORRELATION_DIVERSIFICATION_THRESHOLD = 0.7  # Max correlation for diversification
+
+# Portfolio Optimization Settings
+PORTFOLIO_MAX_POSITION_PCT = 20  # Maximum position size percentage
+PORTFOLIO_KELLY_FRACTION = 0.25  # Fractional Kelly (25% for safety)
+PORTFOLIO_REBALANCE_FREQUENCY_HOURS = 4  # Rebalance every 4 hours
+PORTFOLIO_MIN_EXPECTED_RETURN = 0.0  # Minimum expected return constraint
+PORTFOLIO_RISK_PARITY_ENABLED = True  # Enable risk parity allocation
+
+# Alternative Data Settings
+ALT_DATA_SOCIAL_INTERVAL_SECONDS = 60  # Social media check interval
+ALT_DATA_ONCHAIN_INTERVAL_SECONDS = 300  # On-chain check interval (5 min)
+ALT_DATA_GITHUB_INTERVAL_SECONDS = 3600  # GitHub check interval (1 hour)
+ALT_DATA_NORMALIZATION_WINDOW_DAYS = 30  # Window for z-score normalization
+
+# General Quant Agent Settings
+QUANT_AGENTS_ENABLED = True  # Master switch for quant agents
+QUANT_AGENTS_LOG_LEVEL = 'INFO'  # Logging level: DEBUG, INFO, WARNING, ERROR
+QUANT_AGENTS_METRICS_ENABLED = True  # Enable Prometheus metrics
+QUANT_AGENTS_HEALTH_CHECK_INTERVAL = 60  # Health check interval in seconds
