@@ -81,10 +81,13 @@ Built with love by Moon Dev 🚀
 # ============================================================================
 
 # 🏦 EXCHANGE SELECTION
-EXCHANGE = "ASTER"  # Options: "ASTER", "HYPERLIQUID", "SOLANA"
-                     # - "ASTER" = Aster DEX futures (supports long/short)
-                     # - "HYPERLIQUID" = HyperLiquid perpetuals (supports long/short)
-                     # - "SOLANA" = Solana on-chain DEX (long only)
+EXCHANGE = "HYPERLIQUID"  # Options: "ASTER", "HYPERLIQUID", "SOLANA"
+                          # - "ASTER" = Aster DEX futures (supports long/short)
+                          # - "HYPERLIQUID" = HyperLiquid perpetuals (supports long/short) ⭐ TESTNET ENABLED!
+                          # - "SOLANA" = Solana on-chain DEX (long only)
+                          #
+                          # 🧪 TESTNET MODE: HyperLiquid testnet is enabled in nice_funcs_hyperliquid.py
+                          #    Change USE_TESTNET to False for real trading (mainnet)
 
 # 🌊 AI MODE SELECTION
 USE_SWARM_MODE = False  # True = 6-model swarm consensus (~45-60s per token)
