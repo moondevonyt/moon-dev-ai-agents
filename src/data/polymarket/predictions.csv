@@ -1,0 +1,2 @@
+analysis_timestamp,analysis_run_id,market_title,market_slug,claude_prediction,openai_prediction,groq_prediction,gemini_prediction,deepseek_prediction,xai_prediction,ollama_prediction,consensus_prediction,num_models_responded
+2025-10-24T10:44:38.196800,20251024_104438,Analyzed 25 markets,batch_analysis,MARKET 1: NO_TRADE,MARKET 1: NO_TRADE,N/A,N/A,MARKET 1: NO_TRADE,MARKET 1: YES  ,N/A,No consensus,4

@@ -1,0 +1,73 @@
+STRATEGY_NAME: GapQuintile
+
+STRATEGY_DETAILS:
+
+### Overview
+GapQuintile is a momentum-driven trading strategy designed to capture short-term directional changes in stock prices by exploiting opening gaps in daily price bars. The core idea is to rank a universe of stocks (e.g., S&P 500 or a broader market index) based on the magnitude of their daily opening gaps—defined as the percentage difference between the current day's open and the previous day's close. Positive gaps indicate upward momentum, while negative gaps signal downward pressure. The strategy selects the top 20% (quintile) of stocks with the largest positive gaps for long positions and the bottom 20% (quintile) with the largest negative gaps for short positions. This percentile-based ranking filters for extreme momentum events, aiming to profit from continuation or mean-reversion in gap-driven moves. It is typically applied to liquid equities on a daily timeframe, with positions held intraday or overnight for 1-5 days to capture quick directional shifts. The strategy assumes access to end-of-day or real-time market data for ranking and execution.
+
+### Key Strategy Components
+1. **Universe Selection**: Apply to a diversified basket of 200-500 liquid stocks (e.g., large-cap U.S. equities from NYSE/NASDAQ) to ensure sufficient candidates for quintile ranking. Exclude illiquid stocks (e.g., average daily volume < 1M shares) or those with recent earnings events to avoid volatility spikes unrelated to momentum.
+   
+2. **Gap Calculation**: Compute the daily gap for each stock as:
+   - Gap % = [(Current Open - Previous Close) / Previous Close] × 100
+   - Use signed values: Positive for upward gaps (buy signals), negative for downward gaps (sell/short signals).
+   - Normalize gaps relative to the stock's recent volatility (e.g., divide by 10-day ATR) to account for varying price levels across stocks.
+
+3. **Quintile Ranking**: At the end of each trading day (or pre-market for next-day execution):
+   - Rank all stocks in the universe by their gap % (largest positive to largest negative).
+   - Divide into quintiles (20% buckets): Top quintile = largest positive gaps (e.g., top 40-100 stocks if universe is 200-500); Bottom quintile = largest negative gaps (most negative).
+   - This creates a momentum filter: Top quintile captures "gap-up" strength, bottom captures "gap-down" weakness.
+
+4. **Position Sizing**: Equal-weight the selected stocks within each quintile (e.g., 5% portfolio allocation per stock in a 20-stock quintile). Total long exposure: 20% of portfolio; total short exposure: 20% (for a market-neutral variant). Scale based on account size and leverage limits.
+
+5. **Timeframe and Frequency**: Daily rebalancing. Signals generated at market open using previous close data; execute at open or within the first 30 minutes to capture gap fill or continuation.
+
+### Entry/Exit Rules
+1. **Long Entry (Top Quintile)**:
+   - Trigger: Stock ranks in the top 20% by positive gap % (e.g., gap > +2% threshold, dynamically set by historical quintile medians).
+   - Entry: Buy at market open (or limit order at open price + 0.1% slippage buffer). Confirm with volume surge (>150% of 20-day average) to validate momentum.
+   - Position Size: Equal weight within quintile, max 5% per stock.
+
+2. **Short Entry (Bottom Quintile)**:
+   - Trigger: Stock ranks in the bottom 20% by negative gap % (e.g., gap < -2% threshold).
+   - Entry: Short sell at market open (or limit at open price - 0.1%). Confirm with high volume to ensure conviction.
+   - Position Size: Equal weight within quintile, max 5% per stock.
+
+3. **Exit Rules**:
+   - **Time-Based Exit**: Hold for 1-3 days max, exiting at next day's close to capture short-term momentum decay or continuation. Re-rank and rotate daily.
+   - **Profit Target**: Exit long if +3-5% gain from entry (or short if -3-5% equivalent); trail with 2% stop from peak.
+   - **Stop Loss**: Hard stop at -2% from entry for longs (or +2% for shorts) to limit gap-fill reversals. Additional volatility stop: Exit if price moves >1.5× ATR against the position.
+   - **Signal Reversal**: If a stock drops out of its quintile on the next ranking (e.g., subsequent gap reverses), exit immediately.
+   - No overlapping positions: Clear all holdings before new daily entries.
+
+### Risk Management
+1. **Portfolio-Level Controls**:
+   - Market Neutrality: Balance long and short exposures to hedge beta (net exposure <10%).
+   - Maximum Drawdown: Pause trading if portfolio drawdown >10%; resume after recovery signal (e.g., VIX <20).
+   - Diversification: Limit sector exposure to 30% (e.g., no more than 6 stocks per sector in quintiles).
+   - Leverage: No more than 2:1 (e.g., via margin for shorts); avoid options unless for hedging.
+
+2. **Position-Level Risks**:
+   - Volatility Filter: Skip entries if stock's 10-day implied volatility >50% to avoid whipsaws.
+   - Gap Fill Risk: 60-70% of gaps fill intraday; use the time-based exit to mitigate.
+   - Slippage/Commission: Account for 0.1-0.2% per trade in backtests; target high-liquidity stocks only.
+   - Overall Risk: Target 1-2% portfolio risk per trade quintile, with a Sharpe ratio goal >1.0 in simulations.
+
+3. **Broader Considerations**:
+   - Backtest on 5-10 years of data, accounting for transaction costs and survivorship bias.
+   - Monitor for regime changes (e.g., reduce size in high-VIX environments >25).
+   - Emergency Exit: Liquidate all if market-wide gap >3% (e.g., circuit breaker events).
+
+### Required Indicators and Tools
+1. **Core Indicators**:
+   - **Opening Gap %**: Primary signal; no external oscillator needed—purely price-based.
+   - **Average True Range (ATR, 10-14 period)**: For normalizing gaps and setting dynamic stops/targets (e.g., stop = entry - 1.5× ATR).
+   - **Volume (20-day SMA)**: Confirmation filter for entry validity.
+
+2. **Supporting Data/Tools**:
+   - Daily OHLCV (Open, High, Low, Close, Volume) from a data provider like Yahoo Finance, Alpha Vantage, or Bloomberg.
+   - Ranking Engine: Custom script (e.g., in Python with Pandas) to compute gaps, sort, and select quintiles daily.
+   - No complex indicators like RSI/MACD required; focus on raw price gaps for simplicity and momentum purity.
+   - Backtesting Platform: Use QuantConnect, Backtrader, or TradingView for simulation, incorporating realistic fills.
+
+This strategy performs best in trending markets with moderate volatility, potentially yielding 10-20% annualized returns with proper risk controls, though it may underperform in range-bound or gap-filling heavy conditions. Always validate with historical testing before live deployment.

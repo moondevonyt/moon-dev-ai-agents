@@ -1,0 +1,71 @@
+STRATEGY_NAME: VolatilityRebound
+
+STRATEGY_DETAILS:
+
+### Overview
+VolatilityRebound is a mean reversion trading strategy that leverages Bollinger Bands to identify overextended price movements away from the statistical mean, anticipating a "rebound" toward equilibrium as volatility normalizes. The strategy assumes prices oscillate around a moving average and uses the bands' expansion/contraction to signal potential reversals. It is best suited for ranging or sideways markets (e.g., forex pairs like EUR/USD or stocks in consolidation phases) on timeframes like 1-hour or daily charts, avoiding strong trends where false signals are common. The core philosophy is contrarian: buy low volatility extremes (lower band touches) and sell high volatility extremes (upper band touches), capitalizing on the tendency of prices to revert to the mean band (typically a 20-period SMA).
+
+### Key Strategy Components
+1. **Core Indicator: Bollinger Bands**
+   - Period: 20 (standard for capturing medium-term volatility).
+   - Standard Deviation: 2 (defines the upper and lower bands around the middle band, which is a 20-period Simple Moving Average or SMA).
+   - The bands act as dynamic support/resistance levels: the upper band represents overbought conditions, the lower band oversold, and the middle band the mean.
+   - Additional filter: Band Width (difference between upper and lower bands divided by middle band) to confirm low-volatility setups—enter trades only when bands are not excessively wide (e.g., width < 0.1 for normalized assets) to avoid trend breakouts.
+
+2. **Confirmation Indicators**
+   - **Relative Strength Index (RSI)**: 14-period, to confirm overbought/oversold conditions (e.g., RSI < 30 for buy signals, RSI > 70 for sell signals). This adds momentum divergence to filter out weak reversions.
+   - **Volume Oscillator** (optional): 14-period (short-term volume MA minus long-term volume MA divided by long-term MA) to ensure increasing volume on the reversion signal, indicating conviction.
+   - No trend filter is strictly required, but avoid trades if an ADX (14-period) > 25, signaling a potential trend.
+
+3. **Market Conditions**
+   - Ideal for assets with mean-reverting behavior (e.g., commodities like gold or indices in non-trending phases).
+   - Avoid high-impact news events, as they can cause band breakouts without reversion.
+
+### Entry Rules
+- **Long Entry (Buy Signal)**:
+  - Price closes below or touches the lower Bollinger Band.
+  - RSI (14) < 30 (oversold confirmation).
+  - Band Width is contracting or neutral (not expanding > 20% from recent average), suggesting volatility exhaustion.
+  - Enter on the next candle open after confirmation, or on a bullish candlestick pattern (e.g., hammer or engulfing) at the lower band.
+  - Example: On a 1H EUR/USD chart, if price dips to the lower band with RSI at 25 and volume spiking, buy for expected rebound to the middle band.
+
+- **Short Entry (Sell Signal)**:
+  - Price closes above or touches the upper Bollinger Band.
+  - RSI (14) > 70 (overbought confirmation).
+  - Band Width contracting or neutral.
+  - Enter on the next candle open after confirmation, or on a bearish candlestick pattern (e.g., shooting star or engulfing) at the upper band.
+  - Example: On a daily AAPL chart, if price rallies to the upper band with RSI at 75, short for reversion to the middle band.
+
+- **General Filters**:
+  - Only one position per asset at a time.
+  - Skip signals if price has already started reverting (e.g., closes back inside the bands prematurely).
+  - Minimum setup strength: The touch must occur after at least 3-5 periods of deviation from the middle band.
+
+### Exit Rules
+- **Profit Targets**:
+  - Primary: Exit when price reaches or closes above/below the middle Bollinger Band (the mean), capturing the core reversion move. This typically yields 1:1 to 1:2 risk-reward.
+  - Secondary: Trail profits to the opposite band if momentum is strong (e.g., use a 20-period EMA trailing stop), or exit at 50% of the band distance (e.g., halfway from entry to middle band) for conservative trades.
+  - Time-based exit: Close after 5-10 periods if no reversion occurs, to avoid opportunity cost.
+
+- **Stop Loss**:
+  - Place initial stop 1-1.5 standard deviations beyond the entry band (e.g., 1% below lower band for longs, 1% above upper band for shorts), or at the recent swing low/high.
+  - Dynamic adjustment: Move stop to breakeven once price moves 50% toward the middle band.
+
+- **Early Exit Signals**:
+  - If RSI crosses back to neutral (40-60) without reaching the middle band.
+  - Band expansion accelerates (width > 15% increase), indicating a potential trend shift.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1-2% of total account equity per trade. Calculate position size as: (Account Risk Amount) / (Entry Price - Stop Loss Distance). For example, with a $10,000 account and 1% risk ($100), if stop is 2% from entry, position size = $100 / 0.02 = $5,000 notional.
+- **Maximum Exposure**: Limit to 3-5 open trades across assets, with no more than 5% total portfolio risk.
+- **Risk-Reward Ratio**: Target at least 1:1.5 (e.g., 20-pip stop for 30-pip target), but adjust based on asset volatility (use ATR for scaling).
+- **Drawdown Controls**: Pause trading after 3 consecutive losses or 5% account drawdown. Backtest win rate should aim for 60%+ in ranging markets, with average win > average loss.
+- **Diversification**: Apply to 5-10 uncorrelated assets (e.g., mix of forex, stocks, ETFs) to spread risk.
+- **Leverage Caution**: Use 1:5 to 1:10 leverage max; higher increases whipsaw risk in false breakouts.
+
+### Implementation Notes
+- **Platform Requirements**: Any charting software with Bollinger Bands and RSI (e.g., TradingView, MetaTrader). Automate via Pine Script or Python (using TA-Lib for indicators).
+- **Backtesting Recommendations**: Test on 5+ years of data in sideways markets (e.g., 2015-2020 for many pairs). Expect 40-60% win rate, with profitability from capturing frequent small rebounds.
+- **Limitations**: Performs poorly in trending markets (e.g., band walkouts); combine with a trend filter like a 200-period SMA for robustness. Monitor for "Bollinger Band Squeeze" (narrow bands) as a precursor to high-probability setups, but avoid post-squeeze breakouts.
+
+This strategy emphasizes statistical edge over directional bias, rewarding patience in volatile but ranging conditions.

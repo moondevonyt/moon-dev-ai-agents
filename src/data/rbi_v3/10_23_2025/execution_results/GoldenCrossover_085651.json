@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "\ud83c\udf19 Moon Dev Backtest Bar 201: Close 16682.08, EMA12 16682.41, EMA50 16697.39, EMA200 16619.33, RSI 45.87, ADX 20.02, ATR 22.63, MACD -13.07 \u2728\n\ud83c\udf19 Moon Dev Fib Calc: 61.8% Level 16637.05, High 16789.99, Low 16542.52 \ud83d\ude80\n\n",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_optimized/GoldenCrossover_OPT_v10.py\", line 187, in <module>\n    stats = bt.run()\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 1170, in run\n    strategy.next()\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_optimized/GoldenCrossover_OPT_v10.py\", line 82, in next\n    crossover = len(self.data) > 1 and self.ema12[-2] <= ema50[-2] and ema12 > ema50  # \ud83c\udf19 Moon Dev Optimization: Switched to actual EMA12/EMA50 crossover for classic golden cross signal, more reliable trend starts\nIndexError: invalid index to scalar variable.\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_optimized/GoldenCrossover_OPT_v10.py` failed. (See above for error)\n",
+  "execution_time": 1.332237,
+  "timestamp": "2025-10-23T08:56:51.228333"
+}

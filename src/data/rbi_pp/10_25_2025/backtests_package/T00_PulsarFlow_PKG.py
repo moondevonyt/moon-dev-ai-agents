@@ -1,0 +1,207 @@
+import pandas as pd
+from backtesting import Backtest, Strategy
+import talib
+import numpy as np
+
+# Load and clean data
+data = pd.read_csv('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv', parse_dates=['datetime'], index_col='datetime')
+data.columns = data.columns.str.strip().str.lower()
+data = data.drop(columns=[col for col in data.columns if 'unnamed' in col.lower()])
+data = data.rename(columns={'open': 'Open', 'high': 'High', 'low': 'Low', 'close': 'Close', 'volume': 'Volume'})
+
+class PulsarFlow(Strategy):
+    mfi_period = 14
+    ema_period = 50
+    atr_period = 14
+    adx_period = 14
+    atr20_period = 20
+    overbought = 80
+    oversold = 20
+    risk_per_trade = 0.01
+    rr_ratio = 2
+    sl_percent = 0.02
+    trail_multiplier = 1.5
+    lookback = 20
+
+    def init(self):
+        print("🌙 Moon Dev: Initializing PulsarFlow Strategy ✨")
+        self.mfi = self.I(talib.MFI, self.data.High, self.data.Low, self.data.Close, self.data.Volume, timeperiod=self.mfi_period)
+        self.ema = self.I(talib.EMA, self.data.Close, timeperiod=self.ema_period)
+        self.atr = self.I(talib.ATR, self.data.High, self.data.Low, self.data.Close, timeperiod=self.atr_period)
+        self.atr20 = self.I(talib.ATR, self.data.High, self.data.Low, self.data.Close, timeperiod=self.atr20_period)
+        self.adx = self.I(talib.ADX, self.data.High, self.data.Low, self.data.Close, timeperiod=self.adx_period)
+        self.avg_volume = self.I(talib.SMA, self.data.Volume, timeperiod=20)
+        self.entry_price = None
+        self.stop_loss = None
+        self.take_profit = None
+
+    def get_bullish_div_info(self):
+        if len(self.data) < self.lookback * 2 + 10:
+            return False, None
+        recent_lows = self.data.Low.iloc[-self.lookback:]
+        if len(recent_lows) == 0:
+            return False, None
+        recent_low_dt = recent_lows.idxmin()
+        recent_low_iloc = self.data.index.get_loc(recent_low_dt)
+        recent_low_price = self.data.Low.iloc[recent_low_iloc]
+        recent_mfi = self.mfi[recent_low_iloc]
+        
+        start_iloc = max(0, len(self.data) - self.lookback * 2)
+        end_iloc = len(self.data) - self.lookback
+        prev_lows = self.data.Low.iloc[start_iloc:end_iloc]
+        if len(prev_lows) < self.lookback // 2:
+            return False, None
+        prev_low_dt = prev_lows.idxmin()
+        prev_low_iloc = self.data.index.get_loc(prev_low_dt)
+        prev_low_price = self.data.Low.iloc[prev_low_iloc]
+        prev_mfi = self.mfi[prev_low_iloc]
+        
+        div = (recent_low_price < prev_low_price) and (recent_mfi > prev_mfi) and not np.isnan(recent_mfi) and not np.isnan(prev_mfi)
+        return div, recent_low_price
+
+    def get_bearish_div_info(self):
+        if len(self.data) < self.lookback * 2 + 10:
+            return False, None
+        recent_highs = self.data.High.iloc[-self.lookback:]
+        if len(recent_highs) == 0:
+            return False, None
+        recent_high_dt = recent_highs.idxmax()
+        recent_high_iloc = self.data.index.get_loc(recent_high_dt)
+        recent_high_price = self.data.High.iloc[recent_high_iloc]
+        recent_mfi = self.mfi[recent_high_iloc]
+        
+        start_iloc = max(0, len(self.data) - self.lookback * 2)
+        end_iloc = len(self.data) - self.lookback
+        prev_highs = self.data.High.iloc[start_iloc:end_iloc]
+        if len(prev_highs) < self.lookback // 2:
+            return False, None
+        prev_high_dt = prev_highs.idxmax()
+        prev_high_iloc = self.data.index.get_loc(prev_high_dt)
+        prev_high_price = self.data.High.iloc[prev_high_iloc]
+        prev_mfi = self.mfi[prev_high_iloc]
+        
+        div = (recent_high_price > prev_high_price) and (recent_mfi < prev_mfi) and not np.isnan(recent_mfi) and not np.isnan(prev_mfi)
+        return div, recent_high_price
+
+    def next(self):
+        if len(self.data) < 60:
+            return
+        
+        close = self.data.Close[-1]
+        high = self.data.High[-1]
+        low = self.data.Low[-1]
+        volume = self.data.Volume[-1]
+        print(f"🌙 Moon Dev: Bar update - Close: {close:.2f}, MFI: {self.mfi[-1]:.2f}, ADX: {self.adx[-1]:.2f} 📊")
+        
+        # Exit logic first
+        if self.position:
+            if self.position.is_long:
+                # Hard SL
+                if low <= self.stop_loss:
+                    self.sell()
+                    print(f"🌙 Moon Dev: STOP LOSS hit for LONG at {low:.2f} 💥")
+                    self.entry_price = None
+                    self.stop_loss = None
+                    self.take_profit = None
+                    return
+                # TP
+                if high >= self.take_profit:
+                    self.sell()
+                    print(f"🌙 Moon Dev: TAKE PROFIT hit for LONG at {high:.2f} 🎉")
+                    self.entry_price = None
+                    self.stop_loss = None
+                    self.take_profit = None
+                    return
+                # MFI exit
+                if self.mfi[-1] >= self.overbought:
+                    self.sell()
+                    print(f"🌙 Moon Dev: MFI OVERBOUGHT exit for LONG at {close:.2f} 🌕")
+                    self.entry_price = None
+                    self.stop_loss = None
+                    self.take_profit = None
+                    return
+                # Trailing stop
+                if self.position.pl_pct > 0.01:
+                    new_trail = close - self.trail_multiplier * self.atr20[-1]
+                    self.stop_loss = max(self.stop_loss, new_trail)
+                    print(f"🌙 Moon Dev: Trailing SL updated for LONG to {self.stop_loss:.2f} 🔄")
+            else:  # short
+                # Hard SL
+                if high >= self.stop_loss:
+                    self.sell()
+                    print(f"🌙 Moon Dev: STOP LOSS hit for SHORT at {high:.2f} 💥")
+                    self.entry_price = None
+                    self.stop_loss = None
+                    self.take_profit = None
+                    return
+                # TP
+                if low <= self.take_profit:
+                    self.sell()
+                    print(f"🌙 Moon Dev: TAKE PROFIT hit for SHORT at {low:.2f} 🎉")
+                    self.entry_price = None
+                    self.stop_loss = None
+                    self.take_profit = None
+                    return
+                # MFI exit
+                if self.mfi[-1] <= self.oversold:
+                    self.sell()
+                    print(f"🌙 Moon Dev: MFI OVERSOLD exit for SHORT at {close:.2f} 🌑")
+                    self.entry_price = None
+                    self.stop_loss = None
+                    self.take_profit = None
+                    return
+                # Trailing stop
+                if self.position.pl_pct > 0.01:
+                    new_trail = close + self.trail_multiplier * self.atr20[-1]
+                    self.stop_loss = min(self.stop_loss, new_trail)
+                    print(f"🌙 Moon Dev: Trailing SL updated for SHORT to {self.stop_loss:.2f} 🔄")
+        
+        # Entry logic if no position
+        if not self.position:
+            # Filters
+            if volume < 0.5 * self.avg_volume[-1]:
+                print(f"🌙 Moon Dev: Volume too low, skipping entry 📉")
+                return
+            if self.adx[-1] < 20:
+                print(f"🌙 Moon Dev: ADX too low ({self.adx[-1]:.2f}), choppy market, skipping 🚫")
+                return
+            
+            # Long entry
+            if close > self.ema[-1] and self.mfi[-1] <= self.oversold:
+                div, swing_low = self.get_bullish_div_info()
+                if div and swing_low is not None and close > swing_low:
+                    entry_price = close
+                    sl = max(entry_price * (1 - self.sl_percent), swing_low)
+                    risk = entry_price - sl
+                    if risk > 0:
+                        risk_amount = self.equity * self.risk_per_trade
+                        size = int(round(risk_amount / risk))
+                        if size > 0:
+                            self.buy(size=size)
+                            self.entry_price = entry_price
+                            self.stop_loss = sl
+                            self.take_profit = entry_price + self.rr_ratio * risk
+                            print(f"🌙 Moon Dev: LONG entry at {entry_price:.2f}, size {size}, SL {sl:.2f}, TP {self.take_profit:.2f} 🚀")
+                            return
+            
+            # Short entry
+            if close < self.ema[-1] and self.mfi[-1] >= self.overbought:
+                div, swing_high = self.get_bearish_div_info()
+                if div and swing_high is not None and close < swing_high:
+                    entry_price = close
+                    sl = min(entry_price * (1 + self.sl_percent), swing_high)
+                    risk = sl - entry_price
+                    if risk > 0:
+                        risk_amount = self.equity * self.risk_per_trade
+                        size = int(round(risk_amount / risk))
+                        if size > 0:
+                            self.sell(size=size)
+                            self.entry_price = entry_price
+                            self.stop_loss = sl
+                            self.take_profit = entry_price - self.rr_ratio * risk
+                            print(f"🌙 Moon Dev: SHORT entry at {entry_price:.2f}, size {size}, SL {sl:.2f}, TP {self.take_profit:.2f} 📉")
+                            return
+
+bt = Backtest(data, PulsarFlow, cash=1000000, commission=0.001, exclusive_orders=True)
+stats = bt.run()
+print(stats)

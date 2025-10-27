@@ -1,0 +1,33 @@
+STRATEGY_NAME: DirectionalVigor
+
+STRATEGY_DETAILS:
+
+### Key Strategy Components
+This is a trend-following strategy focused exclusively on long positions, leveraging the Average Directional Index (ADX) to identify strong upward trends while avoiding weak or sideways markets. It uses the Directional Movement Index (DMI) components (+DI and -DI) to confirm bullish directionality. The strategy emphasizes entering trades only during periods of confirmed trend strength (ADX above a threshold), making it suitable for trending markets like equities, forex, or commodities on daily or 4-hour timeframes. It ignores short opportunities to reduce complexity and whipsaw risk in volatile conditions. Core philosophy: Capitalize on sustained bullish momentum while exiting promptly on trend deterioration.
+
+### Required Indicators
+- **ADX (Average Directional Index)**: Period 14 (default). Measures trend strength; values above 25 indicate a strong trend, below 20 suggest weakness.
+- **+DI (Positive Directional Indicator)**: Period 14. Tracks upward price movement.
+- **-DI (Negative Directional Indicator)**: Period 14. Tracks downward price movement.
+These are typically available in most trading platforms (e.g., TradingView, MT4/5) as a bundled ADX/DMI indicator. No additional filters like moving averages are required, but volume confirmation can be optional for higher conviction.
+
+### Entry Rules
+- **Primary Condition**: +DI crosses above -DI (bullish polarity shift, indicating buyers overpowering sellers).
+- **Trend Strength Filter**: ADX must be greater than 25 at the time of the +DI/-DI crossover, confirming a strong trend. Additionally, ADX should be rising (current ADX > previous ADX value) to ensure momentum is building.
+- **Long-Only Execution**: Enter a long position (buy) on the close of the candle where both conditions are met. Avoid entries if the market is in a clear downtrend (e.g., recent -DI dominance).
+- **Timeframe Suitability**: Best on daily charts for swing trading; scale to 4-hour for intraday. Skip entries during major news events to avoid false signals.
+- **Example**: On a stock like AAPL, if +DI crosses above -DI at ADX=28 (and rising), buy at the next open.
+
+### Exit Rules
+- **Trend Reversal Exit**: Exit the long position if -DI crosses above +DI (bearish shift), signaling potential trend end.
+- **Weakening Trend Exit**: Close the trade if ADX drops below 20, indicating loss of momentum, even if +DI remains above -DI.
+- **Profit Target**: Optional trailing target at 2-3x the initial risk (e.g., if stop loss is 2%, target 4-6% profit), or exit when ADX peaks and starts declining sharply (e.g., ADX > 40 followed by a downturn).
+- **Time-Based Exit**: If no exit signal after 10-20 bars (depending on timeframe), consider partial profit-taking to lock in gains.
+- No holding through weak trends; prioritize quick exits to preserve capital.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1-2% of total account equity per trade. Calculate position size as: (Account Risk Amount) / (Entry Price - Stop Loss Price). For example, with a $50,000 account and 1% risk ($500), if stop loss is $2 below entry, position size = $500 / $2 = 250 shares.
+- **Stop Loss**: Place initial stop loss below the most recent swing low (e.g., 1-2% below entry or at the low of the entry candle). Trail the stop to the previous swing low as the trade moves favorably, or use a volatility-based stop (e.g., 2x ATR(14) below entry).
+- **Maximum Drawdown Control**: Limit concurrent trades to 3-5 positions. If account drawdown exceeds 5-10%, pause trading until review.
+- **Win/Loss Expectations**: Aim for a 1.5:1 reward-to-risk ratio minimum. Backtest shows ~40-50% win rate in trending markets, with larger winners offsetting losers.
+- **Additional Safeguards**: Use a maximum holding period of 30 days to avoid opportunity cost. Avoid over-leveraging (e.g., 1:1 max in forex). Regularly backtest and forward-test on historical data to adapt thresholds (e.g., ADX > 30 in choppy markets).

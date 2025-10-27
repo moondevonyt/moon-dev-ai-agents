@@ -1,0 +1,67 @@
+STRATEGY_NAME: SynergisticOscillator
+
+STRATEGY_DETAILS:
+
+### Overview
+The SynergisticOscillator strategy leverages the Stochastic RSI (StochRSI) indicator, which combines the sensitivity of the Stochastic oscillator with the momentum insights of the Relative Strength Index (RSI). This creates a "synergistic" tool for detecting overbought and oversold conditions in a more responsive manner than standalone RSI or Stochastic. The strategy focuses on momentum reversals in trending or ranging markets, using StochRSI crossovers and levels to generate buy/sell signals. It's particularly effective in volatile assets like stocks, forex, or cryptocurrencies on timeframes from 15 minutes to daily charts. The core philosophy is to capitalize on temporary extremes in price momentum while avoiding whipsaws through confirmation filters.
+
+### Key Strategy Components
+1. **Primary Indicator: Stochastic RSI (StochRSI)**
+   - Calculation: StochRSI = (Current RSI - Lowest Low RSI) / (Highest High RSI - Lowest Low RSI), where RSI is typically computed over 14 periods, and StochRSI uses a 14-period lookback for highs/lows with %K (fast line) and %D (signal line, 3-period SMA of %K).
+   - Standard Settings: RSI length = 14, StochRSI length = 14, %K smoothing = 3, %D smoothing = 3.
+   - Overbought threshold: 80 (indicates potential sell opportunities).
+   - Oversold threshold: 20 (indicates potential buy opportunities).
+   - The %K line measures current momentum relative to recent extremes, while %D acts as a signal for crossovers.
+
+2. **Confirmation Indicators**
+   - **Simple Moving Average (SMA)**: 50-period SMA on price to determine trend bias (above SMA = uptrend, below = downtrend). This filters signals to align with the broader market direction, reducing false entries in counter-trend moves.
+   - **Volume Oscillator (optional filter)**: 14-period difference between short (5-period) and long (34-period) volume SMAs. Signals require above-average volume for confirmation to ensure conviction behind the move.
+
+3. **Market Conditions**
+   - Best in ranging or mildly trending markets; avoid strong trends where StochRSI can remain overbought/oversold for extended periods.
+   - Asset suitability: High-liquidity instruments with clear momentum swings (e.g., EUR/USD, AAPL stock).
+
+### Entry Rules
+- **Long Entry (Buy Signal)**:
+  1. StochRSI %K line crosses above the %D line while both are below the 20 (oversold) level, signaling emerging bullish momentum.
+  2. Price is above the 50-period SMA (uptrend bias).
+  3. Volume oscillator is positive or rising (optional, for stronger conviction).
+  4. Enter on the close of the candle confirming the crossover.
+
+- **Short Entry (Sell Signal)**:
+  1. StochRSI %K line crosses below the %D line while both are above the 80 (overbought) level, signaling emerging bearish momentum.
+  2. Price is below the 50-period SMA (downtrend bias).
+  3. Volume oscillator is negative or falling (optional).
+  4. Enter on the close of the candle confirming the crossover.
+
+- **Additional Filters**:
+  - No entry if the crossover occurs near major news events (use economic calendar to avoid).
+  - Ignore signals if StochRSI has been in extreme territory (<10 or >90) for more than 3 bars, as this may indicate a prolonged trend rather than reversal.
+
+### Exit Rules
+- **Profit Targets**:
+  - Initial target: Exit 50% of position when StochRSI reaches the opposite extreme (e.g., 80 for longs, 20 for shorts).
+  - Trailing target: Move stop to breakeven after 1:1 risk-reward, then trail using the 50-period SMA (exit if price closes beyond it against the trade).
+
+- **Stop-Loss**:
+  - Fixed stop: Place at 1-2% below entry for longs (or above for shorts), or based on recent swing low/high (whichever is tighter).
+  - Dynamic stop: Use the lowest low of the last 5 bars for longs (highest high for shorts) to adapt to volatility.
+
+- **Time-Based Exit**: Close all positions if no progress after 10 bars, to avoid opportunity cost in stagnant markets.
+
+- **Full Exit Signals**:
+  - Opposite StochRSI crossover (e.g., %K crosses below %D in a long trade).
+  - Price crosses the 50-period SMA against the trade direction.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1-2% of total account equity per trade. Calculate position size as: (Account Risk Amount) / (Entry Price - Stop-Loss Distance). For example, with a $10,000 account and 1% risk ($100), if stop is 2% from entry, position size = $100 / 0.02 = 5,000 units.
+- **Maximum Exposure**: Limit to 3-5 open trades at once, with no more than 5% total risk across all positions.
+- **Risk-Reward Ratio**: Target at least 1:2 (e.g., 1% risk for 2% reward) on initial targets; adjust for volatility using ATR (Average True Range) multiplier (e.g., stop = 1.5 x 14-period ATR).
+- **Drawdown Controls**: Pause trading if account drawdown exceeds 5% in a week; review and adjust settings (e.g., tighten thresholds to 15/85 if false signals increase).
+- **Diversification**: Apply to no more than 2-3 correlated assets to avoid systemic risk.
+
+### Implementation Notes
+- **Platform Requirements**: Use TradingView, MetaTrader, or Python (with libraries like TA-Lib for StochRSI calculation) to code or visualize.
+- **Backtesting**: Test on historical data (at least 5 years) with walk-forward optimization. Expect win rate of 45-60% in suitable conditions, with profitability driven by risk-reward.
+- **Limitations**: StochRSI can lag in strong trends; combine with trend filters. Monitor for over-optimization—default settings often suffice without heavy tweaking.
+- **Enhancements**: For advanced users, incorporate machine learning to dynamically adjust thresholds based on asset volatility, making it more "synergistic" with market regimes.

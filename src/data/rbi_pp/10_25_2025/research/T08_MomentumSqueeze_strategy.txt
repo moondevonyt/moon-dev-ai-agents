@@ -1,0 +1,60 @@
+STRATEGY_NAME: MomentumSqueeze
+
+STRATEGY_DETAILS:
+
+### Overview
+MomentumSqueeze is a hybrid trading strategy that combines the momentum-detecting capabilities of the MACD (Moving Average Convergence Divergence) indicator with the volatility-based Bollinger Bands to identify high-probability breakout opportunities during periods of low volatility (known as a "squeeze"). The core idea leverages Bollinger Band contractions to spot potential explosive moves, confirmed by MACD crossovers for directional bias. This approach is suited for trending markets like forex, stocks, or crypto on timeframes from 1-hour to daily charts, aiming to capture breakouts while filtering false signals through momentum confirmation. It emphasizes patience during squeezes and disciplined entries to avoid whipsaws in ranging markets.
+
+### Key Strategy Components
+1. **Bollinger Band Squeeze Detection**: Bollinger Bands consist of a 20-period simple moving average (SMA) with upper and lower bands set at 2 standard deviations. A "squeeze" occurs when volatility contracts, indicated by the bands narrowing (typically when the BandWidth indicator, calculated as (Upper Band - Lower Band) / Middle Band, falls below 0.10 or a 6-period SMA of BandWidth crosses below its own 6-period SMA). This signals building pressure for a breakout.
+   
+2. **MACD Momentum Confirmation**: MACD uses default settings (12-period EMA fast line, 26-period EMA slow line, 9-period signal line). It generates momentum signals via line crossovers and histogram shifts. The strategy requires a bullish (MACD line crosses above signal line, histogram expands positively) or bearish (MACD line crosses below signal line, histogram expands negatively) crossover to confirm the breakout direction post-squeeze.
+
+3. **Additional Filters**: 
+   - Volume confirmation (optional but recommended): Breakouts should coincide with above-average volume to validate momentum.
+   - Trend bias: Use a 200-period SMA on price to ensure the overall trend aligns (e.g., long entries only above the SMA for uptrends).
+   - Avoid trading during major news events to reduce false breakouts.
+
+### Entry Rules
+- **Long Entry (Bullish Breakout)**:
+  1. Identify a Bollinger Band squeeze (BandWidth < 0.10 and contracting).
+  2. Wait for price to close above the upper Bollinger Band (breakout candle).
+  3. Confirm with bullish MACD crossover (MACD line > signal line) within 1-3 bars after the breakout.
+  4. Enter on the close of the confirmation bar if volume is rising.
+
+- **Short Entry (Bearish Breakout)**:
+  1. Identify a Bollinger Band squeeze (same criteria).
+  2. Wait for price to close below the lower Bollinger Band (breakout candle).
+  3. Confirm with bearish MACD crossover (MACD line < signal line) within 1-3 bars after the breakout.
+  4. Enter on the close of the confirmation bar if volume is rising.
+
+- Position Sizing: Risk no more than 1-2% of account per trade, calculated based on stop-loss distance.
+
+### Exit Rules
+- **Profit Targets**:
+  - Initial target: 1:2 risk-reward ratio (e.g., if risking 1% to stop-loss, target 2% profit).
+  - Trailing exit: Once price moves favorably by 1x the initial risk, trail the stop to the middle Bollinger Band (20 SMA). Exit fully if MACD histogram reverses (e.g., turns negative for longs).
+  - Alternative: Exit at the opposite Bollinger Band (upper for shorts, lower for longs) or when BandWidth expands to 0.20+ (indicating volatility peak).
+
+- **Stop-Loss**:
+  - Place initial stop-loss 1 ATR (14-period Average True Range) beyond the breakout candle's low (for longs) or high (for shorts), or just inside the opposite Bollinger Band.
+  - Adjust stop to breakeven after 1:1 risk-reward is achieved.
+
+- Time-Based Exit: If no momentum confirmation within 5 bars post-squeeze, abort and exit at market to avoid opportunity cost.
+
+### Risk Management
+- **Position Risk**: Limit total open risk to 5% of account across all trades. Use a maximum of 2-3 concurrent positions.
+- **Drawdown Control**: Pause trading if account drawdown exceeds 10% in a month; review and adjust parameters (e.g., tighten squeeze threshold to 0.08).
+- **Win Rate Expectation**: Targets 40-60% win rate with 1.5-2.5 average reward:risk, focusing on fewer but higher-quality setups (aim for 2-5 trades per week on daily charts).
+- **Backtesting Notes**: Test on historical data with at least 5 years of data, optimizing BandWidth threshold (0.08-0.15) and MACD confirmation window (1-5 bars) via walk-forward analysis. Avoid over-optimization by ensuring out-of-sample performance holds.
+- **Psychological Rules**: Only trade squeezes in the direction of the prevailing 200 SMA trend to reduce emotional entries. Journal all trades to track squeeze duration and MACD lag.
+
+### Required Indicators
+- **MACD (12, 26, 9)**: For momentum crossovers and histogram analysis (available on most platforms like TradingView, MT4/5).
+- **Bollinger Bands (20, 2)**: For squeeze and breakout detection.
+- **BandWidth Indicator**: Custom or built-in (formula: (Upper BB - Lower BB) / Middle BB); use a 6-period SMA overlay for contraction signals.
+- **Average True Range (ATR, 14)**: For dynamic stop-loss placement.
+- **Simple Moving Average (SMA, 200)**: For trend filter.
+- **Volume Oscillator (optional)**: To confirm breakout strength (e.g., 14-period vs. 28-period volume MA).
+
+This strategy excels in volatile assets but underperforms in strong trends without squeezes—combine with market regime filters for robustness. Implement in Python (via TA-Lib) or Pine Script for automation.

@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "\ud83c\udf19 Moon Dev Data Loaded: 31066 bars \ud83d\ude80\n\ud83c\udf19 Moon Dev KalmanResonance Optimized: Enhanced filters, proper sizing, and trailing for 50% target! \u2728\n\n",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_23_2025/backtests_optimized/T04_KalmanResonance_OPT_v1.py\", line 242, in <module>\n    stats = bt.run()\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 1170, in run\n    strategy.next()\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_23_2025/backtests_optimized/T04_KalmanResonance_OPT_v1.py\", line 198, in next\n    self.buy(size=size, sl=None, tp=None)  # Manual exits for trailing\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 208, in buy\n    assert 0 < size < 1 or round(size) == size, \\\nAssertionError: size must be a positive fraction of equity, or a positive whole number of units\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_23_2025/backtests_optimized/T04_KalmanResonance_OPT_v1.py` failed. (See above for error)\n",
+  "execution_time": 2.500607,
+  "timestamp": "2025-10-23T10:05:53.205149"
+}

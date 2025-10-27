@@ -1,0 +1,40 @@
+STRATEGY_NAME: AdaptiveResonance
+
+STRATEGY_DETAILS:
+
+### Key Strategy Components
+This strategy, AdaptiveResonance, integrates the Kalman Filter for dynamic noise reduction and trend estimation, a Randomness Indicator (interpreted as a measure of market randomness, such as the Hurst Exponent or a simplified random walk deviation metric, to detect deviations from pure randomness indicating potential structure), and Harmonic Patterns (e.g., Gartley, Bat, Butterfly, Crab, or Cypher patterns based on Fibonacci retracements and extensions) for precise reversal or continuation signals. The Kalman Filter acts as an adaptive smoother, updating price estimates in real-time to filter out noise while incorporating velocity and acceleration for predictive trending. The Randomness Indicator quantifies how "non-random" the price action is (e.g., values closer to 0.5 indicate random walk; below 0.4 suggests trending persistence, above 0.6 mean-reverting noise), helping validate harmonic setups in structured markets. Harmonic Patterns provide geometric entry points, ensuring trades align with Fibonacci-based market psychology. The overall approach is adaptive, as the Kalman Filter adjusts gain parameters based on market volatility, while the Randomness Indicator gates entries to avoid choppy, random conditions.
+
+### Required Indicators
+1. **Kalman Filter**: Applied to closing prices (or OHLC average) with state variables for position, velocity, and process noise (e.g., Q=0.01 for estimation error, R=1 for measurement noise). Use a simple 1D Kalman for trend smoothing; output is the filtered price line and its slope (positive for uptrend, negative for downtrend).
+2. **Randomness Indicator**: Implement as the Hurst Exponent (H) over a 20-50 period lookback, calculated via rescaled range (R/S) analysis. H > 0.5 indicates persistent trends (low randomness), H < 0.5 suggests anti-persistence (high randomness for mean reversion). Threshold: H ≥ 0.55 for bullish/bearish persistence; alternatively, use a proxy like the Absolute Deviation from Random Walk (comparing actual price path to simulated Brownian motion paths).
+3. **Harmonic Patterns**: Use automated recognition tools (e.g., via ZigZag with Fibonacci levels at 0.382, 0.618, 0.786, 1.272, 1.618) to identify valid patterns. Require at least 70% Fibonacci confluence for validation (e.g., XA leg retracement to 61.8%, BC to 38.2-88.6%, AB=CD projection).
+
+### Entry Rules
+- **Bullish Entry (Reversal Long)**: 
+  - Identify a completed bullish Harmonic Pattern (e.g., Bullish Gartley or Bat) where the D point aligns with a 0.786-0.886 Fibonacci retracement of XA and projects to 1.27-1.618 of AD.
+  - Kalman Filter must show a positive slope (upward momentum) crossing above the raw price or a zero-line equivalent, confirming filtered trend reversal.
+  - Randomness Indicator (Hurst H) ≥ 0.55 over the pattern formation period (last 20-50 bars), indicating persistent (non-random) structure favoring continuation after reversal.
+  - Enter long at the D point completion or a slight pullback (0.5-1% above D), on confirmation candle close above the pattern's PRZ (Potential Reversal Zone).
+- **Bearish Entry (Reversal Short)**:
+  - Identify a completed bearish Harmonic Pattern (e.g., Bearish Butterfly or Crab) with D at 1.27-1.618 extension of XA and 0.786 retracement.
+  - Kalman Filter slope negative (downward) and filtered price below raw price.
+  - Hurst H ≥ 0.55, signaling persistent downtrend potential.
+  - Enter short at D or pullback (0.5-1% below D), on close below PRZ.
+- Timeframe: Primary on H1-H4 for pattern formation; confirm on M15 for entry precision. Avoid entries during high-impact news (use economic calendar filter).
+- Filter: Only trade if overall market volatility (e.g., ATR > average) supports pattern validity; ignore if Randomness Indicator shows H < 0.45 (excessive randomness).
+
+### Exit Rules
+- **Take Profit (TP)**: 
+  - Primary TP at the next Fibonacci projection level from the pattern (e.g., 1.618 or 2.0 extension of AD for harmonics), or Kalman-projected target (extrapolate filtered slope for 1:2 risk-reward minimum).
+  - Partial exits: Scale out 50% at 1:1 RR, trail the rest using Kalman Filter line as dynamic support/resistance (exit if price crosses back through filtered line).
+- **Stop Loss (SL)**: Place below/above the X point of the harmonic pattern (or 1-2 ATR beyond) to invalidate if pattern fails. Tighten to D point swing after confirmation. Maximum SL: 1-2% of account per trade.
+- **Trailing Stop**: Once in profit by 1:1 RR, trail SL using the Kalman Filter line (e.g., exit if price closes beyond the filter by 0.5 ATR) or a 20-period EMA of the filtered price.
+- Time-Based Exit: Close all positions after 5-10 bars if no progress toward TP, or if Randomness Indicator drops below 0.5 (market turning random/choppy).
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1% of total account equity per trade. Calculate position size as (Account Equity * 0.01) / (Entry Price - SL Distance). Limit to 3-5 open trades max, with no more than 2 in the same direction.
+- **Overall Exposure**: Maximum 5% portfolio risk across all trades. Use correlation filter: Avoid harmonics in the same asset class if Kalman slopes are inversely correlated (e.g., no long EURUSD if USDJPY Kalman is strongly bearish).
+- **Drawdown Controls**: Pause trading if weekly drawdown exceeds 5%; re-evaluate parameters if monthly drawdown >10%. Incorporate volatility adjustment: Reduce position size by 50% if ATR > 1.5x 20-period average (high vol increases Kalman noise).
+- **Backtesting/Optimization**: Test on historical data (e.g., 5+ years) with walk-forward optimization for Kalman gain (Q/R ratio) and Hurst lookback. Target win rate >55%, profit factor >1.5. Forward-test on demo for 3 months before live.
+- **Edge Enhancers**: Combine with volume confirmation (e.g., rising volume at D point) and multi-timeframe alignment (higher TF Kalman trend must match). This strategy thrives in trending markets with occasional reversals, avoiding ranging conditions via the Randomness Indicator gate.

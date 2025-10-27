@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "",
+  "stderr": "\nCondaError: KeyboardInterrupt\n\n",
+  "execution_time": 1.029355,
+  "timestamp": "2025-10-25T06:25:57.228021"
+}

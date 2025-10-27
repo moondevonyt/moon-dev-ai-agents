@@ -1,0 +1,51 @@
+STRATEGY_NAME: GoldenCrossover
+
+STRATEGY_DETAILS:
+
+### Overview
+The GoldenCrossover strategy is a trend-following approach designed for long-only trades in uptrending markets. It capitalizes on pullback opportunities where price retraces to the 61.8% Fibonacci level (the "golden ratio" retracement) while confirming bullish momentum via a crossover of the 20-period Simple Moving Average (SMA). This creates a high-confluence entry signal during retracements within an established uptrend. Exits are managed through technical divergence on the Relative Strength Index (RSI) to capture profits while avoiding overextension, with Average True Range (ATR) integrated for dynamic risk control. The strategy is best suited for trending instruments like forex pairs, stocks, or indices on timeframes from 1-hour to daily charts, assuming an overall bullish bias (e.g., price above a longer-term moving average like the 200-period SMA).
+
+### Key Strategy Components
+1. **Trend Context**: The strategy requires an uptrending market. Confirm this by ensuring the price is above the 200-period SMA on the chart timeframe. Trades are only considered in this environment to filter out ranging or bearish conditions.
+2. **Fibonacci Retracement Setup**: Draw Fibonacci retracement levels from the most recent significant swing low to swing high (in an uptrend). The 61.8% level acts as a key support zone during pullbacks, representing a deep retracement where buyers are expected to step in.
+3. **Momentum Confirmation**: The 20-period SMA serves as a dynamic trend filter, smoothing short-term price action to identify bullish shifts.
+4. **Divergence Detection**: RSI(14) monitors overbought conditions and momentum shifts via bearish divergence, signaling potential exhaustion.
+5. **Volatility Adjustment**: ATR(14) is used for position sizing, stop-loss placement, and potentially trailing stops to adapt to market volatility.
+
+### Entry Rules
+- **Long Entry Signal**:
+  - Price must close above the 20-period SMA (bullish crossover), indicating renewed upward momentum.
+  - Simultaneously, the price must touch or wick to the 61.8% Fibonacci retracement level (e.g., the low or close of the candle interacts with this level during the pullback).
+  - Additional Filter: Volume should be above average (if available on the platform) to confirm buying interest, and the overall trend must be up (price > 200-period SMA).
+- **Execution**: Enter long at the close of the confirming candle. Avoid entries if the crossover occurs far from the Fib level (e.g., more than 1 ATR away) to ensure confluence.
+- **No Trade Conditions**: Skip if the Fib retracement is not from a clear swing (e.g., no distinct high/low), or if the market is in a downtrend (price < 200-period SMA). Limit to 1-2 open trades to avoid overexposure.
+
+### Exit Rules
+- **Profit Exit (Primary)**:
+  - Monitor for bearish divergence on RSI(14): Price makes a higher high, but RSI(14) forms a lower high (indicating weakening momentum).
+  - Confirmation: The divergence must occur after at least 3-5 bars post-entry, and RSI should be above 70 (overbought territory) to validate exhaustion.
+  - Exit 50-100% of the position at the close of the candle confirming the divergence. Trail the remaining position using the 20-period SMA (exit if price closes below it).
+- **Alternative Exits**:
+  - Take partial profits at a 2:1 reward-to-risk ratio or at the next Fibonacci extension level (e.g., 161.8%).
+  - Hard stop-loss (see Risk Management below) for protective exits.
+- **No Short Trades**: This strategy is long-only; ignore bearish signals.
+
+### Risk Management
+- **Stop-Loss Placement**: Set initial stop-loss 1-1.5 ATR(14) below the entry price or the 61.8% Fib level (whichever is lower) to account for volatility and protect against false breakouts. For example, if ATR(14) is 20 pips, place stop 20-30 pips below entry.
+- **Position Sizing**: Risk no more than 1-2% of total account equity per trade. Calculate position size as: (Account Equity * Risk %) / (Entry Price - Stop-Loss Distance). Use ATR to scale: In high-volatility (ATR > average), reduce size by 20-50%.
+- **Trailing Stop**: After a 1:1 reward, trail the stop to 1 ATR below the 20-period SMA to lock in gains during strong trends.
+- **Overall Risk Controls**:
+  - Maximum drawdown per trade: 2% of equity.
+  - Avoid trading during high-impact news events (use an economic calendar).
+  - Backtest and forward-test on historical data to ensure win rate >50% with a profit factor >1.5; adjust ATR multiplier based on asset (e.g., tighter for forex, wider for stocks).
+  - Diversification: Limit to 3-5 correlated assets to prevent portfolio overlap.
+
+### Required Indicators and Tools
+- **Simple Moving Average (SMA)**: 20-period (for entry crossover) and 200-period (for trend filter). Available on most platforms like TradingView, MT4/5.
+- **Fibonacci Retracement Tool**: Standard drawing tool to plot levels (focus on 61.8%). Manually update swings as new highs/lows form.
+- **Relative Strength Index (RSI)**: 14-period, with levels at 30/70 for overbought/oversold context. Use line chart or histogram to spot divergences visually.
+- **Average True Range (ATR)**: 14-period for volatility-based stops and sizing. No smoothing needed.
+- **Platform Recommendations**: TradingView for visualization (alerts on crossovers/divergences), or MetaTrader for automated backtesting. Optional: Volume indicator for entry confirmation.
+- **Timeframe and Assets**: H1-Daily charts; ideal for liquid assets like EUR/USD, SPY, or BTC/USD.
+
+This strategy emphasizes patience for high-probability setups, with the golden ratio Fib level providing a psychological support edge. Regular review of trades is essential to refine Fib swing identification and ATR sensitivity for optimal performance.

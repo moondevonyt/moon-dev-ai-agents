@@ -1,0 +1,61 @@
+STRATEGY_NAME: VolatilityDirectional
+
+STRATEGY_DETAILS:
+
+### Overview and Key Strategy Components
+VolatilityDirectional is a trend-following strategy that combines Bollinger Bands (BB) for volatility-based price envelope signals with the Average Directional Index (ADX) for trend strength confirmation. The core idea leverages BB to identify potential breakout or reversal points within dynamic volatility ranges, while ADX filters entries to ensure they occur only in strong trending conditions (avoiding choppy, low-volatility markets). This creates a confluence approach: BB provides the "where" (price extremes relative to volatility), and ADX provides the "when" (sufficient trend momentum to act). The strategy is suited for trending markets like forex, stocks, or commodities on timeframes from 1-hour to daily charts. It assumes a long-only or short-only bias but can be adapted for both directions.
+
+Key components:
+- **Bollinger Bands (BB)**: A 20-period simple moving average (SMA) with 2 standard deviations as upper and lower bands. Used to detect volatility contractions (squeezes) for potential breakouts or band touches for mean reversion in trends.
+- **Average Directional Index (ADX)**: 14-period setting, measuring trend strength (values >25 indicate strong trends; <20 suggests ranging markets). Paired with +DI and -DI lines for directional bias.
+- **Additional Filter (Optional)**: A 50-period SMA for overall trend direction to avoid counter-trend trades.
+- **Market Conditions**: Best in moderately volatile assets; avoids high-news events where false breakouts occur.
+
+### Entry Rules
+Entries are triggered on BB signals confirmed by ADX strength, ensuring the trade aligns with a developing trend. Use close prices for confirmation to reduce noise.
+
+- **Long Entry (Bullish)**:
+  1. Price closes below the lower BB (indicating oversold in a potential uptrend) or a BB squeeze (bands narrow to <2% of price width, signaling impending volatility expansion).
+  2. ADX > 25 (strong trend), with +DI crossing above -DI (bullish directional momentum).
+  3. Price closes above the 50-period SMA (optional trend filter for alignment).
+  4. Enter on the next bar open after confirmation. Example: In an uptrending stock, a touch of the lower BB during a pullback, validated by rising ADX.
+
+- **Short Entry (Bearish)**:
+  1. Price closes above the upper BB (overbought in a potential downtrend) or a BB squeeze breakout downward.
+  2. ADX > 25 (strong trend), with -DI crossing above +DI (bearish directional momentum).
+  3. Price closes below the 50-period SMA (optional filter).
+  4. Enter on the next bar open. Example: During a downtrend, price rejects the upper BB with ADX confirming sustained downward strength.
+
+Avoid entries if ADX is between 20-25 (weak trend) or if BB are expanding rapidly without a clear directional crossover (risk of whipsaws).
+
+### Exit Rules
+Exits focus on profit-taking at volatility extremes or trend weakening, with a trailing mechanism to capture extended moves.
+
+- **Profit Exit**:
+  - Long: Exit when price closes above the upper BB (volatility expansion signals overextension) or ADX drops below 20 (trend exhaustion).
+  - Short: Exit when price closes below the lower BB or ADX <20.
+  - Target: Aim for a 1:2 risk-reward ratio initially (e.g., if risking 1% on entry, target 2% profit), or trail stops using the middle BB line (20-period SMA).
+
+- **Stop-Loss Exit**:
+  - Place initial stop-loss 1-2% beyond the entry-side BB (e.g., below lower BB for longs, above upper BB for shorts) to account for volatility.
+  - Trailing Stop: Once in profit by 1x risk, trail the stop to the middle BB line, adjusting on each bar close. Exit fully if +DI/-DI reverses against the position.
+
+- **Time-Based Exit (Optional)**: If no exit signal after 10-20 bars, close the trade to avoid stagnation in ranging markets.
+
+### Risk Management
+Risk is controlled to limit drawdowns in volatile or false-breakout scenarios, emphasizing ADX's role in filtering low-probability trades.
+
+- **Position Sizing**: Risk no more than 1-2% of total account equity per trade. Calculate position size as: (Account Equity * Risk %) / (Entry Price - Stop-Loss Distance).
+- **Maximum Exposure**: Limit to 3-5 open trades at once, with no more than 5% total risk across positions. Avoid trading if ADX <20 market-wide (use a broad index ADX for context).
+- **Win Rate and Drawdown Controls**: Expect 40-60% win rate in trending markets; backtest for max drawdown <15%. If consecutive losses exceed 3 trades, pause trading for 1 session.
+- **Volatility Adjustment**: In high-volatility periods (BB width >4% of price), reduce position size by 50% to account for wider stops.
+- **Overall Guidelines**: Use a demo account for initial testing. Incorporate a market regime filter (e.g., skip trades if VIX >30 for equities) to enhance robustness.
+
+### Required Indicators and Implementation Notes
+- **Core Indicators**:
+  - Bollinger Bands: Period=20, StdDev=2 (available on most platforms like TradingView, MT4/5, or Python's TA-Lib).
+  - ADX: Period=14, including +DI and -DI (standard in all major charting software).
+- **Platform/Tools**: Implement via Pine Script (TradingView) for alerts, or Python (with pandas_ta library) for backtesting. Example pseudocode for long entry: `if close < bb_lower and adx > 25 and plus_di > minus_di: buy()`.
+- **Backtesting Tips**: Test on 5+ years of data across bull/bear markets. Optimize BB period (18-22) and ADX threshold (22-28) sparingly to avoid overfitting. Common pitfalls: Over-reliance on BB squeezes without ADX (leads to false breakouts in ranges).
+
+This strategy excels in capturing trend continuations post-volatility contractions but underperforms in sideways markets—always combine with fundamental analysis for context.

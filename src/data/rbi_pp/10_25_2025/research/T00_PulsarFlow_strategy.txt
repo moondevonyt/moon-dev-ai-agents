@@ -1,0 +1,26 @@
+STRATEGY_NAME: PulsarFlow
+
+STRATEGY_DETAILS:
+
+### Key Strategy Components
+PulsarFlow is a momentum-based trading strategy that leverages the Money Flow Index (MFI) to detect shifts in buying and selling pressure by incorporating both price and volume data. Unlike traditional oscillators like RSI, MFI emphasizes "money flow" (volume-weighted price movement), making it ideal for identifying overbought/oversold conditions in volatile markets. The strategy operates on a 14-period MFI as the core oscillator, treating it as a "pulsar" signal that pulses for reversals or continuations. It focuses on divergence between MFI and price to confirm entries, avoiding false signals in ranging markets. This approach is suited for liquid assets like stocks, forex, or cryptocurrencies on timeframes from 1-hour to daily charts. Backtesting should prioritize high-volume instruments to ensure reliable money flow signals.
+
+### Entry/Exit Rules
+- **Long Entry (Buy Signal)**: Enter a long position when MFI drops below 20 (oversold territory) and shows bullish divergence (e.g., price makes a lower low, but MFI forms a higher low). Confirm with a price close above the recent swing low to filter whipsaws. Avoid entries if the overall trend (via a 50-period EMA) is strongly bearish.
+- **Short Entry (Sell Signal)**: Enter a short position when MFI rises above 80 (overbought territory) and shows bearish divergence (e.g., price makes a higher high, but MFI forms a lower high). Confirm with a price close below the recent swing high. Avoid entries if the overall trend is strongly bullish.
+- **Exit Rules**:
+  - Take Profit: Exit longs when MFI reaches 80 (overbought) or hits a 2:1 reward-to-risk ratio based on entry. Exit shorts when MFI reaches 20 (oversold) or the same ratio.
+  - Stop Loss: Place a hard stop loss at 1-2% below the entry price for longs (or above for shorts), or at the recent swing low/high, whichever is tighter.
+  - Trailing Stop: Once in profit by 1%, trail the stop using the 20-period ATR (Average True Range) multiplied by 1.5 to lock in gains during momentum extensions.
+- Position Sizing: Risk no more than 1% of total capital per trade. Maximum 3 open positions to avoid overexposure.
+
+### Risk Management
+Risk is managed through strict position sizing (1% rule) and volatility-adjusted stops using ATR to adapt to market conditions. The strategy incorporates a divergence filter to reduce false signals, targeting a win rate of 55-65% in backtests. Use a maximum drawdown limit of 10% portfolio-wide; pause trading if breached. Incorporate a market regime filter: Only trade in the direction of the prevailing trend (e.g., via ADX >25 for trending markets; avoid if ADX <20 indicating choppiness). No martingale or averaging down—each trade is independent. Monitor for volume anomalies; if trading volume drops below 50% of the 20-period average, skip signals to prevent low-liquidity traps.
+
+### Required Indicators
+- **Money Flow Index (MFI)**: Primary indicator, default 14-period setting. Measures positive vs. negative money flow (Typical Price × Volume) to generate overbought/oversold levels.
+- **Exponential Moving Average (EMA)**: 50-period for trend confirmation (not for direct signals).
+- **Average True Range (ATR)**: 14-period for dynamic stop-loss and trailing stops.
+- **Average Directional Index (ADX)**: 14-period to assess trend strength (optional filter for regime detection).
+
+This strategy emphasizes volume-driven insights for contrarian reversals, with divergence adding a layer of confirmation to enhance edge in momentum fades. Test on historical data (e.g., via TradingView or Python backtrader) before live deployment, optimizing MFI thresholds for specific assets.

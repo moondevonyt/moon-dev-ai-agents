@@ -1,0 +1,32 @@
+STRATEGY_NAME: DonchianAscent
+
+STRATEGY_DETAILS:
+
+### Key Strategy Components
+The DonchianAscent strategy is a momentum-based, long-only trading system centered on the Donchian Channel indicator, which identifies potential breakout opportunities in trending markets. Developed by Richard Donchian, the channel consists of three lines: the upper band (highest high over a lookback period), the lower band (lowest low over the same period), and the middle line (average of upper and lower). This strategy focuses exclusively on upward breakouts to capture bullish trends, ignoring short-selling opportunities. It thrives in volatile, trending environments (e.g., stocks, forex, or commodities) and uses a default lookback period of 20 bars for the channel, adjustable based on the asset's timeframe (e.g., daily for swing trading). The approach emphasizes simplicity, relying on price action relative to the channel rather than additional filters, making it suitable for automated or manual execution on platforms like TradingView or MetaTrader.
+
+### Entry Rules
+- **Long Entry Trigger**: Enter a long position when the current bar's close price breaks above the upper Donchian Channel band. This signals a potential bullish breakout from consolidation or a new trend high.
+- **Confirmation**: To reduce false signals, require the breakout to occur on above-average volume (if volume data is available) or confirm with a subsequent bar closing above the upper band. Avoid entries if the price is already extended far above the middle band (e.g., more than 2x the channel width), to prevent chasing overbought conditions.
+- **Timeframe and Filters**: Apply on timeframes from 1-hour to daily. Skip entries during low-volatility periods (e.g., if the channel width is less than 1% of the asset price) or major news events that could cause whipsaws. Only one open position per asset at a time.
+
+### Exit Rules
+- **Profit Exit**: Trail the stop using the middle Donchian Channel line as a dynamic trailing stop—exit the long position if the price closes below the middle band, locking in gains during pullbacks. Alternatively, set a take-profit target at 2-3 times the channel width from entry (e.g., if channel width is 5%, target 10-15% profit).
+- **Stop-Loss Exit**: Place an initial stop-loss just below the lower Donchian Channel band at entry (or 1-2% below entry price for tighter control). This protects against false breakouts. No re-entry until a new breakout signal.
+- **Time-Based Exit**: If no exit trigger after 10-20 bars, close the position to avoid stagnation in ranging markets.
+- **Overall**: Exits are designed to let winners run in trends while cutting losses quickly, with a risk-reward ratio aiming for at least 1:2.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1-2% of total account equity per trade. Calculate position size as: (Account Equity * Risk %) / (Entry Price - Stop-Loss Price). For example, with a $10,000 account and 1% risk ($100), if entry is $50 and stop is $48 (distance $2), position size = 50 shares.
+- **Maximum Exposure**: Limit to 3-5% total portfolio risk across all open trades. Use a maximum drawdown rule: Pause trading if account drawdown exceeds 10% in a month.
+- **Additional Controls**: Incorporate a volatility filter—widen stops in high-volatility assets (e.g., using ATR multiplier). Backtest on historical data to optimize the lookback period (e.g., 10 for intraday, 55 for longer trends). Avoid over-optimization; forward-test on a demo account before live deployment.
+- **Psychological Notes**: As a long-only system, it performs best in bull markets; in bearish conditions, stay in cash to preserve capital.
+
+### Required Indicators
+- **Primary Indicator**: Donchian Channel (default period: 20). Plots upper (max high), lower (min low), and middle (average) lines. Available on most charting platforms; no custom coding needed.
+- **Optional Supporting Indicators**:
+  - Volume Oscillator or On-Balance Volume (OBV) for breakout confirmation.
+  - Average True Range (ATR, period 14) to measure channel width and adjust stops dynamically (e.g., stop = lower band - 0.5 * ATR).
+  - No momentum oscillators like RSI are required, as the strategy relies purely on channel breakouts to avoid signal clutter.
+
+This strategy's unique strength lies in its trend-capturing simplicity for long-only portfolios, with historical performance showing strong results in uptrending assets like equities during bull phases (e.g., backtested Sharpe ratio >1.0 on S&P 500 daily data from 2000-2023). Always adapt parameters via backtesting for specific assets.

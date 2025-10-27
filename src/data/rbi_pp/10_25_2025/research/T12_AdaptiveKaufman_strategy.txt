@@ -1,0 +1,64 @@
+STRATEGY_NAME: AdaptiveKaufman
+
+STRATEGY_DETAILS:
+
+### Overview
+The AdaptiveKaufman strategy is a trend-following approach that leverages the Kaufman Adaptive Moving Average (KAMA) to dynamically adjust to market volatility and efficiency. KAMA reduces lag in trending markets by increasing sensitivity to price changes and smooths noise in sideways markets by decreasing responsiveness. This makes it ideal for capturing adaptive trends without excessive whipsaws. The strategy focuses on medium-term trends in assets like stocks, forex, or cryptocurrencies, using KAMA as the core signal generator combined with volume confirmation for robustness.
+
+### Key Strategy Components
+1. **Core Indicator: Kaufman Adaptive Moving Average (KAMA)**  
+   - KAMA is calculated using an Efficiency Ratio (ER) to measure trend strength, combined with smoothing constants.  
+     - **Efficiency Ratio (ER)**: ER = |Close - Close[n periods ago]| / Σ|Close[i] - Close[i-1]| over n periods (default n=10). ER ranges from 0 (choppy market) to 1 (strong trend).  
+     - **Smoothing Constant (SC)**: Fast SC = 2/(fastest + 1) = 2/3 ≈ 0.666 (for 2-period EMA); Slow SC = 2/(slowest + 1) = 2/31 ≈ 0.0645 (for 30-period EMA). Adaptive SC = [ER × (Fast SC - Slow SC) + Slow SC]^2.  
+     - **KAMA Formula**: KAMA[0] = KAMA[1] + SC × (Price - KAMA[1]). Default periods: ER=10, fast=2, slow=30.  
+   - Use a single KAMA line plotted on the price chart for trend direction.
+
+2. **Supporting Indicators**  
+   - **Volume Oscillator**: To confirm trend strength (e.g., Volume Oscillator = (Short-term Volume MA - Long-term Volume MA) / Long-term Volume MA, with short=5 periods, long=20 periods). Requires volume > 0 for assets with volume data.  
+   - **Average True Range (ATR)**: For dynamic stop-loss and take-profit levels (default period=14). ATR measures volatility to adapt position sizing and exits.  
+   - No additional oscillators like RSI or MACD are used to keep the strategy focused on pure adaptive trend following.
+
+3. **Timeframe and Asset Suitability**  
+   - Best on daily or 4-hour charts for swing trading. Avoid very short intraday frames due to KAMA's lag in high-noise environments.  
+   - Suitable for trending assets (e.g., major forex pairs like EUR/USD, indices like S&P 500, or volatile stocks).
+
+### Entry Rules
+- **Long Entry (Buy Signal)**:  
+  - Price closes above the KAMA line (bullish crossover).  
+  - Volume Oscillator > 0 (indicating increasing volume to confirm trend momentum).  
+  - Only enter if the market is in an uptrend phase (KAMA slope > 0 over the last 3-5 bars).  
+  - Avoid entries if ATR is expanding rapidly (>2x average ATR over 20 periods), signaling potential volatility spikes.  
+  - Position size: 1-2% of account risk per trade (see Risk Management).
+
+- **Short Entry (Sell Signal)**:  
+  - Price closes below the KAMA line (bearish crossover).  
+  - Volume Oscillator < 0 (indicating decreasing volume on up moves or increasing on down moves).  
+  - Only enter if the market is in a downtrend phase (KAMA slope < 0 over the last 3-5 bars).  
+  - Same ATR filter as long entry.  
+
+- **General Filters**:  
+  - No trades during low-volume periods (e.g., holidays or pre-market).  
+  - Maximum 1 open position per asset; wait for exit before new entry.  
+  - Backtest on at least 5 years of data to validate signals.
+
+### Exit Rules
+- **Profit Exit (Take-Profit)**:  
+  - Trail stops using KAMA: Exit long when price closes below KAMA; exit short when price closes above KAMA.  
+  - Alternative fixed target: 2-3x the ATR from entry (e.g., for long: Entry + 2*ATR). Adjust based on asset volatility (tighter for forex, wider for stocks).  
+
+- **Stop-Loss Exit**:  
+  - Initial stop: 1.5x ATR below entry for longs (above for shorts).  
+  - Dynamic trailing: Move stop to KAMA line once in profit by 1x ATR, then trail at 1x ATR behind the KAMA.  
+  - Emergency exit: Close if Volume Oscillator reverses sharply (e.g., from >0 to <-0.5 for longs) indicating trend weakening.  
+
+- **Time-Based Exit**: Hold no longer than 20-30 bars (e.g., days) to avoid stagnation in ranging markets.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1% of total account equity per trade. Calculate shares/lots as: Risk Amount / (Entry Price - Stop-Loss Distance). For example, with $10,000 account, max risk $100; if stop is 2% below entry, position size = $100 / 0.02 = $5,000 worth of asset.  
+- **Maximum Drawdown**: Pause trading if account drawdown exceeds 5%; resume after review.  
+- **Risk-Reward Ratio**: Target at least 1:2 (risk 1% to gain 2%).  
+- **Diversification**: Limit to 3-5 concurrent trades across uncorrelated assets (e.g., no more than 2 forex pairs).  
+- **Volatility Adjustment**: In high ATR environments (>1.5x 20-period average), reduce position size by 50% to account for whipsaws. Use a maximum leverage of 1:10 for forex/margin trading.  
+- **Backtesting and Optimization**: Optimize KAMA periods (ER=8-12, fast=2, slow=20-40) via walk-forward analysis. Monitor win rate (>50%), profit factor (>1.5), and Sharpe ratio (>1.0) for viability.
+
+This strategy excels in trending markets but may underperform in prolonged ranges—combine with a market regime filter (e.g., ADX >25 for trends) if needed for enhancement. Implement in platforms like TradingView, MT4/5, or Python (using TA-Lib for KAMA).

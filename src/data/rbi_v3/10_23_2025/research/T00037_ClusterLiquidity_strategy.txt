@@ -1,0 +1,71 @@
+STRATEGY_NAME: ClusterLiquidity
+
+STRATEGY_DETAILS:
+
+### Overview
+ClusterLiquidity is a breakout strategy designed to identify and capitalize on potential liquidity-driven price movements in financial markets (e.g., forex, stocks, or cryptocurrencies). It leverages volume clusters—high-volume nodes or areas on a price chart where significant trading activity has accumulated, often indicating trapped liquidity (e.g., stop-loss orders or pending orders)—combined with volatility filters to confirm genuine breakouts rather than false signals. The core premise is that breakouts from these clusters signal the release of pent-up liquidity, leading to accelerated price moves as market participants react. This strategy is best suited for intraday or swing trading on timeframes like 15-minute to 4-hour charts, focusing on liquid assets to ensure reliable volume data.
+
+### Key Strategy Components
+1. **Volume Clusters Identification**:
+   - Use a Volume Profile indicator (or Volume at Price histogram) to detect clusters: These are horizontal bands where at least 70% of the session's or period's volume is concentrated within a narrow price range (e.g., 0.5-1% of the asset's average true range). Clusters often form at key levels like previous highs/lows, round numbers, or fair value gaps.
+   - High-Probability Clusters: Prioritize "unresolved" clusters—areas with high volume but no immediate price reaction (e.g., volume spikes without follow-through), suggesting built-up liquidity waiting for a trigger.
+   - Tool: Volume Profile Visible Range (VPVR) or Fixed Range Volume Profile on platforms like TradingView or MT5.
+
+2. **Volatility Filters**:
+   - Apply a volatility threshold to validate breakouts and avoid choppy markets. Use the Average True Range (ATR, 14-period) to measure expansion: A breakout is filtered in only if current ATR is at least 1.5x the 20-period average ATR, indicating increasing volatility.
+   - Secondary Filter: Bollinger Bands (20-period, 2 standard deviations) to confirm squeeze/expansion—enter only on band expansion after a period of contraction (bands narrowing to <1x ATR width).
+   - Purpose: This ensures the breakout is fueled by genuine momentum rather than noise, reducing whipsaws in low-volatility regimes.
+
+3. **Liquidity Breakout Confirmation**:
+   - Liquidity refers to areas where stops or orders are clustered (e.g., above recent highs for shorts or below lows for longs). A breakout occurs when price closes beyond the cluster edge by at least 0.5x ATR, with accelerating volume (current bar volume > 1.5x 10-period average).
+
+### Entry Rules
+- **Long Entry (Bullish Breakout)**:
+  - Identify a volume cluster acting as support (e.g., high-volume node below current price).
+  - Wait for price to pull back to the cluster edge and then break above it (close > cluster high + 0.2% buffer to account for wicks).
+  - Confirm with volatility filter: ATR expansion and volume surge on the breakout candle.
+  - Additional Signal: Optional momentum confirmation via RSI (14-period) > 50 and rising, or a bullish engulfing candle.
+  - Enter on the close of the breakout candle or a pullback to the cluster high (for better risk-reward).
+
+- **Short Entry (Bearish Breakout)**:
+  - Identify a volume cluster acting as resistance (e.g., high-volume node above current price).
+  - Wait for price to rally to the cluster edge and then break below it (close < cluster low - 0.2% buffer).
+  - Confirm with volatility filter: ATR expansion and volume surge on the breakout candle.
+  - Additional Signal: RSI (14-period) < 50 and falling, or a bearish engulfing candle.
+  - Enter on the close of the breakout candle or a pullback to the cluster low.
+
+- **General Filters**:
+  - Trade only during high-liquidity sessions (e.g., London/New York overlap for forex).
+  - Avoid entries if the cluster is older than 5-10 bars (stale liquidity may not trigger).
+  - Maximum 1-2 setups per day to prevent overtrading.
+
+### Exit Rules
+- **Profit Targets**:
+  - Primary Target: Measure the cluster height (high to low) and project it from the breakout point (e.g., 1:1 or 1:2 risk-reward ratio). For longs, target the next resistance level or 1-2x cluster height.
+  - Trailing Stop: Once price moves 1x ATR in favor, trail the stop using a 20-period EMA or ATR-based (e.g., 1x ATR below the EMA).
+  - Partial Exits: Scale out 50% of position at 1:1 RR, let the rest run to 2:1 or until volatility contracts (ATR drops below 1x average).
+
+- **Stop-Loss**:
+  - Place initial stop 1x ATR below the cluster low (for longs) or above the cluster high (for shorts), ensuring it doesn't exceed 1-2% of account equity.
+  - Hard Exit: If price re-enters the cluster (invalidates breakout) or RSI diverges (e.g., price makes new high but RSI fails to confirm).
+
+- **Time-Based Exit**: Close all positions if no progress after 5-10 bars post-entry, or at session end to avoid overnight gaps.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1% of total account per trade. Calculate position size as: (Account Balance * 0.01) / (Entry Price - Stop-Loss Distance). For a $10,000 account and 50-pip stop, max position = $100 / (50 * pip value).
+- **Maximum Exposure**: Limit to 3% total risk across open trades; no more than 2 concurrent positions.
+- **Drawdown Controls**: Pause trading after 3 consecutive losses or 5% account drawdown. Use a volatility-adjusted lot size—reduce by 50% if ATR > 2x average (high vol increases risk).
+- **Overall Guidelines**: Backtest on historical data (at least 1 year) using walk-forward optimization. Forward-test on demo for 1-3 months. Monitor win rate (target >55%) and profit factor (>1.5). Adjust cluster sensitivity based on asset (e.g., tighter for forex, wider for stocks).
+
+### Required Indicators and Setup
+- **Core Indicators**:
+  - Volume Profile (VPVR or equivalent) for cluster detection.
+  - ATR (14-period) for volatility measurement and stop/target sizing.
+  - Bollinger Bands (20, 2) for squeeze/expansion filter.
+- **Optional Enhancers**:
+  - RSI (14) for momentum confirmation.
+  - Volume Oscillator (e.g., On-Balance Volume or simple volume MA) to quantify surges.
+- **Platform Recommendations**: TradingView (free VPVR), NinjaTrader, or Thinkorswim for advanced volume tools. Ensure real-time volume data for accuracy (e.g., via futures or tick volume for forex).
+- **Data Requirements**: Tick or 1-minute data for precise clusters; apply on higher timeframes for confluence (e.g., daily clusters on H1 chart).
+
+This strategy excels in trending markets with clear liquidity traps but may underperform in ranging conditions—always combine with market regime analysis (e.g., ADX >25 for trends).

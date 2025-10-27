@@ -17,7 +17,7 @@ import openai
 import anthropic
 from pathlib import Path
 from src import nice_funcs as n
-from src import nice_funcs_hl as hl
+from src import nice_funcs_hyperliquid as hl
 from src.agents.api import MoonDevAPI
 from collections import deque
 from src.agents.base_agent import BaseAgent

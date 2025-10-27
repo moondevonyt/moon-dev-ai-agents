@@ -1,0 +1,63 @@
+STRATEGY_NAME: StochasticHarmony
+
+STRATEGY_DETAILS:
+
+### Overview
+StochasticHarmony is a reversal-focused trading strategy that integrates the Stochastic RSI oscillator for momentum confirmation with Harmonic Patterns for geometric price structure identification. The core idea leverages the predictive nature of Harmonic Patterns (such as Gartley, Bat, Butterfly, or Crab) to pinpoint Potential Reversal Zones (PRZ), while using Stochastic RSI to filter entries by confirming extreme momentum conditions (overbought or oversold). This creates a confluence-based approach ideal for swing trading in forex, stocks, or indices on timeframes like 1H to 4H. The strategy emphasizes patience, as Harmonic Patterns require precise Fibonacci-based formations, and Stochastic RSI adds a timing layer to avoid false signals.
+
+### Key Strategy Components
+1. **Harmonic Patterns as Primary Structure**: These are Fibonacci ratio-based price patterns that signal potential trend reversals. Bullish patterns (e.g., bullish Gartley) form at market bottoms, while bearish patterns (e.g., bearish Butterfly) form at tops. Key points in a pattern are labeled X (start), A (impulse high/low), B (retracement), C (extension), and D (completion at PRZ). The strategy requires the pattern to complete with at least 70-80% Fibonacci confluence (e.g., D point at 0.786 XA retracement for a Gartley).
+   
+2. **Stochastic RSI for Momentum Confirmation**: This hybrid indicator combines the Stochastic oscillator with RSI to measure the speed and change of price momentum relative to its range. It helps validate the reversal by ensuring the market is at an extreme (oversold for bullish entries, overbought for bearish). Default settings: RSI length = 14, Stochastic length = 14, K smoothing = 3, D smoothing = 3. Signals are generated from %K and %D line crossovers.
+
+3. **Confluence Requirement**: Entries only occur when a valid Harmonic Pattern completes AND Stochastic RSI aligns (e.g., %K crosses above %D in oversold territory for bullish setups). This reduces whipsaws in ranging markets.
+
+4. **Market Conditions**: Best in trending markets with pullbacks; avoid during high-volatility news events. Use on liquid assets to ensure pattern reliability.
+
+### Entry Rules
+- **Bullish Entry (Reversal from Downtrend)**:
+  - Identify a completed bullish Harmonic Pattern (e.g., Bat or Gartley) where point D aligns with key Fibonacci levels (e.g., 0.618-0.786 XA retracement, 1.27-1.618 BC projection).
+  - Stochastic RSI must be oversold: %K < 20 and %D < 20, followed by a bullish crossover (%K crosses above %D).
+  - Enter long at the close of the candle confirming the D point or the crossover (whichever is later).
+  - Volume confirmation optional: Look for increasing volume on the reversal candle.
+
+- **Bearish Entry (Reversal from Uptrend)**:
+  - Identify a completed bearish Harmonic Pattern (e.g., Crab or Butterfly) where point D aligns with key Fibonacci levels (e.g., 1.272-1.618 XA extension).
+  - Stochastic RSI must be overbought: %K > 80 and %D > 80, followed by a bearish crossover (%K crosses below %D).
+  - Enter short at the close of the candle confirming the D point or the crossover (whichever is later).
+
+- **Filters**:
+  - Pattern validity: Use a charting tool (e.g., TradingView's Harmonic scanner) to auto-detect patterns; manually verify ratios.
+  - No entry if Stochastic RSI divergence opposes the pattern (e.g., bullish divergence on RSI with a bearish pattern invalidates).
+  - Maximum 1-2 setups per week to avoid overtrading.
+
+### Exit Rules
+- **Profit Targets**:
+  - Primary target: Next Fibonacci extension from the pattern (e.g., 0.618 or 1.000 AD projection for bullish setups). Aim for 1:2 risk-reward ratio minimum.
+  - Secondary target: When Stochastic RSI reaches opposite extreme (e.g., %K > 80 for bullish trades, signaling potential pullback).
+  - Partial exits: Scale out 50% at 1:1 RR, trail the rest.
+
+- **Stop Loss**:
+  - Place below the X point of the Harmonic Pattern for bullish entries (or above for bearish), adding a 1-2% buffer for volatility.
+  - Alternative: Use the recent swing low/high beyond point D, but never tighter than 1% of account equity.
+
+- **Trailing Stop**: After hitting 1:1 RR, trail using Stochastic RSI (exit if %K crosses opposite direction) or a 20-period ATR (Average True Range) multiplier (e.g., 1.5x ATR).
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1-2% of total account per trade. Calculate position size as: (Account Balance * Risk %) / (Entry Price - Stop Loss Distance).
+- **Maximum Exposure**: Limit to 3-5% total risk across open trades; no more than 2 concurrent positions.
+- **Drawdown Controls**: Pause trading after 3 consecutive losses or 5% account drawdown. Review patterns for errors.
+- **Leverage**: Use 1:10 max for forex; avoid in illiquid markets.
+- **Backtesting Note**: Test on historical data (e.g., 5+ years) focusing on win rate (>50%), profit factor (>1.5), and max drawdown (<15%). Adjust Stochastic RSI thresholds (e.g., 15/85) for asset-specific optimization.
+
+### Required Indicators and Tools
+- **Primary Indicators**:
+  - Stochastic RSI: Available on most platforms (MT4/5, TradingView). Settings: RSI(14), Stoch(14,3,3).
+  - Harmonic Pattern Recognition: Manual drawing tools or auto-scanners (e.g., TradingView's "Harmonic Patterns" script, or premium indicators like Scott Carney's originals).
+
+- **Supporting Tools**:
+  - Fibonacci Retracement/Extension: Built-in on all platforms for pattern validation.
+  - ATR (14-period): For dynamic stops and volatility filter (skip setups if ATR > 2x average).
+  - Candlestick Confirmation: Ensure D-point candle shows reversal (e.g., hammer for bullish).
+
+This strategy shines in identifying high-probability reversals but requires practice in pattern recognition. Always demo trade first to master the confluence.

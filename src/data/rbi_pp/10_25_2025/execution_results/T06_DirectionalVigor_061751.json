@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "\ud83c\udf19 Moon Dev: Indicators initialized for optimized DirectionalVigor with RSI, Volume filter, faster ADX/EMA, and enhanced RR/trailing logic \u2728\n\n",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests_optimized/T06_DirectionalVigor_OPT_v10.py\", line 127, in <module>\n    stats = bt.run()\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 1170, in run\n    strategy.next()\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests_optimized/T06_DirectionalVigor_OPT_v10.py\", line 77, in next\n    risk_amount = self.risk_per_trade * self._broker.starting_cash if self._broker.starting_cash else self.risk_per_trade * self.equity\nAttributeError: '_Broker' object has no attribute 'starting_cash'\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests_optimized/T06_DirectionalVigor_OPT_v10.py` failed. (See above for error)\n",
+  "execution_time": 1.013031,
+  "timestamp": "2025-10-25T06:17:51.393394"
+}

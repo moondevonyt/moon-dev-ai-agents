@@ -1,0 +1,26 @@
+STRATEGY_NAME: AdaptiveReversion
+
+STRATEGY_DETAILS:
+
+### Key Strategy Components
+This strategy, AdaptiveReversion, combines Bollinger Bands (BB) for identifying volatility-based price boundaries and mean reversion opportunities with the Relative Strength Index (RSI) for confirming overbought/oversold conditions. Bollinger Bands adapt to market volatility using a moving average centerline (typically 20-period SMA) with upper and lower bands set at 2 standard deviations, creating dynamic support/resistance levels. RSI (typically 14-period) measures momentum on a 0-100 scale to gauge if an asset is overextended. The core idea is to enter trades on mean reversion signals where price interacts with BB extremes, validated by RSI extremes, assuming price will revert toward the BB centerline (middle band) in ranging or moderately trending markets. This works best on timeframes like 1-hour or daily charts for assets such as stocks, forex, or crypto, avoiding high-volatility breakouts.
+
+### Required Indicators
+- **Bollinger Bands (BB)**: Period = 20, Standard Deviations = 2.0. Use the upper band for resistance, lower band for support, and middle band (20-period SMA) as the reversion target.
+- **Relative Strength Index (RSI)**: Period = 14, Overbought threshold = 70, Oversold threshold = 30. (Optional: Add RSI centerline at 50 for trend confirmation.)
+- No additional filters required, but a volume indicator (e.g., simple volume bars) can enhance signals by confirming breakouts or reversions with rising volume.
+
+### Entry Rules
+- **Long Entry (Buy)**: Enter when price closes below or touches the lower BB (indicating potential oversold volatility squeeze) AND RSI is below 30 (confirming oversold momentum). This signals a high-probability reversion upward toward the middle BB. Avoid entry if the BB width (upper minus lower band) is expanding rapidly, as this may indicate a trend continuation rather than reversion.
+- **Short Entry (Sell)**: Enter when price closes above or touches the upper BB (indicating potential overbought volatility expansion) AND RSI is above 70 (confirming overbought momentum). This signals a high-probability reversion downward toward the middle BB. Similarly, skip if BB width is contracting sharply without momentum divergence.
+- Additional Filter: Only take trades if the overall trend (e.g., via 200-period SMA) aligns loosely—longs in uptrends (price above SMA), shorts in downtrends—to reduce whipsaws. Enter on the next candle open after signal confirmation.
+
+### Exit Rules
+- **Profit Target**: Exit at the middle BB (20-period SMA) for partial profits (e.g., 50% of position), or trail the remainder using the opposite BB as a dynamic target. Alternatively, use a fixed risk-reward ratio of 1:2 (e.g., if risking 1% on entry, target 2% profit).
+- **Stop-Loss**: Place initial stop-loss 1-2% beyond the entry-side BB (e.g., below lower BB for longs, above upper BB for shorts) to account for volatility spikes. Tighten to breakeven once price reaches the middle BB.
+- **Time-Based or Indicator Exit**: Exit if RSI crosses back to neutral (above 50 for longs, below 50 for shorts) without hitting the target, or after 5-10 bars if no reversion occurs, to avoid prolonged ranging.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1-2% of total account per trade, calculated as (stop-loss distance × position size) ≤ account risk. Use ATR (Average True Range, 14-period) to scale stops dynamically—e.g., stop = entry - (1.5 × ATR) for longs.
+- **Maximum Exposure**: Limit to 3-5 open trades at once, with no more than 5% total portfolio risk. Avoid trading during major news events (e.g., FOMC announcements) to prevent volatility false signals.
+- **Drawdown Controls**: If three consecutive losses occur, pause trading for 24 hours. Backtest on historical data (e.g., via TradingView or Python) to ensure win rate >55% and profit factor >1.5 in the target market. Monitor BB squeeze (narrow bands) for low-volatility setups, as they precede stronger reversions but increase false signals in trends—use a 50-period BB width filter to skip trades if bands are too wide (>2× average).

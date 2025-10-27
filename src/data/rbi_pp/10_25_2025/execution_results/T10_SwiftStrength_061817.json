@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests_package/T10_SwiftStrength_PKG.py\", line 11, in <module>\n    data.columns = [col.capitalize() for col in data.columns if col != 'datetime']\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/pandas/core/generic.py\", line 6218, in __setattr__\n    return object.__setattr__(self, name, value)\n  File \"properties.pyx\", line 69, in pandas._libs.properties.AxisProperty.__set__\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/pandas/core/generic.py\", line 767, in _set_axis\n    self._mgr.set_axis(axis, labels)\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/pandas/core/internals/managers.py\", line 227, in set_axis\n    self._validate_set_axis(axis, new_labels)\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/pandas/core/internals/base.py\", line 85, in _validate_set_axis\n    raise ValueError(\nValueError: Length mismatch: Expected axis has 6 elements, new values have 5 elements\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests_package/T10_SwiftStrength_PKG.py` failed. (See above for error)\n",
+  "execution_time": 1.068468,
+  "timestamp": "2025-10-25T06:18:17.873510"
+}

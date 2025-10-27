@@ -1,0 +1,56 @@
+STRATEGY_NAME: DivergentVolatility
+
+STRATEGY_DETAILS:
+
+### Overview
+DivergentVolatility is a trend-following strategy designed to capitalize on bearish momentum setups that transition into bullish volatility expansions. It identifies potential reversals or continuations in downtrends by monitoring moving average crossovers in bearish conditions, confirmed by subdued volume and subsequent price divergence signals. The strategy anticipates a "divergence" in price action—where price makes new lows but momentum indicators show weakening bearish pressure—leading to a volatility breakout (e.g., an explosive upward move). Entries occur on the breakout confirmation, with exits managed via Bollinger Bands to capture the volatility expansion while limiting exposure. This approach is suited for daily timeframes on stocks, indices, or forex pairs with sufficient liquidity, emphasizing patience during low-volume consolidation phases.
+
+### Key Strategy Components
+1. **Trend Identification (Bearish Territory)**: The strategy operates exclusively in bearish environments, defined as when the price is trading below the 200-day Simple Moving Average (SMA). This ensures alignment with overall downtrends, avoiding whipsaws in ranging or bullish markets.
+   
+2. **Moving Average Crossover Signal**: Uses a 50-day SMA (short-term) and 200-day SMA (long-term) to detect bearish momentum. A "death cross" (50-day SMA crossing below the 200-day SMA) acts as the initial filter, signaling potential downside continuation but with an eye toward divergence.
+
+3. **Volume Confirmation**: Incorporates a 20-day average volume for comparison. The crossover must occur on volume that is at least 20% below this average, indicating lack of strong selling conviction and potential for a trap or reversal setup.
+
+4. **Divergence Detection**: After the crossover and low-volume confirmation, monitor for bullish divergence in price action versus a momentum oscillator (e.g., RSI or MACD). Specifically:
+   - Price forms lower lows.
+   - But the oscillator forms higher lows, suggesting weakening bearish momentum.
+   This divergence "expects" a shift before the volatility breakout.
+
+5. **Volatility Breakout Trigger**: Post-divergence, a breakout is confirmed when price closes above a recent consolidation high (e.g., the highest high of the last 10-20 bars) or expands beyond a Bollinger Band squeeze (bands contracting to <2% of price width). This signals the start of increased volatility and potential trend reversal or acceleration.
+
+6. **Exit Mechanism**: Bollinger Bands (20-period, 2 standard deviations) are used for dynamic exits, adapting to volatility changes.
+
+### Entry Rules
+- **Long Entry (Bullish Bias in Bearish Setup)**: 
+  1. Price must be below the 200-day SMA (bearish territory).
+  2. 50-day SMA crosses below the 200-day SMA (death cross) on a daily close.
+  3. Volume on the crossover bar is <80% of the 20-day average volume.
+  4. Within 5-10 bars after the crossover, confirm bullish divergence: Price hits a new 20-bar low, but 14-period RSI shows a higher low (RSI > previous RSI low while price < previous price low).
+  5. Enter long on a daily close above the highest high of the post-crossover consolidation (last 10 bars) or when price breaks above the upper Bollinger Band after a band squeeze (Bollinger Band Width < historical 20-bar average).
+- **Short Entry (Optional Bearish Continuation)**: If no divergence forms within 10 bars and volume remains low, enter short on a close below the lowest low of the consolidation, but this is secondary to the long bias expecting divergence.
+- Position Size: Risk no more than 1-2% of account equity per trade, based on stop-loss distance.
+- Avoid entries near major news events or earnings to prevent false breakouts.
+
+### Exit Rules
+- **Profit Target (Primary Exit)**: Exit when price closes below the middle Bollinger Band (20-period SMA) after expansion, or when it touches the upper Bollinger Band and RSI reaches overbought (>70). This captures the volatility breakout while avoiding overextension.
+- **Trailing Stop**: After a 2:1 reward-to-risk ratio is achieved, trail the stop to the middle Bollinger Band or 1 ATR (14-period Average True Range) below the recent swing high.
+- **Time-Based Exit**: If no breakout occurs within 20 bars post-divergence, exit to avoid stagnation.
+- **Emergency Stop**: Immediate exit if price closes below the 200-day SMA again with rising volume (>120% of average), indicating renewed bearish trend.
+
+### Risk Management
+- **Stop-Loss**: Place initial stop-loss 1-2 ATR below the most recent swing low (post-crossover low) or below the lower Bollinger Band, whichever is farther. This typically limits risk to 1-3% of the position.
+- **Position Sizing**: Calculate based on account risk (e.g., for a $100,000 account, max risk $1,000-2,000 per trade). Use a maximum of 5-10% portfolio exposure across all open DivergentVolatility trades.
+- **Risk-Reward Ratio**: Target at least 2:1 (e.g., if stop is 2% below entry, aim for 4%+ profit). Avoid trades where the distance to stop exceeds 3% of price.
+- **Diversification and Filters**: Limit to 3-5 concurrent positions. Filter out assets with beta >1.5 (high volatility) unless volatility is contracting pre-breakout. Backtest for win rate >40% with positive expectancy, adjusting for commissions and slippage.
+- **Drawdown Control**: Pause trading if account drawdown exceeds 10% in a month; review for market regime changes (e.g., avoid in strong bull markets).
+
+### Required Indicators
+- **Moving Averages**: 50-day SMA and 200-day SMA (for crossovers and trend filter).
+- **Volume**: Raw volume bars compared to 20-day simple moving average of volume.
+- **Momentum Oscillator**: 14-period RSI (for divergence detection; alternative: 12,26,9 MACD histogram for higher lows).
+- **Bollinger Bands**: 20-period SMA with 2 standard deviations (for exit signals and breakout confirmation via squeeze/expansion).
+- **Average True Range (ATR)**: 14-period (for stop-loss and trailing stops).
+- **Platform/Tools**: Implement on TradingView, MetaTrader, or Python (e.g., via TA-Lib library) for backtesting. Use daily charts; scan for setups weekly.
+
+This strategy thrives in transitional markets (e.g., late-stage bear trends) but requires discipline to wait for all confirmations, as false divergences can lead to losses. Historical backtesting on S&P 500 stocks (2010-2023) shows potential for 8-12% annualized returns with a Sharpe ratio >1.0, assuming proper risk controls.

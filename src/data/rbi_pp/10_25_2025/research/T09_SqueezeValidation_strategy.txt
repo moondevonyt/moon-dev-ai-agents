@@ -1,0 +1,74 @@
+STRATEGY_NAME: SqueezeValidation
+
+STRATEGY_DETAILS:
+
+### Overview
+SqueezeValidation is an intraday momentum strategy that leverages Bollinger Bands to identify volatility contractions (squeezes) and expansions for potential breakout opportunities, with ADX providing confirmation of underlying trend strength to filter out weak signals. Designed for short-term trades on liquid assets like stocks, forex, or indices, it operates on 5-minute or 15-minute charts during active market hours (e.g., 9:30 AM - 4:00 PM EST for US equities). The strategy emphasizes high-probability entries by combining volatility-based setups with directional conviction, aiming to capture quick intraday moves while avoiding choppy, low-trend conditions.
+
+### Key Strategy Components
+1. **Bollinger Bands (Primary Signal Generator)**: Uses a 20-period simple moving average (SMA) with 2 standard deviations (SD) to plot the upper and lower bands. 
+   - **Squeeze Phase**: Occurs when the bands contract (narrow width, typically < 0.5% of price for stocks), signaling low volatility and potential buildup for a breakout.
+   - **Expansion Phase**: Bands widen when volatility increases, confirming momentum. The strategy waits for price to close outside the bands (upper for longs, lower for shorts) as a breakout trigger.
+   
+2. **ADX (Average Directional Index) for Confirmation**: 14-period ADX to measure trend strength.
+   - ADX > 25 indicates a strong trend (validation filter).
+   - Rising ADX (e.g., current ADX > previous ADX) adds momentum confirmation to ensure the breakout isn't a false signal in ranging markets.
+   - +DI and -DI lines (from ADX calculation) help determine direction: +DI > -DI for bullish validation, -DI > +DI for bearish.
+
+3. **Additional Filters**:
+   - Volume: Require above-average volume (e.g., > 1.5x 20-period average) on the breakout candle to confirm participation.
+   - Time Filter: Avoid entries in the first 30 minutes or last 30 minutes of the session to reduce noise from open/close volatility.
+   - Asset Suitability: Best for trending instruments; avoid during major news events unless ADX spikes positively.
+
+### Entry Rules
+- **Long Entry (Bullish Breakout)**:
+  1. Identify a Bollinger Squeeze (bands narrow for at least 5-10 bars).
+  2. Price closes above the upper Bollinger Band on a 5/15-min candle.
+  3. ADX > 25 and rising (ADX(current) > ADX(previous)), with +DI > -DI.
+  4. Volume > 1.5x average.
+  5. Enter on the close of the confirmation candle or next bar open. Target assets with positive intraday bias (e.g., above VWAP).
+
+- **Short Entry (Bearish Breakout)**:
+  1. Identify a Bollinger Squeeze.
+  2. Price closes below the lower Bollinger Band.
+  3. ADX > 25 and rising, with -DI > +DI.
+  4. Volume > 1.5x average.
+  5. Enter on the close or next open. Prefer assets with negative bias (e.g., below VWAP).
+
+- **No-Trade Conditions**: If ADX < 20 (weak trend), ignore even if bands expand. Limit to 2-3 trades per session to avoid overtrading.
+
+### Exit Rules
+- **Profit Targets**:
+  - Initial Target: 1:1 risk-reward ratio (e.g., if risking 0.5% of account, target 0.5% profit).
+  - Trailing Target: Once price reaches the middle Bollinger Band (SMA), trail stop to the middle band. Scale out 50% at 2:1 RR, letting the rest run until opposite band touch or ADX drops below 25.
+  - Maximum Hold: 30-60 minutes or end of session to maintain intraday focus.
+
+- **Stop-Loss**:
+  - Place initial stop below the recent swing low (for longs) or above swing high (for shorts), or 1 ATR (14-period) beyond the entry band.
+  - Tighten to breakeven once 1:1 RR is hit.
+
+- **Early Exit Signals**:
+  - If price re-enters the Bollinger Bands without expansion continuation.
+  - ADX falls below 20 or reverses direction (e.g., +DI crosses below -DI for longs).
+  - Time-based: Exit all positions 15 minutes before session close.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1% of total account per trade. Calculate position size as: (Account Risk Amount) / (Entry Price - Stop Price). For a $50,000 account, max risk $500 per trade.
+- **Daily Risk Limit**: Cap total daily risk at 3% of account (e.g., 3 trades max if each is 1%).
+- **Win/Loss Expectations**: Aim for 55-60% win rate with 1.5:1 average RR. Backtest on historical data to adjust (e.g., ADX threshold to 30 for higher conviction but fewer trades).
+- **Drawdown Control**: Pause trading after 2 consecutive losses or 2% daily drawdown. Use a trading journal to review ADX false confirmations.
+- **Leverage**: Limit to 1:1 (no margin) for beginners; up to 4:1 for experienced intraday traders on futures/forex.
+- **Overall Portfolio**: Diversify across 2-3 uncorrelated assets; avoid correlating trades (e.g., no multiple tech stocks).
+
+### Required Indicators and Setup
+- **Core Indicators**:
+  - Bollinger Bands: Period 20, Deviation 2 (standard settings; available on most platforms like TradingView, MT4/5, Thinkorswim).
+  - ADX: Period 14, with +DI/-DI lines enabled.
+- **Supporting Tools**:
+  - Volume Oscillator or simple volume SMA (20-period).
+  - ATR (14-period) for dynamic stops.
+  - VWAP for bias confirmation.
+- **Platform Recommendations**: Use charting software with alerts for band breaks and ADX crossovers. Backtest using historical intraday data (e.g., via Python/Pine Script) to optimize parameters for specific markets.
+- **Implementation Notes**: This strategy performs best in moderately volatile markets (VIX 15-25). Regularly review performance quarterly, adjusting ADX threshold based on asset volatility.
+
+This strategy balances Bollinger's volatility insights with ADX's trend reliability, reducing whipsaws in intraday trading while promoting disciplined execution.

@@ -8,7 +8,7 @@ This module provides integration with locally running Ollama models.
 import requests
 import json
 from termcolor import cprint
-from .base_model import BaseModel
+from .base_model import BaseModel, ModelResponse
 
 class OllamaModel(BaseModel):
     """Implementation for local Ollama models"""
@@ -16,6 +16,7 @@ class OllamaModel(BaseModel):
     # Available Ollama models - can be expanded based on what's installed locally
     AVAILABLE_MODELS = [
         "deepseek-r1",      # DeepSeek R1 through Ollama (7B by default)
+        "qwen3:8b",         # Qwen 3 8B model - fast reasoning model
         "gemma:2b",         # Google's Gemma 2B model
         "llama3.2",         # Meta's Llama 3.2 model - fast and efficient
         # implement your own local models through hugging face/ollama here
@@ -76,14 +77,16 @@ class OllamaModel(BaseModel):
         except:
             return False
     
-    def generate_response(self, system_prompt, user_content, temperature=0.7):
+    def generate_response(self, system_prompt, user_content, temperature=0.7, max_tokens=None, **kwargs):
         """Generate a response using the Ollama model
-        
+
         Args:
             system_prompt: System prompt to guide the model
             user_content: User's input content
             temperature: Controls randomness (0.0 to 1.0)
-            
+            max_tokens: Maximum tokens to generate (ignored by Ollama, kept for compatibility)
+            **kwargs: Additional arguments (ignored, kept for compatibility)
+
         Returns:
             Generated response text or None if failed
         """
@@ -104,23 +107,51 @@ class OllamaModel(BaseModel):
                 }
             }
             
-            # Make the request
+            # Make the request with 90 second timeout
             response = requests.post(
                 f"{self.base_url}/chat",
-                json=data
+                json=data,
+                timeout=90  # Match swarm timeout
             )
             
             if response.status_code == 200:
-                content = response.json().get("message", {}).get("content", "")
-                return content
+                response_data = response.json()
+                raw_content = response_data.get("message", {}).get("content", "")
+
+                # Remove <think>...</think> tags and their content (Qwen reasoning)
+                import re
+
+                # First, try to remove complete <think>...</think> blocks
+                filtered_content = re.sub(r'<think>.*?</think>', '', raw_content, flags=re.DOTALL).strip()
+
+                # If <think> tag exists but wasn't removed (unclosed tag due to token limit),
+                # remove everything from <think> onwards
+                if '<think>' in filtered_content:
+                    filtered_content = filtered_content.split('<think>')[0].strip()
+
+                # If filtering removed everything, return the original (in case it's not a Qwen model)
+                final_content = filtered_content if filtered_content else raw_content
+
+                return ModelResponse(
+                    content=final_content,
+                    raw_response=response_data,
+                    model_name=self.model_name,
+                    usage=None  # Ollama doesn't provide token usage info
+                )
             else:
                 cprint(f"❌ Ollama API error: {response.status_code}", "red")
                 cprint(f"Response: {response.text}", "red")
-                return None
-                
+                raise Exception(f"Ollama API error: {response.status_code}")
+
         except Exception as e:
             cprint(f"❌ Error generating response: {str(e)}", "red")
-            return None
+            # Don't re-raise - let swarm agent handle failed responses gracefully
+            return ModelResponse(
+                content="",
+                raw_response={"error": str(e)},
+                model_name=self.model_name,
+                usage=None
+            )
     
     def __str__(self):
         return f"OllamaModel(model={self.model_name})"
@@ -141,6 +172,7 @@ class OllamaModel(BaseModel):
             # For specific known models
             known_models = {
                 "deepseek-r1": "7B",
+                "qwen3:8b": "8B",
                 "gemma:2b": "2B",
                 "llama3.2": "70B"
             }

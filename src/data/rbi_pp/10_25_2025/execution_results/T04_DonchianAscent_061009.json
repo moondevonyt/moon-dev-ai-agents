@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "\ud83c\udf19 Moon Dev Backtest Initialized: Optimized DonchianAscent Strategy Loaded! \u2728\n\ud83c\udf19 Moon Dev Long Entry: Breakout at 18259.14, size=27, SL=17509.23, TP=20508.87 \u2728\ud83d\ude80\n\n",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests_optimized/T04_DonchianAscent_OPT_v3.py\", line 90, in <module>\n    stats = bt.run()\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 1170, in run\n    strategy.next()\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests_optimized/T04_DonchianAscent_OPT_v3.py\", line 52, in next\n    entry_price = self.position.avg_price\nAttributeError: 'Position' object has no attribute 'avg_price'\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests_optimized/T04_DonchianAscent_OPT_v3.py` failed. (See above for error)\n",
+  "execution_time": 1.090276,
+  "timestamp": "2025-10-25T06:10:09.753387"
+}

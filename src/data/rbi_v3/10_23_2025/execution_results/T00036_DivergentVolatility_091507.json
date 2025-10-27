@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "\ud83c\udf19 Death Cross detected at bar 279 on low volume! Waiting for divergence... \u2728\n\ud83d\ude80 Bullish Divergence confirmed at bar 281! Price: 16642.18, RSI: 51.01 > prev 46.47 \ud83c\udf19\n\u2728 Divergence confirmed, now waiting for volatility breakout! \ud83c\udf19\n\n",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_package/T00036_DivergentVolatility_PKG.py\", line 178, in <module>\n    stats = bt.run()\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 1170, in run\n    strategy.next()\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_package/T00036_DivergentVolatility_PKG.py\", line 105, in next\n    equity = self._broker.getcash()  # Fixed: Use self._broker.getcash() for equity approximation\nAttributeError: '_Broker' object has no attribute 'getcash'\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_package/T00036_DivergentVolatility_PKG.py` failed. (See above for error)\n",
+  "execution_time": 1.215589,
+  "timestamp": "2025-10-23T09:15:07.715906"
+}

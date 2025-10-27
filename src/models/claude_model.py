@@ -11,9 +11,17 @@ class ClaudeModel(BaseModel):
     """Implementation for Anthropic's Claude models"""
     
     AVAILABLE_MODELS = {
-        "claude-3-opus": "Most powerful Claude model",
-        "claude-3-sonnet": "Balanced Claude model",
-        "claude-3-haiku": "Fast, efficient Claude model"
+        # Claude 4 Series (New Generation)
+        "claude-opus-4-1": "Most powerful Claude 4 model with advanced reasoning",
+        "claude-sonnet-4-5": "Balanced Claude 4.5 model with improved capabilities",
+        "claude-haiku-4-5": "Fast, efficient Claude 4.5 model for rapid responses",
+
+        # Claude 3 Series (Current Stable)
+        "claude-3-5-sonnet-latest": "Latest Claude 3.5 Sonnet with enhanced performance",
+        "claude-3-5-haiku-latest": "Latest Claude 3.5 Haiku - blazing fast",
+        "claude-3-opus": "Most powerful Claude 3 model",
+        "claude-3-sonnet": "Balanced Claude 3 model",
+        "claude-3-haiku": "Fast, efficient Claude 3 model"
     }
     
     def __init__(self, api_key: str, model_name: str = "claude-3-haiku", **kwargs):

@@ -1,0 +1,62 @@
+STRATEGY_NAME: VolatilityReversion
+
+STRATEGY_DETAILS:
+
+### Overview
+VolatilityReversion is a mean reversion trading strategy that leverages Bollinger Bands to identify overextended price movements away from the statistical mean, capitalizing on the tendency of prices to revert toward equilibrium in ranging or consolidating markets. It assumes that extreme volatility expansions (as measured by band touches) signal temporary deviations that are likely to contract back to the middle band (a simple moving average). This approach is particularly effective in sideways markets but can generate false signals in strong trends, so it incorporates filters to avoid trending conditions. The strategy is suitable for intraday or swing trading on assets like stocks, forex, or indices with moderate volatility.
+
+### Key Strategy Components
+1. **Core Indicator: Bollinger Bands**
+   - **Parameters**: 20-period Simple Moving Average (SMA) for the middle band; upper and lower bands set at 2 standard deviations from the SMA (default settings, adjustable for asset volatility—e.g., 2.5 SD for high-vol assets).
+   - **Role**: The bands act as dynamic support/resistance levels. The middle band represents the mean (equilibrium), while expansions/contractions in band width indicate volatility regimes. Mean reversion trades are triggered on band extremes, betting on contraction.
+   - **Additional Filter Indicator**: Relative Strength Index (RSI, 14-period) to confirm overbought/oversold conditions and avoid trend traps. Optional: Average Directional Index (ADX, 14-period) with threshold >25 to filter out strong trends (skip trades if ADX >25).
+
+2. **Market Conditions Filter**
+   - Only trade in low-to-moderate volatility environments (e.g., Bollinger Band Width < historical average) or after a "squeeze" (bands contracting, indicating impending volatility expansion followed by reversion).
+   - Avoid trending markets: Use ADX to confirm ranging conditions (ADX <25).
+
+3. **Timeframe and Asset Suitability**
+   - **Recommended Timeframe**: 1-hour or 4-hour charts for swing trades; 15-minute for intraday.
+   - **Assets**: Works best on non-trending instruments like EUR/USD forex pairs, blue-chip stocks (e.g., AAPL in consolidation), or ETFs (e.g., SPY). Avoid high-beta or crypto assets without parameter tweaks.
+
+### Entry Rules
+- **Long Entry (Buy Signal)**:
+  - Price closes below the lower Bollinger Band (indicating oversold deviation).
+  - RSI(14) < 30 (confirms oversold momentum).
+  - ADX(14) < 25 (ensures no strong downtrend).
+  - Enter on the next candle open after confirmation, or on a bullish candlestick reversal (e.g., hammer/doji) near the lower band for added precision.
+  - Position Size: Risk 1-2% of account per trade.
+
+- **Short Entry (Sell Signal)**:
+  - Price closes above the upper Bollinger Band (indicating overbought deviation).
+  - RSI(14) > 70 (confirms overbought momentum).
+  - ADX(14) < 25 (ensures no strong uptrend).
+  - Enter on the next candle open after confirmation, or on a bearish candlestick reversal (e.g., shooting star) near the upper band.
+  - Position Size: Risk 1-2% of account per trade.
+
+- **No-Trade Zones**: Ignore signals if bands are extremely wide (e.g., >2x average width, signaling breakout potential) or during major news events.
+
+### Exit Rules
+- **Profit Target (Reversion Exit)**:
+  - Exit long when price closes above the middle band (SMA), or reaches 50-70% of the distance between lower band and middle band (partial scaling out).
+  - Exit short when price closes below the middle band, or reaches 50-70% of the distance between upper band and middle band.
+  - Trailing Stop: Once price moves 50% toward the middle band, trail the stop to the middle band to lock in gains.
+
+- **Stop Loss**:
+  - For longs: Place stop 1-2% below the recent swing low or 1.5x the lower band's distance from the middle band (whichever is wider, typically 1-3% risk).
+  - For shorts: Place stop 1-2% above the recent swing high or 1.5x the upper band's distance from the middle band.
+  - Hard cap: Never risk more than 2% of account equity.
+
+- **Time-Based Exit**: If no reversion within 5-10 periods (e.g., bars), exit to avoid opportunity cost, as prolonged deviations may indicate a trend shift.
+
+- **Opposite Signal Exit**: Close long on a short signal (and vice versa) to pyramid or reverse positions if conditions align.
+
+### Risk Management
+- **Position Sizing**: Use fixed fractional risk (e.g., 1% per trade) based on stop-loss distance. Formula: Position Size = (Account Equity * Risk %) / (Entry Price - Stop Price).
+- **Maximum Exposure**: Limit to 3-5 open trades; no more than 5% total risk across all positions.
+- **Drawdown Controls**: Pause trading after 3 consecutive losses or if drawdown exceeds 10%. Backtest win rate should target >60% with 1:1.5 risk-reward ratio.
+- **Diversification**: Apply to 3-5 uncorrelated assets to spread risk.
+- **Leverage**: Use 1:1 (no leverage) for beginners; up to 1:5 for experienced traders in low-vol environments.
+- **Performance Metrics to Monitor**: Expect 40-60% win rate; average hold time 2-8 periods. Optimize via backtesting (e.g., on TradingView or Python with TA-Lib) to adjust SD multiplier for asset-specific volatility.
+
+This strategy emphasizes statistical edge over price action, with Bollinger Bands providing the volatility context for reliable mean reversion setups. Always backtest and forward-test before live deployment, as performance degrades in trending markets.

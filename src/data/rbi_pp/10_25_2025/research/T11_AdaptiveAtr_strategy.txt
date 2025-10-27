@@ -1,0 +1,40 @@
+STRATEGY_NAME: AdaptiveAtr
+
+STRATEGY_DETAILS:
+
+### Overview
+AdaptiveAtr is a trend-following strategy that dynamically adjusts trade parameters based on market volatility, measured via the Average True Range (ATR). It combines a simple moving average (SMA) crossover for trend identification with ATR-based scaling for position sizing, stop-losses, and take-profits. This makes it particularly suited for trending markets with varying volatility, such as forex, stocks, or commodities on daily or 4-hour timeframes. The "adaptive" aspect ensures the strategy scales risk exposure inversely with volatility—tighter stops in low-volatility periods and larger position sizes in high-volatility trends—to optimize returns while controlling drawdowns.
+
+### Key Strategy Components
+1. **Trend Identification**: Uses dual SMAs to detect trend direction. A 50-period SMA (short-term) and 200-period SMA (long-term) on closing prices.
+2. **Volatility Measurement**: ATR (14-period) to quantify recent price range and adjust all volatility-sensitive elements.
+3. **Position Sizing**: Dynamically calculates trade size based on account risk and ATR to maintain consistent risk per trade.
+4. **Trade Filters**: Optional volume confirmation (e.g., above average) to avoid false signals in low-liquidity conditions.
+5. **Timeframe and Assets**: Best on trend-prone assets like major forex pairs (EUR/USD) or indices (S&P 500). Apply on H4 or daily charts for reduced noise.
+
+### Entry Rules
+- **Long Entry**: Enter a buy position when the 50-period SMA crosses above the 200-period SMA (bullish trend signal). Confirm with ATR > its 20-period SMA (indicating sufficient volatility for a meaningful trend).
+- **Short Entry**: Enter a sell position when the 50-period SMA crosses below the 200-period SMA (bearish trend signal), with the same ATR confirmation.
+- **Additional Filters**:
+  - Avoid entries if the crossover occurs within 1 ATR of a recent high/low (prevents whipsaws in ranging markets).
+  - Only trade in the direction of the higher-timeframe trend (e.g., daily SMA alignment for H4 entries).
+- **Execution**: Enter at market open on the next bar after the signal. Maximum 1 open position per asset to avoid overexposure.
+
+### Exit Rules
+- **Stop-Loss (SL)**: Place initial SL at 2x ATR below the entry price for longs (or above for shorts). Trail the SL dynamically: After a profitable move of 1x ATR, move SL to breakeven + 0.5x ATR, then trail it at 1.5x ATR behind the current price every bar.
+- **Take-Profit (TP)**: Set at 3x ATR from entry (risk-reward ratio of 1:1.5 initially, scalable to 1:3 in strong trends). Alternatively, exit on SMA crossover reversal.
+- **Time-Based Exit**: Close position if no progress (price doesn't move 1x ATR in 10 bars) to avoid stagnation in weakening trends.
+- **Emergency Exit**: Full exit if ATR spikes > 2x its average (volatility contraction/expansion signal), indicating potential reversal.
+
+### Risk Management
+- **Position Sizing**: Risk 1-2% of account equity per trade. Calculate size as: Position Size = (Account Equity * Risk %) / (Entry Price * ATR Multiplier). Use 2x ATR as the "stop distance" for sizing—e.g., for a $10,000 account risking 1%, if ATR=0.5 and multiplier=2, stop distance=1.0, so size = (100 * 0.01) / 1.0 = 1 unit (adjust for asset, e.g., lots in forex).
+- **Maximum Exposure**: Limit total open risk to 5% of equity across all trades. No pyramiding; add to winners only if trend strengthens (e.g., new SMA pullback) with reduced size (0.5% risk).
+- **Drawdown Controls**: Pause trading if account drawdown exceeds 10% in a month. Use a volatility regime filter: If ATR < 50% of its 50-period average, reduce position sizes by 50% or skip trades.
+- **Diversification**: Apply to 3-5 uncorrelated assets max. Backtest with slippage (0.1%) and commissions to ensure robustness.
+
+### Required Indicators
+- **SMA (50-period and 200-period)**: For trend crossovers (available in most platforms like MT4/5, TradingView).
+- **ATR (14-period)**: Core volatility indicator; also compute ATR SMA (20-period) for filters.
+- **Optional**: Volume Oscillator (for confirmation) or ADX (14-period >25 for strong trends to filter weak signals).
+
+This strategy performs well in persistent trends (e.g., 60-70% win rate in backtests on trending pairs) but underperforms in choppy markets—use with a market regime classifier for best results. Optimize ATR period (10-20) and SMA lengths via walk-forward testing.

@@ -11,7 +11,14 @@ import os
 import importlib
 import inspect
 import time
-from src import nice_funcs as n
+
+# Import exchange manager for unified trading
+try:
+    from src.exchange_manager import ExchangeManager
+    USE_EXCHANGE_MANAGER = True
+except ImportError:
+    from src import nice_funcs as n
+    USE_EXCHANGE_MANAGER = False
 
 # 🎯 Strategy Evaluation Prompt
 STRATEGY_EVAL_PROMPT = """
@@ -51,6 +58,14 @@ class StrategyAgent:
         """Initialize the Strategy Agent"""
         self.enabled_strategies = []
         self.client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_KEY"))
+
+        # Initialize exchange manager if available
+        if USE_EXCHANGE_MANAGER:
+            self.em = ExchangeManager()
+            cprint(f"✅ Strategy Agent using ExchangeManager for {EXCHANGE}", "green")
+        else:
+            self.em = None
+            cprint("✅ Strategy Agent using direct nice_funcs", "green")
         
         if ENABLE_STRATEGIES:
             try:
@@ -247,25 +262,34 @@ class StrategyAgent:
                     max_position = usd_size * (MAX_POSITION_PERCENTAGE / 100)
                     target_size = max_position * strength
                     
-                    # Get current position value
-                    current_position = n.get_token_balance_usd(token)
-                    
+                    # Get current position value (using exchange manager if available)
+                    if self.em:
+                        current_position = self.em.get_token_balance_usd(token)
+                    else:
+                        current_position = n.get_token_balance_usd(token)
+
                     print(f"📊 Signal strength: {strength}")
                     print(f"🎯 Target position: ${target_size:.2f} USD")
                     print(f"📈 Current position: ${current_position:.2f} USD")
-                    
+
                     if direction == 'BUY':
                         if current_position < target_size:
                             print(f"✨ Executing BUY for {token}")
-                            n.ai_entry(token, target_size)
+                            if self.em:
+                                self.em.ai_entry(token, target_size)
+                            else:
+                                n.ai_entry(token, target_size)
                             print(f"✅ Entry complete for {token}")
                         else:
                             print(f"⏸️ Position already at or above target size")
-                            
+
                     elif direction == 'SELL':
                         if current_position > 0:
                             print(f"📉 Executing SELL for {token}")
-                            n.chunk_kill(token, max_usd_order_size, slippage)
+                            if self.em:
+                                self.em.chunk_kill(token)
+                            else:
+                                n.chunk_kill(token, max_usd_order_size, slippage)
                             print(f"✅ Exit complete for {token}")
                         else:
                             print(f"⏸️ No position to sell")

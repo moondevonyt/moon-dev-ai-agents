@@ -250,6 +250,38 @@ datetime, open, high, low, close, volume,
 
 Always add plenty of Moon Dev themed debug prints with emojis to make debugging easier! 🌙 ✨ 🚀
 
+MULTI-DATA TESTING REQUIREMENT:
+At the VERY END of your code (after all strategy definitions), you MUST add this EXACT block:
+
+```python
+# 🌙 MOON DEV'S MULTI-DATA TESTING FRAMEWORK 🚀
+# Tests this strategy on 25+ data sources automatically!
+if __name__ == "__main__":
+    import sys
+    import os
+
+    # Import the multi-data tester from Moon Dev's trading bots repo
+    sys.path.append('/Users/md/Dropbox/dev/github/moon-dev-trading-bots/backtests')
+    from multi_data_tester import test_on_all_data
+
+    print("\\n" + "="*80)
+    print("🚀 MOON DEV'S MULTI-DATA BACKTEST - Testing on 25+ Data Sources!")
+    print("="*80)
+
+    # Test this strategy on all configured data sources
+    # This will test on: BTC, ETH, SOL (multiple timeframes), AAPL, TSLA, ES, NQ, GOOG, NVDA
+    results = test_on_all_data(YourStrategyClassName, 'YourStrategyName')
+
+    if results is not None:
+        print("\\n✅ Multi-data testing complete! Results saved in ./results/ folder")
+        print(f"📊 Tested on {len(results)} different data sources")
+    else:
+        print("\\n⚠️ No results generated - check for errors above")
+```
+
+IMPORTANT: Replace 'YourStrategyClassName' with your actual strategy class name!
+IMPORTANT: Replace 'YourStrategyName' with a descriptive name for the CSV output!
+
 FOR THE PYTHON BACKTESTING LIBRARY USE BACKTESTING.PY AND SEND BACK ONLY THE CODE, NO OTHER TEXT.
 ONLY SEND BACK CODE, NO OTHER TEXT.
 """

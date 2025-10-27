@@ -1,0 +1,45 @@
+STRATEGY_NAME: VolatilityEngulfing
+
+STRATEGY_DETAILS:
+
+### Overview
+VolatilityEngulfing is a momentum-based breakout strategy designed for identifying strong upward price surges in trending markets. It leverages the expansion of volatility (via Bollinger Bands) combined with volume confirmation and candlestick pattern validation to filter for high-probability long entries. The strategy focuses on bullish breakouts where price decisively moves above the upper Bollinger Band, supported by elevated trading volume and a bullish engulfing pattern, signaling potential continuation of an uptrend. This approach is best suited for volatile assets like stocks, forex pairs, or cryptocurrencies on intraday (e.g., 15-60 minute) or daily timeframes, avoiding low-volatility sideways markets.
+
+### Key Strategy Components
+1. **Bollinger Bands (Primary Volatility Filter)**: Measures price volatility and identifies breakout opportunities. The bands expand during high volatility, and a break above the upper band suggests overextension in an uptrend.
+2. **Average Volume (Confirmation Indicator)**: Ensures the breakout has conviction by requiring trading volume to exceed its recent average, filtering out false breakouts driven by low participation.
+3. **Bullish Engulfing Pattern (Candlestick Confirmation)**: A two-candle reversal pattern where a small bearish candle is followed by a larger bullish candle that fully engulfs the prior candle's body. This adds a price action layer to confirm buyer dominance during the breakout.
+4. **Market Context**: Apply in uptrending or consolidating markets (e.g., price above a 50-period SMA). Avoid during major news events or when bands are contracting (squeeze), as this indicates low volatility.
+
+### Required Indicators and Settings
+- **Bollinger Bands**: Period = 20, Standard Deviation = 2 (default). Upper Band = Middle Band (20-period SMA) + (2 * SD); focus on breaks above the Upper Band.
+- **Average Volume**: Simple Moving Average (SMA) of volume over 20 periods. Current bar volume must exceed this by at least 20-50% for stronger confirmation (adjust based on asset liquidity).
+- **Bullish Engulfing Pattern**: No additional indicator needed; identify manually or via candlestick recognition tools. Requires: (1) Prior candle is bearish (close < open), (2) Current candle is bullish (close > open), (3) Current candle's body fully engulfs the prior candle's body (current open < prior close, current close > prior open).
+- **Optional Supporting Tools**: 50-period SMA for trend filter (entries only if price > SMA); RSI (14-period) to avoid overbought conditions (e.g., RSI < 80 at entry).
+
+### Entry Rules (Long-Only)
+1. **Breakout Condition**: The current candle's close must break and close above the Upper Bollinger Band.
+2. **Volume Confirmation**: The volume on the breakout candle must be greater than the 20-period Average Volume (ideally 1.5x or higher to indicate strong participation).
+3. **Pattern Confirmation**: The breakout must coincide with or be immediately followed by a bullish engulfing pattern on the same or next candle. This ensures the price action shows reversal momentum from sellers to buyers.
+4. **Trend Filter**: Price must be above the 50-period SMA to confirm bullish bias.
+5. **Execution**: Enter a long position at the open of the next candle after all conditions align. Avoid entries near market close or if the breakout occurs on a gap (use limit orders to confirm).
+
+Example: On a 1-hour chart of AAPL, if price closes above the upper BB at $150 with volume 2x the 20-period avg, and the candle engulfs the prior red candle, buy at the next open.
+
+### Exit Rules
+1. **Profit Target**: 
+   - Initial target: 1:2 risk-reward ratio (e.g., if risking 1%, target 2% gain).
+   - Trailing stop: Move stop to breakeven once price reaches 1x risk, then trail using the Middle Bollinger Band (exit if price closes below it) or a 20-period ATR (Average True Range) trailing stop for dynamic exits.
+   - Alternative: Exit at 2-3x the Bollinger Band width from entry for measured moves.
+2. **Stop Loss**: Place below the low of the engulfing candle or the recent swing low (whichever is lower), typically 1-1.5x ATR below entry. Never risk more than 1-2% of account equity per trade.
+3. **Time-Based Exit**: If no significant move within 3-5 bars, exit to avoid opportunity cost.
+4. **Reversal Signals**: Exit early if a bearish engulfing pattern forms or price closes below the Middle Bollinger Band with declining volume.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1% of total account per trade. Calculate position size as: (Account Balance * 0.01) / (Entry Price - Stop Loss Price). For example, with a $10,000 account and $1 risk per share, max 10,000 shares if stop is $1 away.
+- **Maximum Exposure**: Limit to 3-5 open trades; no more than 5% total risk across positions.
+- **Drawdown Controls**: Pause trading after 3 consecutive losses or if drawdown exceeds 5%. Use a volatility filter (e.g., skip if ATR < historical average).
+- **Backtesting and Optimization**: Test on historical data (e.g., via TradingView or Python with TA-Lib) over 2+ years. Optimize volume threshold (20-100% above avg) and BB deviation (1.5-2.5) based on asset. Expect win rate of 40-60% with positive expectancy due to high reward:risk.
+- **Psychological Notes**: This strategy thrives on discipline—avoid chasing breakouts without all confirmations to prevent whipsaws in choppy markets.
+
+This strategy emphasizes quality over quantity, with multiple filters reducing false signals while capturing explosive moves. Monitor for band squeezes as precursors to setups.

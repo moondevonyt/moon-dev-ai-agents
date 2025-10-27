@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "\ud83c\udf19 Moon Dev: Long entry at 16598.85, Size: 282, SL: 16563.43 \ud83d\ude80\n\ud83c\udf19 Moon Dev: Long entry at 16688.34, Size: 122, SL: 16606.11 \ud83d\ude80\n\ud83c\udf19 Moon Dev: Long entry at 16734.50, Size: 89, SL: 16622.54 \ud83d\ude80\n\ud83c\udf19 Moon Dev: Long entry at 16948.16, Size: 87, SL: 16833.83 \ud83d\ude80\n\ud83c\udf19 Moon Dev: Long entry at 16820.25, Size: 68, SL: 16673.87 \ud83d\ude80\n\ud83c\udf19 Moon Dev: Long entry at 16921.02, Size: 69, SL: 16775.98 \ud83d\ude80\n\ud83c\udf19 Moon Dev: Long entry at 16997.26, Size: 133, SL: 16921.86 \ud83d\ude80\n\ud83c\udf19 Moon Dev: Long entry at 17125.18, Size: 47, SL: 16911.30 \ud83d\ude80\n\n",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_final/FractalCascade_BTFinal_v3.py\", line 173, in <module>\n    stats = bt.run()\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 1170, in run\n    strategy.next()\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_final/FractalCascade_BTFinal_v3.py\", line 128, in next\n    current_sl = self.position.sl\nAttributeError: 'Position' object has no attribute 'sl'. Did you mean: 'pl'?\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_final/FractalCascade_BTFinal_v3.py` failed. (See above for error)\n",
+  "execution_time": 1.355393,
+  "timestamp": "2025-10-23T08:59:25.281764"
+}

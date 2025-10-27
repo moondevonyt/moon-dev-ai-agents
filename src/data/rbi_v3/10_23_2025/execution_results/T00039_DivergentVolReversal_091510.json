@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "\ud83c\udf19 Moon Dev: Strategy initialized with indicators! \u2728\n\n",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_package/T00039_DivergentVolReversal_PKG.py\", line 125, in <module>\n    stats = bt.run()\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 1170, in run\n    strategy.next()\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_package/T00039_DivergentVolReversal_PKG.py\", line 97, in next\n    recent_highs = self.data.High.iloc[-self.lookback-1:-1].values\nAttributeError: '_Array' object has no attribute 'iloc'\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_package/T00039_DivergentVolReversal_PKG.py` failed. (See above for error)\n",
+  "execution_time": 1.085145,
+  "timestamp": "2025-10-23T09:15:10.137473"
+}

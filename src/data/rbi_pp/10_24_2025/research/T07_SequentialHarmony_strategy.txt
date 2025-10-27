@@ -1,0 +1,68 @@
+STRATEGY_NAME: SequentialHarmony
+
+STRATEGY_DETAILS:
+
+### Overview
+SequentialHarmony is a reversal-focused trading strategy that combines the identification of four consecutive down bars (indicating potential momentum exhaustion in a downtrend) with the confirmation of bullish harmonic patterns (such as Gartley, Bat, Butterfly, or Crab patterns). This creates a high-confluence setup for long entries, targeting reversals after prolonged selling pressure. The strategy is designed for swing trading on timeframes like 1-hour, 4-hour, or daily charts in forex, stocks, or indices. It emphasizes patience, waiting for both the bar sequence and harmonic completion to align, reducing false signals in ranging or choppy markets.
+
+### Key Strategy Components
+1. **Four Consecutive Down Bars (Setup Filter)**:
+   - A "down bar" is defined as a candlestick where the close is lower than the open (bearish candle), and each subsequent bar's close is lower than the previous bar's close, confirming a serial decline.
+   - This sequence signals building exhaustion in bearish momentum, often preceding a reversal. It acts as a primary filter to avoid entering harmonics in strong trends.
+   - The bars must occur within a clear downtrend (e.g., below a 50-period EMA), with no upward interruptions (e.g., no doji or bullish bars breaking the sequence).
+
+2. **Harmonic Patterns (Confirmation Signal)**:
+   - Use bullish harmonic patterns that form at the end of or overlapping with the four down bars. Common patterns include:
+     - **Bullish Gartley**: AB=CD with Fibonacci retracements (XA leg retraces 61.8%, BC 38.2-88.6%, CD 127.2-161.8% of BC).
+     - **Bullish Bat**: Similar to Gartley but with a deeper D point (78.6% retracement of XA).
+     - **Bullish Butterfly**: XA retraces 78.6-88.6%, with an extended D point (127-161.8% of XA).
+     - **Bullish Crab**: Extreme pattern with D at 161.8% of XA.
+   - The pattern's D point (completion) should align with or immediately follow the fourth down bar, ideally at a key support level (e.g., Fibonacci 61.8% of a prior swing or horizontal S/R).
+   - Harmonic recognition requires precise Fibonacci measurements; manual charting or automated tools are essential.
+
+3. **Trend and Volume Context**:
+   - Overall market must be in a downtrend (e.g., price below 200-period EMA).
+   - Increasing volume on the down bars strengthens the exhaustion signal, while divergence on RSI (14-period) below 30 (price making lower lows but RSI higher) adds confluence.
+
+4. **Required Indicators and Tools**:
+   - **Candlestick Chart**: For identifying down bars.
+   - **Fibonacci Retracement/Extension Tool**: Core for plotting harmonic patterns (ratios: 0.382, 0.618, 0.786, 1.272, 1.618).
+   - **Harmonic Pattern Scanner**: Software like TradingView's built-in harmonics, Auto Harmonic Patterns indicator, or platforms like MT4/MT5 with custom EAs for automation.
+   - **EMA (50 and 200-period)**: To confirm downtrend.
+   - **RSI (14-period)**: For oversold conditions and divergence (optional but recommended for filtering).
+   - **Volume Indicator**: To validate momentum exhaustion (e.g., declining volume on later down bars).
+   - No oscillators like MACD are required, but they can be used for secondary confirmation of reversal.
+
+### Entry Rules
+- **Long Entry Only**: This strategy is bullish reversal-oriented; do not trade bearish harmonics with down bar setups.
+- Wait for four consecutive down bars to complete.
+- Scan for a bullish harmonic pattern forming within the last 5-10 bars, with the D point coinciding with or just after the fourth down bar.
+- Enter long on a confirmed reversal candle (e.g., bullish engulfing or pin bar) at/above the D point, or on a break above the pattern's B point resistance.
+- Additional Filters:
+  - RSI < 30 with bullish divergence.
+  - Volume spike on the entry bar.
+  - Avoid entries if the harmonic PRZ (Potential Reversal Zone) overlaps with major resistance.
+- Example: In EUR/USD 4H chart, after four red candles pushing price to a 61.8% Fib retracement, a Bullish Gartley completes at D—enter long on the next green candle close above D.
+
+### Exit Rules
+- **Profit Targets**:
+  - Primary Target: Pattern's internal projection, e.g., 61.8% Fibonacci extension from AD leg (typical 1:1 risk-reward).
+  - Secondary Target: 127.2% or 161.8% extension of the XA leg, or next resistance level (e.g., prior swing high).
+  - Scale out: Take 50% profit at 1:1 RR, trail the rest to the secondary target.
+- **Stop-Loss**:
+  - Place below the pattern's X point or the low of the fourth down bar (whichever is lower), typically 1-2% below to account for wicks.
+  - Maximum risk per trade: 1% of account equity.
+- **Trailing Stop**:
+  - After hitting primary target, trail using ATR (14-period, 2x ATR buffer) or move to breakeven + a small buffer.
+  - Exit fully if price closes below the 50-period EMA or shows bearish divergence on RSI.
+- Time-Based Exit: If no movement within 5-10 bars post-entry, exit to avoid stagnation.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1% of total account per trade. Calculate position size as: (Account Balance * 0.01) / (Entry Price - Stop-Loss Price).
+- **Maximum Exposure**: Limit to 2-3 open trades; avoid overexposure in correlated assets (e.g., no more than one EUR pair).
+- **Win Rate and RR**: Aim for 40-50% win rate with 1:2+ RR due to harmonic precision. Backtest on at least 100 setups to validate.
+- **Drawdown Controls**: Pause trading after 3 consecutive losses or 5% account drawdown. Use a trading journal to track harmonic accuracy (target >70% pattern validity).
+- **Market Conditions**: Avoid high-impact news (e.g., NFP) during setups, as volatility can invalidate harmonics. Best in trending markets with clear swings; skip ranging conditions (ADX < 25).
+- **Psychological Rules**: Only trade patterns with full confluence; no forcing entries. Review weekly to refine harmonic identification skills.
+
+This strategy leverages the psychological exhaustion from serial declines with the mathematical reliability of harmonics, potentially yielding 2-3 setups per month in volatile pairs like GBP/JPY. Backtesting on historical data is crucial to adapt Fibonacci tolerances (e.g., ±2% on ratios) for your platform.

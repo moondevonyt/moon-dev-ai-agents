@@ -1,0 +1,66 @@
+STRATEGY_NAME: DivergentVolReversal
+
+STRATEGY_DETAILS:
+
+### Overview
+DivergentVolReversal is a mean-reversion trading strategy designed for assets like stocks, indices, or forex pairs that exhibit periodic oscillations around a mean price level. It leverages divergences between price action and two key momentum indicators—RSI (Relative Strength Index) and MACD (Moving Average Convergence Divergence)—to identify overextended price moves ripe for reversal. The strategy enters positions anticipating a snap-back to the mean but incorporates a volatility-based exit mechanism using VIX (CBOE Volatility Index) spikes to protect against sudden market regime shifts or heightened risk. This makes it particularly suited for sideways or ranging markets, with a focus on avoiding prolonged trends. The strategy assumes a daily or 4-hour timeframe for swing trades, but can be adapted to intraday with parameter tweaks.
+
+### Key Strategy Components
+1. **Mean-Reversion Core**: The strategy assumes prices will revert to a historical mean (e.g., a 20-period SMA) after deviations. Entries are triggered only when divergences confirm weakening momentum, reducing false signals in trending markets.
+2. **Divergence Detection**: Combines RSI and MACD for dual confirmation. RSI identifies overbought/oversold conditions, while MACD spots momentum shifts. A divergence occurs when price and the indicator move in opposite directions, signaling potential exhaustion.
+3. **Volatility Filter for Exits**: VIX acts as a "fear gauge." Spikes indicate increased market uncertainty, prompting early exits to lock in profits or cut losses before volatility erodes the mean-reversion setup.
+4. **Market Conditions**: Best in low-to-moderate volatility environments (VIX < 20). Avoid high-trend markets; use an ADX (Average Directional Index) filter below 25 to confirm ranging conditions.
+5. **Asset Suitability**: Works on liquid instruments like S&P 500 futures, EUR/USD, or individual blue-chip stocks. Not ideal for highly volatile cryptos without adjustments.
+
+### Required Indicators
+- **RSI (14-period)**: Measures speed and change of price movements. Default overbought threshold: >70; oversold: <30.
+- **MACD (12, 26, 9)**: Tracks relationship between two EMAs. Focus on histogram and signal line for divergence (line vs. price peaks/troughs).
+- **VIX**: Raw level or 10-period SMA. Spike threshold: >20% above its 20-period SMA or absolute level >25 (adjustable based on historical norms).
+- **Supporting Tools**:
+  - 20-period SMA: As the mean reference for reversion targets.
+  - ADX (14-period): To filter for non-trending markets (entry only if ADX < 25).
+
+All indicators are standard on platforms like TradingView, MetaTrader, or Thinkorswim.
+
+### Entry Rules
+Entries are mean-reversion trades (long for oversold reversion, short for overbought) and require **both** RSI and MACD to show confirming divergences for higher conviction. Scan for setups at the close of candles to avoid intrabar noise.
+
+1. **Long Entry (Buy for Upside Reversion)**:
+   - Price makes a lower low (new swing low over last 5-10 bars).
+   - RSI shows bullish divergence: RSI makes a higher low (not confirming the price low) while in oversold territory (<30).
+   - MACD confirms: Histogram or signal line makes a higher low, diverging from price.
+   - Additional filters: Price is below the 20-period SMA (indicating deviation below mean); ADX < 25.
+   - Enter on the next candle open after confirmation. Position size: 1-2% of account risk.
+
+2. **Short Entry (Sell for Downside Reversion)**:
+   - Price makes a higher high (new swing high over last 5-10 bars).
+   - RSI shows bearish divergence: RSI makes a lower high (not confirming the price high) while in overbought territory (>70).
+   - MACD confirms: Histogram or signal line makes a lower high, diverging from price.
+   - Additional filters: Price is above the 20-period SMA; ADX < 25.
+   - Enter on the next candle open. Position size: 1-2% of account risk.
+
+No more than one open position per asset at a time. Avoid entries if VIX is already spiking (>25) to prevent counter-trend traps.
+
+### Exit Rules
+Exits balance profit-taking on reversion with volatility protection. Use a combination of mean-reversion targets and VIX triggers.
+
+1. **Profit Exit (Reversion Target)**:
+   - Long: Exit 50% of position when price crosses back above the 20-period SMA; trail the rest with a 1:1 risk-reward stop until RSI >50 or MACD histogram flips positive.
+   - Short: Exit 50% when price crosses below the 20-period SMA; trail the rest until RSI <50 or MACD histogram flips negative.
+   - Target overall profit: 1.5-2x the entry risk distance (e.g., if risking 1%, target 1.5-2%).
+
+2. **Volatility Exit (VIX Spike)**:
+   - Exit entire position immediately if VIX rises >20% above its 20-period SMA or breaches 25 (whichever is hit first). This acts as a hard stop during fear-driven spikes, which often invalidate mean-reversion setups.
+   - Rationale: High VIX correlates with breakouts or gaps, turning reversion trades into losers.
+
+3. **Time-Based Exit**: If no reversion after 5-10 bars, exit at market to avoid opportunity cost.
+
+### Risk Management
+- **Stop-Loss**: Place initial stop 1-2 ATR (Average True Range, 14-period) beyond the recent swing high/low. For longs: Below the divergence low; for shorts: Above the divergence high. Never risk >2% of total account per trade.
+- **Position Sizing**: Use Kelly Criterion or fixed fractional (1% risk). Max 5% portfolio exposure across all trades.
+- **Risk-Reward Ratio**: Minimum 1:1.5; aim for 1:2 in low-VIX environments.
+- **Drawdown Controls**: Pause trading if account drawdown >10% in a month. No pyramiding; diversify across 3-5 uncorrelated assets.
+- **Backtesting Notes**: Test with at least 5 years of data, incorporating commissions (0.01-0.05% per trade). Expect 40-60% win rate, with winners larger due to reversion captures. Adjust VIX thresholds for bull/bear markets (e.g., higher in bears).
+- **Common Pitfalls & Mitigations**: False divergences in trends—mitigated by ADX filter. VIX spikes during news—avoid trading around FOMC or earnings. Forward-test on demo before live.
+
+This strategy emphasizes confirmation to filter noise, making it robust for intermediate-term trades while the VIX exit adds a dynamic hedge against black-swan volatility.

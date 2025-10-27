@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests/T03_SqueezeBreakout_DEBUG_v5.py\", line 145, in <module>\n    stats = bt.run()\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 1170, in run\n    strategy.next()\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests/T03_SqueezeBreakout_DEBUG_v5.py\", line 83, in next\n    if self._i < self.lookback_squeeze + self.kc_period:\nAttributeError: 'SqueezeBreakout' object has no attribute '_i'\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests/T03_SqueezeBreakout_DEBUG_v5.py` failed. (See above for error)\n",
+  "execution_time": 1.084039,
+  "timestamp": "2025-10-25T06:12:43.875527"
+}

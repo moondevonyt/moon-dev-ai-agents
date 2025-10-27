@@ -3,6 +3,9 @@
 Built with love by Moon Dev 🚀
 """
 
+# 🔄 Exchange Selection
+EXCHANGE = 'solana'  # Options: 'solana', 'hyperliquid'
+
 # 💰 Trading Configuration
 USDC_ADDRESS = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"  # Never trade or close
 SOL_ADDRESS = "So11111111111111111111111111111111111111111"   # Never trade or close
@@ -11,21 +14,36 @@ SOL_ADDRESS = "So11111111111111111111111111111111111111111"   # Never trade or c
 EXCLUDED_TOKENS = [USDC_ADDRESS, SOL_ADDRESS]
 
 # Token List for Trading 📋
+# NOTE: Trading Agent now has its own token list - see src/agents/trading_agent.py lines 101-104
 MONITORED_TOKENS = [
-    '9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump',    # 🌬️ FART
-    # 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',    # 💵 USDC
-    'HeLp6NuQkmYB4pYWo2zYs22mESHXPQYzXbB8n4V98jwC',    # 🤖 AI16Z
-    # 'v62Jv9pwMTREWV9f6TetZfMafV254vo99p7HSF25BPr',     # 🎮 GG Solana
-    # 'KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP',   # GRIFFAIN
-    # '8x5VqbHA8D7NkD52uNuS5nnt3PwA3pLD34ymskeSo2Wn',    # 🧠 ZEREBRO
-    # 'Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump',    # 😎 CHILL GUY
-    # 'ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY',    # 🌙 MOODENG
-    # 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm',    # 🐕 WIF
+    # '9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump',    # 🌬️ FART
+    # 'DitHyRMQiSDhn5cnKMJV2CDDt6sVct96YrECiM49pump'     # housecoin
 ]
 
 # Moon Dev's Token Trading List 🚀
 # Each token is carefully selected by Moon Dev for maximum moon potential! 🌙
 tokens_to_trade = MONITORED_TOKENS  # Using the same list for trading
+
+# ⚡ HyperLiquid Configuration
+HYPERLIQUID_SYMBOLS = ['BTC', 'ETH', 'SOL']  # Symbols to trade on HyperLiquid perps
+HYPERLIQUID_LEVERAGE = 5  # Default leverage for HyperLiquid trades (1-50)
+
+# 🔄 Exchange-Specific Token Lists
+# Use this to determine which tokens/symbols to trade based on active exchange
+def get_active_tokens():
+    """Returns the appropriate token/symbol list based on active exchange"""
+    if EXCHANGE == 'hyperliquid':
+        return HYPERLIQUID_SYMBOLS
+    else:
+        return MONITORED_TOKENS
+
+# Token to Exchange Mapping (for future hybrid trading)
+TOKEN_EXCHANGE_MAP = {
+    'BTC': 'hyperliquid',
+    'ETH': 'hyperliquid',
+    'SOL': 'hyperliquid',
+    # All other tokens default to Solana
+}
 
 # Token and wallet settings
 symbol = '9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump'

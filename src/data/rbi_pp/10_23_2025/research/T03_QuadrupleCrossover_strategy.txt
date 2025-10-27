@@ -1,0 +1,64 @@
+STRATEGY_NAME: QuadrupleCrossover
+
+STRATEGY_DETAILS:
+
+### Overview
+The QuadrupleCrossover strategy is a momentum-based trend-following system that utilizes four simple moving averages (SMAs) of varying periods to identify potential trend shifts through crossover signals. This approach filters out noise by requiring alignment among multiple timeframes, reducing false signals compared to dual or triple MA crossovers. It is designed for trending markets (e.g., forex, stocks, or commodities on daily or 4-hour charts) and performs best in non-ranging conditions. The strategy emphasizes confirmation from shorter to longer MAs to capture sustained moves while incorporating risk controls to limit drawdowns.
+
+### Key Strategy Components
+1. **Indicators Required**:
+   - Four Simple Moving Averages (SMAs):
+     - SMA1 (Short-term): 5-period SMA (captures immediate price momentum).
+     - SMA2 (Fast-medium): 13-period SMA (smooths short-term noise).
+     - SMA3 (Medium-term): 26-period SMA (confirms intermediate trends).
+     - SMA4 (Long-term): 50-period SMA (anchors the overall trend direction).
+   - These periods are inspired by Fibonacci-inspired multiples (5, 13, 26, 50) for harmonic alignment, but can be adjusted (e.g., 10/20/50/200 for longer-term trading).
+   - Optional filter: Relative Strength Index (RSI, 14-period) with overbought (>70) and oversold (<30) thresholds to avoid entries in extreme conditions.
+   - Platform: Any charting software supporting SMAs (e.g., TradingView, MetaTrader).
+
+2. **Market Conditions**:
+   - Bullish bias: Enter only if the overall trend (SMA4) is rising.
+   - Avoid choppy or sideways markets; use Average True Range (ATR, 14-period) to confirm volatility > average (e.g., ATR > 1.5x 20-period average).
+
+### Entry Rules
+- **Long Entry (Buy Signal)**:
+  - SMA1 crosses above SMA2 (short-term bullish momentum).
+  - SMA2 is already above SMA3 (medium-term confirmation).
+  - SMA3 is above SMA4 (long-term trend alignment).
+  - All four SMAs are in ascending order (SMA1 > SMA2 > SMA3 > SMA4).
+  - RSI > 50 (momentum not oversold).
+  - Enter on the close of the bar where the SMA1-SMA2 crossover occurs, provided the above conditions hold.
+  
+- **Short Entry (Sell Signal)**:
+  - SMA1 crosses below SMA2 (short-term bearish momentum).
+  - SMA2 is already below SMA3 (medium-term confirmation).
+  - SMA3 is below SMA4 (long-term trend alignment).
+  - All four SMAs are in descending order (SMA1 < SMA2 < SMA3 < SMA4).
+  - RSI < 50 (momentum not overbought).
+  - Enter on the close of the bar where the SMA1-SMA2 crossover occurs.
+
+- **No-Trade Filters**:
+  - Skip if the crossover happens near major support/resistance levels (use pivot points).
+  - Maximum one position per asset; wait for exit before new entry.
+
+### Exit Rules
+- **Profit Target**:
+  - Trail stops using SMA3: For longs, exit if price closes below SMA3; for shorts, exit if price closes above SMA3.
+  - Fixed take-profit: 2x the ATR (14-period) from entry price for partial scaling (e.g., close 50% position at 1x ATR, trail the rest).
+
+- **Stop-Loss**:
+  - Initial stop: Place below the recent swing low (for longs) or above swing high (for shorts), at least 1x ATR away to account for volatility.
+  - Dynamic adjustment: Move stop to breakeven once price reaches 1x ATR profit, then trail using SMA2 for tighter control.
+
+- **Time-Based Exit**:
+  - Exit if no progress after 10 bars (to avoid stagnation in weak trends).
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1-2% of account equity per trade. Calculate position size as: (Account Equity * Risk %) / (Entry Price - Stop-Loss Distance).
+- **Maximum Drawdown**: Limit total open risk to 5% across all positions; pause trading if account drawdown exceeds 10% in a month.
+- **Leverage**: Use conservative leverage (1:5 max for forex); avoid over-leveraging in volatile assets.
+- **Diversification**: Apply to 3-5 uncorrelated assets (e.g., EUR/USD, Gold, S&P 500) to spread risk.
+- **Backtesting Guidelines**: Test on historical data (at least 5 years) with a minimum 1:1.5 risk-reward ratio. Optimize periods if win rate <55%, but avoid over-optimization (use walk-forward analysis).
+- **Psychological Notes**: This strategy generates fewer signals (2-4 per month per asset), so patience is key; journal trades to refine filters.
+
+This strategy's strength lies in its layered confirmation, minimizing whipsaws, but it may lag in fast reversals—pair with volume analysis for enhancement.

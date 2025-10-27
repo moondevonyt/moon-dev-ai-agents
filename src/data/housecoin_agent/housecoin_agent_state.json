@@ -1,0 +1,58 @@
+{
+  "daily_spent": 2,
+  "last_reset_date": "2025-10-21",
+  "last_buy_time": "2025-10-21T09:56:40.523844",
+  "buy_history": [
+    {
+      "time": "2025-10-21T09:56:40.523853",
+      "amount": 2,
+      "reason": "Price below both 20-day and 5-min SMAs - DCA accumulation signal",
+      "tx_id": "5iCXbYQMqW9N731usMxUoBkxVm7BrBE8NFUNHKXYwpHMoKY4VLZNsgT3HFnwS2NbrairnEex3N2UCERpC1Y8Sw6U"
+    }
+  ],
+  "total_bought": 2,
+  "ai_decisions": [
+    {
+      "time": "2025-10-21T09:40:08.735010",
+      "price": 0.0048915142032638,
+      "approved": true,
+      "response": "ModelResponse(content='BUY  \\nThe price is significantly below both the 20-day and 5-min SMAs at -32.29%, combined with an oversold RSI of 29.4, confirming a strong DCA entry point for accumulation du"
+    },
+    {
+      "time": "2025-10-21T09:43:03.946746",
+      "price": 0.0048915142032638,
+      "approved": true,
+      "response": "ModelResponse(content='BUY  \\nThe price is significantly below the 20-day SMA and shows an oversold RSI of 29.4, supporting a DCA accumulation entry to average down during this dip in a downtrend.', r"
+    },
+    {
+      "time": "2025-10-21T09:44:06.259874",
+      "price": 0.0048915142032638,
+      "approved": true,
+      "response": "ModelResponse(content='BUY  \\nThe current price is significantly below both the 20-day and 5-min SMAs (-32.29% deviation), combined with an oversold RSI of 29.4, confirming a strong DCA entry point fo"
+    },
+    {
+      "time": "2025-10-21T09:44:22.805887",
+      "price": 0.004891514203263878,
+      "approved": true,
+      "response": "ModelResponse(content='BUY  \\nThe price is significantly below both the 20-day and 5-min SMAs at -32.29%, with an oversold RSI of 29.4, making this a strong DCA entry point to accumulate during the di"
+    },
+    {
+      "time": "2025-10-21T09:46:15.165291",
+      "price": 0.0048915142032638,
+      "approved": true,
+      "response": "ModelResponse(content='BUY  \\nThe price is significantly below both the 20-day and 5-min SMAs at -32.29%, with an oversold RSI of 29.4, making this a strong DCA entry point for accumulation during the"
+    },
+    {
+      "time": "2025-10-21T09:47:19.040503",
+      "price": 0.0048915142032638,
+      "approved": true,
+      "response": "ModelResponse(content='BUY  \\nThe current price is significantly below both the 20-day and 5-min SMAs at -32.29%, combined with an oversold RSI of 29.4, supporting a DCA accumulation entry to average "
+    },
+    {
+      "time": "2025-10-21T09:56:38.992397",
+      "price": 0.0048558792140899,
+      "approved": true,
+      "response": "ModelResponse(content='BUY  \\nThe current price is significantly below both the 20-day SMA (-32.77%) and 5-min SMA, with an oversold RSI of 29.3, making this a strong DCA entry point to accumulate at "
+    }
+  ]
+}

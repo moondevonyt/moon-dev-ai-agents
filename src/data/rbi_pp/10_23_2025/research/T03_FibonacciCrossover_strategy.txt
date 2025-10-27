@@ -1,0 +1,64 @@
+STRATEGY_NAME: FibonacciCrossover
+
+STRATEGY_DETAILS:
+
+### Overview
+The FibonacciCrossover strategy integrates a quadruple moving average (quad MA) crossover system for trend identification and momentum confirmation with harmonic pattern recognition for precise reversal-based entries. This creates a confluence-based approach where the quad MA setup filters the overall market direction (bullish or bearish alignment), and harmonic patterns (derived from Fibonacci ratios) provide high-probability entry points at potential reversal zones. The strategy is designed for swing trading on timeframes like 1-hour to daily charts, suitable for forex, stocks, or indices. It emphasizes waiting for alignment between trend-following MAs and geometric price patterns to reduce false signals, leveraging the fractal nature of harmonics with the smoothing of multiple MAs.
+
+### Key Strategy Components
+1. **Quad Moving Average Crossover System**:
+   - Uses four Exponential Moving Averages (EMAs) to capture multi-layered trend dynamics: short-term (5-period EMA for immediate momentum), medium-short (13-period EMA, Fibonacci-inspired), medium-long (21-period EMA, another Fibonacci number), and long-term (55-period EMA for overall trend).
+   - Bullish alignment: The 5-EMA > 13-EMA > 21-EMA > 55-EMA (stacked upward).
+   - Bearish alignment: The 5-EMA < 13-EMA < 21-EMA < 55-EMA (stacked downward).
+   - Crossover signals: A bullish crossover occurs when the 5-EMA crosses above the 13-EMA, confirmed by the 21-EMA above the 55-EMA. A bearish crossover is the inverse. This setup acts as a filter, ignoring harmonic patterns unless the quad MAs are aligned in the same direction.
+
+2. **Harmonic Patterns Integration**:
+   - Focuses on key Fibonacci-based reversal patterns: Bullish Gartley, Bat, or Crab for buy signals (targeting XA retracement of 0.618-0.786 with AB=CD extensions); Bearish versions for sells.
+   - Patterns are identified using Fibonacci ratios: For a bullish Gartley, point B retraces XA by 0.618, point C retraces AB by 0.382-0.886, and point D completes at 0.786 XA with PRZ (Potential Reversal Zone) confluence.
+   - Harmonic scanner or manual charting is required; patterns must complete within the quad MA trend filter (e.g., no bullish harmonics in bearish MA alignment).
+   - Unique aspect: The strategy uses the 13- and 21-EMAs as dynamic support/resistance to validate harmonic legs (e.g., pattern point D must align near an EMA for added confluence).
+
+3. **Market Conditions**:
+   - Best in ranging to mildly trending markets; avoid high-volatility news events.
+   - Timeframe synergy: Scan harmonics on higher timeframes (e.g., daily) and confirm quad MA crossovers on lower (e.g., 4-hour) for multi-timeframe alignment.
+
+### Entry/Exit Rules
+1. **Entry Rules**:
+   - **Long Entry (Buy)**:
+     - Quad MA bullish alignment confirmed (5-EMA crosses above 13-EMA, with 21-EMA > 55-EMA).
+     - A bullish harmonic pattern (e.g., Gartley) completes at point D in the PRZ, with price action showing reversal (e.g., pin bar or engulfing candle).
+     - Enter on the close of the confirmation candle after point D, only if volume increases or RSI (14-period) > 40 (to avoid oversold traps).
+   - **Short Entry (Sell)**:
+     - Quad MA bearish alignment confirmed (5-EMA crosses below 13-EMA, with 21-EMA < 55-EMA).
+     - A bearish harmonic pattern completes at point D, with reversal confirmation.
+     - Enter on the close of the confirmation candle, with RSI < 60.
+   - No entry if harmonics form against the quad MA trend or if the pattern's invalidation level (e.g., beyond point X) is breached pre-completion.
+
+2. **Exit Rules**:
+   - **Profit Targets**:
+     - Primary target: Fibonacci extension from the harmonic pattern (e.g., 1.272 or 1.618 of AD leg), or the next quad MA resistance (e.g., 55-EMA for longs).
+     - Partial exits: Scale out 50% at 1:1 risk-reward, trail the rest using the 13-EMA as a dynamic stop.
+   - **Stop Loss**:
+     - Place below the harmonic pattern's point X (for longs) or above it (for shorts), typically 1-2% beyond to account for wicks.
+     - If no pattern invalidation, use the recent swing low/high adjusted by ATR (14-period) x 1.5.
+   - **Early Exit Signals**:
+     - Opposite quad MA crossover (e.g., 5-EMA crosses below 13-EMA in a long position).
+     - Harmonic pattern failure (price breaks the PRZ without reversal).
+     - Trailing stop: Move to breakeven after 1:1 reward, then trail at 2x ATR from entry.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1% of account equity per trade. Calculate position size as: (Account Balance x 0.01) / (Entry Price - Stop Loss Price). For example, on a $10,000 account with a 50-pip stop, risk $100, so position size = $100 / (50 pips x pip value).
+- **Maximum Exposure**: Limit to 3-5 open trades; no more than 3% total risk across all positions. Avoid trading if drawdown exceeds 5% in a week.
+- **Risk-Reward Ratio**: Minimum 1:2 (e.g., 50-pip stop targets 100-pip profit). Skip trades not meeting this.
+- **Additional Filters**: Use ATR (14-period) to adjust stops in volatile markets (wider stops if ATR > average). Incorporate a 200-period SMA as a macro trend filter—only long above it, short below. Backtest for win rate >55% and profit factor >1.5 before live use.
+- **Psychological Rules**: Journal all trades; pause after 3 consecutive losses. No revenge trading.
+
+### Required Indicators and Tools
+- **Core Indicators**:
+  - Four EMAs: 5-period, 13-period, 21-period, 55-period (plotted on price chart for visual alignment).
+  - RSI (14-period) for momentum confirmation (overbought/oversold filter).
+  - ATR (14-period) for volatility-based stops and position sizing.
+- **Harmonic Tools**:
+  - Harmonic pattern scanner/indicator (e.g., via TradingView's built-in or custom script like "Harmonic Pattern Detection" using ZigZag for legs and Fibonacci retracement tool).
+  - Fibonacci retracement/extension tool for manual validation of patterns (ratios: 0.382, 0.618, 0.786, 1.272, 1.618).
+- **Platform Recommendations**: MetaTrader 4/5 or TradingView with alerts for MA crossovers and pattern completions. Backtesting via historical data to optimize EMA periods for specific assets (e.g., adjust to 8/21/34/89 for crypto). No automated execution assumed—manual confirmation required for pattern accuracy.

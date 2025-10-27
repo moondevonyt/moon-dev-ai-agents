@@ -1,0 +1,48 @@
+STRATEGY_NAME: SqueezeBreakout
+
+STRATEGY_DETAILS:
+
+### Key Strategy Components
+This intraday trading strategy, SqueezeBreakout, leverages Bollinger Bands (BB) to identify periods of low volatility (known as "squeezes") followed by high-volatility breakouts, optimized for short-term trades within a single trading session (e.g., on 5-minute or 15-minute charts for stocks, forex, or indices). The core idea is to detect when the bands contract (indicating a potential buildup of energy) and then enter trades on directional breakouts from the squeeze, capitalizing on the volatility expansion typical in intraday markets. It combines BB with a momentum filter (like Keltner Channels for squeeze confirmation) to avoid false signals. Trades are executed during active market hours (e.g., 9:30 AM - 4:00 PM ET for US stocks) and closed by session end to minimize overnight risk. This approach suits volatile assets like tech stocks or currency pairs, focusing on 10-50 pip or point moves per trade.
+
+### Required Indicators
+- **Bollinger Bands (BB)**: Period 20, standard deviation 2 (default settings). The middle band is a 20-period Simple Moving Average (SMA); upper/lower bands are ±2 standard deviations from the SMA.
+- **Keltner Channels (KC)**: Period 20, multiplier 1.5 (for squeeze confirmation). This overlays on BB to spot contractions (when BB width is narrower than KC).
+- **Volume Oscillator** (optional filter): 14-period (short) vs. 28-period (long) moving average of volume, to confirm breakouts with rising volume.
+- **Chart Timeframe**: 5-minute or 15-minute for entries; use a higher timeframe (e.g., 1-hour) for overall session trend context.
+- Platform: Any charting tool like TradingView, MetaTrader, or Thinkorswim that supports these indicators.
+
+### Entry Rules
+1. **Identify the Squeeze**: Wait for a Bollinger Band squeeze, where the BB width (upper band minus lower band) is at its lowest in the past 6-12 bars, and the BB is fully inside the Keltner Channels (indicating low volatility and potential consolidation).
+2. **Breakout Confirmation**:
+   - **Long Entry (Buy)**: Price closes above the upper BB after the squeeze ends, with the BB starting to expand (upper band sloping upward). Confirm with:
+     - Volume oscillator rising above zero (increasing volume).
+     - Optional: Price above the 20-period SMA for bullish bias.
+   - **Short Entry (Sell)**: Price closes below the lower BB after the squeeze ends, with the BB expanding downward. Confirm with:
+     - Volume oscillator rising (for shorts, focus on spike rather than direction).
+     - Optional: Price below the 20-period SMA for bearish bias.
+3. **Filters**:
+   - Only trade in the direction of the broader session trend (e.g., use 1-hour chart to avoid counter-trend trades).
+   - Avoid entries near major news events (e.g., FOMC announcements) to prevent whipsaws.
+   - Maximum 2-3 trades per session to focus on high-quality setups.
+4. Enter on the close of the confirming bar or via a limit order just beyond the band.
+
+### Exit Rules
+1. **Profit Targets**:
+   - Initial target: 1:1 or 1:2 risk-reward ratio based on entry (e.g., if risking 10 points, target 10-20 points).
+   - Trailing Stop: Once price moves 1x the BB width in your favor, trail the stop to the middle BB (SMA) or use a 20-period ATR (Average True Range) trailing stop for dynamic exits.
+   - Alternative: Exit at the opposite band (e.g., sell at upper BB for longs) if momentum fades.
+2. **Stop-Loss**:
+   - Place initial stop 1x ATR below the recent swing low (for longs) or above swing high (for shorts), or just beyond the opposite BB (e.g., below lower BB for longs).
+   - Maximum stop: 0.5-1% of account per trade.
+3. **Time-Based Exit**: Close all positions 15-30 minutes before session end (e.g., 3:45 PM ET) to avoid end-of-day volatility spikes.
+4. **Early Exit Signals**: Exit if price re-enters the squeeze (bands contract again) or if volume oscillator drops below zero, indicating loss of momentum.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1% of total account per trade. For a $10,000 account, max risk $100 (e.g., if stop is 20 pips away, position size = $100 / (20 pips * pip value)).
+- **Daily Limits**: Cap total daily risk at 3% of account; stop trading after 2 consecutive losses or if drawdown hits 2%.
+- **Win Rate Expectation**: Aim for 55-65% win rate with 1:1.5 average reward:risk, focusing on 5-10 trades per week.
+- **Backtesting Notes**: Test on historical intraday data (e.g., last 6 months) for your asset; adjust BB/KC periods if market volatility changes (e.g., widen std dev to 2.5 in low-vol environments).
+- **Psychological Rules**: Journal every trade with screenshots of squeeze/breakout; avoid revenge trading after losses. Use demo accounts initially for live-session practice.
+
+This strategy excels in ranging-to-trending intraday transitions but performs poorly in prolonged low-volatility chops—always combine with market regime awareness (e.g., via VIX levels >20 for better breakouts).

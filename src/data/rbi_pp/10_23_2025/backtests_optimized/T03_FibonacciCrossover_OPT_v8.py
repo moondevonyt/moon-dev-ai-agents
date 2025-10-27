@@ -1,0 +1,237 @@
+from backtesting import Backtest, Strategy
+import talib
+import pandas as pd
+import numpy as np
+
+# Load and prepare data
+data_path = '/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv'
+data = pd.read_csv(data_path)
+data.columns = data.columns.str.strip().str.lower()
+data = data.drop(columns=[col for col in data.columns if 'unnamed' in col.lower()])
+data = data.rename(columns={
+    'open': 'Open',
+    'high': 'High',
+    'low': 'Low',
+    'close': 'Close',
+    'volume': 'Volume'
+})
+data = data.set_index(pd.to_datetime(data['datetime']))
+data = data.drop(columns=['datetime'], errors='ignore')
+
+class FibonacciCrossover(Strategy):
+    ema5_period = 5
+    ema13_period = 13
+    ema21_period = 21
+    ema55_period = 55
+    rsi_period = 14
+    atr_period = 14
+    sma200_period = 200
+    volume_ma_period = 20
+    adx_period = 14  # 🌙 Moon Dev: Added ADX for trend strength filter to avoid choppy markets and improve entry quality
+    adx_threshold = 20  # 🌙 Moon Dev: Lowered ADX threshold from 25 to 20 to allow more trending opportunities while maintaining regime filter
+    risk_per_trade = 0.01  # 🌙 Moon Dev: Increased risk per trade from 0.005 to 0.01 to accelerate returns toward 50% target with controlled exposure
+    rr_ratio = 5  # 🌙 Moon Dev: Increased RR ratio from 4 to 5 to capture even larger rewards in strong BTC trends
+    atr_multiplier_sl = 2.0  # 🌙 Moon Dev: Maintained SL multiplier at 2.0 for 15m volatility tolerance
+    confluence_threshold = 0.01  # 🌙 Moon Dev: Loosened confluence threshold from 0.005 to 0.01 for more frequent high-quality pullback entries near EMA21 (Fib level)
+    volume_mult = 1.5  # 🌙 Moon Dev: Reduced volume multiplier from 2.0 to 1.5 to increase trade frequency without sacrificing conviction
+    rsi_long_threshold = 50  # 🌙 Moon Dev: Loosened RSI long threshold from 55 to 50 for broader bullish momentum capture
+    rsi_short_threshold = 50  # 🌙 Moon Dev: Loosened RSI short threshold from 45 to 50 for broader bearish momentum capture
+    atr_trail_mult = 1.5  # 🌙 Moon Dev: New trailing stop multiplier at 1.5 ATR to lock in profits dynamically during trends
+    trail_entry_mult = 1.0  # 🌙 Moon Dev: New trail activation after 1.0 ATR in profit to balance early protection and trend riding
+
+    def init(self):
+        close = self.data.Close
+        high = self.data.High
+        low = self.data.Low
+        volume = self.data.Volume
+
+        self.ema5 = self.I(talib.EMA, close, timeperiod=self.ema5_period)
+        self.ema13 = self.I(talib.EMA, close, timeperiod=self.ema13_period)
+        self.ema21 = self.I(talib.EMA, close, timeperiod=self.ema21_period)
+        self.ema55 = self.I(talib.EMA, close, timeperiod=self.ema55_period)
+        self.sma200 = self.I(talib.SMA, close, timeperiod=self.sma200_period)
+        self.rsi = self.I(talib.RSI, close, timeperiod=self.rsi_period)
+        self.atr = self.I(talib.ATR, high, low, close, timeperiod=self.atr_period)
+        self.volume_ma = self.I(talib.SMA, volume, timeperiod=self.volume_ma_period)
+        self.adx = self.I(talib.ADX, high, low, close, timeperiod=self.adx_period)  # 🌙 Moon Dev: Initialized ADX to filter for trending regimes only
+
+        print("🌙 Moon Dev: Initialized Optimized FibonacciCrossover Strategy with ADX Trend Filter, Loosened Filters, and ATR Trailing Stops for Higher Returns ✨")
+
+    def next(self):
+        current_close = self.data.Close[-1]
+        current_high = self.data.High[-1]
+        current_low = self.data.Low[-1]
+        current_volume = self.data.Volume[-1]
+        current_rsi = self.rsi[-1]
+        current_atr = self.atr[-1]
+        current_ema21 = self.ema21[-1]
+        current_adx = self.adx[-1]  # 🌙 Moon Dev: Retrieve current ADX for trend strength check
+
+        # Manual SL/TP management (checked at end of bar, close at close price - approximation)
+        if self.position:
+            if hasattr(self, 'sl') and hasattr(self, 'tp'):
+                if self.position.is_long:
+                    if current_low <= self.sl:
+                        self.position.close()
+                        print(f"🌙 Moon Dev: LONG hit SL {self.sl} (low: {current_low}), closing at {current_close} 💥")
+                        if hasattr(self, 'sl'): del self.sl
+                        if hasattr(self, 'tp'): del self.tp
+                        if hasattr(self, 'entry_price'): del self.entry_price
+                        return
+                    elif current_high >= self.tp:
+                        self.position.close()
+                        print(f"🌙 Moon Dev: LONG hit TP {self.tp} (high: {current_high}), closing at {current_close} 🎯")
+                        if hasattr(self, 'sl'): del self.sl
+                        if hasattr(self, 'tp'): del self.tp
+                        if hasattr(self, 'entry_price'): del self.entry_price
+                        return
+                elif self.position.is_short:
+                    if current_high >= self.sl:
+                        self.position.close()
+                        print(f"🌙 Moon Dev: SHORT hit SL {self.sl} (high: {current_high}), closing at {current_close} 💥")
+                        if hasattr(self, 'sl'): del self.sl
+                        if hasattr(self, 'tp'): del self.tp
+                        if hasattr(self, 'entry_price'): del self.entry_price
+                        return
+                    elif current_low <= self.tp:
+                        self.position.close()
+                        print(f"🌙 Moon Dev: SHORT hit TP {self.tp} (low: {current_low}), closing at {current_close} 🎯")
+                        if hasattr(self, 'sl'): del self.sl
+                        if hasattr(self, 'tp'): del self.tp
+                        if hasattr(self, 'entry_price'): del self.entry_price
+                        return
+
+        # Trailing stop logic after SL/TP checks (only if still in position)
+        if self.position and hasattr(self, 'entry_price') and hasattr(self, 'sl'):
+            if self.position.is_long:
+                trail_start = self.entry_price + current_atr * self.trail_entry_mult
+                if current_close > trail_start:
+                    new_sl = current_close - current_atr * self.atr_trail_mult
+                    if new_sl > self.sl:
+                        old_sl = self.sl
+                        self.sl = new_sl
+                        print(f"🌙 Moon Dev: Trailed LONG SL from {old_sl:.2f} to {self.sl:.2f} at close {current_close} (ATR: {current_atr:.2f}) 🔄")
+            elif self.position.is_short:
+                trail_start = self.entry_price - current_atr * self.trail_entry_mult
+                if current_close < trail_start:
+                    new_sl = current_close + current_atr * self.atr_trail_mult
+                    if new_sl < self.sl:
+                        old_sl = self.sl
+                        self.sl = new_sl
+                        print(f"🌙 Moon Dev: Trailed SHORT SL from {old_sl:.2f} to {self.sl:.2f} at close {current_close} (ATR: {current_atr:.2f}) 🔄")
+
+        # Approximate harmonic confluence in next (using latest) - loosened for more entries
+        harmonic_long = abs(current_close - current_ema21) / current_ema21 < self.confluence_threshold
+        harmonic_short = abs(current_close - current_ema21) / current_ema21 < self.confluence_threshold
+
+        # Early exit on opposite crossover
+        if self.position.is_long:
+            if self.ema5[-2] > self.ema13[-2] and self.ema5[-1] < self.ema13[-1]:
+                self.position.close()
+                print(f"🌙 Moon Dev: Closed Long on Bearish Crossover at {self.data.index[-1]} 📉")
+                if hasattr(self, 'sl'): del self.sl
+                if hasattr(self, 'tp'): del self.tp
+                if hasattr(self, 'entry_price'): del self.entry_price
+                return
+
+        if self.position.is_short:
+            if self.ema5[-2] < self.ema13[-2] and self.ema5[-1] > self.ema13[-1]:
+                self.position.close()
+                print(f"🌙 Moon Dev: Closed Short on Bullish Crossover at {self.data.index[-1]} 📈")
+                if hasattr(self, 'sl'): del self.sl
+                if hasattr(self, 'tp'): del self.tp
+                if hasattr(self, 'entry_price'): del self.entry_price
+                return
+
+        # Long Entry - Enhanced with ADX >20, RSI (>50), EMA55 > SMA200 for long-term uptrend, and volume >1.5x MA
+        if (not self.position and
+            self.ema5[-2] < self.ema13[-2] and self.ema5[-1] > self.ema13[-1] and
+            self.ema21[-1] > self.ema55[-1] and
+            self.ema13[-1] > self.ema21[-1] and
+            self.ema55[-1] > self.sma200[-1] and  # 🌙 Moon Dev: Kept EMA55 > SMA200 filter to confirm long-term uptrend alignment, reducing counter-trend trades
+            current_rsi > self.rsi_long_threshold and  # 🌙 Moon Dev: Loosened RSI to >50 for increased entry opportunities with solid momentum
+            current_close > self.sma200[-1] and
+            current_volume > self.volume_mult * self.volume_ma[-1] and  # 🌙 Moon Dev: Reduced volume filter to 1.5x MA for higher trade frequency with strong participation
+            current_adx > self.adx_threshold and  # 🌙 Moon Dev: Kept ADX filter (now at 20) to ensure trending market, avoiding ranging/choppy conditions
+            harmonic_long):
+            
+            if np.isnan(current_atr) or current_atr <= 0:
+                print("🌙 Moon Dev: Skipping LONG due to invalid ATR")
+                return
+            
+            sl_distance = current_atr * self.atr_multiplier_sl
+            risk_amount = self.equity * self.risk_per_trade
+            position_size = risk_amount / sl_distance  # 🌙 Moon Dev: Use float position sizing for precision in risk management
+            
+            if position_size <= 0:
+                print("🌙 Moon Dev: Skipping LONG due to zero size")
+                return
+            
+            sl_price = current_close - sl_distance
+            tp_distance = sl_distance * self.rr_ratio
+            tp_price = current_close + tp_distance
+            
+            if sl_price >= current_close or tp_price <= current_close:
+                print(f"🌙 Moon Dev: Skipping LONG due to invalid levels - SL:{sl_price} Entry:{current_close} TP:{tp_price}")
+                return
+            
+            max_size = self.equity / current_close  # 🌙 Moon Dev: Float max size for accurate equity allocation
+            position_size = min(position_size, max_size)
+            
+            if position_size <= 0:
+                return
+            
+            self.buy(size=position_size)
+            self.sl = sl_price
+            self.tp = tp_price
+            self.entry_price = current_close  # 🌙 Moon Dev: Set entry price for trailing stop activation
+            print(f"🌙 Moon Dev: LONG Entry at {current_close} | SL: {sl_price} | TP: {tp_price} | Size: {position_size:.4f} | ADX: {current_adx:.2f} 🚀 Enhanced Trend-Filtered Entry with Trailing Potential Confirmed ✨")
+
+        # Short Entry - Enhanced with ADX >20, RSI (<50), EMA55 < SMA200 for long-term downtrend, and volume >1.5x MA
+        elif (not self.position and
+              self.ema5[-2] > self.ema13[-2] and self.ema5[-1] < self.ema13[-1] and
+              self.ema21[-1] < self.ema55[-1] and
+              self.ema13[-1] < self.ema21[-1] and
+              self.ema55[-1] < self.sma200[-1] and  # 🌙 Moon Dev: Kept EMA55 < SMA200 filter to confirm long-term downtrend alignment, reducing counter-trend trades
+              current_rsi < self.rsi_short_threshold and  # 🌙 Moon Dev: Loosened RSI to <50 for increased entry opportunities with solid momentum
+              current_close < self.sma200[-1] and
+              current_volume > self.volume_mult * self.volume_ma[-1] and  # 🌙 Moon Dev: Reduced volume filter to 1.5x MA for higher trade frequency with strong participation
+              current_adx > self.adx_threshold and  # 🌙 Moon Dev: Kept ADX filter (now at 20) to ensure trending market, avoiding ranging/choppy conditions
+              harmonic_short):
+            
+            if np.isnan(current_atr) or current_atr <= 0:
+                print("🌙 Moon Dev: Skipping SHORT due to invalid ATR")
+                return
+            
+            sl_distance = current_atr * self.atr_multiplier_sl
+            risk_amount = self.equity * self.risk_per_trade
+            position_size = risk_amount / sl_distance  # 🌙 Moon Dev: Use float position sizing for precision in risk management
+            
+            if position_size <= 0:
+                print("🌙 Moon Dev: Skipping SHORT due to zero size")
+                return
+            
+            sl_price = current_close + sl_distance
+            tp_distance = sl_distance * self.rr_ratio
+            tp_price = current_close - tp_distance
+            
+            if sl_price <= current_close or tp_price >= current_close:
+                print(f"🌙 Moon Dev: Skipping SHORT due to invalid levels - SL:{sl_price} Entry:{current_close} TP:{tp_price}")
+                return
+            
+            max_size = self.equity / current_close  # 🌙 Moon Dev: Float max size for accurate equity allocation
+            position_size = min(position_size, max_size)
+            
+            if position_size <= 0:
+                return
+            
+            self.sell(size=position_size)
+            self.sl = sl_price
+            self.tp = tp_price
+            self.entry_price = current_close  # 🌙 Moon Dev: Set entry price for trailing stop activation
+            print(f"🌙 Moon Dev: SHORT Entry at {current_close} | SL: {sl_price} | TP: {tp_price} | Size: {position_size:.4f} | ADX: {current_adx:.2f} 📉 Enhanced Trend-Filtered Entry with Trailing Potential Confirmed ✨")
+
+# Run backtest
+bt = Backtest(data, FibonacciCrossover, cash=1_000_000, commission=0.002, exclusive_orders=True)
+stats = bt.run()
+print(stats)

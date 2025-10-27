@@ -1,0 +1,45 @@
+STRATEGY_NAME: ClimaxReversal
+
+STRATEGY_DETAILS:
+
+### Key Strategy Components
+The ClimaxReversal strategy focuses on identifying "exhaustion gaps" in price action, which are sharp price gaps that occur at the peak or trough of a strong trend, signaling potential trend exhaustion and an impending reversal. These gaps typically form after extended rallies or declines, often accompanied by high volume initially but fading momentum, indicating that buyers (in uptrends) or sellers (in downtrends) are running out of steam. The strategy combines gap analysis with momentum indicators to filter false signals, emphasizing reversal trades rather than continuation. It works best in volatile markets like stocks, forex, or indices on daily or 4-hour charts, avoiding low-volume environments where gaps may not fill reliably.
+
+Core elements include:
+- **Trend Identification**: Confirm an established trend (e.g., using a 50-period moving average or ADX > 25) before looking for exhaustion.
+- **Gap Detection**: A gap must be at least 0.5-1% of the asset's price (adjustable based on volatility) and occur after 5+ consecutive directional bars.
+- **Exhaustion Confirmation**: Low subsequent volume on the gap day or divergence in momentum oscillators, distinguishing it from breakout gaps.
+- **Reversal Bias**: Trade against the prevailing trend direction, fading the gap as it often fills partially or fully within 3-5 bars.
+
+### Entry/Exit Rules
+**Entry Rules**:
+- **Long Entry (Bullish Reversal)**: In a downtrend, spot an exhaustion gap downward (open significantly below prior close). Enter long if:
+  - The gap occurs after a prolonged decline (e.g., RSI < 20 for oversold).
+  - Confirmation: Next bar closes above the gap's open or shows a bullish candlestick (e.g., hammer/doji). Volume on the gap bar is high but drops on the confirmation bar.
+  - Additional filter: Price holds above the gap low, and a momentum indicator like Stochastic (%K > %D crossover) turns up.
+- **Short Entry (Bearish Reversal)**: In an uptrend, identify an exhaustion gap upward (open significantly above prior close). Enter short if:
+  - The gap follows a sustained rally (e.g., RSI > 80 for overbought).
+  - Confirmation: Next bar closes below the gap's open with bearish candlestick (e.g., shooting star). Volume spikes on gap but fades afterward.
+  - Additional filter: Price rejects the gap high, and Stochastic shows %K < %D crossover.
+- Position size: 1-2% of account per trade; enter on confirmation bar close to avoid whipsaws.
+
+**Exit Rules**:
+- **Profit Target**: Aim for the gap to fill (price returns to pre-gap level), typically 50-100% of the gap size. Alternatively, trail stops using a 20-period EMA or exit at a 1:2 risk-reward ratio.
+- **Stop Loss**: Place below the gap low (for longs) or above the gap high (for shorts), adding a 0.5-1% buffer for volatility. If no fill after 5 bars, exit to avoid ranging markets.
+- **Time-Based Exit**: Close positions after 3-7 bars if no reversal materializes, as exhaustion gaps lose predictive power over time.
+- Partial exits: Scale out 50% at 50% gap fill, letting the rest run with a trailing stop.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1% of total capital per trade, calculated as (stop loss distance × position size) ≤ 1% account equity. Use ATR (14-period) to adjust stops dynamically (e.g., stop = entry ± 1.5 × ATR).
+- **Maximum Exposure**: Limit to 3-5 open trades; avoid trading during major news events (e.g., earnings for stocks) to prevent false gaps.
+- **Win Rate and Drawdown Control**: Expect 40-60% win rate due to false gap signals; backtest for >1.5 profit factor. Implement a daily loss limit of 2-3% to pause trading.
+- **Diversification**: Apply across 5-10 uncorrelated assets; avoid overleveraging (max 1:5 for forex).
+- **Psychological Rules**: Journal trades to track gap fill rates; skip setups without volume confirmation to reduce emotional entries.
+
+### Required Indicators
+- **Volume Oscillator**: To confirm exhaustion (e.g., high volume on gap bar, then divergence or drop below 20-period average).
+- **RSI (14-period)**: Identifies overbought (>70) or oversold (<30) conditions preceding the gap.
+- **Stochastic Oscillator (14,3,3)**: For divergence and crossover signals on confirmation bars.
+- **Moving Averages (50/200-period SMA)**: To define trend direction and potential support/resistance.
+- **ATR (14-period)**: For volatility-adjusted stop losses and gap size thresholds.
+- No advanced tools needed; standard charting platforms like TradingView suffice. Backtest on historical data to optimize parameters for specific assets.

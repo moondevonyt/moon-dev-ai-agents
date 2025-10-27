@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_23_2025/backtests_package/T00_StochasticHarmony_PKG.py\", line 145, in <module>\n    stats = bt.run()\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 1139, in run\n    strategy.init()\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_23_2025/backtests_package/T00_StochasticHarmony_PKG.py\", line 22, in init\n    self.stochrsi, self.k, self.d = self.I(talib.STOCHRSI, self.data.Close, timeperiod=14, fastk_period=14, fastd_period=3)\nValueError: not enough values to unpack (expected 3, got 2)\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_23_2025/backtests_package/T00_StochasticHarmony_PKG.py` failed. (See above for error)\n",
+  "execution_time": 1.168543,
+  "timestamp": "2025-10-23T10:00:39.328942"
+}

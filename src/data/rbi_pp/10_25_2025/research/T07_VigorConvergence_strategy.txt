@@ -1,0 +1,69 @@
+STRATEGY_NAME: VigorConvergence
+
+STRATEGY_DETAILS:
+
+### Key Strategy Components
+This strategy, VigorConvergence, combines the Moving Average Convergence Divergence (MACD) indicator for identifying momentum shifts and potential trend reversals with the Average Directional Index (ADX) to filter trades based on trend strength. The core idea is to use MACD's crossover signals for entry timing while requiring ADX to confirm a sufficiently strong trend, avoiding whipsaws in ranging markets. This creates a "convergent vigor" approach: momentum convergence (MACD) validated by directional vigor (ADX). It's suited for trending markets like forex pairs, stocks, or indices on timeframes from 1-hour to daily charts. The strategy emphasizes high-probability entries by only trading when both indicators align, reducing false signals in low-volatility conditions.
+
+### Required Indicators
+1. **MACD (Moving Average Convergence Divergence)**:
+   - Parameters: Fast EMA = 12 periods, Slow EMA = 26 periods, Signal line = 9-period EMA of MACD line.
+   - Usage: Monitors the difference between short- and long-term EMAs to detect momentum changes. Key signals are crossovers between the MACD line and signal line, as well as histogram expansions/contractions for confirmation.
+   
+2. **ADX (Average Directional Index)**:
+   - Parameters: 14 periods (standard).
+   - Usage: Measures trend strength (regardless of direction). Values above 25 indicate a strong trend; below 20 suggests a weak or ranging market. Incorporate the Directional Movement Index (DMI) components: +DI (positive directional indicator) and -DI (negative directional indicator) to confirm bullish (+DI > -DI) or bearish (-DI > +DI) bias.
+
+No additional indicators are required, but volume or ATR (Average True Range, 14 periods) can be added optionally for enhanced risk sizing.
+
+### Entry Rules
+Trades are entered only when MACD provides a momentum signal and ADX confirms trend vigor (ADX > 25). This ensures entries occur in established trends, filtering out noise.
+
+- **Long Entry (Buy)**:
+  - MACD line crosses above the signal line (bullish crossover), indicating building upward momentum.
+  - ADX > 25 (strong trend strength).
+  - +DI > -DI (bullish directional bias from DMI).
+  - Optional confirmation: MACD histogram expanding positively (bars growing taller above zero).
+  - Enter on the close of the candle confirming the crossover.
+
+- **Short Entry (Sell)**:
+  - MACD line crosses below the signal line (bearish crossover), indicating building downward momentum.
+  - ADX > 25 (strong trend strength).
+  - -DI > +DI (bearish directional bias from DMI).
+  - Optional confirmation: MACD histogram expanding negatively (bars growing taller below zero).
+  - Enter on the close of the candle confirming the crossover.
+
+Avoid entries if ADX is between 20-25 (indecisive) or if the market is in a clear range (e.g., ADX < 20 for multiple periods). Maximum one position per asset at a time; skip if recent entry conditions were met within the last 5-10 bars to prevent overtrading.
+
+### Exit Rules
+Exits balance profit-taking with trend continuation, using MACD for reversal signals and ADX for trend exhaustion.
+
+- **Profit Exit**:
+  - Take partial profits (e.g., 50% of position) at a 2:1 reward-to-risk ratio based on entry risk (calculated from stop loss).
+  - Trail the remaining position using a moving average (e.g., 20-period EMA) or ATR multiple (e.g., 2x ATR from entry) once in profit by 1:1 RR.
+  - Full exit on opposite MACD crossover (e.g., MACD line crosses below signal for longs).
+
+- **Stop Loss Exit**:
+  - For longs: Place stop loss below the recent swing low (last 5-10 bars) or 1-2 ATR below entry.
+  - For shorts: Place stop loss above the recent swing high or 1-2 ATR above entry.
+  - Emergency exit if ADX drops below 20 (trend weakening, signaling potential reversal).
+
+- **Time-Based Exit**:
+  - If no exit signal within 10-20 bars (depending on timeframe), close the trade to avoid stagnation.
+
+Target overall win rate of 45-55% with a profit factor >1.5 through strict filtering.
+
+### Risk Management
+Risk is controlled to preserve capital in volatile markets, with a focus on position sizing and drawdown limits.
+
+- **Position Sizing**: Risk no more than 1-2% of total account equity per trade. Calculate position size as: (Account Equity * Risk %) / (Entry Price - Stop Loss Distance). For example, on a $10,000 account risking 1%, max loss per trade is $100.
+  
+- **Stop Loss and Take Profit**: Always use a hard stop loss as defined in exits. Aim for at least 1.5:1 to 2:1 reward-to-risk ratio minimum per trade. Use ATR for dynamic stops in volatile assets (e.g., stop = entry ± 1.5 ATR).
+
+- **Overall Portfolio Rules**:
+  - Maximum concurrent trades: 3-5 across uncorrelated assets to diversify.
+  - Daily/Weekly Drawdown Limit: Pause trading if account drawdown exceeds 5% daily or 10% weekly.
+  - Backtesting Requirement: Test on historical data (at least 5 years) using walk-forward optimization to validate parameters. Avoid over-optimization by sticking to default settings unless market-specific adjustments are needed (e.g., ADX threshold to 30 for high-volatility pairs like GBP/JPY).
+  - Leverage: Limit to 1:10 or less for forex; use margin cautiously for stocks.
+
+This strategy performs best in trending environments (e.g., bull/bear markets) but underperforms in sideways conditions due to the ADX filter. Monitor for divergences (e.g., price highs with MACD lows) as early warnings for manual overrides.

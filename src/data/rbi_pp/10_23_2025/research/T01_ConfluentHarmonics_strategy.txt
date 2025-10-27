@@ -1,0 +1,61 @@
+STRATEGY_NAME: ConfluentHarmonics
+
+STRATEGY_DETAILS:
+
+### Key Strategy Components
+This strategy, ConfluentHarmonics, integrates Harmonic Patterns as the primary reversal signal generator with Bollinger Bands for volatility-based timing and confirmation, and the Average Directional Index (ADX) as a trend strength filter to avoid weak or choppy markets. The core philosophy is confluence: Harmonic Patterns (e.g., Gartley, Bat, Butterfly, Crab, or Cypher) identify high-probability reversal zones based on Fibonacci ratios, Bollinger Bands assess if the market is in a volatility contraction (squeeze) or expansion phase to time entries, and ADX ensures the setup occurs in a sufficiently strong trend context (for reversal potential) without excessive noise. This combination aims to capture reversals in trending markets during periods of building volatility, reducing false signals in ranging conditions. The strategy is suited for higher timeframes (e.g., 1H, 4H, daily) on forex, stocks, or indices, where harmonic patterns are more reliable.
+
+### Required Indicators
+1. **Harmonic Patterns**: Use a charting platform or scanner (e.g., TradingView's built-in harmonic tool, or custom Fibonacci-based identification) to detect completed patterns. Focus on validated patterns with precise Fibonacci retracements/extensions (e.g., XA leg retraced 61.8% for AB=CD, or 78.6% for Gartley). Manual validation is recommended for accuracy.
+2. **Bollinger Bands (BB)**: Standard settings of 20-period Simple Moving Average (SMA) with 2 standard deviations. Key signals include:
+   - Band squeeze (bands narrowing, typically when bandwidth < 0.1 or visually tight) indicating low volatility and impending breakout.
+   - Price touching or piercing the lower/upper band for oversold/overbought confirmation.
+3. **Average Directional Index (ADX)**: 14-period setting. Thresholds:
+   - ADX > 25: Confirms strong trend strength (essential for harmonic reversals to avoid ranging markets).
+   - ADX rising but < 40: Ideal for reversal setups, as it shows trend momentum without overextension.
+   - Optional: Monitor +DI/-DI lines for directional bias (e.g., +DI > -DI for bullish setups).
+
+No additional oscillators (e.g., RSI) are required, keeping the strategy focused on price action, volatility, and trend.
+
+### Entry Rules
+Entries are taken only on confluence of all three components, prioritizing bullish or bearish harmonic completions at key reversal points. Wait for pattern validation (e.g., price action confirming the final leg without invalidation).
+
+- **Bullish Entry (Reversal from Downtrend)**:
+  1. Identify a completed bullish Harmonic Pattern (e.g., Bullish Gartley or Bat) where the Potential Reversal Zone (PRZ) aligns with a Fibonacci support level.
+  2. Confirm trend context with ADX > 25 and +DI crossing above -DI (or ADX rising from below 25), indicating a weakening downtrend ripe for reversal.
+  3. Bollinger Band confirmation: Price touches or closes near the lower band during the pattern's completion, ideally after a band squeeze (volatility contraction preceding expansion). Enter long on a bullish candle close above the pattern's PRZ or middle band.
+  - Example: In a downtrending EUR/USD on 4H, a Bullish Bat completes at the PRZ near the lower BB, ADX at 28 with +DI rising—enter long.
+
+- **Bearish Entry (Reversal from Uptrend)**:
+  1. Identify a completed bearish Harmonic Pattern (e.g., Bearish Butterfly or Crab) with PRZ at a Fibonacci resistance level.
+  2. Confirm with ADX > 25 and -DI crossing above +DI (or ADX rising), signaling a weakening uptrend.
+  3. Bollinger Band confirmation: Price touches or closes near the upper band during pattern completion, post-squeeze. Enter short on a bearish candle close below the PRZ or middle band.
+  - Avoid entries if ADX < 20 (ranging market) or if bands are expanding wildly without a squeeze (high false signal risk).
+
+Filter: Only trade if the harmonic pattern's XA leg is at least 50% of the prior trend swing, ensuring meaningful reversal potential. Maximum 1-2 setups per week to avoid overtrading.
+
+### Exit Rules
+Exits balance profit-taking with protection, using dynamic levels from the indicators.
+
+- **Take Profit (TP)**:
+  1. Primary TP: Target the harmonic pattern's projected Fibonacci extension (e.g., 127.2% or 161.8% of the AD leg for most patterns). Scale out 50% of position here.
+  2. Secondary TP: When price reaches the opposite Bollinger Band (e.g., upper band for longs) or ADX drops below 20 (trend weakening).
+  3. Trailing Stop: After hitting 1:1 risk-reward, trail stop to the middle Bollinger Band or recent swing low/high. Full exit if an opposite harmonic pattern forms.
+
+- **Stop Loss (SL)**:
+  - Place SL below the harmonic pattern's X point (or 1-2% beyond the PRZ) for longs, or above for shorts. This invalidates the pattern if breached.
+  - Adjust if Bollinger lower band provides tighter support (e.g., SL just below lower band).
+  - Maximum risk per trade: 1% of account equity (position size = (Account * 0.01) / (Entry - SL distance)).
+
+- **Early Exit**: Exit if ADX surges > 40 in the opposite direction (trend resumption against the reversal) or if price closes inside the Bollinger Bands without expansion (failed breakout).
+
+Aim for a minimum 1:2 risk-reward ratio per trade, with average win rate targeting 45-55% based on backtested harmonic reliability.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1% of total account per trade. For multiple setups, limit to 3% total open risk (e.g., max 3 positions).
+- **Trade Filters**: Avoid trading during major news events (use economic calendar). No trades in low-liquidity assets or if harmonic pattern legs deviate >5% from Fibonacci ratios.
+- **Drawdown Control**: Pause trading after 3 consecutive losses or 5% account drawdown. Review journal for pattern accuracy.
+- **Backtesting/Optimization**: Test on historical data (e.g., 5+ years) focusing on win rate, profit factor (>1.5), and max drawdown (<15%). Adjust ADX threshold (e.g., 20-30) based on asset volatility—lower for forex, higher for stocks.
+- **Psychological Rules**: Use demo accounts for live pattern spotting until 70% proficiency. This strategy's edge comes from patience in waiting for full confluence, reducing emotional entries.
+
+This setup leverages the geometric precision of harmonics, volatility timing from Bollinger, and trend validation from ADX for robust reversal trades, but success requires practice in pattern recognition.

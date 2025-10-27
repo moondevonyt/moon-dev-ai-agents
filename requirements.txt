@@ -1,41 +1,96 @@
-# 🌙 Moon Dev's Compliance Agent Requirements 🌙
-# Created with ❤️ by Moon Dev's AI Assistant
+# 🌙 Moon Dev's AI Trading Agents Requirements 🌙
+# Built with ❤️ by Moon Dev
 
-# Core dependencies
-numpy>=1.24.0
-opencv-python>=4.8.0
-whisper>=1.1.10
-openai>=1.51.0
-anthropic>=0.5.0
-groq>=0.4.0
-# google-generativeai>=0.3.0  # Temporarily disabled due to protobuf conflict
-# To re-enable Gemini, uncomment above and ensure compatible versions:
-# google-generativeai==0.8.3
-# protobuf==4.25.1  
-# proto-plus==1.25.0
-termcolor>=2.3.0
-python-dotenv>=1.0.0
-pathlib>=1.0.1
+# ========== Core AI/LLM Dependencies ==========
+anthropic==0.40.0
+openai==1.59.5  # Also used for xAI (Grok) integration
+groq==0.16.0
+google-generativeai==0.8.3
+# Note: xAI/Grok uses OpenAI client - no separate package needed
+# Note: google-generativeai may have protobuf conflicts
+# If issues occur, use: protobuf==4.25.1
 
-# For transcription
-openai-whisper>=20231117
-ffmpeg-python>=0.2.0
+# ========== Crypto/Trading Dependencies ==========
+# Solana
+solana==0.35.1
+solders==0.21.0
 
-# For image processing
-pillow>=10.0.0
+# HyperLiquid (Updated for v0.20.0)
+hyperliquid-python-sdk==0.20.0
+eth-account==0.11.0
+web3==6.20.1
 
-# For API access
-requests>=2.31.0
+# ========== Data & Analysis ==========
+pandas==2.1.4
+numpy==1.26.2
+pandas-ta==0.3.14b0
+TA-Lib==0.4.32  # Technical indicators
+Backtesting==0.3.3  # Backtesting framework
+yfinance==0.2.43  # For fetching Yahoo Finance data
 
-# For data handling
-pandas>=2.0.0
+# ========== Utilities ==========
+python-dotenv==1.0.0
+termcolor==2.3.0
+colorama==0.4.6  # For colored terminal output
+requests==2.31.0
+tqdm==4.67.1
+pathlib
+schedule==1.2.0  # For scheduled tasks
+psutil==5.9.8  # System and process utilities
+asyncio  # Built-in, but noting for async support
+httpx==0.28.1  # Modern HTTP client
 
-# For progress bars and arXiv paper downloader
-# Updated by Moon Dev's AI Assistant on arXiv downloader project
-tqdm>=4.66.0
+# ========== Media Processing ==========
+# For real-time clips and video agents
+opencv-python==4.10.0.84
+pillow==10.3.0
+ffmpeg-python==0.2.0
+whisper==1.1.10
+openai-whisper==20231117
+elevenlabs==0.2.24
 
-backtesting>=0.3.3
-ta-lib>=0.4.0
-PyPDF2>=3.0.0
-youtube-transcript-api>=0.6.2
-pandas-ta>=0.3.14b0
+# ========== Document Processing ==========
+PyPDF2==3.0.0
+youtube-transcript-api==0.6.2
+
+# ========== Social Media / Twitter ==========
+twikit==2.2.1  # Twitter API client
+
+# ========== Optional/Advanced ==========
+# Uncomment if needed for specific agents:
+# jupyter==1.0.0  # For notebook support
+# beautifulsoup4==4.12.0  # For web scraping
+# selenium==4.15.0  # For browser automation
+# playwright==1.40.0  # Alternative browser automation
+
+# ========== Notes ==========
+# Python version: 3.10.9 recommended
+# Environment: Use conda environment 'tflow'
+#
+# API Keys Required (in .env file):
+# - ANTHROPIC_KEY (Claude)
+# - OPENAI_KEY (GPT-4)
+# - GROK_API_KEY (xAI Grok - uses OpenAI client)
+# - GROQ_API_KEY (Groq)
+# - GEMINI_KEY (Google)
+# - DEEPSEEK_KEY (DeepSeek - if using)
+# - BIRDEYE_API_KEY (Solana data)
+# - MOONDEV_API_KEY (Custom signals)
+# - SOLANA_PRIVATE_KEY (Trading)
+# - HYPER_LIQUID_KEY (HyperLiquid)
+#
+# To install all requirements:
+# pip install -r requirements.txt
+#
+# For TA-Lib on Mac:
+# brew install ta-lib
+# pip install TA-Lib
+#
+# For TA-Lib on Linux:
+# wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
+# tar -xzf ta-lib-0.4.0-src.tar.gz
+# cd ta-lib/
+# ./configure --prefix=/usr
+# make
+# sudo make install
+# pip install TA-Lib

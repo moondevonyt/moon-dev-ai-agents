@@ -68,10 +68,15 @@ class GroqModel(BaseModel):
             "description": "Llama 3.2 3B - Preview - 128k context",
             "input_price": "$0.07/1M tokens",
             "output_price": "$0.07/1M tokens"
+        },
+        "qwen/qwen3-32b": {
+            "description": "Qwen 3 32B - Production - 32k context",
+            "input_price": "$0.50/1M tokens",
+            "output_price": "$0.50/1M tokens"
         }
     }
-    
-    def __init__(self, api_key: str, model_name: str = "mixtral-8x7b-32768", **kwargs):
+
+    def __init__(self, api_key: str, model_name: str = "qwen/qwen3-32b", **kwargs):
         try:
             cprint(f"\n🌙 Moon Dev's Groq Model Initialization", "cyan")
             
@@ -184,7 +189,7 @@ class GroqModel(BaseModel):
         try:
             # Force unique request every time
             timestamp = int(time.time() * 1000)  # Millisecond precision
-            
+
             response = self.client.chat.completions.create(
                 model=self.model_name,
                 messages=[
@@ -195,18 +200,54 @@ class GroqModel(BaseModel):
                 max_tokens=max_tokens if max_tokens else self.max_tokens,
                 stream=False  # Disable streaming to prevent caching
             )
-            
+
+            # Extract content and filter out thinking tags
+            raw_content = response.choices[0].message.content
+
+            # Remove <think>...</think> tags and their content (Qwen reasoning)
+            import re
+
+            # First, try to remove complete <think>...</think> blocks
+            filtered_content = re.sub(r'<think>.*?</think>', '', raw_content, flags=re.DOTALL).strip()
+
+            # If <think> tag exists but wasn't removed (unclosed tag due to token limit),
+            # remove everything from <think> onwards
+            if '<think>' in filtered_content:
+                filtered_content = filtered_content.split('<think>')[0].strip()
+
+            # If filtering removed everything, return the original (in case it's not a Qwen model)
+            final_content = filtered_content if filtered_content else raw_content
+
             return ModelResponse(
-                content=response.choices[0].message.content,
+                content=final_content,
                 raw_response=response,
                 model_name=self.model_name,
                 usage=response.usage
             )
-            
+
         except Exception as e:
-            if "503" in str(e):
+            error_str = str(e)
+
+            # Handle rate limit errors (413)
+            if "413" in error_str or "rate_limit_exceeded" in error_str:
+                cprint(f"⚠️  Groq rate limit exceeded (request too large)", "yellow")
+                cprint(f"   Model: {self.model_name}", "yellow")
+                if "Requested" in error_str and "Limit" in error_str:
+                    # Extract token info from error message
+                    import re
+                    limit_match = re.search(r'Limit (\d+)', error_str)
+                    requested_match = re.search(r'Requested (\d+)', error_str)
+                    if limit_match and requested_match:
+                        cprint(f"   Limit: {limit_match.group(1)} tokens | Requested: {requested_match.group(1)} tokens", "yellow")
+                cprint(f"   💡 Skipping this model for this request...", "cyan")
+                return None
+
+            # Raise 503 errors (service unavailable)
+            if "503" in error_str:
                 raise e
-            cprint(f"❌ Groq error: {str(e)}", "red")
+
+            # Log other errors
+            cprint(f"❌ Groq error: {error_str}", "red")
             return None
     
     def is_available(self) -> bool:

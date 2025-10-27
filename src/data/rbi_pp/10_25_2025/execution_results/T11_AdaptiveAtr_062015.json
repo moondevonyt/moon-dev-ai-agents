@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "\ud83c\udf19\ud83d\udcc8 Data loaded: 31066 bars from 2023-01-01 00:00:00 to 2023-11-20 19:15:00\n                         Open      High       Low     Close      Volume\ndatetime                                                               \n2023-01-01 00:00:00  16531.83  16532.69  16509.11  16510.82  231.053380\n2023-01-01 00:15:00  16509.78  16534.66  16509.11  16533.43  308.122770\n2023-01-01 00:30:00  16533.77  16533.78  16498.05  16506.50  411.232446\n2023-01-01 00:45:00  16506.46  16526.38  16505.49  16519.81  193.341158\n2023-01-01 01:00:00  16519.84  16532.80  16517.01  16528.84  217.039356\n\n",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests_optimized/T11_AdaptiveAtr_OPT_v2.py\", line 203, in <module>\n    stats = bt.run()\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 1139, in run\n    strategy.init()\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests_optimized/T11_AdaptiveAtr_OPT_v2.py\", line 23, in init\n    self.atr = self.I(talib.ATR, high, long, close, timeperiod=14)\nNameError: name 'long' is not defined\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests_optimized/T11_AdaptiveAtr_OPT_v2.py` failed. (See above for error)\n",
+  "execution_time": 1.073914,
+  "timestamp": "2025-10-25T06:20:15.540850"
+}

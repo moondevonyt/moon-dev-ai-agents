@@ -1,0 +1,72 @@
+STRATEGY_NAME: QuadrupleHarmonic
+
+STRATEGY_DETAILS:
+
+### Overview
+QuadrupleHarmonic is a reversal trading strategy that combines momentum exhaustion signals from four consecutive down bars (indicating potential oversold conditions in a downtrend) with harmonic price patterns to identify high-probability bullish reversal entries. This approach capitalizes on the psychological and structural exhaustion after sustained selling pressure, using harmonic patterns (based on Fibonacci ratios) to confirm a shift in market sentiment. It is primarily suited for intraday or swing trading on timeframes like 1-hour, 4-hour, or daily charts in forex, stocks, or indices. The strategy assumes access to charting software capable of identifying harmonic patterns automatically or manually via Fibonacci tools.
+
+### Key Strategy Components
+1. **Momentum Exhaustion Trigger (4 Down Bars)**: Identifies a sequence of four consecutive bearish bars, signaling weakening downward momentum and potential reversal setup. A "down bar" is defined as a candlestick where the close is lower than the open (red/bearish candle), and each subsequent bar closes lower than the previous bar's close. This creates a "streak" of selling pressure, often leading to overextension.
+   
+2. **Harmonic Pattern Confirmation**: After the fourth down bar, scan for the completion of a bullish harmonic pattern at the swing low formed by the streak. Common patterns include:
+   - **Gartley**: Bullish reversal with Fibonacci retracements of 0.618 at point B and 0.786 at point D.
+   - **Bat**: Similar to Gartley but with a 0.886 retracement at D for deeper extensions.
+   - **Butterfly**: Targets extreme extensions (1.27-1.618 at D) for aggressive reversals.
+   - **Crab**: Focuses on 1.618 retracement at D, ideal after strong downtrends.
+   These patterns use the XA leg (initial down move) and subsequent AB=CD projections to pinpoint the Potential Reversal Zone (PRZ) at point D, which aligns with the end of the 4-down-bar sequence.
+
+3. **Market Context Filter**: Only trade in the context of an overall downtrend (e.g., below a 200-period EMA) to avoid counter-trend traps. Avoid choppy or ranging markets; use ADX > 25 to confirm trending conditions.
+
+4. **Required Indicators and Tools**
+   - **Candlestick Chart**: For identifying down bars (no additional indicator needed; manual count of 4 consecutive bearish closes).
+   - **Fibonacci Retracement/Extension Tool**: Essential for plotting harmonic patterns (measure XA leg, then AB and BC for projections to D).
+   - **ZigZag Indicator**: Optional but recommended (with depth 5-12%) to highlight swing highs/lows and automate harmonic pattern detection.
+   - **Exponential Moving Average (EMA)**: 200-period EMA to confirm downtrend (price below EMA).
+   - **Average Directional Index (ADX)**: 14-period to ensure trend strength (>25 for entries).
+   - **Volume (Optional)**: Look for decreasing volume on the fourth down bar to confirm exhaustion.
+   No oscillators like RSI are strictly required, but they can be used as a secondary filter (e.g., RSI < 30 for oversold confirmation).
+
+### Entry Rules
+1. **Setup Identification**:
+   - Confirm four consecutive down bars on your chosen timeframe, forming a clear swing low.
+   - Immediately after the fourth bar closes, check for a harmonic pattern completing at that low (point D in the PRZ).
+   - Ensure the pattern's Fibonacci ratios align: e.g., BC retracement of AB at 0.382-0.886, and CD extension of XA at 1.27-1.618.
+
+2. **Long Entry (Bullish Reversal)**:
+   - Enter a buy order on the close of the bar that confirms the harmonic pattern (e.g., a bullish engulfing candle breaking above the PRZ high) or on a pullback to the 0.618 Fibonacci level of the CD leg.
+   - Only enter if price is below the 200 EMA and ADX > 25, indicating the downtrend is intact but exhausted.
+   - Avoid entries if the fourth down bar occurs near major support (e.g., prior swing low) without harmonic confirmation, to prevent false breakouts.
+
+3. **No Short Entries**: This strategy is unidirectional, focusing on bullish reversals after down streaks; do not use for bearish setups.
+
+### Exit Rules
+1. **Take Profit (TP) Levels**:
+   - Primary TP: At the 0.618 Fibonacci retracement of the XA leg (completion of point C projection), typically capturing 50-100% of the pattern's potential move.
+   - Secondary TP: At the 1.0 or 1.272 extension of the AD leg for partial profits (scale out 50% of position here).
+   - Trailing Stop: After reaching primary TP, trail the stop using a 20-period ATR (Average True Range) below the recent swing high, or switch to a parabolic SAR for dynamic exits.
+
+2. **Stop Loss (SL)**:
+   - Place SL below the swing low of the fourth down bar or the PRZ low by 1-1.5x ATR (14-period) to account for volatility.
+   - Maximum risk per trade: 1% of account equity (adjust position size accordingly).
+
+3. **Early Exit Signals**:
+   - Exit if a bearish harmonic pattern forms against the trade or if price breaks below the 200 EMA post-entry.
+   - Time-based exit: Close after 5-10 bars if no momentum builds, to avoid stagnation.
+
+### Risk Management
+1. **Position Sizing**: Risk no more than 1-2% of total account per trade. Calculate position size as: (Account Balance * Risk %) / (Entry Price - SL Price). For example, on a $10,000 account with 1% risk and a $0.50 SL distance, max position = 200 shares/units.
+
+2. **Risk-Reward Ratio**: Target at least 1:2 (e.g., 1% risk for 2% reward). Only take trades where the harmonic pattern's projected TP offers this minimum.
+
+3. **Trade Filters and Limits**:
+   - Maximum 2-3 open trades at once, diversified across uncorrelated assets.
+   - Avoid trading during high-impact news (e.g., NFP, FOMC) within 1 hour, as harmonics can invalidate in volatility spikes.
+   - Backtest on historical data: Aim for >55% win rate with the 4-down-bar filter reducing false signals from pure harmonics.
+   - Drawdown Limit: Pause trading if account drawdown exceeds 5% in a week; review journal for pattern failures.
+
+4. **Psychological and Operational Rules**:
+   - Journal every trade: Note the exact 4-bar streak, harmonic type, and why it succeeded/failed.
+   - Demo test for 50+ trades before live implementation.
+   - Adapt for timeframe: On lower timeframes (e.g., 15-min), tighten SL to 0.5x ATR due to noise.
+
+This strategy leverages the rarity of 4-down-bar streaks (occurring ~5-10% of sessions in trending markets) to filter high-conviction harmonic setups, improving edge over standalone pattern trading. Success relies on precise pattern identification—consider software like TradingView's harmonic scanner for efficiency.

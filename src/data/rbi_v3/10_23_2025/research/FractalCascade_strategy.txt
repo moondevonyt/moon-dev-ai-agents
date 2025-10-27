@@ -1,0 +1,54 @@
+STRATEGY_NAME: FractalCascade
+
+STRATEGY_DETAILS:
+
+### Overview
+FractalCascade is a trend-following strategy that leverages fractal patterns—self-similar geometric structures in price action, as popularized by Bill Williams' chaos theory—to identify and ride sustained trends. Unlike basic moving average crossovers, this approach uses fractals to detect key support/resistance pivots within trends, allowing for dynamic entries on trend continuations and adaptive exits to capture cascading price movements. It combines fractal identification with trend confirmation tools to filter noise in volatile markets, making it suitable for forex, stocks, or commodities on timeframes like H1 or H4. The strategy assumes markets exhibit fractal geometry, where smaller patterns mirror larger trends, enabling probabilistic trend extension trades.
+
+### Key Strategy Components
+1. **Fractal Identification**: Fractals are 5-bar patterns where the middle bar's high/low is the extremum (highest high or lowest low) compared to the two bars on either side. Up-fractals (bearish pivot) signal potential resistance; down-fractals (bullish pivot) signal support. These are used to map trend structure rather than reversals.
+2. **Trend Confirmation**: Integrate the Alligator indicator (a smoothed triple moving average: Jaw=13-period SMMA shifted 8 bars, Teeth=8-period SMMA shifted 5 bars, Lips=5-period SMMA shifted 3 bars) to confirm trend direction. Trends are "awake" when lines are diverging and price is above/below the Alligator for up/down trends.
+3. **Momentum Filter**: Add a momentum oscillator like the Awesome Oscillator (AO: difference between 5-period and 34-period SMMA of midpoints) to gauge trend strength. Positive/negative histogram bars reinforce up/down trends.
+4. **Market Context**: Best in trending markets (avoid ranging via ADX > 25 for trend strength). Backtest on historical data to optimize fractal lookback (default 2-3 confirmed fractals for reliability).
+
+### Entry Rules
+- **Long Entry (Bullish Trend Cascade)**:
+  - Identify an uptrend: Price is above the Alligator's Lips (fastest line), with AO histogram showing increasing green bars (momentum building).
+  - Wait for a confirmed down-fractal (bullish support) to form, followed by a breakout: Price closes above the high of the most recent up-fractal (resistance pivot) on increased volume.
+  - Enter long on the close of the breakout bar if the Alligator lines are fanning upward (trend awakening).
+  - Avoid entry if the breakout occurs near the Alligator's Jaw (slow line), indicating potential exhaustion.
+
+- **Short Entry (Bearish Trend Cascade)**:
+  - Identify a downtrend: Price is below the Alligator's Lips, with AO histogram showing increasing red bars.
+  - Wait for a confirmed up-fractal (bearish resistance) to form, followed by a breakdown: Price closes below the low of the most recent down-fractal (support pivot).
+  - Enter short on the close of the breakdown bar if the Alligator lines are fanning downward.
+  - Filter: Only enter if the fractal breakout aligns with a higher-timeframe trend (e.g., daily Alligator confirming).
+
+- **Position Sizing**: Risk 1-2% of account per trade, calculated as (Account Balance * Risk %) / (Entry Price - Stop Loss Distance).
+
+### Exit Rules
+- **Profit Taking**:
+  - Trail stops using sequential fractals: For longs, move stop to the low of the latest down-fractal as price cascades higher. Exit fully if price closes below the Teeth line (trend weakening).
+  - Partial exits: Scale out 50% at 2:1 reward:risk ratio, letting the rest ride until AO histogram flattens (momentum divergence).
+  - Target: Project to the next major fractal level (e.g., distance from entry to prior fractal high/low, extended in trend direction).
+
+- **Stop Loss**:
+  - Initial SL: Place below the low of the triggering fractal (for longs) or above the high (for shorts), typically 1-2 ATR (14-period) away to account for volatility.
+  - Hard exit: Close if price crosses the Alligator's Jaw line against the trade, signaling trend sleep.
+
+- **Time-Based Exit**: If no fractal breakout occurs within 5-10 bars post-entry signal, exit to avoid stagnation.
+
+### Risk Management
+- **Overall Exposure**: Limit to 3-5 open trades, with no more than 5% total account risk across positions. Use correlation filters (e.g., avoid simultaneous longs in highly correlated pairs like EUR/USD and GBP/USD).
+- **Volatility Adjustment**: In high-volatility (ATR > average), widen SL by 50% but reduce position size proportionally. Use a maximum drawdown rule: Pause trading if account drawdown hits 10%.
+- **Win Rate & R:R**: Targets 40-50% win rate with 1.5:1 to 3:1 reward:risk, emphasizing trend capture over frequent wins. Backtest expectancy: (Win Rate * Avg Win) - (Loss Rate * Avg Loss) > 0.
+- **Psychological Rules**: Journal trades for fractal misidentifications; avoid overtrading in choppy markets by requiring ADX > 25.
+
+### Required Indicators
+- **Fractals**: Built-in on most platforms (e.g., MT4/5); set to 5-bar default, confirm only after two bars close to avoid repaints.
+- **Alligator**: Periods 13/8/5, shifts 8/5/3; colors: Blue (Jaw), Red (Teeth), Green (Lips).
+- **Awesome Oscillator**: Default 5/34 periods; monitor histogram saucer setups for confirmation.
+- **Optional Add-Ons**: ATR (14) for SL sizing; ADX (14) for trend filter (avoid trades if <25).
+- **Platform Setup**: Implement in Pine Script (TradingView) or MQL for automation; scan for fractal breakouts in real-time.
+
+This strategy excels in capturing "cascading" trends where fractals reveal layered momentum, but requires discipline to ignore false breakouts in ranging conditions. Test on demo accounts before live deployment.

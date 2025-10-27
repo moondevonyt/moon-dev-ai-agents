@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_final/FractalCascade_BTFinal_v2.py\", line 173, in <module>\n    stats = bt.run()\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 1139, in run\n    strategy.init()\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_final/FractalCascade_BTFinal_v2.py\", line 44, in init\n    self.initial_cash = self._broker.cash\nAttributeError: '_Broker' object has no attribute 'cash'. Did you mean: '_cash'?\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_final/FractalCascade_BTFinal_v2.py` failed. (See above for error)\n",
+  "execution_time": 1.880564,
+  "timestamp": "2025-10-23T08:59:04.790559"
+}

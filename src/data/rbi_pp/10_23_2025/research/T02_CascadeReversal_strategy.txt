@@ -1,0 +1,49 @@
+STRATEGY_NAME: CascadeReversal
+
+STRATEGY_DETAILS:
+
+### Overview
+CascadeReversal is a mean-reversion trading strategy designed to capitalize on potential exhaustion in downward price momentum after exactly four consecutive down bars (bars where the close is lower than the previous bar's close). This strategy assumes that a streak of four down bars often signals oversold conditions, increasing the likelihood of a short-term reversal to the upside. It is suitable for intraday or swing trading on liquid markets like stocks, forex, or indices, using any timeframe (e.g., 5-minute, 1-hour). The approach is purely price-based, focusing on bar sequences without relying on complex oscillators, making it simple yet contrarian.
+
+### Key Strategy Components
+1. **Bar Identification**: A "down bar" is defined as any bar (candle) where the closing price is lower than the closing price of the immediately preceding bar. The strategy scans for exactly four such consecutive down bars in a row, ignoring intra-bar highs/lows or open prices—purely close-to-close decline.
+2. **Market Conditions**: Best applied in ranging or mildly trending markets to avoid strong bearish trends where down streaks may continue. Avoid using during high-volatility events (e.g., earnings releases) unless backtested for the asset.
+3. **Position Type**: Long-only (buy) entries to exploit the reversal. No short positions, as the strategy targets downside exhaustion.
+4. **Timeframe Flexibility**: Works on lower timeframes for scalping (e.g., 1-15 minutes) or higher for swings (e.g., daily). Confirm the pattern on the chosen chart without multi-timeframe analysis unless customized.
+
+### Entry Rules
+- **Trigger**: Enter a long position (buy) at the open of the bar immediately following the close of the fourth consecutive down bar, provided no additional down bar occurs.
+- **Confirmation Filters** (optional but recommended for robustness):
+  - The fourth down bar should show decreasing momentum, e.g., progressively smaller bar bodies (indicating waning selling pressure).
+  - Volume on the fourth bar should be lower than the average of the prior three (if volume data is available), suggesting fading interest from sellers.
+- **Invalidation**: If the fifth bar also closes lower, the pattern is invalidated—do not enter, and reset the count for a new streak.
+- **Asset Suitability**: Apply to assets with at least 50% historical reversal rate after four down bars (backtest required; e.g., performs well on S&P 500 stocks or EUR/USD).
+
+### Exit Rules
+- **Take Profit (TP)**: 
+  - Primary: Exit at a 1:2 risk-reward ratio (e.g., if risking 1% on the stop, target 2% profit). Alternatively, trail profits using a 20-period simple moving average (SMA) crossover—exit if price closes below the SMA.
+  - Fixed target: Aim for the high of the first down bar in the sequence or a measured move equal to the total decline over the four bars.
+- **Stop Loss (SL)**:
+  - Place the stop loss below the lowest low of the four down bars (typically 1-2% below to account for wicks).
+  - Trailing stop: After entry, trail the stop to breakeven once price moves 1x the SL distance in profit, then trail by the average true range (ATR) of the prior 14 bars.
+- **Time-Based Exit**: If no TP or SL is hit within 5-10 bars (depending on timeframe), exit to avoid holding through potential false reversals.
+- **Overall Exit Signal**: Close the position if a new down bar streak begins (e.g., two consecutive down bars post-entry), indicating reversal failure.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1-2% of total account equity per trade. Calculate position size as: (Account Equity * Risk %) / (Entry Price - SL Price).
+- **Maximum Exposure**: Limit to 1 open trade at a time per asset to avoid overexposure. Use a portfolio-level risk cap of 5% across all positions.
+- **Drawdown Controls**: 
+  - Daily loss limit: Stop trading if losses exceed 3% of equity in a session.
+  - Pattern Frequency: Only trade if the four-down-bar setup occurs less than 20% of the time in backtests to ensure selectivity.
+- **Backtesting and Optimization**: Test on at least 5 years of historical data. Key metrics to monitor: Win rate (>55% ideal), average win/loss ratio (>1.5), and maximum drawdown (<15%). Adjust SL/TP based on asset volatility (e.g., use 1x ATR for SL in forex).
+- **Psychological Rules**: Journal every trade to track false signals; skip setups during low liquidity (e.g., market open/close overlaps).
+
+### Required Indicators
+- **Core (None Required)**: The strategy relies solely on price closes for bar counting—no indicators needed for the basic setup.
+- **Supporting (Recommended for Enhancement)**:
+  - **14-Period ATR**: For dynamic SL/TP sizing (e.g., SL = low of streak - 0.5 * ATR).
+  - **20-Period SMA**: For trailing exits and basic trend filter (only enter if price is above SMA pre-streak for bullish bias).
+  - **Volume (if available)**: Simple volume bars to confirm declining volume on the streak.
+- **Platform/Tools**: Implement in TradingView, MetaTrader, or Python (using libraries like TA-Lib for bar detection or Pandas for sequence scanning). No advanced AI/ML needed, but could extend with machine learning for streak prediction in future iterations.
+
+This strategy's edge comes from statistical rarity of prolonged down streaks in non-trending markets, but always backtest and forward-test before live deployment to validate performance.

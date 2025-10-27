@@ -1,0 +1,36 @@
+STRATEGY_NAME: KalmanResonance
+
+STRATEGY_DETAILS:
+
+### Key Strategy Components
+This strategy, KalmanResonance, integrates the Kalman Filter for noise reduction and trend estimation, a Stochastic Oscillator (interpreted as the "random indicator" to capture random walk-like momentum fluctuations and overbought/oversold conditions), and Harmonic Patterns for precise reversal identification. The Kalman Filter acts as an adaptive smoother to filter out market noise from price data, providing a cleaner baseline for pattern recognition. Harmonic Patterns (e.g., Gartley, Butterfly, Bat, Crab, or Cypher) leverage Fibonacci ratios to pinpoint potential reversal zones. The Stochastic Oscillator adds a momentum layer by quantifying price randomness and momentum shifts, ensuring entries align with probabilistic reversals rather than false signals. The overall approach is reversal-focused, suitable for forex, stocks, or indices on timeframes from H1 to D1, emphasizing high-probability setups in ranging or mildly trending markets.
+
+### Entry/Exit Rules
+**Entry Rules (Long Example - Bullish Setup):**
+1. Identify a completed bullish Harmonic Pattern on the candlestick chart (e.g., a Bullish Gartley where the XA leg retraces to 61.8% Fibonacci of AB, BC to 38.2%-88.6% of AB, and CD to 127.2%-161.8% of BC). The pattern's Potential Reversal Zone (PRZ) must align with a key support level.
+2. Apply the Kalman Filter to the closing prices (using a standard velocity-based Kalman implementation with process noise Q=0.1 and measurement noise R=1 for adaptability). Confirm the filtered price line shows a deceleration in downward velocity (e.g., Kalman estimate velocity crosses above zero or flattens near the PRZ), indicating noise-filtered momentum shifting bullish.
+3. Wait for Stochastic Oscillator confirmation: %K (14-period) crosses above %D (3-period) from oversold territory (<20), signaling random walk momentum turning positive. Use slow stochastics for smoother signals.
+4. Enter long at the close of the confirmation candle above the PRZ, only if all three align within 3-5 candles to avoid lag.
+
+**Entry Rules (Short Example - Bearish Setup):** Mirror the bullish rules inversely (e.g., Bearish Butterfly pattern, Kalman velocity accelerating downward >0, Stochastic %K crossing below %D from overbought >80).
+
+**Exit Rules:**
+1. **Profit Target:** Set initial target at the pattern's completion level (e.g., 100% projection of XA for Gartley) or next Fibonacci extension (161.8%). Scale out 50% at 1:1 risk-reward, trail the rest using the Kalman filtered price as a dynamic stop (exit if price closes below filtered line by 1 ATR).
+2. **Stop Loss:** Place below the pattern's X point or recent swing low (for longs), adjusted by 0.5-1 ATR to account for noise. Invalidate and exit immediately if the Harmonic Pattern is breached (e.g., price exceeds the XA high in a bullish setup).
+3. **Time-Based Exit:** Exit if no momentum progress within 10-20 candles (to avoid stagnation in random walk phases).
+4. Overall, aim for 1:2 risk-reward minimum; exit on opposite Stochastic divergence (e.g., bullish divergence failure) or Kalman velocity reversal.
+
+### Risk Management
+- **Position Sizing:** Risk no more than 1% of account equity per trade. Calculate position size as (Account Balance * 0.01) / (Entry Price - Stop Loss Price) * Pip Value (for forex) or share equivalent.
+- **Maximum Exposure:** Limit to 3-5 open trades, with no more than 3% total risk across all positions. Avoid trading during high-volatility events (e.g., news releases) unless Kalman noise parameters are adjusted higher (R=5).
+- **Drawdown Controls:** Implement a daily loss limit of 2% to pause trading. Use a 20-period ATR for dynamic stop adjustments to adapt to volatility; if ATR expands >50% from average, reduce position size by 50%.
+- **Pattern Validation:** Only trade patterns with at least 70% historical success rate (backtest-required); skip if Kalman filter lag exceeds 2 candles, indicating excessive noise.
+- **Diversification:** Apply across 3-5 uncorrelated assets to mitigate random walk biases in single markets.
+
+### Required Indicators
+1. **Kalman Filter:** Custom implementation (e.g., via Python/TradingView script) on closing prices. Parameters: State vector for position and velocity; tune Q (process noise) to 0.01-0.1 for smooth adaptation, R (measurement noise) to 0.5-2 based on asset volatility. Outputs: Filtered price line and velocity estimate for trend confirmation.
+2. **Stochastic Oscillator (Random Indicator):** Standard 14,3,3 settings (%K=14 periods, %D=3 SMA of %K, slow %D=3 SMA). Focus on %K/%D crossovers and levels (20/80) to gauge random momentum shifts.
+3. **Harmonic Pattern Recognition:** Manual charting or automated tools (e.g., TradingView's Harmonic Pattern scanner or ZigZag + Fibonacci retracement tools). Requires Fibonacci levels (38.2%, 50%, 61.8%, 78.6%, 127.2%, 161.8%) for pattern validation; no built-in indicator, but integrate with PRZ alerts.
+4. **Supporting Tools:** 20-period ATR for volatility adjustment; optional 200-period EMA to filter for ranging markets (avoid entries if price is strongly trending above/below).
+
+Backtest on historical data (e.g., 5+ years) to optimize Kalman parameters and validate win rate >55% with positive expectancy. This strategy excels in noisy environments but may underperform in strong trends due to its reversal bias.

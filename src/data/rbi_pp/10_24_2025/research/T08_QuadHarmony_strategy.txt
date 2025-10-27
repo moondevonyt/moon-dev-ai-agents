@@ -1,0 +1,65 @@
+STRATEGY_NAME: QuadHarmony
+
+STRATEGY_DETAILS:
+
+### Overview
+QuadHarmony is a hybrid trading strategy that combines a quadruple moving average (Quad MA) crossover system for trend confirmation with harmonic pattern recognition for precise reversal entries. The "Quad" aspect refers to four exponentially weighted moving averages (EMAs) of varying periods to filter noise and identify momentum shifts, while "Harmony" highlights the integration of Fibonacci-based harmonic patterns (e.g., Gartley, Bat, Butterfly, Crab) to pinpoint high-probability reversal zones. This approach is designed for swing trading on timeframes like 1H, 4H, or daily charts in forex, stocks, or indices, emphasizing confluence between trend-following MA signals and geometric price patterns to reduce false breakouts and improve win rates.
+
+### Key Strategy Components
+1. **Quadruple Moving Average System**:
+   - Uses four EMAs to create a layered crossover filter: Fast EMA (9-period) for short-term momentum, Medium-Fast EMA (21-period) for intermediate trend, Medium-Slow EMA (50-period) for primary trend, and Slow EMA (200-period) for long-term direction.
+   - Bullish alignment: Fast and Medium-Fast EMAs above Medium-Slow and Slow EMAs.
+   - Bearish alignment: Fast and Medium-Fast EMAs below Medium-Slow and Slow EMAs.
+   - Crossovers occur when the Fast EMA crosses the Medium-Fast (inner signal) and/or the Medium-Slow crosses the Slow (outer confirmation), ensuring multi-layer validation.
+
+2. **Harmonic Patterns**:
+   - Relies on classic harmonic patterns identified via Fibonacci retracements and extensions (0.382, 0.618, 0.786, 1.272, 1.618 ratios).
+   - Bullish patterns (e.g., Bullish Gartley: XA up, AB retrace 0.618 of XA, BC retrace 0.382-0.886 of AB, CD extension 1.272-1.618 of BC completing at point D as a reversal zone).
+   - Bearish patterns (e.g., Bearish Bat: similar structure but inverted for downside reversals).
+   - Pattern detection requires manual charting or automated tools (e.g., via TradingView's harmonic scanner or custom scripts); only valid patterns with precise Fibonacci alignments (tolerance ±3%) are considered.
+   - Harmonics act as the primary setup trigger, with Quad MA crossovers providing directional bias and entry timing.
+
+3. **Confluence Rule**:
+   - Entries only on harmonic completion (point D) that aligns with the overall Quad MA trend (e.g., bullish harmonic in bullish MA alignment).
+   - Avoid trades if the Slow EMA (200) is flat or counter-trend, reducing whipsaws in ranging markets.
+
+### Entry/Exit Rules
+1. **Long Entry (Bullish)**:
+   - Identify a bullish harmonic pattern completing at point D (e.g., Bullish Crab with CD leg at 1.618 extension of XA).
+   - Confirm Quad MA alignment: Fast EMA > Medium-Fast EMA > Medium-Slow EMA > Slow EMA.
+   - Entry trigger: Price closes above point D on the chosen timeframe, AND the Fast EMA crosses above the Medium-Fast EMA (inner crossover) within 3-5 bars of pattern completion.
+   - Ideal filter: Volume spike or RSI (14) > 50 at entry for momentum confirmation.
+
+2. **Short Entry (Bearish)**:
+   - Identify a bearish harmonic pattern completing at point D (e.g., Bearish Butterfly with CD at 1.272-1.618 of BC).
+   - Confirm Quad MA alignment: Fast EMA < Medium-Fast EMA < Medium-Slow EMA < Slow EMA.
+   - Entry trigger: Price closes below point D, AND the Fast EMA crosses below the Medium-Fast EMA within 3-5 bars.
+   - Ideal filter: RSI (14) < 50 at entry.
+
+3. **Exit Rules**:
+   - Profit Target: Measure from point X to D, then project 0.618-1.0 Fibonacci extension from D for take-profit (TP1 at 0.618, TP2 at 1.0). Scale out 50% at TP1, trail the rest using the Medium-Fast EMA.
+   - Stop Loss (SL): Place below the most recent swing low in the pattern (e.g., point C or X for bullish) or 1-1.5x ATR(14) from entry, ensuring risk-reward ratio ≥1:2.
+   - Alternative Exit: Close on opposite Quad MA crossover (e.g., Fast EMA crosses below Medium-Fast for longs) or harmonic invalidation (price breaks beyond point X by 1 ATR).
+   - Time-based Exit: Exit after 10-20 bars if no progress, to avoid opportunity cost in slow markets.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1-2% of account equity per trade, calculated as (Account Balance * Risk %) / (Entry Price - SL Distance). Limit to 2-3 open trades max.
+- **Risk-Reward**: Enforce minimum 1:2 ratio; skip setups below this threshold.
+- **Drawdown Controls**: Pause trading after 3 consecutive losses or 5% account drawdown. Use a maximum leverage of 1:10 for forex.
+- **Market Filters**: Avoid trading during major news events (e.g., NFP, FOMC) within 1 hour; require ADX(14) > 25 for trending conditions to confirm MA reliability.
+- **Pattern Validation**: Only trade harmonics with at least 80% Fibonacci accuracy; backtest on historical data to ensure pattern edge (target 55-65% win rate with proper confluence).
+
+### Required Indicators and Tools
+- **Core Indicators**:
+  - EMAs: 9, 21, 50, 200 periods (plotted on price chart for visual crossovers).
+  - Fibonacci Retracement/Extension Tool: For manual harmonic plotting.
+  - ATR(14): For dynamic SL/TP sizing and pattern tolerance.
+  - RSI(14): Optional momentum filter (overbought/oversold divergence with harmonics).
+  - ADX(14): Trend strength filter.
+
+- **Platform/Tools**:
+  - Charting: TradingView, MetaTrader 4/5, or Thinkorswim for built-in Fibonacci and EMA tools.
+  - Harmonic Scanner: Use add-ons like Auto Harmonic Pattern Indicator or custom Pine Script/MQL for automation.
+  - Backtesting: Test on at least 5 years of data across 10+ assets to optimize EMA periods if needed (e.g., adjust for crypto volatility).
+
+This strategy excels in trending markets with clear reversals but may underperform in choppy conditions—always prioritize demo testing before live deployment.

@@ -1,0 +1,72 @@
+STRATEGY_NAME: KalmanStochastic
+
+STRATEGY_DETAILS:
+
+### Overview
+This strategy, KalmanStochastic, combines the Kalman Filter for adaptive noise reduction and trend estimation with the Stochastic Oscillator (interpreting "random indicator" as the stochastic, which models price as a random process) to identify momentum shifts in noisy markets. The Kalman Filter dynamically smooths price data to estimate the underlying trend, reducing false signals from volatility, while the Stochastic Oscillator detects overbought/oversold conditions based on recent price ranges. It's suited for trending markets with noise, such as forex or stocks on 15-60 minute timeframes, aiming for mean-reversion entries aligned with filtered trends.
+
+### Key Strategy Components
+1. **Kalman Filter Implementation**:
+   - The Kalman Filter acts as an adaptive low-pass filter to estimate the "true" price by predicting and correcting for noise.
+   - Use a simple 1D Kalman Filter on closing prices:
+     - State: Estimated price (μ) and uncertainty (variance σ²).
+     - Process noise (Q): 0.1 (tune based on asset volatility; higher for choppy markets).
+     - Measurement noise (R): 1.0 (assumes price observations are noisy).
+     - Prediction: μ_{t|t-1} = μ_{t-1}, σ²_{t|t-1} = σ²_{t-1} + Q.
+     - Update: Kalman gain K = σ²_{t|t-1} / (σ²_{t|t-1} + R); μ_t = μ_{t|t-1} + K*(close_t - μ_{t|t-1}); σ²_t = (1 - K)*σ²_{t|t-1}.
+     - Initialize: μ_0 = first close, σ²_0 = 1.
+   - Apply to closing prices over a lookback of 20-50 periods to generate a smoothed price line (KalmanSmoothed).
+
+2. **Stochastic Oscillator**:
+   - Standard %K and %D lines with parameters: %K period = 14, %D period = 3, smoothing = 3.
+   - %K = 100 * (Current Close - Lowest Low_14) / (Highest High_14 - Lowest Low_14).
+   - %D = 3-period SMA of %K.
+   - Signals overbought (>80) or oversold (<20) conditions, capturing random momentum reversals.
+
+3. **Trend Confirmation**:
+   - Use the slope of the KalmanSmoothed line (e.g., via linear regression over 10 periods) to confirm bullish (>0) or bearish (<0) bias.
+
+### Entry Rules
+- **Long Entry (Buy)**:
+  - KalmanSmoothed price crosses above its 5-period SMA (indicating filtered uptrend start).
+  - Stochastic %K crosses above %D from below, and %K < 20 (oversold reversal in random momentum).
+  - Overall trend slope from Kalman > 0.
+  - Enter on the close of the confirming bar.
+
+- **Short Entry (Sell)**:
+  - KalmanSmoothed price crosses below its 5-period SMA (indicating filtered downtrend start).
+  - Stochastic %K crosses below %D from above, and %K > 80 (overbought reversal in random momentum).
+  - Overall trend slope from Kalman < 0.
+  - Enter on the close of the confirming bar.
+
+- Avoid entries during low-volume periods or major news events to prevent whipsaws.
+
+### Exit Rules
+- **Profit Target**:
+  - Take profit at 2:1 reward-to-risk ratio (e.g., if risking 1%, target 2% gain), or when Stochastic reaches opposite extreme (%K >80 for longs, <20 for shorts).
+  
+- **Stop Loss**:
+  - Initial stop: 1-2% below entry for longs (above recent swing low adjusted by KalmanSmoothed), or above entry for shorts (above recent swing high).
+  - Trailing stop: Move to breakeven after 1:1 reward, then trail using KalmanSmoothed (exit if price closes beyond 1 ATR from it).
+
+- **Time-Based Exit**: Close position after 5-10 bars if no profit target hit, to avoid stagnation in ranging markets.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1-2% of account per trade, calculated as (Account Balance * Risk %) / (Entry - Stop Distance).
+- **Maximum Exposure**: Limit to 3-5 open trades; no more than 5% total risk across positions.
+- **Drawdown Control**: Pause trading if account drawdown exceeds 10% in a week; re-evaluate parameters.
+- **Volatility Adjustment**: Scale position size inversely with ATR (14-period); reduce size if ATR > 1.5x average.
+- **Win Rate Expectation**: Targets 55-65% win rate in backtests; focus on asymmetric R:R to profit in uneven markets.
+- **Backtesting Notes**: Test on historical data (e.g., via Python with pykalman library for filter and TA-Lib for Stochastic). Optimize Q/R parameters per asset; avoid overfitting by using walk-forward analysis.
+
+### Required Indicators and Tools
+- **Core Indicators**:
+  - Kalman Filter (custom implementation; libraries: pykalman in Python, or approximate with EMA for simplicity in platforms like TradingView).
+  - Stochastic Oscillator (built-in on most platforms: MT4/5, TradingView, Thinkorswim).
+  - Simple Moving Average (SMA, 5-period on KalmanSmoothed).
+  - Average True Range (ATR, 14-period) for stops and sizing.
+  - Linear Regression Slope (10-period on KalmanSmoothed) for trend bias.
+
+- **Platform Recommendations**: Implement in Python (Pandas + pykalman + TA-Lib) for custom backtesting, or Pine Script on TradingView for alerts. Requires historical OHLC data; minimum 1-year for validation.
+
+This strategy leverages the Kalman Filter's noise reduction to filter out random price fluctuations, while the Stochastic adds timing for entries based on momentum randomness, creating a robust, adaptive system for volatile assets.

@@ -1,0 +1,56 @@
+STRATEGY_NAME: SwiftStrength
+
+STRATEGY_DETAILS:
+
+### Overview
+SwiftStrength is a momentum-based trend-following strategy that combines a fast-tuned MACD oscillator for quick signal generation with the ADX indicator to filter for high-confidence trends. The "swift" aspect emphasizes the accelerated MACD parameters to capture early momentum shifts, while "strength" highlights ADX's role in validating trend robustness, avoiding whipsaws in ranging markets. This strategy is designed for trending instruments like forex pairs, stocks, or indices on timeframes from 15-minute to daily charts, aiming for 1:2 risk-reward ratios in sustained moves.
+
+### Key Strategy Components
+1. **Core Indicators**:
+   - **Fast MACD (Moving Average Convergence Divergence)**: Uses shortened parameters for responsiveness—Fast EMA: 8 periods, Slow EMA: 17 periods, Signal Line: 9 periods. The histogram (difference between MACD line and signal) provides visual momentum cues. This setup reacts faster than the standard 12/26/9 MACD, ideal for early trend detection.
+   - **ADX (Average Directional Index)**: Standard 14-period setting. ADX measures trend strength (values above 25 indicate a strong trend; below 20 suggests ranging conditions). It incorporates +DI (positive directional indicator) and -DI (negative directional indicator) to confirm trend direction (+DI > -DI for bullish, -DI > +DI for bearish).
+   - **Optional Auxiliary**: A 200-period Simple Moving Average (SMA) as a trend bias filter to ensure trades align with the overall market direction (e.g., long only above the SMA).
+
+2. **Market Conditions**: Best in volatile, trending environments (e.g., post-news breakouts). Avoid choppy or low-volatility sessions. Backtest on historical data to optimize for specific assets.
+
+### Entry Rules
+- **Long Entry (Bullish)**:
+  - ADX > 25 (confirms strong trend strength).
+  - +DI > -DI (bullish directional bias).
+  - Fast MACD line crosses above the signal line (bullish momentum crossover), with the histogram turning positive.
+  - Price is above the 200 SMA (optional filter for higher conviction).
+  - Enter on the close of the bar confirming the crossover.
+
+- **Short Entry (Bearish)**:
+  - ADX > 25 (strong trend strength).
+  - -DI > +DI (bearish directional bias).
+  - Fast MACD line crosses below the signal line (bearish momentum crossover), with the histogram turning negative.
+  - Price is below the 200 SMA (optional filter).
+  - Enter on the close of the bar confirming the crossover.
+
+- **No Trade Conditions**: If ADX < 20, stay out to avoid false signals. Limit to one open position per asset to prevent overexposure.
+
+### Exit Rules
+- **Profit Exit**:
+  - Primary: Fast MACD line crosses back over the signal line in the opposite direction (e.g., MACD crosses below signal for long exit).
+  - Trailing Stop: Once in profit by 1x the initial risk, trail the stop using the 200 SMA or a 2x ATR (Average True Range, 14-period) buffer from the entry price.
+  - Target: Aim for a 1:2 or 1:3 risk-reward ratio (e.g., if risking 1%, target 2-3%). Partial exits: Scale out 50% at 1:1 ratio, let the rest run.
+
+- **Stop-Loss Exit**:
+  - Initial Stop: Place below the recent swing low (for longs) or above swing high (for shorts), or 1.5x ATR from entry. Never risk more than 1-2% of account equity per trade.
+  - Emergency Exit: If ADX drops below 20 (trend weakening), exit immediately to preserve capital.
+
+- **Time-Based Exit**: If no exit signal within 5-10 bars (depending on timeframe), close the position to avoid stagnation.
+
+### Risk Management
+- **Position Sizing**: Calculate based on stop-loss distance. Formula: Position Size = (Account Equity * Risk %) / (Stop-Loss Distance in Price Units). Default risk: 1% per trade, max 3% total open risk across all positions.
+- **Drawdown Controls**: Pause trading after 3 consecutive losses or if drawdown exceeds 5%. Use a maximum of 2-3 concurrent trades.
+- **Volatility Adjustment**: In high-volatility periods (e.g., ATR > 1.5x average), widen stops by 20% or reduce position size by 50%. Incorporate a correlation filter to avoid trading highly correlated assets simultaneously.
+- **Overall Portfolio Risk**: Limit trend-following exposure to 20-30% of the portfolio, diversifying across asset classes.
+
+### Implementation Notes
+- **Platform Requirements**: Use charting software like TradingView, MetaTrader, or Thinkorswim with built-in MACD and ADX indicators. Code custom alerts for crossovers filtered by ADX.
+- **Backtesting and Optimization**: Test on at least 5 years of data. Optimize MACD periods (e.g., 5-10 for fast, 15-20 for slow) and ADX threshold (20-30) via walk-forward analysis. Expect win rate of 40-50% with strong reward:risk compensation.
+- **Limitations**: Performs poorly in sideways markets; combine with volume confirmation for equities. Monitor for over-optimization—focus on out-of-sample performance.
+
+This strategy emphasizes disciplined, high-probability entries by leveraging the speed of Fast MACD with ADX's trend validation, promoting consistent gains in directional markets.

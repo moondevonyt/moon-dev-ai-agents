@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "\ud83c\udf19 Moon Dev: Initialized ClimaxReversal Strategy \u2728\n\n",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests/T01_ClimaxReversal_DEBUG_v2.py\", line 149, in <module>\n    stats = bt.run()\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 1170, in run\n    strategy.next()\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests/T01_ClimaxReversal_DEBUG_v2.py\", line 67, in next\n    if self.i < max_period + 3:\nAttributeError: 'ClimaxReversal' object has no attribute 'i'. Did you mean: 'I'?\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp/10_25_2025/backtests/T01_ClimaxReversal_DEBUG_v2.py` failed. (See above for error)\n",
+  "execution_time": 1.101768,
+  "timestamp": "2025-10-25T06:10:12.168965"
+}

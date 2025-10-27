@@ -13,9 +13,21 @@ class OpenAIModel(BaseModel):
     
     AVAILABLE_MODELS = {
         "gpt-5": {
-            "description": "Next-generation GPT model with advanced capabilities",
-            "input_price": "N/A",
-            "output_price": "N/A",
+            "description": "Most advanced GPT-5 model with breakthrough capabilities",
+            "input_price": "$0.015/1K tokens",
+            "output_price": "$0.045/1K tokens",
+            "supports_reasoning_effort": False
+        },
+        "gpt-5-mini": {
+            "description": "Efficient GPT-5 mini model with strong performance",
+            "input_price": "$0.007/1K tokens",
+            "output_price": "$0.021/1K tokens",
+            "supports_reasoning_effort": False
+        },
+        "gpt-5-nano": {
+            "description": "Ultra-fast GPT-5 nano model for high-speed tasks",
+            "input_price": "$0.003/1K tokens",
+            "output_price": "$0.009/1K tokens",
             "supports_reasoning_effort": False
         },
         "o3": {
@@ -142,7 +154,6 @@ class OpenAIModel(BaseModel):
                     if max_output_tokens is None:
                         max_output_tokens = 2048  # sensible default for RBI tasks
 
-                    cprint("🛤️ OpenAI Responses API path (gpt-5/o1)", "cyan")
                     response = self.client.responses.create(
                         model=self.model_name,
                         input=content_str,
@@ -175,7 +186,7 @@ class OpenAIModel(BaseModel):
                             usage=getattr(response, 'usage', None)
                         )
                 except AttributeError:
-                    cprint("⚠️ Responses API not available on client; attempting direct HTTP to Responses API", "yellow")
+                    # Responses API not available, fall back to direct HTTP
                     try:
                         content_str = f"Instructions: {system_prompt}\n\nInput: {user_content}"
                         max_output_tokens = kwargs.get('max_tokens') or kwargs.get('max_completion_tokens') or 2048
@@ -256,7 +267,6 @@ class OpenAIModel(BaseModel):
             model_kwargs = self._prepare_model_kwargs(**kwargs)
             
             # Create completion with appropriate parameters
-            cprint("🛤️ OpenAI Chat Completions path", "cyan")
             response = self.client.chat.completions.create(
                 model=self.model_name,
                 messages=messages,

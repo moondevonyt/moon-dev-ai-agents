@@ -1,0 +1,62 @@
+STRATEGY_NAME: DynamicHarmonics
+
+STRATEGY_DETAILS:
+
+### Overview
+DynamicHarmonics is a hybrid trading strategy that integrates Bollinger Bands (BB) for volatility assessment, the Average Directional Index (ADX) for trend strength confirmation, and Harmonic Patterns for precise reversal or continuation entry points. The core philosophy is to identify high-probability setups where low volatility (BB squeeze) aligns with building trend strength (rising ADX) and completes a Harmonic Pattern, signaling a dynamic shift in market momentum. This approach is suited for forex, stocks, or indices on timeframes from H1 to D1, emphasizing confluence to filter out noise in ranging or trending markets. It avoids overtrading by requiring all three components to align, making it adaptive to both volatile breakouts and pattern-based reversals.
+
+### Key Strategy Components
+1. **Bollinger Bands (BB)**: Used to gauge volatility and potential squeeze/expansion phases. Standard settings: 20-period SMA with 2 standard deviations. A "squeeze" (bands contracting) indicates low volatility and impending breakout, while expansion signals increased momentum. BB acts as a dynamic envelope for price action, helping to confirm if a Harmonic Pattern is forming in a compressed range.
+   
+2. **Average Directional Index (ADX)**: Measures trend strength (not direction) with standard 14-period settings. ADX > 25 indicates a strong trend, 20-25 is moderate, and <20 suggests ranging conditions. +DI and -DI lines help determine bullish/bearish bias. The strategy uses ADX to filter entries, ensuring trades only in strengthening trends to avoid whipsaws.
+
+3. **Harmonic Patterns**: Focus on key reversal patterns like Gartley, Butterfly, Bat, or Crab (bullish/bearish variants) identified via Fibonacci retracements (0.382, 0.618, 0.786, 1.272, 1.618 levels). These patterns provide geometric precision for potential reversal zones (PRZ). The strategy prioritizes patterns that complete within BB boundaries during low ADX (building phase) for higher accuracy.
+
+4. **Confluence Rule**: All components must align—no isolated signals. For example, a Harmonic Pattern completion in a BB squeeze with ADX crossing above 20 triggers a setup.
+
+### Entry Rules
+- **Long Entry (Bullish Setup)**:
+  1. Identify a bullish Harmonic Pattern (e.g., Bullish Gartley) completing at the PRZ, with price touching the lower BB or within the middle band.
+  2. BB must be in a squeeze (bands narrower than average, e.g., bandwidth < 0.1 for the asset) or starting to expand upward.
+  3. ADX > 20 and rising, with +DI crossing above -DI (confirming bullish momentum buildup).
+  4. Enter on a candlestick close above the Pattern's completion point (e.g., above the D-point of the Harmonic) or a BB middle band crossover.
+  - Avoid entries if ADX > 40 (overextended trend) or if the pattern forms outside BB (invalid volatility context).
+
+- **Short Entry (Bearish Setup)**:
+  1. Identify a bearish Harmonic Pattern (e.g., Bearish Butterfly) completing at the PRZ, with price touching the upper BB or within the middle band.
+  2. BB in squeeze or expanding downward.
+  3. ADX > 20 and rising, with -DI crossing above +DI (bearish momentum).
+  4. Enter on a candlestick close below the Pattern's completion point or BB middle band crossover.
+  - Filter: No entry if the market is in a strong counter-trend (e.g., ADX low with opposing DI dominance).
+
+- **Additional Filters**: Use volume confirmation (if available) for breakouts post-squeeze. Trade only in the direction of the prevailing higher-timeframe trend (e.g., check D1 ADX for H4 entries). Maximum 2-3 setups per week to maintain quality.
+
+### Exit Rules
+- **Take Profit (TP)**:
+  - Primary TP: Next Fibonacci extension from the Harmonic Pattern (e.g., 1.618 level from XA leg) or the opposite BB band (upper for longs, lower for shorts).
+  - Secondary TP: Scale out at 1:1 risk-reward initially, then trail to 1:2 or 1:3 based on ADX strength (trail stops if ADX > 30 and expanding).
+  - Partial exits: Close 50% of position at 1:1 RR, let the rest run until BB expansion fades or Harmonic invalidation.
+
+- **Stop Loss (SL)**:
+  - Place SL below the Harmonic Pattern's X-point (for longs) or above it (for shorts), or 1-2 ATR beyond the BB outer band to account for volatility.
+  - Tighten SL to breakeven once price reaches 1:1 RR or ADX peaks (>35, signaling potential exhaustion).
+
+- **Early Exit**: Exit if ADX drops below 20 (trend weakening), a counter Harmonic Pattern forms, or price closes beyond the opposite BB band without momentum (indicating false breakout).
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1-2% of account per trade. Calculate position size as (Account Risk Amount) / (Entry - SL distance in pips/points).
+- **Risk-Reward Ratio**: Minimum 1:2 RR per trade; aim for 1:3 in strong ADX (>30) setups.
+- **Maximum Exposure**: No more than 3 open trades simultaneously; avoid correlated assets (e.g., no multiple EUR pairs).
+- **Drawdown Controls**: Pause trading after 3 consecutive losses or 5% account drawdown. Backtest on historical data (e.g., via MT4/5) to ensure >50% win rate and positive expectancy.
+- **Time-Based Filters**: Avoid trading during low-liquidity hours (e.g., Asian session for forex) or major news events, as they can distort Harmonic Patterns and BB readings.
+
+### Required Indicators and Setup
+- **Platform**: MetaTrader 4/5, TradingView, or similar with custom Harmonic scanner (e.g., built-in or add-on like Auto Harmonic Pattern indicator).
+- **Indicators**:
+  - Bollinger Bands (20, 2) – Standard deviation bands.
+  - ADX (14) with +DI/-DI lines.
+  - Harmonic Pattern Tool: Fibonacci retracement/extension tool for manual plotting, or automated scanner for patterns (ensure it highlights PRZ).
+- **Additional Tools**: ATR (14) for SL/TP adjustments; optional RSI (14) as divergence filter if ADX is borderline.
+- **Backtesting Notes**: Test on 5+ years of data across bull/bear markets. Optimize BB deviation (1.5-2.5) and ADX threshold (18-25) via walk-forward analysis for asset-specific tuning.
+
+This strategy excels in trending markets with periodic consolidations, offering a balanced mix of technical precision and risk control. Always demo-test before live implementation.

@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "return_code": 0,
+  "stdout": "\ud83c\udf19 Moon Dev Data Loaded: 31066 bars \ud83d\ude80\n\ud83c\udf19 Moon Dev KalmanResonance Initialized \u2728\nStart                     2023-01-01 00:00:00\nEnd                       2023-11-20 19:15:00\nDuration                    323 days 19:15:00\nExposure Time [%]                         0.0\nEquity Final [$]                    1000000.0\nEquity Peak [$]                     1000000.0\nReturn [%]                                0.0\nBuy & Hold Return [%]                127.7687\nReturn (Ann.) [%]                         0.0\nVolatility (Ann.) [%]                     0.0\nSharpe Ratio                              NaN\nSortino Ratio                             NaN\nCalmar Ratio                              NaN\nMax. Drawdown [%]                        -0.0\nAvg. Drawdown [%]                         NaN\nMax. Drawdown Duration                    NaN\nAvg. Drawdown Duration                    NaN\n# Trades                                    0\nWin Rate [%]                              NaN\nBest Trade [%]                            NaN\nWorst Trade [%]                           NaN\nAvg. Trade [%]                            NaN\nMax. Trade Duration                       NaN\nAvg. Trade Duration                       NaN\nProfit Factor                             NaN\nExpectancy [%]                            NaN\nSQN                                       NaN\n_strategy                     KalmanResonance\n_equity_curve                             ...\n_trades                   Empty DataFrame\n...\ndtype: object\n\n",
+  "stderr": "",
+  "execution_time": 1.987699,
+  "timestamp": "2025-10-23T10:06:54.726790"
+}

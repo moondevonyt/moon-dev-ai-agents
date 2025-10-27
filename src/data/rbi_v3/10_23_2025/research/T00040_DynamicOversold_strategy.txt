@@ -1,0 +1,37 @@
+STRATEGY_NAME: DynamicOversold
+
+STRATEGY_DETAILS:
+
+### Key Strategy Components
+This is a momentum-based trading strategy focused on identifying oversold conditions for long entries in an uptrending market, with dynamic adjustments to entry sizing, stops, or position management using Bollinger Bands' price movement ratios. The core idea leverages the Relative Strength Index (RSI) to detect short-term momentum weakness (oversold levels) while confirming a broader uptrend via moving average alignment. Bollinger Bands introduce a volatility-based adjustment layer, where "price movement ratios" refer to the position of the current price relative to the bands (e.g., distance from the lower band as a percentage of band width) to fine-tune trade aggressiveness or filter false signals. The strategy is designed for trending markets like stocks, forex, or indices on daily or 4-hour timeframes, emphasizing confluence of momentum, trend, and volatility signals to avoid whipsaws.
+
+### Required Indicators
+- **20-Period RSI (Relative Strength Index)**: Standard oscillator to measure momentum over 20 periods, with a focus on levels below 30 indicating oversold conditions.
+- **5-Period Simple Moving Average (SMA)**: Short-term trend filter, calculated as the average closing price over the last 5 periods.
+- **50-Period Simple Exponential Moving Average (SEMA)**: Long-term trend baseline (note: "Simple Exponential" likely intends Exponential Moving Average, or EMA, for smoother weighting; use standard 50-period EMA if SEMA is a custom variant).
+- **Bollinger Bands (20-Period, 2 Standard Deviations)**: Volatility envelope consisting of a 20-period SMA middle band, upper band (middle + 2 SD), and lower band (middle - 2 SD). Price movement ratios are derived as: (Current Price - Lower Band) / (Upper Band - Lower Band) * 100, yielding a percentage (0-100) to gauge how "stretched" or compressed the price is relative to volatility.
+
+### Entry Rules
+- **Long Entry Signal**: Enter a long position only when all conditions align concurrently on the close of a bar:
+  - 20-period RSI < 30 (oversold momentum, signaling potential reversal or bounce).
+  - 5-period SMA > 50-period EMA (confirms short-term price action is above the long-term trend, ensuring an uptrend filter to avoid counter-trend trades).
+- **Bollinger Bands Adjustment for Entry**:
+  - Calculate the price movement ratio as described above.
+  - If the ratio is between 0% and 20% (price near or below the lower band, indicating extreme oversold volatility), enter at full position size for higher conviction.
+  - If the ratio is 20-40% (price rebounding from lower band), enter at 50-75% position size to account for partial recovery.
+  - If the ratio > 40%, skip the entry despite RSI/MA signals, as it suggests insufficient volatility compression for a strong bounce.
+- No short entries are defined; this is a directional long-only strategy.
+- Timeframe: Apply on daily charts for swing trades or 4-hour for intraday, with confirmation on the next bar open to avoid false breaks.
+
+### Exit Rules
+- **Profit Target**: Exit 50% of the position when RSI reaches 70 (overbought) or price touches the upper Bollinger Band, whichever comes first. Trail the remaining 50% using the 5-period SMA as a dynamic stop (exit if price closes below it).
+- **Stop Loss**: Initial stop at 1-2% below the recent swing low or the lower Bollinger Band (whichever is lower). Adjust dynamically: If the price movement ratio exceeds 80% post-entry (price stretching toward upper band), tighten the stop to the middle band to lock in gains.
+- **Time-Based Exit**: If no exit signal within 10 periods (e.g., 10 days on daily chart), close the position to avoid stagnation.
+- **Invalidation**: Exit immediately if the 5-period SMA crosses below the 50-period EMA, signaling trend reversal.
+
+### Risk Management
+- **Position Sizing**: Risk no more than 1-2% of total account equity per trade. Use the Bollinger ratio to scale: Full risk allocation for ratios <20%, reduced to 0.5-1% for 20-40% ratios.
+- **Maximum Exposure**: Limit to 3-5 open positions at once, with no more than 6% total portfolio risk in correlated assets (e.g., same sector).
+- **Volatility Adjustment**: In high-volatility regimes (Bollinger Band width > 2x average historical width), reduce position sizes by 50% to account for whipsaw risk. Avoid trading during major news events that could spike volatility.
+- **Drawdown Controls**: If the strategy experiences a 10% account drawdown over 20 trades, pause for review and reduce risk to 0.5% per trade until profitability recovers.
+- **Backtesting Note**: Test with at least 5 years of historical data, incorporating transaction costs (0.1% per trade) and slippage (0.05% in volatile markets) for realism. Win rate target: 55-65%, with average win >1.5x average loss.

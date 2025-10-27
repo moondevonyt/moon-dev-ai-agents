@@ -1,0 +1,8 @@
+{
+  "success": false,
+  "return_code": 1,
+  "stdout": "\ud83c\udf19 Moon Dev Backtest Bar 201: Close 16682.08, SMA20 16697.11, SMA200 16619.55, RSI 45.87, ATR 22.63 \u2728\n\n",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_package/GoldenCrossover_PKG.py\", line 132, in <module>\n    stats = bt.run()\n  File \"/opt/anaconda3/envs/tflow/lib/python3.10/site-packages/backtesting/backtesting.py\", line 1170, in run\n    strategy.next()\n  File \"/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_package/GoldenCrossover_PKG.py\", line 50, in next\n    recent_high_values = self.data.High.iloc[from_idx:len(self.data)-1].values\nAttributeError: '_Array' object has no attribute 'iloc'\n\nERROR conda.cli.main_run:execute(124): `conda run python /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_v3/10_23_2025/backtests_package/GoldenCrossover_PKG.py` failed. (See above for error)\n",
+  "execution_time": 1.327783,
+  "timestamp": "2025-10-23T08:52:24.791980"
+}
