@@ -9,7 +9,7 @@ DUAL-MODE AI TRADING SYSTEM:
    - Configure model in config.py: AI_MODEL_TYPE and AI_MODEL_NAME
 
 🌊 SWARM MODE (Consensus - ~45-60 seconds per token):
-   - Queries 6 AI models simultaneously for consensus voting
+   - Queries 4 FREE local AI models simultaneously for consensus voting
    - Models vote: "Buy", "Sell", or "Do Nothing"
    - Majority decision wins with confidence percentage
    - Best for: Higher confidence trades, 15-minute+ timeframes
@@ -37,7 +37,7 @@ CONFIGURATION:
    - Solana = On-chain DEX (long only)
 
    🌊 AI Mode (line 81):
-   - USE_SWARM_MODE: True = 6-model consensus, False = single model
+   - USE_SWARM_MODE: True = 4-model consensus (FREE), False = single model
 
    📈 Trading Mode (line 85):
    - LONG_ONLY: True = Long positions only (all exchanges)
@@ -90,9 +90,9 @@ EXCHANGE = "HYPERLIQUID"  # Options: "ASTER", "HYPERLIQUID", "SOLANA"
                           #    Change USE_TESTNET to False for real trading (mainnet)
 
 # 🌊 AI MODE SELECTION
-USE_SWARM_MODE = False  # True = 6-model swarm consensus (~45-60s per token)
-                        # False = Single model fast execution (~10s per token)
-                        # 🆓 Set to False to use FREE local Ollama models!
+USE_SWARM_MODE = True  # True = 4-model swarm consensus (~30-45s per token)
+                       # False = Single model fast execution (~10s per token)
+                       # 🆓 NOW USING 100% FREE LOCAL OLLAMA MODELS IN SWARM!
 
 # 📈 TRADING MODE SETTINGS
 LONG_ONLY = True  # True = Long positions only (works on all exchanges)
@@ -459,9 +459,9 @@ class TradingAgent:
     def __init__(self):
         # Check if using swarm mode or single model
         if USE_SWARM_MODE:
-            cprint(f"\n🌊 Initializing Trading Agent in SWARM MODE (6 AI consensus)...", "cyan", attrs=['bold'])
+            cprint(f"\n🌊 Initializing Trading Agent in SWARM MODE (4 FREE local AI consensus)...", "cyan", attrs=['bold'])
             self.swarm = SwarmAgent()
-            cprint("✅ Swarm mode initialized with 6 AI models!", "green")
+            cprint("✅ Swarm mode initialized with 4 FREE Ollama models!", "green")
 
             # Still need a lightweight model for portfolio allocation (not trading decisions)
             cprint("💼 Initializing fast model for portfolio calculations...", "cyan")
@@ -654,7 +654,7 @@ FULL DATASET:
 
             # ============= SWARM MODE =============
             if USE_SWARM_MODE:
-                cprint(f"\n🌊 Analyzing {token[:8]}... with SWARM (6 AI models voting)", "cyan", attrs=['bold'])
+                cprint(f"\n🌊 Analyzing {token[:8]}... with SWARM (4 FREE local AI models voting)", "cyan", attrs=['bold'])
 
                 # Format market data for swarm
                 formatted_data = self._format_market_data_for_swarm(token, market_data)

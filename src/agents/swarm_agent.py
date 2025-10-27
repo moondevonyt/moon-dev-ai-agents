@@ -59,14 +59,19 @@ from src.models.model_factory import model_factory
 # ============================================
 
 # Configure which models to use in the swarm (set to True to enable)
+# 🆓 100% FREE LOCAL OLLAMA SETUP - 4 Model Consensus
 SWARM_MODELS = {
     # Provider: (enabled, model_type, model_name)
-    "claude": (True, "claude", "claude-sonnet-4-5"),  # Claude 4.5 Sonnet - Latest & Greatest!
-    "openai": (True, "openai", "gpt-5"),  # GPT-5 - Most advanced model!
-    #"ollama_qwen": (True, "ollama", "qwen3:8b"),  # Qwen3 8B via Ollama - Fast local reasoning! (Replaces Gemini)
-    "xai": (True, "xai", "grok-4-fast-reasoning"),  # Grok-4 fast reasoning
-    "deepseek": (True, "deepseek", "deepseek-chat"),  # DeepSeek for reasoning (API)
-    #"ollama": (True, "ollama", "DeepSeek-R1:latest"),  # DeepSeek-R1 local model - 90s timeout
+    "ollama_deepseek": (True, "ollama", "deepseek-r1:7b"),  # DeepSeek-R1 7B - Reasoning specialist!
+    "ollama_qwen": (True, "ollama", "qwen2.5:7b"),  # Qwen 2.5 7B - Fast pattern recognition!
+    "ollama_llama_large": (True, "ollama", "llama3.2:latest"),  # Llama 3.2 2GB - General intelligence!
+    "ollama_llama_small": (True, "ollama", "llama3.2:1b"),  # Llama 3.2 1B - Fast baseline!
+
+    # Paid API models (all disabled - using 100% free local models!)
+    #"claude": (False, "claude", "claude-sonnet-4-5"),  # Claude 4.5 Sonnet
+    #"openai": (False, "openai", "gpt-5"),  # GPT-5
+    #"xai": (False, "xai", "grok-4-fast-reasoning"),  # Grok-4
+    #"deepseek": (False, "deepseek", "deepseek-chat"),  # DeepSeek API
 }
 
 # Default parameters for model queries
@@ -77,7 +82,8 @@ DEFAULT_MAX_TOKENS = 2048  # Increased for model compatibility (Gemini/Groq/Qwen
 MODEL_TIMEOUT = 90
 
 # Consensus Reviewer - Synthesizes all responses into a clean summary
-CONSENSUS_REVIEWER_MODEL = ("claude", "claude-sonnet-4-5")  # (model_type, model_name)
+# Using DeepSeek-R1 for consensus (best reasoning model)
+CONSENSUS_REVIEWER_MODEL = ("ollama", "deepseek-r1:7b")  # (model_type, model_name)
 CONSENSUS_REVIEWER_PROMPT = """You are a consensus analyzer reviewing multiple AI responses.
 
 Below are responses from {num_models} different AI models to the same question.
