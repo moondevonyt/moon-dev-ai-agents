@@ -112,7 +112,7 @@ LONG_ONLY = True  # True = Long positions only (works on all exchanges)
 
 # 🤖 SINGLE MODEL SETTINGS (only used when USE_SWARM_MODE = False)
 AI_MODEL_TYPE = 'ollama'  # Options: 'groq', 'openai', 'claude', 'deepseek', 'xai', 'ollama'
-AI_MODEL_NAME = 'llama3.2:1b'   # Using FREE local Ollama model (fast & lightweight!)
+AI_MODEL_NAME = 'llama3.2:latest'   # Using FREE local Ollama model (larger, more accurate!)
 AI_TEMPERATURE = 0.7   # Creativity vs precision (0-1)
 AI_MAX_TOKENS = 1024   # Max tokens for AI response
 
