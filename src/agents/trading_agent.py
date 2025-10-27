@@ -87,8 +87,9 @@ EXCHANGE = "ASTER"  # Options: "ASTER", "HYPERLIQUID", "SOLANA"
                      # - "SOLANA" = Solana on-chain DEX (long only)
 
 # 🌊 AI MODE SELECTION
-USE_SWARM_MODE = True  # True = 6-model swarm consensus (~45-60s per token)
+USE_SWARM_MODE = False  # True = 6-model swarm consensus (~45-60s per token)
                         # False = Single model fast execution (~10s per token)
+                        # 🆓 Set to False to use FREE local Ollama models!
 
 # 📈 TRADING MODE SETTINGS
 LONG_ONLY = True  # True = Long positions only (works on all exchanges)
@@ -107,8 +108,8 @@ LONG_ONLY = True  # True = Long positions only (works on all exchanges)
                   # Note: Solana is always LONG_ONLY (exchange limitation)
 
 # 🤖 SINGLE MODEL SETTINGS (only used when USE_SWARM_MODE = False)
-AI_MODEL_TYPE = 'xai'  # Options: 'groq', 'openai', 'claude', 'deepseek', 'xai', 'ollama'
-AI_MODEL_NAME = None   # None = use default, or specify: 'grok-4-fast-reasoning', 'claude-3-5-sonnet-latest', etc.
+AI_MODEL_TYPE = 'ollama'  # Options: 'groq', 'openai', 'claude', 'deepseek', 'xai', 'ollama'
+AI_MODEL_NAME = 'llama3.2:1b'   # Using FREE local Ollama model (fast & lightweight!)
 AI_TEMPERATURE = 0.7   # Creativity vs precision (0-1)
 AI_MAX_TOKENS = 1024   # Max tokens for AI response
 
