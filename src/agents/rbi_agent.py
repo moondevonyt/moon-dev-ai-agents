@@ -61,25 +61,26 @@ Remember: Past performance doesn't guarantee future results!
 #     "name": "deepseek-chat"  # Using DeepSeek Chat for package optimization
 # }
 
-# New OpenAI presets using GPT-5 for all agents 🌙🚀
+# 🆓 FREE Ollama presets using llama3.2:1b for all agents 🌙🚀
+# Fast, local, and completely free!
 RESEARCH_CONFIG = {
-    "type": "openai",
-    "name": "gpt-5"
+    "type": "ollama",
+    "name": "llama3.2:1b"  # Fast local research
 }
 
 BACKTEST_CONFIG = {
-    "type": "openai",
-    "name": "gpt-5"
+    "type": "ollama",
+    "name": "llama3.2:1b"  # Fast local backtesting
 }
 
 DEBUG_CONFIG = {
-    "type": "openai",
-    "name": "gpt-5"
+    "type": "ollama",
+    "name": "llama3.2:1b"  # Fast local debugging
 }
 
 PACKAGE_CONFIG = {
-    "type": "openai",
-    "name": "gpt-5"
+    "type": "ollama",
+    "name": "llama3.2:1b"  # Fast local package optimization
 }
 
 

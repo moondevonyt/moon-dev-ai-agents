@@ -93,4 +93,8 @@ twikit==2.2.1  # Twitter API client
 # ./configure --prefix=/usr
 # make
 # sudo make install
-# pip install TA-Lib
+# pip install TA-Libwebsocket-client==1.9.0
+termcolor==3.2.0
+websocket-client==1.9.0
+python-dotenv==1.2.1
+anthropic==0.71.0

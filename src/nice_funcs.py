@@ -25,10 +25,12 @@ import atexit
 # Load environment variables
 load_dotenv()
 
-# Get API keys from environment
+# Get API keys from environment (optional - only needed for Solana trading)
 BIRDEYE_API_KEY = os.getenv("BIRDEYE_API_KEY")
 if not BIRDEYE_API_KEY:
-    raise ValueError("🚨 BIRDEYE_API_KEY not found in environment variables!")
+    cprint("⚠️  BIRDEYE_API_KEY not found - Solana trading will not work", "yellow")
+    cprint("   (This is OK if you're using HyperLiquid or Paper Trading)", "cyan")
+    BIRDEYE_API_KEY = "placeholder"  # Prevent crashes in functions that reference it
 
 sample_address = "2yXTyarttn2pTZ6cwt4DqmrRuBw1G7pmFv9oT6MStdKP"
 

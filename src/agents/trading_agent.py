@@ -9,7 +9,7 @@ DUAL-MODE AI TRADING SYSTEM:
    - Configure model in config.py: AI_MODEL_TYPE and AI_MODEL_NAME
 
 🌊 SWARM MODE (Consensus - ~45-60 seconds per token):
-   - Queries 6 AI models simultaneously for consensus voting
+   - Queries 4 FREE local AI models simultaneously for consensus voting
    - Models vote: "Buy", "Sell", or "Do Nothing"
    - Majority decision wins with confidence percentage
    - Best for: Higher confidence trades, 15-minute+ timeframes
@@ -37,7 +37,7 @@ CONFIGURATION:
    - Solana = On-chain DEX (long only)
 
    🌊 AI Mode (line 81):
-   - USE_SWARM_MODE: True = 6-model consensus, False = single model
+   - USE_SWARM_MODE: True = 4-model consensus (FREE), False = single model
 
    📈 Trading Mode (line 85):
    - LONG_ONLY: True = Long positions only (all exchanges)
@@ -81,14 +81,35 @@ Built with love by Moon Dev 🚀
 # ============================================================================
 
 # 🏦 EXCHANGE SELECTION
-EXCHANGE = "ASTER"  # Options: "ASTER", "HYPERLIQUID", "SOLANA"
-                     # - "ASTER" = Aster DEX futures (supports long/short)
-                     # - "HYPERLIQUID" = HyperLiquid perpetuals (supports long/short)
-                     # - "SOLANA" = Solana on-chain DEX (long only)
+EXCHANGE = "HYPERLIQUID"  # Options: "ASTER", "HYPERLIQUID", "SOLANA"
+                          # - "ASTER" = Aster DEX futures (supports long/short)
+                          # - "HYPERLIQUID" = HyperLiquid perpetuals (supports long/short) ⭐ TESTNET ENABLED!
+                          # - "SOLANA" = Solana on-chain DEX (long only)
+                          #
+                          # 🧪 TESTNET MODE: HyperLiquid testnet is enabled in nice_funcs_hyperliquid.py
+                          #    Change USE_TESTNET to False for real trading (mainnet)
+
+# 📝 PAPER TRADING MODE (Simulation - No Real Trades)
+PAPER_TRADING_MODE = True  # True = Simulate trades with fake $10,000 balance
+                           # False = Execute real trades on exchange
+                           #
+                           # When PAPER_TRADING_MODE = True:
+                           # ✅ Analyzes real market data
+                           # ✅ 4 AI models vote on decisions
+                           # ✅ Shows what trades WOULD be made
+                           # ✅ Tracks fake portfolio performance
+                           # ❌ No real trades executed
+                           # ❌ No real money at risk
+                           #
+                           # Perfect for testing strategies risk-free!
+
+PAPER_STARTING_BALANCE = 10000.0  # Starting fake balance in USDC
 
 # 🌊 AI MODE SELECTION
-USE_SWARM_MODE = True  # True = 6-model swarm consensus (~45-60s per token)
-                        # False = Single model fast execution (~10s per token)
+USE_SWARM_MODE = True  # True = 2-model swarm consensus (~6 minutes per token on laptop)
+                       # False = Single model fast execution (~3 minutes per token)
+                       # 🆓 NOW USING 100% FREE LOCAL OLLAMA MODELS IN SWARM!
+                       # 💡 Optimized for laptop hardware!
 
 # 📈 TRADING MODE SETTINGS
 LONG_ONLY = True  # True = Long positions only (works on all exchanges)
@@ -107,8 +128,8 @@ LONG_ONLY = True  # True = Long positions only (works on all exchanges)
                   # Note: Solana is always LONG_ONLY (exchange limitation)
 
 # 🤖 SINGLE MODEL SETTINGS (only used when USE_SWARM_MODE = False)
-AI_MODEL_TYPE = 'xai'  # Options: 'groq', 'openai', 'claude', 'deepseek', 'xai', 'ollama'
-AI_MODEL_NAME = None   # None = use default, or specify: 'grok-4-fast-reasoning', 'claude-3-5-sonnet-latest', etc.
+AI_MODEL_TYPE = 'ollama'  # Options: 'groq', 'openai', 'claude', 'deepseek', 'xai', 'ollama'
+AI_MODEL_NAME = 'llama3.2:latest'   # Using FREE local Ollama model (larger, more accurate!)
 AI_TEMPERATURE = 0.7   # Creativity vs precision (0-1)
 AI_MAX_TOKENS = 1024   # Max tokens for AI response
 
@@ -242,23 +263,38 @@ Remember:
 - Cash must be stored as USDC using USDC_ADDRESS: {USDC_ADDRESS}
 """
 
-SWARM_TRADING_PROMPT = """You are an expert cryptocurrency trading AI analyzing market data.
+SWARM_TRADING_PROMPT = """You are an aggressive cryptocurrency trader analyzing 15-minute charts for SHORT-TERM opportunities.
+
+TRADING CRITERIA - Look for these setups:
+
+BUY when you see:
+- Price breaking above recent resistance
+- RSI crossing above 50 (momentum shift)
+- MACD turning positive
+- Volume increasing on upward moves
+- Price above both MA20 and MA50
+- Strong 15m candle closes above key levels
+
+SELL when you see:
+- Price breaking below support
+- RSI falling below 50 (losing momentum)
+- MACD turning negative
+- Decreasing volume on rallies
+- Price crossing below MA20
+- Bearish divergences forming
+
+Do Nothing ONLY when:
+- Price is in tight consolidation (Bollinger Bands squeezing)
+- All indicators are mixed/neutral
+- Volume is extremely low
 
 CRITICAL RULES:
-1. Your response MUST be EXACTLY one of these three words: Buy, Sell, or Do Nothing
-2. Do NOT provide any explanation, reasoning, or additional text
-3. Respond with ONLY the action word
-4. Do NOT show your thinking process or internal reasoning
+1. Respond with EXACTLY one word: Buy, Sell, or Do Nothing
+2. Be AGGRESSIVE - if you see a clear setup forming, take it
+3. This is 15-minute data - act on short-term momentum
+4. "Do Nothing" should be RARE - look for opportunities!
 
-Analyze the market data below and decide:
-
-- "Buy" = Strong bullish signals, recommend opening/holding position
-- "Sell" = Bearish signals or major weakness, recommend closing position entirely
-- "Do Nothing" = Unclear/neutral signals, recommend holding current state unchanged
-
-IMPORTANT: "Do Nothing" means maintain current position (if we have one, keep it; if we don't, stay out)
-
-RESPOND WITH ONLY ONE WORD: Buy, Sell, or Do Nothing"""
+RESPOND WITH ONLY ONE WORD:"""
 
 import os
 import sys
@@ -455,9 +491,9 @@ class TradingAgent:
     def __init__(self):
         # Check if using swarm mode or single model
         if USE_SWARM_MODE:
-            cprint(f"\n🌊 Initializing Trading Agent in SWARM MODE (6 AI consensus)...", "cyan", attrs=['bold'])
+            cprint(f"\n🌊 Initializing Trading Agent in SWARM MODE (4 FREE local AI consensus)...", "cyan", attrs=['bold'])
             self.swarm = SwarmAgent()
-            cprint("✅ Swarm mode initialized with 6 AI models!", "green")
+            cprint("✅ Swarm mode initialized with 4 FREE Ollama models!", "green")
 
             # Still need a lightweight model for portfolio allocation (not trading decisions)
             cprint("💼 Initializing fast model for portfolio calculations...", "cyan")
@@ -506,6 +542,18 @@ class TradingAgent:
             cprint("   ⚡ LONG/SHORT - Full directional trading", "green")
             cprint("   💡 SELL signals can close longs OR open shorts", "white")
 
+        # Initialize paper trading state if enabled
+        if PAPER_TRADING_MODE:
+            self.paper_balance = PAPER_STARTING_BALANCE
+            self.paper_positions = {}  # {symbol: {'size': float, 'entry_price': float, 'side': 'long'/'short'}}
+            self.paper_trades = []  # Trade history
+
+            cprint("\n📝 PAPER TRADING MODE ENABLED", "yellow", attrs=['bold'])
+            cprint(f"   💵 Starting Balance: ${self.paper_balance:,.2f} (FAKE USDC)", "cyan")
+            cprint(f"   📊 Positions: Empty", "cyan")
+            cprint(f"   ⚠️  NO REAL TRADES WILL BE EXECUTED", "yellow")
+            cprint(f"   ✅ Safe to test strategies risk-free!", "green")
+
         cprint("\n🤖 Moon Dev's LLM Trading Agent initialized!", "green")
 
     def chat_with_ai(self, system_prompt, user_content):
@@ -526,6 +574,121 @@ class TradingAgent:
         except Exception as e:
             cprint(f"❌ AI model error: {e}", "red")
             return None
+
+    def get_paper_balance(self):
+        """Get current paper trading balance"""
+        if not PAPER_TRADING_MODE:
+            return None
+
+        # Calculate total value (cash + positions)
+        total_value = self.paper_balance
+
+        for symbol, position in self.paper_positions.items():
+            # Estimate current value (would need current price for exact value)
+            # For now just show notional value
+            total_value += position['size']
+
+        return {
+            'cash': self.paper_balance,
+            'positions_value': total_value - self.paper_balance,
+            'total_value': total_value
+        }
+
+    def simulate_paper_trade(self, symbol, action, size, price):
+        """Simulate a paper trade"""
+        if not PAPER_TRADING_MODE:
+            return False
+
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        if action == "BUY":
+            # Check if we have enough cash
+            if size > self.paper_balance:
+                cprint(f"❌ PAPER TRADE REJECTED: Insufficient balance (Need ${size:,.2f}, Have ${self.paper_balance:,.2f})", "red")
+                return False
+
+            # Open/add to position
+            self.paper_balance -= size
+            if symbol in self.paper_positions:
+                # Add to existing position (average entry price)
+                old_size = self.paper_positions[symbol]['size']
+                old_price = self.paper_positions[symbol]['entry_price']
+                new_size = old_size + size
+                avg_price = ((old_size * old_price) + (size * price)) / new_size
+                self.paper_positions[symbol] = {
+                    'size': new_size,
+                    'entry_price': avg_price,
+                    'side': 'long'
+                }
+            else:
+                self.paper_positions[symbol] = {
+                    'size': size,
+                    'entry_price': price,
+                    'side': 'long'
+                }
+
+            cprint(f"\n✅ PAPER TRADE EXECUTED:", "green", attrs=['bold'])
+            cprint(f"   📈 Action: BUY {symbol}", "cyan")
+            cprint(f"   💵 Size: ${size:,.2f}", "cyan")
+            cprint(f"   💰 Price: ${price:,.2f}", "cyan")
+            cprint(f"   💼 Remaining Cash: ${self.paper_balance:,.2f}", "yellow")
+
+        elif action == "SELL":
+            # Close position
+            if symbol not in self.paper_positions:
+                cprint(f"❌ PAPER TRADE REJECTED: No position to close for {symbol}", "red")
+                return False
+
+            position = self.paper_positions[symbol]
+            pnl = (price - position['entry_price']) / position['entry_price'] * 100
+
+            self.paper_balance += position['size']  # Return capital
+
+            cprint(f"\n✅ PAPER TRADE EXECUTED:", "green", attrs=['bold'])
+            cprint(f"   📉 Action: SELL {symbol}", "cyan")
+            cprint(f"   💵 Size: ${position['size']:,.2f}", "cyan")
+            cprint(f"   💰 Entry: ${position['entry_price']:,.2f} → Exit: ${price:,.2f}", "cyan")
+            cprint(f"   📊 P&L: {pnl:+.2f}%", "green" if pnl > 0 else "red")
+            cprint(f"   💼 New Cash Balance: ${self.paper_balance:,.2f}", "yellow")
+
+            del self.paper_positions[symbol]
+
+        # Record trade
+        self.paper_trades.append({
+            'timestamp': timestamp,
+            'symbol': symbol,
+            'action': action,
+            'size': size,
+            'price': price
+        })
+
+        return True
+
+    def show_paper_portfolio(self):
+        """Display current paper trading portfolio"""
+        if not PAPER_TRADING_MODE:
+            return
+
+        cprint("\n" + "="*60, "cyan")
+        cprint("📝 PAPER TRADING PORTFOLIO", "yellow", attrs=['bold'])
+        cprint("="*60, "cyan")
+
+        portfolio = self.get_paper_balance()
+        cprint(f"💵 Cash: ${portfolio['cash']:,.2f}", "cyan")
+        cprint(f"📊 Positions Value: ${portfolio['positions_value']:,.2f}", "cyan")
+        cprint(f"💰 Total Value: ${portfolio['total_value']:,.2f}", "green", attrs=['bold'])
+
+        if self.paper_positions:
+            cprint("\n📈 Open Positions:", "yellow")
+            for symbol, pos in self.paper_positions.items():
+                cprint(f"   {symbol}: ${pos['size']:,.2f} @ ${pos['entry_price']:,.2f} ({pos['side']})", "cyan")
+        else:
+            cprint("\n📭 No open positions", "yellow")
+
+        starting_balance = PAPER_STARTING_BALANCE
+        total_return = ((portfolio['total_value'] - starting_balance) / starting_balance) * 100
+        cprint(f"\n📊 Total Return: {total_return:+.2f}%", "green" if total_return > 0 else "red", attrs=['bold'])
+        cprint("="*60 + "\n", "cyan")
 
     def _format_market_data_for_swarm(self, token, market_data):
         """Format market data into a clean, readable format for swarm analysis"""
@@ -650,7 +813,7 @@ FULL DATASET:
 
             # ============= SWARM MODE =============
             if USE_SWARM_MODE:
-                cprint(f"\n🌊 Analyzing {token[:8]}... with SWARM (6 AI models voting)", "cyan", attrs=['bold'])
+                cprint(f"\n🌊 Analyzing {token[:8]}... with SWARM (4 FREE local AI models voting)", "cyan", attrs=['bold'])
 
                 # Format market data for swarm
                 formatted_data = self._format_market_data_for_swarm(token, market_data)
@@ -1104,12 +1267,28 @@ Example format:
             print(summary_df.to_string(index=False))
 
             # Handle exits first (always runs - manages SELL recommendations)
-            self.handle_exits()
+            if PAPER_TRADING_MODE:
+                cprint("\n📝 PAPER TRADING: Skipping real trade execution", "yellow", attrs=['bold'])
+                cprint("   ⚠️  In paper trading mode, we only simulate decisions", "yellow")
+                cprint("   ✅ AI analysis complete - see recommendations above", "green")
+                # Show what WOULD happen in paper trading
+                for _, row in self.recommendations_df.iterrows():
+                    if row['action'] == 'BUY':
+                        cprint(f"\n💡 WOULD BUY {row['token'][:8]}... (Confidence: {row['confidence']}%)", "cyan")
+                        cprint(f"   Reasoning: {row['reasoning'][:100]}...", "white")
+                    elif row['action'] == 'SELL':
+                        cprint(f"\n💡 WOULD SELL {row['token'][:8]}... (Confidence: {row['confidence']}%)", "yellow")
+                        cprint(f"   Reasoning: {row['reasoning'][:100]}...", "white")
+            else:
+                self.handle_exits()
 
             # Portfolio allocation (only if enabled and there are BUY recommendations)
             buy_recommendations = self.recommendations_df[self.recommendations_df['action'] == 'BUY']
 
-            if USE_PORTFOLIO_ALLOCATION and len(buy_recommendations) > 0:
+            if PAPER_TRADING_MODE:
+                # Skip portfolio allocation in paper trading mode
+                pass
+            elif USE_PORTFOLIO_ALLOCATION and len(buy_recommendations) > 0:
                 cprint(f"\n💰 Found {len(buy_recommendations)} BUY signal(s) - Using AI portfolio allocation...", "white", "on_green")
                 allocation = self.allocate_portfolio()
 
@@ -1129,6 +1308,10 @@ Example format:
                 cprint("\n⏭️  No BUY signals - No entries to make", "white", "on_blue")
                 cprint("📊 All signals were SELL or DO NOTHING", "cyan")
             
+            # Show paper trading portfolio if enabled
+            if PAPER_TRADING_MODE:
+                self.show_paper_portfolio()
+
             # Clean up temp data
             cprint("\n🧹 Cleaning up temporary data...", "white", "on_blue")
             try:
@@ -1154,23 +1337,24 @@ def main():
         try:
             agent.run_trading_cycle()
 
-            # Check if we have any open positions
+            # Check if we have any open positions (skip in paper trading mode)
             has_position = False
             monitored_token = None
 
-            for token in SYMBOLS if EXCHANGE in ["ASTER", "HYPERLIQUID"] else MONITORED_TOKENS:
-                if EXCHANGE in ["ASTER", "HYPERLIQUID"]:
-                    position = n.get_position(token)
-                    if position and position.get('position_amount', 0) != 0:
-                        has_position = True
-                        monitored_token = token
-                        break
-                else:
-                    position_usd = n.get_token_balance_usd(token)
-                    if position_usd > 0:
-                        has_position = True
-                        monitored_token = token
-                        break
+            if not PAPER_TRADING_MODE:
+                for token in SYMBOLS if EXCHANGE in ["ASTER", "HYPERLIQUID"] else MONITORED_TOKENS:
+                    if EXCHANGE in ["ASTER", "HYPERLIQUID"]:
+                        position = n.get_position(token)
+                        if position and position.get('position_amount', 0) != 0:
+                            has_position = True
+                            monitored_token = token
+                            break
+                    else:
+                        position_usd = n.get_token_balance_usd(token)
+                        if position_usd > 0:
+                            has_position = True
+                            monitored_token = token
+                            break
 
             if has_position and monitored_token:
                 # We have an open position - monitor P&L instead of sleeping

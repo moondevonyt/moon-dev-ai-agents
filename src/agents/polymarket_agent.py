@@ -60,9 +60,9 @@ MARKETS_TO_ANALYZE = 25  # Number of recent markets to send to AI
 MARKETS_TO_DISPLAY = 20  # Number of recent markets to print after each update
 
 # AI Configuration
-USE_SWARM_MODE = True  # Use swarm AI (multiple models) instead of single XAI model
-AI_MODEL_PROVIDER = "xai"  # Model to use if USE_SWARM_MODE = False
-AI_MODEL_NAME = "grok-2-fast-reasoning"  # Model name if not using swarm
+USE_SWARM_MODE = False  # Use swarm AI (multiple models) instead of single model
+AI_MODEL_PROVIDER = "ollama"  # Model to use if USE_SWARM_MODE = False
+AI_MODEL_NAME = "llama3.2"  # Model name if not using swarm
 
 # Data paths
 DATA_FOLDER = os.path.join(project_root, "src/data/polymarket")
