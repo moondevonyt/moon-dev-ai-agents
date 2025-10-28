@@ -7,7 +7,13 @@ Built with love by Moon Dev 🚀
 from src.config import *
 from src import nice_funcs as n
 from src import nice_funcs_hyperliquid as hl
-from src import nice_funcs_aster as aster
+
+# Try importing Aster (optional - only needed if using Aster exchange)
+try:
+    from src import nice_funcs_aster as aster
+except (ImportError, SystemExit) as e:
+    aster = None  # Aster not available, that's ok if not using it
+
 import pandas as pd
 from datetime import datetime
 import os
