@@ -1322,23 +1322,24 @@ def main():
         try:
             agent.run_trading_cycle()
 
-            # Check if we have any open positions
+            # Check if we have any open positions (skip in paper trading mode)
             has_position = False
             monitored_token = None
 
-            for token in SYMBOLS if EXCHANGE in ["ASTER", "HYPERLIQUID"] else MONITORED_TOKENS:
-                if EXCHANGE in ["ASTER", "HYPERLIQUID"]:
-                    position = n.get_position(token)
-                    if position and position.get('position_amount', 0) != 0:
-                        has_position = True
-                        monitored_token = token
-                        break
-                else:
-                    position_usd = n.get_token_balance_usd(token)
-                    if position_usd > 0:
-                        has_position = True
-                        monitored_token = token
-                        break
+            if not PAPER_TRADING_MODE:
+                for token in SYMBOLS if EXCHANGE in ["ASTER", "HYPERLIQUID"] else MONITORED_TOKENS:
+                    if EXCHANGE in ["ASTER", "HYPERLIQUID"]:
+                        position = n.get_position(token)
+                        if position and position.get('position_amount', 0) != 0:
+                            has_position = True
+                            monitored_token = token
+                            break
+                    else:
+                        position_usd = n.get_token_balance_usd(token)
+                        if position_usd > 0:
+                            has_position = True
+                            monitored_token = token
+                            break
 
             if has_position and monitored_token:
                 # We have an open position - monitor P&L instead of sleeping
