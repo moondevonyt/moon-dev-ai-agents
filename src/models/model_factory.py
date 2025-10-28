@@ -68,17 +68,22 @@ class ModelFactory:
         cprint("\n🏭 Moon Dev's Model Factory Initialization", "cyan")
         cprint("═" * 50, "cyan")
         
+        # 🌙 Moon Dev: Only initialize DeepSeek (user only has this API key)
+        models_to_init = ["deepseek"]  # Only initialize DeepSeek
+        
         # Debug current environment without exposing values
         cprint("\n🔍 Environment Check:", "cyan")
-        for key in ["GROQ_API_KEY", "OPENAI_KEY", "ANTHROPIC_KEY", "DEEPSEEK_KEY", "GROK_API_KEY", "GEMINI_KEY", "OPENROUTER_API_KEY"]:
+        for key in ["DEEPSEEK_KEY"]:  # Only check DeepSeek key
             value = os.getenv(key)
             if value and len(value.strip()) > 0:
                 cprint(f"  ├─ {key}: Found ({len(value)} chars)", "green")
             else:
                 cprint(f"  ├─ {key}: Not found or empty", "red")
         
-        # Try to initialize each model type
+        # Try to initialize each model type (only DeepSeek)
         for model_type, key_name in self._get_api_key_mapping().items():
+            if model_type not in models_to_init:
+                continue  # Skip models not in our list
             cprint(f"\n🔄 Initializing {model_type} model...", "cyan")
             cprint(f"  ├─ Looking for {key_name}...", "cyan")
             
@@ -128,24 +133,25 @@ class ModelFactory:
             else:
                 cprint(f"  └─ ℹ️ {key_name} not found", "blue")
         
-        # Initialize Ollama separately since it doesn't need an API key
-        try:
-            cprint("\n🔄 Initializing Ollama model...", "cyan")
-            model_class = self.MODEL_IMPLEMENTATIONS["ollama"]
-            model_instance = model_class(model_name=self.DEFAULT_MODELS["ollama"])
-            
-            if model_instance.is_available():
-                self._models["ollama"] = model_instance
-                initialized = True
-                cprint("✨ Successfully initialized Ollama", "green")
-            else:
-                cprint("⚠️ Ollama server not available - make sure 'ollama serve' is running", "yellow")
-        except Exception as e:
-            cprint(f"❌ Failed to initialize Ollama: {str(e)}", "red")
+        # 🌙 Moon Dev: Skip Ollama (not needed for this setup)
+        # Initialize Ollama separately (no API key needed) - DISABLED
+        # try:
+        #     cprint("\n🔄 Initializing Ollama model...", "cyan")
+        #     model_class = self.MODEL_IMPLEMENTATIONS["ollama"]
+        #     model_instance = model_class(model_name=self.DEFAULT_MODELS["ollama"])
+        #     
+        #     if model_instance.is_available():
+        #         self._models["ollama"] = model_instance
+        #         initialized = True
+        #         cprint("✨ Successfully initialized Ollama", "green")
+        #     else:
+        #         cprint("⚠️ Ollama server not available - make sure 'ollama serve' is running", "yellow")
+        # except Exception as e:
+        #     cprint(f"❌ Failed to initialize Ollama: {str(e)}", "red")
         
         cprint("\n" + "═" * 50, "cyan")
         cprint(f"📊 Initialization Summary:", "cyan")
-        cprint(f"  ├─ Models attempted: {len(self._get_api_key_mapping()) + 1}", "cyan")  # +1 for Ollama
+        cprint(f"  ├─ Models attempted: 1", "cyan")  
         cprint(f"  ├─ Models initialized: {len(self._models)}", "cyan")
         cprint(f"  └─ Available models: {list(self._models.keys())}", "cyan")
         
