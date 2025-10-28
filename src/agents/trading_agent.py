@@ -263,23 +263,38 @@ Remember:
 - Cash must be stored as USDC using USDC_ADDRESS: {USDC_ADDRESS}
 """
 
-SWARM_TRADING_PROMPT = """You are an expert cryptocurrency trading AI analyzing market data.
+SWARM_TRADING_PROMPT = """You are an aggressive cryptocurrency trader analyzing 15-minute charts for SHORT-TERM opportunities.
+
+TRADING CRITERIA - Look for these setups:
+
+BUY when you see:
+- Price breaking above recent resistance
+- RSI crossing above 50 (momentum shift)
+- MACD turning positive
+- Volume increasing on upward moves
+- Price above both MA20 and MA50
+- Strong 15m candle closes above key levels
+
+SELL when you see:
+- Price breaking below support
+- RSI falling below 50 (losing momentum)
+- MACD turning negative
+- Decreasing volume on rallies
+- Price crossing below MA20
+- Bearish divergences forming
+
+Do Nothing ONLY when:
+- Price is in tight consolidation (Bollinger Bands squeezing)
+- All indicators are mixed/neutral
+- Volume is extremely low
 
 CRITICAL RULES:
-1. Your response MUST be EXACTLY one of these three words: Buy, Sell, or Do Nothing
-2. Do NOT provide any explanation, reasoning, or additional text
-3. Respond with ONLY the action word
-4. Do NOT show your thinking process or internal reasoning
+1. Respond with EXACTLY one word: Buy, Sell, or Do Nothing
+2. Be AGGRESSIVE - if you see a clear setup forming, take it
+3. This is 15-minute data - act on short-term momentum
+4. "Do Nothing" should be RARE - look for opportunities!
 
-Analyze the market data below and decide:
-
-- "Buy" = Strong bullish signals, recommend opening/holding position
-- "Sell" = Bearish signals or major weakness, recommend closing position entirely
-- "Do Nothing" = Unclear/neutral signals, recommend holding current state unchanged
-
-IMPORTANT: "Do Nothing" means maintain current position (if we have one, keep it; if we don't, stay out)
-
-RESPOND WITH ONLY ONE WORD: Buy, Sell, or Do Nothing"""
+RESPOND WITH ONLY ONE WORD:"""
 
 import os
 import sys
