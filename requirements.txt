@@ -1,5 +1,5 @@
-# 🌙 Moon Dev's AI Trading Agents Requirements 🌙
-# Built with ❤️ by Moon Dev
+# 🌙 bb1151's AI Trading Agents Requirements 🌙
+# Built with ❤️ by bb1151
 
 # ========== Core AI/LLM Dependencies ==========
 anthropic==0.40.0
@@ -23,8 +23,8 @@ web3==6.20.1
 # ========== Data & Analysis ==========
 pandas==2.1.4
 numpy==1.26.2
-pandas-ta==0.3.14b0
-TA-Lib==0.4.32  # Technical indicators
+# pandas-ta  # Temporarily disabled - not available via pip
+# TA-Lib==0.4.32  # Technical indicators - requires system library installation
 Backtesting==0.3.3  # Backtesting framework
 yfinance==0.2.43  # For fetching Yahoo Finance data
 
@@ -34,10 +34,10 @@ termcolor==2.3.0
 colorama==0.4.6  # For colored terminal output
 requests==2.31.0
 tqdm==4.67.1
-pathlib
+# pathlib  # Built-in module
 schedule==1.2.0  # For scheduled tasks
 psutil==5.9.8  # System and process utilities
-asyncio  # Built-in, but noting for async support
+# asyncio  # Built-in module
 httpx==0.28.1  # Modern HTTP client
 
 # ========== Media Processing ==========
@@ -75,7 +75,7 @@ twikit==2.2.1  # Twitter API client
 # - GEMINI_KEY (Google)
 # - DEEPSEEK_KEY (DeepSeek - if using)
 # - BIRDEYE_API_KEY (Solana data)
-# - MOONDEV_API_KEY (Custom signals)
+# - BB1151_API_KEY (Custom signals)
 # - SOLANA_PRIVATE_KEY (Trading)
 # - HYPER_LIQUID_KEY (HyperLiquid)
 #

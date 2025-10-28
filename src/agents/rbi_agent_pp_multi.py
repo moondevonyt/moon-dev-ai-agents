@@ -65,17 +65,20 @@ print("✅ Environment variables loaded")
 
 # Add config values directly to avoid import issues
 AI_TEMPERATURE = 0.7
-AI_MAX_TOKENS = 16000  # 🌙 Moon Dev: Increased for complete backtest code generation with execution block!
+AI_MAX_TOKENS = 8000  # DeepSeek max is 8192 - using 8000 for safety
 
 # Import model factory with proper path handling
 import sys
-sys.path.append('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading')
+# Dynamically add project root to path
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
 
 try:
     from src.models import model_factory
     print("✅ Successfully imported model_factory")
 except ImportError as e:
     print(f"⚠️ Could not import model_factory: {e}")
+    print(f"   Project root: {project_root}")
     sys.exit(1)
 
 # ============================================
@@ -115,40 +118,40 @@ rate_limiter = Semaphore(MAX_PARALLEL_THREADS)
 # - GLM: z-ai/glm-4.6
 # See src/models/openrouter_model.py for ALL available models!
 
-# 🧠 RESEARCH: Gemini 2.5 Flash (fast strategy analysis)
+# 🧠 RESEARCH: DeepSeek Chat (fast strategy analysis)
 RESEARCH_CONFIG = {
-    "type": "openrouter",
-    "name": "google/gemini-2.5-flash"
+    "type": "deepseek",
+    "name": "deepseek-chat"
 }
 
-# 💻 BACKTEST CODE GEN: OpenRouter Gemini 2.5 Pro (testing Gemini through OpenRouter!)
+# 💻 BACKTEST CODE GEN: DeepSeek Chat (excellent code generation!)
 BACKTEST_CONFIG = {
-    "type": "openrouter",
-    "name": "google/gemini-2.5-pro"
+    "type": "deepseek",
+    "name": "deepseek-chat"
 }
 
-# 🐛 DEBUGGING: Qwen 3 VL 32B (vision & language for code debugging)
+# 🐛 DEBUGGING: DeepSeek Chat (code debugging)
 DEBUG_CONFIG = {
-    "type": "openrouter",
-    "name": "qwen/qwen3-vl-32b-instruct"
+    "type": "deepseek",
+    "name": "deepseek-chat"
 }
 
-# 📦 PACKAGE CHECK: GLM 4.6 (Zhipu AI)
+# 📦 PACKAGE CHECK: DeepSeek Chat
 PACKAGE_CONFIG = {
-    "type": "openrouter",
-    "name": "z-ai/glm-4.6"
+    "type": "deepseek",
+    "name": "deepseek-chat"
 }
 
-# 🚀 OPTIMIZATION: GLM 4.6 (Zhipu AI for strategy optimization)
+# 🚀 OPTIMIZATION: DeepSeek Reasoner (strategy optimization with reasoning)
 OPTIMIZE_CONFIG = {
-    "type": "openrouter",
-    "name": "z-ai/glm-4.6"
+    "type": "deepseek",
+    "name": "deepseek-reasoner"
 }
 
 # 🎯 PROFIT TARGET CONFIGURATION
 TARGET_RETURN = 50  # Target return in %
 SAVE_IF_OVER_RETURN = 1.0  # Save backtest to CSV and folders if return > this % (Moon Dev's threshold!)
-CONDA_ENV = "tflow"
+CONDA_ENV = None  # Not using conda - using .venv instead
 MAX_DEBUG_ITERATIONS = 10
 MAX_OPTIMIZATION_ITERATIONS = 10
 EXECUTION_TIMEOUT = 300  # 5 minutes
@@ -844,15 +847,17 @@ def save_backtest_if_threshold_met(code: str, stats: dict, strategy_name: str, i
         return False
 
 def execute_backtest(file_path: str, strategy_name: str, thread_id: int) -> dict:
-    """Execute a backtest file in conda environment and capture output"""
+    """Execute a backtest file using current Python environment"""
     thread_print(f"🚀 Executing: {strategy_name}", thread_id)
 
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"File not found: {file_path}")
 
+    # Use sys.executable to get the current Python interpreter (from .venv)
+    import sys
     cmd = [
-        "conda", "run", "-n", CONDA_ENV,
-        "python", str(file_path)
+        sys.executable,  # Current Python interpreter
+        str(file_path)
     ]
 
     start_time = datetime.now()
@@ -1543,7 +1548,7 @@ def main(ideas_file_path=None, run_name=None):
     cprint(f"\n📅 Date: {CURRENT_DATE}", "magenta")
     cprint(f"🎯 Target Return: {TARGET_RETURN}%", "green", attrs=['bold'])
     cprint(f"🔀 Max Parallel Threads: {MAX_PARALLEL_THREADS}", "yellow", attrs=['bold'])
-    cprint(f"🐍 Conda env: {CONDA_ENV}", "cyan")
+    cprint(f"🐍 Python env: .venv", "cyan")
     cprint(f"📂 Data dir: {DATA_DIR}", "magenta")
     cprint(f"📝 Ideas file: {IDEAS_FILE}", "magenta")
     if run_name:

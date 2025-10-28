@@ -1,7 +1,7 @@
 # 🤖 AI AGENTS FOR TRADING
 
 <p align="center">
-  <a href="https://www.moondev.com/"><img src="moondev.png" width="300" alt="Moon Dev"></a>
+  <a href="https://www.moondev.com/"><img src="moondev.png" width="300" alt="bb1151"></a>
 </p>
 
 ## 🎯 Vision
@@ -71,7 +71,7 @@ feel free to join [our discord](https://discord.gg/8UPuVZ53bh) if you beleive ai
 
 ## ⚠️ Critical Disclaimers
 
-*There is no token associated with this project and there never will be. any token launched is not affiliated with this project, moon dev will never dm you. be careful. don't send funds anywhere*
+*There is no token associated with this project and there never will be. any token launched is not affiliated with this project, bb1151 will never dm you. be careful. don't send funds anywhere*
 
 **PLEASE READ CAREFULLY:**
 
@@ -203,7 +203,7 @@ python src/agents/rbi_agent_pp_multi.py
 ```
 
 **Option B: Use the Web Dashboard**
-
++
 Start the dashboard:
 ```bash
 cd src/data/rbi_pp_multi
@@ -320,7 +320,7 @@ The agent will automatically download and cache the data.
 
 ---
 
-*Built with love by Moon Dev - Pioneering the future of AI-powered trading*
+*Built with love by bb1151 - Pioneering the future of AI-powered trading*
 
 ## 📜 Detailed Disclaimer
 The content presented is for educational and informational purposes only and does not constitute financial advice. All trading involves risk and may not be suitable for all investors. You should carefully consider your investment objectives, level of experience, and risk appetite before investing.

@@ -13,18 +13,18 @@ Quick Start Guide:
 
 2. Create a .env file in your project root:
    ```
-   MOONDEV_API_KEY=your_api_key_here
+   BB1151_API_KEY=your_api_key_here
    ```
 
 3. Basic Usage:
    ```python
-   from agents.api import MoonDevAPI
+   from agents.api import BB1151API
    
    # Initialize with env variable (recommended)
-   api = MoonDevAPI()
+   api = BB1151API()
    
    # Or initialize with direct key
-   api = MoonDevAPI(api_key="your_key_here")
+   api = BB1151API(api_key="your_key_here")
    
    # Get data
    liquidations = api.get_liquidation_data(limit=1000)  # Last 1000 rows
@@ -86,30 +86,30 @@ load_dotenv()
 # Get the project root directory
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 
-class MoonDevAPI:
+class BB1151API:
     def __init__(self, api_key=None, base_url="http://api.moondev.com:8000"):
         """Initialize the API handler"""
         self.base_dir = PROJECT_ROOT / "src" / "agents" / "api_data"
         self.base_dir.mkdir(parents=True, exist_ok=True)
-        self.api_key = api_key or os.getenv('MOONDEV_API_KEY')
+        self.api_key = api_key or os.getenv('BB1151_API_KEY')
         self.base_url = base_url
         self.headers = {'X-API-Key': self.api_key} if self.api_key else {}
         self.session = requests.Session()
         self.max_retries = 3
         self.chunk_size = 8192  # Smaller chunk size for more reliable downloads
         
-        print("🌙 Moon Dev API: Ready to rock! 🚀")
+        print("🌙 bb1151 API: Ready to rock! 🚀")
         print(f"📂 Cache directory: {self.base_dir.absolute()}")
         print(f"🌐 API URL: {self.base_url}")
         if not self.api_key:
-            print("⚠️ No API key found! Please set MOONDEV_API_KEY in your .env file")
+            print("⚠️ No API key found! Please set BB1151_API_KEY in your .env file")
         else:
             print("🔑 API key loaded successfully!")
 
     def _fetch_csv(self, filename, limit=None):
         """Fetch CSV data from the API"""
         try:
-            print(f"🚀 Moon Dev API: Fetching {filename}{'with limit '+str(limit) if limit else ''}...")
+            print(f"🚀 bb1151 API: Fetching {filename}{'with limit '+str(limit) if limit else ''}...")
             
             url = f'{self.base_url}/files/{filename}'
             if limit:
@@ -269,11 +269,11 @@ class MoonDevAPI:
             return None
 
 if __name__ == "__main__":
-    print("🌙 Moon Dev API Test Suite 🚀")
+    print("🌙 bb1151 API Test Suite 🚀")
     print("=" * 50)
     
     # Initialize API
-    api = MoonDevAPI()
+    api = BB1151API()
     
     print("\n📊 Testing Data...")
     

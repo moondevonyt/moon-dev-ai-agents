@@ -1,6 +1,6 @@
 """
-🌙 Moon Dev's Configuration File
-Built with love by Moon Dev 🚀
+🌙 bb1151's Configuration File
+Built with love by bb1151 🚀
 """
 
 # 🔄 Exchange Selection
@@ -20,8 +20,8 @@ MONITORED_TOKENS = [
     # 'DitHyRMQiSDhn5cnKMJV2CDDt6sVct96YrECiM49pump'     # housecoin
 ]
 
-# Moon Dev's Token Trading List 🚀
-# Each token is carefully selected by Moon Dev for maximum moon potential! 🌙
+# bb1151's Token Trading List 🚀
+# Each token is carefully selected by bb1151 for maximum moon potential! 🌙
 tokens_to_trade = MONITORED_TOKENS  # Using the same list for trading
 
 # ⚡ HyperLiquid Configuration
@@ -93,13 +93,16 @@ sell_over = 1
 # Data collection settings 📈
 DAYSBACK_4_DATA = 3
 DATA_TIMEFRAME = '1H'  # 1m, 3m, 5m, 15m, 30m, 1H, 2H, 4H, 6H, 8H, 12H, 1D, 3D, 1W, 1M
-SAVE_OHLCV_DATA = False  # 🌙 Set to True to save data permanently, False will only use temp data during run
+SAVE_OHLCV_DATA = False  # Set to True to save data permanently, False will only use temp data during run
 
 # AI Model Settings 🤖
-AI_MODEL = "claude-3-haiku-20240307"  # Model Options:
-                                     # - claude-3-haiku-20240307 (Fast, efficient Claude model)
-                                     # - claude-3-sonnet-20240229 (Balanced Claude model)
-                                     # - claude-3-opus-20240229 (Most powerful Claude model)
+AI_MODEL = "deepseek-chat"  # Model Options:
+                            # - deepseek-chat (DeepSeek V3 - Fast, efficient, and very cheap!)
+                            # - deepseek-reasoner (DeepSeek R1 - Advanced reasoning capabilities)
+                            # - claude-3-haiku-20240307 (Fast, efficient Claude model)
+                            # - claude-3-sonnet-20240229 (Balanced Claude model)
+                            # - gpt-4o-mini (OpenAI fast model)
+                            # - gemini-2.5-flash (Google Gemini)
 AI_MAX_TOKENS = 1024  # Max tokens for response
 AI_TEMPERATURE = 0.7  # Creativity vs precision (0-1)
 

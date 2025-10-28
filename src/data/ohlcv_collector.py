@@ -7,7 +7,7 @@ Built with love by Moon Dev 🚀
 from src.config import *
 from src import nice_funcs as n
 from src import nice_funcs_hyperliquid as hl
-from src import nice_funcs_aster as aster
+# from src import nice_funcs_aster as aster  # Disabled - Aster module not available
 import pandas as pd
 from datetime import datetime
 import os

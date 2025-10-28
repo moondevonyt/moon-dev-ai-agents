@@ -17,7 +17,14 @@ import time
 import requests
 import pandas as pd
 import numpy as np
-import pandas_ta as ta
+# Try importing pandas_ta, use fallback if not available
+try:
+    import pandas_ta as ta
+    PANDAS_TA_AVAILABLE = True
+except ImportError:
+    print("⚠️  pandas_ta not available - using basic indicators only")
+    PANDAS_TA_AVAILABLE = False
+    ta = None
 import datetime
 from datetime import timedelta
 from termcolor import colored, cprint

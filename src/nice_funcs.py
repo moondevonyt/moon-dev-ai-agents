@@ -14,7 +14,14 @@ import time
 import json
 import numpy as np
 import datetime
-import pandas_ta as ta
+# Try importing pandas_ta, use fallback if not available
+try:
+    import pandas_ta as ta
+    PANDAS_TA_AVAILABLE = True
+except ImportError:
+    print("⚠️  pandas_ta not available - using basic indicators only")
+    PANDAS_TA_AVAILABLE = False
+    ta = None
 from datetime import datetime, timedelta
 from termcolor import colored, cprint
 import solders
@@ -382,21 +389,32 @@ def get_data(address, days_back_4_data, timeframe):
 
         # Pad if needed
         if len(df) < 40:
-            print(f"🌙 MoonDev Alert: Padding data to ensure minimum 40 rows for analysis! 🚀")
+            print(f"🌙 bb1151 Alert: Padding data to ensure minimum 40 rows for analysis! 🚀")
             rows_to_add = 40 - len(df)
             first_row_replicated = pd.concat([df.iloc[0:1]] * rows_to_add, ignore_index=True)
             df = pd.concat([first_row_replicated, df], ignore_index=True)
 
-        print(f"📊 MoonDev's Data Analysis Ready! Processing {len(df)} candles... 🎯")
+        print(f"📊 bb1151's Data Analysis Ready! Processing {len(df)} candles... 🎯")
 
         # Always save to temp for current run
         df.to_csv(temp_file)
-        print(f"🔄 Moon Dev cached data for {address[:4]}")
+        print(f"🔄 bb1151 cached data for {address[:4]}")
 
         # Calculate indicators
-        df['MA20'] = ta.sma(df['Close'], length=20)
-        df['RSI'] = ta.rsi(df['Close'], length=14)
-        df['MA40'] = ta.sma(df['Close'], length=40)
+        if PANDAS_TA_AVAILABLE:
+            df['MA20'] = ta.sma(df['Close'], length=20)
+            df['RSI'] = ta.rsi(df['Close'], length=14)
+            df['MA40'] = ta.sma(df['Close'], length=40)
+        else:
+            # Basic indicators without pandas_ta
+            df['MA20'] = df['Close'].rolling(window=20).mean()
+            df['MA40'] = df['Close'].rolling(window=40).mean()
+            # Simple RSI calculation
+            delta = df['Close'].diff()
+            gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
+            loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
+            rs = gain / loss
+            df['RSI'] = 100 - (100 / (1 + rs))
 
         df['Price_above_MA20'] = df['Close'] > df['MA20']
         df['Price_above_MA40'] = df['Close'] > df['MA40']
@@ -404,7 +422,7 @@ def get_data(address, days_back_4_data, timeframe):
 
         return df
     else:
-        print(f"❌ MoonDev Error: Failed to fetch data for address {address}. Status code: {response.status_code}")
+        print(f"❌ bb1151 Error: Failed to fetch data for address {address}. Status code: {response.status_code}")
         if response.status_code == 401:
             print("🔑 Check your BIRDEYE_API_KEY in .env file!")
         return pd.DataFrame()

@@ -101,7 +101,7 @@ response = model.generate_response(system_prompt, user_content, temperature, max
 - Trading: `market_buy()`, `market_sell()`, `chunk_kill()`, `open_position()`
 - Analysis: Technical indicators, PnL calculations, rug pull detection
 
-**`src/agents/api.py`**: `MoonDevAPI` class for custom Moon Dev API endpoints
+**`src/agents/api.py`**: `BB1151API` class for custom bb1151 API endpoints
 - `get_liquidation_data()`, `get_funding_data()`, `get_oi_data()`, `get_copybot_follow_list()`
 
 ### Data Flow Pattern
@@ -165,7 +165,7 @@ class YourStrategy(BaseStrategy):
 
 ### Data Sources
 1. **BirdEye API** - Solana token data (price, volume, liquidity, OHLCV)
-2. **Moon Dev API** - Custom signals (liquidations, funding rates, OI, copybot data)
+2. **bb1151 API** - Custom signals (liquidations, funding rates, OI, copybot data)
 3. **CoinGecko API** - 15,000+ token metadata, market caps, sentiment
 4. **Helius RPC** - Solana blockchain interaction
 

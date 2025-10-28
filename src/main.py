@@ -1,5 +1,5 @@
 """
-🌙 Moon Dev's AI Trading System
+🌙 bb1151's AI Trading System
 Main entry point for running trading agents
 """
 
@@ -14,13 +14,6 @@ from config import *
 # Add project root to Python path
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(project_root)
-
-# Import agents
-from src.agents.trading_agent import TradingAgent
-from src.agents.risk_agent import RiskAgent
-from src.agents.strategy_agent import StrategyAgent
-from src.agents.copybot_agent import CopyBotAgent
-from src.agents.sentiment_agent import SentimentAgent
 
 # Load environment variables
 load_dotenv()
@@ -37,6 +30,20 @@ ACTIVE_AGENTS = {
     # 'portfolio': False,  # Future portfolio optimization agent
 }
 
+# Import agents
+from src.agents.trading_agent import TradingAgent
+from src.agents.risk_agent import RiskAgent
+from src.agents.strategy_agent import StrategyAgent
+from src.agents.copybot_agent import CopyBotAgent
+# Sentiment agent requires transformers package - import only if needed
+try:
+    from src.agents.sentiment_agent import SentimentAgent
+except ImportError:
+    SentimentAgent = None
+    if ACTIVE_AGENTS.get('sentiment', False):
+        cprint("⚠️  Sentiment agent is enabled but transformers package not installed", "yellow")
+        cprint("   Install with: pip install transformers torch", "yellow")
+
 def run_agents():
     """Run all active agents in sequence"""
     try:
@@ -45,7 +52,7 @@ def run_agents():
         risk_agent = RiskAgent() if ACTIVE_AGENTS['risk'] else None
         strategy_agent = StrategyAgent() if ACTIVE_AGENTS['strategy'] else None
         copybot_agent = CopyBotAgent() if ACTIVE_AGENTS['copybot'] else None
-        sentiment_agent = SentimentAgent() if ACTIVE_AGENTS['sentiment'] else None
+        sentiment_agent = SentimentAgent() if (ACTIVE_AGENTS['sentiment'] and SentimentAgent) else None
 
         while True:
             try:
@@ -94,7 +101,7 @@ def run_agents():
         raise
 
 if __name__ == "__main__":
-    cprint("\n🌙 Moon Dev AI Agent Trading System Starting...", "white", "on_blue")
+    cprint("\n🌙 bb1151 AI Agent Trading System Starting...", "white", "on_blue")
     cprint("\n📊 Active Agents:", "white", "on_blue")
     for agent, active in ACTIVE_AGENTS.items():
         status = "✅ ON" if active else "❌ OFF"

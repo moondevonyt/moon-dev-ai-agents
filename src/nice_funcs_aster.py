@@ -33,10 +33,14 @@ if aster_bots_path not in sys.path:
 try:
     from aster_api import AsterAPI  # type: ignore
     from aster_funcs import AsterFuncs  # type: ignore
+    ASTER_AVAILABLE = True
 except ImportError as e:
-    cprint(f"❌ Failed to import Aster modules: {e}", "red")
-    cprint(f"Make sure Aster-Dex-Trading-Bots exists at: {aster_bots_path}", "yellow")
-    sys.exit(1)
+    cprint(f"⚠️  Aster modules not available: {e}", "yellow")
+    cprint(f"   Aster exchange will not be usable. Set EXCHANGE='solana' or 'hyperliquid' in config.py", "yellow")
+    ASTER_AVAILABLE = False
+    # Create dummy classes to prevent further import errors
+    AsterAPI = None
+    AsterFuncs = None
 
 # Load environment variables
 load_dotenv()
@@ -45,15 +49,21 @@ load_dotenv()
 ASTER_API_KEY = os.getenv('ASTER_API_KEY')
 ASTER_API_SECRET = os.getenv('ASTER_API_SECRET')
 
-# Verify API keys
-if not ASTER_API_KEY or not ASTER_API_SECRET:
-    cprint("❌ ASTER API keys not found in .env file!", "red")
-    cprint("Please add ASTER_API_KEY and ASTER_API_SECRET to your .env file", "yellow")
-    sys.exit(1)
-
-# Initialize API (global instance)
-api = AsterAPI(ASTER_API_KEY, ASTER_API_SECRET)
-funcs = AsterFuncs(api)
+# Verify API keys and initialize only if Aster is available
+if ASTER_AVAILABLE:
+    if not ASTER_API_KEY or not ASTER_API_SECRET:
+        cprint("⚠️  ASTER API keys not found in .env file!", "yellow")
+        cprint("   Please add ASTER_API_KEY and ASTER_API_SECRET if you want to use Aster exchange", "yellow")
+        ASTER_AVAILABLE = False
+        api = None
+        funcs = None
+    else:
+        # Initialize API (global instance)
+        api = AsterAPI(ASTER_API_KEY, ASTER_API_SECRET)
+        funcs = AsterFuncs(api)
+else:
+    api = None
+    funcs = None
 
 # ============================================================================
 # CONFIGURATION
