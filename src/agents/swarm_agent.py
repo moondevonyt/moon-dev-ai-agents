@@ -59,13 +59,16 @@ from src.models.model_factory import model_factory
 # ============================================
 
 # Configure which models to use in the swarm (set to True to enable)
-# 🆓 100% FREE LOCAL OLLAMA SETUP - 4 Model Consensus
+# 🆓 100% FREE LOCAL OLLAMA SETUP - 2 Model Consensus (FASTER)
+# 💡 Reduced to 2 models for laptop hardware - still gets good consensus!
 SWARM_MODELS = {
     # Provider: (enabled, model_type, model_name)
     "ollama_deepseek": (True, "ollama", "deepseek-r1:7b"),  # DeepSeek-R1 7B - Reasoning specialist!
-    "ollama_qwen": (True, "ollama", "qwen2.5:7b"),  # Qwen 2.5 7B - Fast pattern recognition!
-    "ollama_llama_large": (True, "ollama", "llama3.2:latest"),  # Llama 3.2 2GB - General intelligence!
     "ollama_llama_small": (True, "ollama", "llama3.2:1b"),  # Llama 3.2 1B - Fast baseline!
+
+    # Disabled for speed (enable if you want 4-model consensus - takes 12+ minutes)
+    #"ollama_qwen": (True, "ollama", "qwen2.5:7b"),  # Qwen 2.5 7B - Pattern recognition
+    #"ollama_llama_large": (True, "ollama", "llama3.2:latest"),  # Llama 3.2 2GB - General intelligence
 
     # Paid API models (all disabled - using 100% free local models!)
     #"claude": (False, "claude", "claude-sonnet-4-5"),  # Claude 4.5 Sonnet
@@ -79,7 +82,8 @@ DEFAULT_TEMPERATURE = 0.7
 DEFAULT_MAX_TOKENS = 2048  # Increased for model compatibility (Gemini/Groq/Qwen need 2048+ minimum)
 
 # Timeout for each model (seconds)
-MODEL_TIMEOUT = 90
+# Increased for laptop/slower hardware - 7B models need more time!
+MODEL_TIMEOUT = 180  # 3 minutes per model (was 90s)
 
 # Consensus Reviewer - Synthesizes all responses into a clean summary
 # Using DeepSeek-R1 for consensus (best reasoning model)

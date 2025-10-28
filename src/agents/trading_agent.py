@@ -106,9 +106,10 @@ PAPER_TRADING_MODE = True  # True = Simulate trades with fake $10,000 balance
 PAPER_STARTING_BALANCE = 10000.0  # Starting fake balance in USDC
 
 # 🌊 AI MODE SELECTION
-USE_SWARM_MODE = True  # True = 4-model swarm consensus (~30-45s per token)
-                       # False = Single model fast execution (~10s per token)
+USE_SWARM_MODE = True  # True = 2-model swarm consensus (~6 minutes per token on laptop)
+                       # False = Single model fast execution (~3 minutes per token)
                        # 🆓 NOW USING 100% FREE LOCAL OLLAMA MODELS IN SWARM!
+                       # 💡 Optimized for laptop hardware!
 
 # 📈 TRADING MODE SETTINGS
 LONG_ONLY = True  # True = Long positions only (works on all exchanges)
