@@ -107,11 +107,11 @@ class OllamaModel(BaseModel):
                 }
             }
             
-            # Make the request with 90 second timeout
+            # Make the request with 180 second timeout (increased for 7B models on laptop hardware)
             response = requests.post(
                 f"{self.base_url}/chat",
                 json=data,
-                timeout=90  # Match swarm timeout
+                timeout=180  # 3 minutes - enough for 7B models on slower hardware
             )
             
             if response.status_code == 200:
