@@ -1,5 +1,5 @@
 '''
-🌙 Moon Dev's Research Agent 🌙
+🌙 BB1151's Research Agent 🌙
 This agent automatically generates trading strategy ideas and logs them to both CSV and ideas.txt
 
 Features:
@@ -9,7 +9,7 @@ Features:
 - Appends new ideas to the ideas.txt file for RBI Agent processing
 - Runs in a continuous loop generating new ideas
 
-Created with ❤️ by Moon Dev
+Created with ❤️ by BB1151
 
 [] be able to search youtube
 [] be able to search the web 
@@ -17,7 +17,7 @@ Created with ❤️ by Moon Dev
 
 # PROMPT - Edit this to change the type of ideas generated
 IDEA_GENERATION_PROMPT = """
-You are Moon Dev's Trading Strategy Idea Generator 🌙
+You are BB1151's Trading Strategy Idea Generator 🌙
 
 Come up with ONE unique trading strategy idea that can be backtested
 The idea should be innovative, specific, and concise (1-2 sentences only).
@@ -57,12 +57,36 @@ project_root = Path(__file__).parent.parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 from src.models import model_factory
+from src.mcp_client import MCPClient
 
 # Define paths
 PROJECT_ROOT = Path(__file__).parent.parent.parent  # Points to project root
 DATA_DIR = PROJECT_ROOT / "src" / "data" / "rbi_pp_multi"  # 🌙 Using rbi_pp_multi for parallel processing
 IDEAS_TXT = DATA_DIR / "ideas.txt"
 IDEAS_CSV = DATA_DIR / "strategy_ideas.csv"
+
+# MCP Configuration
+MCP_ENABLED = True  # Set to False to disable web research
+SMITHERY_CONFIG = {
+    "command": "npx",
+    "args": [
+        "-y",
+        "@smithery/cli@latest",
+        "run",
+        "@baranwang/mcp-deep-research",
+        "--key",
+        "7d9bcb4f-45e8-4ac1-8cae-7886b4222548",
+        "--profile",
+        "circular-catshark-yb728x",
+    ],
+    "timeout": 30
+}
+
+# Research Configuration for MCP deep-research tool
+RESEARCH_TOPIC = "crypto trading opportunities"
+RESEARCH_KEYWORDS = ["Bitcoin", "Ethereum", "Solana", "liquidations", "funding rates", "volatility", "trading volume"]
+RESEARCH_QUESTION = "What are the most significant crypto market events and trading opportunities in the last 24 hours for BTC, ETH, and SOL?"
+RESEARCH_ROUNDS = 2  # Number of search rounds for deeper research
 
 # Model configurations
 MODELS = [
@@ -203,6 +227,84 @@ def is_duplicate(idea, existing_ideas):
     
     return False
 
+def get_market_context() -> str:
+    """
+    🌙 BB1151's Market Context Fetcher
+    Uses MCP client to get real-time market research before generating strategies
+    """
+    if not MCP_ENABLED:
+        return ""
+    
+    try:
+        cprint("\n🌍 Fetching live market context via MCP...", "cyan")
+        
+        # Initialize MCP client
+        mcp = MCPClient(
+            command=SMITHERY_CONFIG["command"],
+            args=SMITHERY_CONFIG["args"],
+            timeout=SMITHERY_CONFIG["timeout"]
+        )
+        
+        # Find appropriate research tool
+        research_tool = mcp.find_tool(["research", "search", "deep"])
+        
+        if not research_tool:
+            cprint("⚠️  No research tool found, skipping MCP context", "yellow")
+            mcp.close()
+            return ""
+        
+        cprint(f"🔍 Using tool: {research_tool}", "green")
+        
+        # Execute research with proper parameters for deep-research tool
+        research_params = {
+            "question": RESEARCH_QUESTION,  # REQUIRED
+            "topic": RESEARCH_TOPIC,
+            "keywords": RESEARCH_KEYWORDS,
+            "search_round": RESEARCH_ROUNDS
+        }
+        
+        cprint(f"📝 Research question: {RESEARCH_QUESTION[:80]}...", "cyan")
+        result = mcp.call_tool(research_tool, research_params)
+        mcp.close()
+        
+        # Parse result - handle different response formats
+        context_parts = []
+        
+        if isinstance(result, dict):
+            # Try common field names
+            for field in ["summary", "content", "text", "result", "answer"]:
+                if field in result and result[field]:
+                    context_parts.append(str(result[field]))
+            
+            # Check for findings/items arrays
+            for field in ["findings", "items", "results", "insights"]:
+                if field in result and isinstance(result[field], list):
+                    context_parts.extend([f"- {item}" for item in result[field][:5]])
+            
+            # Check for sources
+            if "sources" in result and isinstance(result["sources"], list):
+                context_parts.append("\nSources:")
+                context_parts.extend([f"- {s}" for s in result["sources"][:3]])
+        
+        # Fallback: convert entire result to string
+        if not context_parts:
+            result_str = str(result).strip()
+            if result_str and result_str != "None" and result_str != "{}":
+                context_parts.append(result_str)
+        
+        if context_parts:
+            context = "\n".join(context_parts).strip()
+            cprint(f"✅ Market context fetched ({len(context)} chars)", "green")
+            return context
+        
+        # No useful data
+        cprint(f"⚠️  MCP returned empty result", "yellow")
+        return ""
+        
+    except Exception as e:
+        cprint(f"⚠️  MCP context fetch failed: {str(e)}", "yellow")
+        return ""
+
 def generate_idea(model_config):
     """Generate a trading strategy idea using the specified model"""
     try:
@@ -244,14 +346,28 @@ def generate_idea(model_config):
             cprint(f"❌ Could not initialize {model_config['type']} model!", "white", "on_red")
             return None
         
+        # 🌍 NEW: Fetch live market context via MCP
+        market_context = get_market_context()
+        
+        # Build enhanced prompt with market context
+        if market_context:
+            enhanced_prompt = (
+                IDEA_GENERATION_PROMPT
+                + "\n\n=== RECENT MARKET CONTEXT (DO NOT HALLUCINATE, USE THIS DATA) ===\n"
+                + market_context
+                + "\n\nOnly propose a strategy that could realistically exploit THESE recent market conditions."
+            )
+        else:
+            enhanced_prompt = IDEA_GENERATION_PROMPT
+        
         # Show generation in progress message
         cprint(f"\n⏳ GENERATING TRADING STRATEGY IDEA...", "black", "on_white")
         time.sleep(0.5)  # Pause for readability
         
-        # Generate response
+        # Generate response with enhanced prompt
         response = model.generate_response(
-            system_prompt=IDEA_GENERATION_PROMPT,
-            user_content="Generate one unique trading strategy idea.",
+            system_prompt=enhanced_prompt,
+            user_content="Generate one unique trading strategy idea based on the current market context.",
             temperature=0.8  # Higher temperature for more creativity
         )
         
