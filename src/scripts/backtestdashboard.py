@@ -50,11 +50,12 @@ from datetime import datetime
 # 📊 Path to your backtest stats CSV file
 # This CSV is created by rbi_agent_pp_multi.py after running backtests
 # Default: src/data/rbi_pp_multi/backtest_stats.csv
-STATS_CSV = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp_multi/backtest_stats.csv")
+project_root = Path(__file__).parent.parent.parent
+STATS_CSV = project_root / "src/data/rbi_pp_multi/backtest_stats.csv"
 
 # 📁 Directory for static files (CSS, JS) and templates (HTML)
-# These files are located in: src/data/rbi_pp_multi/static and src/data/rbi_pp_multi/templates
-TEMPLATE_BASE_DIR = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp_multi")
+# Using rbi_pp_multi folder as in README
+TEMPLATE_BASE_DIR = project_root / "src/data/rbi_pp_multi"
 
 # 🗂️ Directory to store user-created folders
 # Folders allow you to organize and group your backtest results

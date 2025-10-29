@@ -1,0 +1,7 @@
+Symbol,Timeframe,Return %,Buy & Hold %,Max Drawdown %,Sharpe,Sortino,Trades,Win Rate %,Avg Trade %
+BTC-USD,15m,0.0,-4.7,-0.0,,,0,0.0,0.0
+BTC-USD,30m,0.0,-4.76,-0.0,,,0,0.0,0.0
+ETH-USD,15m,0.0,4.09,-0.0,,,0,0.0,0.0
+ETH-USD,30m,0.0,4.3,-0.0,,,0,0.0,0.0
+SOL-USD,15m,-1.65,9.53,-1.87,0.0,0.0,110,25.45,-0.31
+SOL-USD,30m,-1.12,10.01,-1.93,0.0,0.0,54,38.89,-0.16

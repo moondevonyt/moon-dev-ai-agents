@@ -150,7 +150,16 @@ OPTIMIZE_CONFIG = {
 
 # 🎯 PROFIT TARGET CONFIGURATION
 TARGET_RETURN = 50  # Target return in %
-SAVE_IF_OVER_RETURN = 1.0  # Save backtest to CSV and folders if return > this % (Moon Dev's threshold!)
+SAVE_IF_OVER_RETURN = 0.0  # 🌙 LOWERED: Save ALL strategies to CSV (even losses) for better analysis!
+
+# 🌙 MULTI-ASSET TESTING CONFIGURATION
+MULTI_ASSET_ENABLED = True  # Enable testing on multiple assets
+TEST_ASSETS = [
+    {'symbol': 'BTC-USD', 'timeframe': '15m', 'file': 'BTC-USD-15m.csv'},
+    {'symbol': 'BTC-USD', 'timeframe': '30m', 'file': 'BTC-USD-30m.csv'},
+    {'symbol': 'ETH-USD', 'timeframe': '15m', 'file': 'ETH-USD-15m.csv'},
+    {'symbol': 'SOL-USD', 'timeframe': '15m', 'file': 'SOL-USD-15m.csv'},
+]
 CONDA_ENV = None  # Not using conda - using .venv instead
 MAX_DEBUG_ITERATIONS = 10
 MAX_OPTIMIZATION_ITERATIONS = 10
@@ -840,11 +849,70 @@ def save_backtest_if_threshold_met(code: str, stats: dict, strategy_name: str, i
         # Log to CSV
         log_stats_to_csv(strategy_name, thread_id, stats, str(working_file))
 
+        # 🌙 MULTI-ASSET TESTING: Test on other assets if enabled
+        if MULTI_ASSET_ENABLED and return_pct > 0:  # Only test profitable strategies on other assets
+            thread_print(f"\n🌍 Starting Multi-Asset Testing...", thread_id, "cyan", attrs=['bold'])
+            test_on_multiple_assets(code, strategy_name, thread_id, stats)
+
         return True
 
     except Exception as e:
         thread_print(f"❌ Error saving backtest: {str(e)}", thread_id, "red")
         return False
+
+def test_on_multiple_assets(code: str, strategy_name: str, thread_id: int, original_stats: dict) -> None:
+    """
+    🌙 Moon Dev's Multi-Asset Tester!
+    Tests a successful strategy on multiple assets/timeframes
+    """
+    ohlcv_dir = PROJECT_ROOT / "data" / "ohlcv"
+    
+    for asset_config in TEST_ASSETS:
+        try:
+            data_file = ohlcv_dir / asset_config['file']
+            
+            if not data_file.exists():
+                thread_print(f"⏭️  {asset_config['symbol']} {asset_config['timeframe']}: Data not found, skipping", thread_id, "yellow")
+                continue
+            
+            # Modify code to use different data file
+            modified_code = code.replace('BTC-USD-15m.csv', asset_config['file'])
+            
+            # Create temp file
+            temp_file = WORKING_BACKTEST_DIR / f"T{thread_id:02d}_{strategy_name}_{asset_config['symbol'].replace('-', '')}_{asset_config['timeframe']}_TEMP.py"
+            with open(temp_file, 'w') as f:
+                f.write(modified_code)
+            
+            # Execute
+            result = execute_backtest(str(temp_file), strategy_name, thread_id)
+            
+            if result['success']:
+                stats = parse_stats_from_output(result['stdout'])
+                if stats and 'Return [%]' in stats:
+                    return_pct = stats['Return [%]']
+                    thread_print(f"✅ {asset_config['symbol']} {asset_config['timeframe']}: {return_pct:.2f}%", thread_id, "green")
+                    
+                    # Log to CSV with asset info
+                    log_stats_to_csv(
+                        f"{strategy_name}_{asset_config['symbol']}_{asset_config['timeframe']}", 
+                        thread_id, 
+                        stats, 
+                        str(temp_file),
+                        data_source=asset_config['file']
+                    )
+                else:
+                    thread_print(f"⚠️  {asset_config['symbol']} {asset_config['timeframe']}: No stats parsed", thread_id, "yellow")
+            else:
+                thread_print(f"❌ {asset_config['symbol']} {asset_config['timeframe']}: Failed", thread_id, "red")
+            
+            # Clean up temp file
+            if temp_file.exists():
+                temp_file.unlink()
+                
+        except Exception as e:
+            thread_print(f"❌ Error testing {asset_config['symbol']}: {str(e)}", thread_id, "red")
+    
+    thread_print(f"🌍 Multi-Asset Testing Complete!", thread_id, "cyan", attrs=['bold'])
 
 def execute_backtest(file_path: str, strategy_name: str, thread_id: int) -> dict:
     """Execute a backtest file using current Python environment"""

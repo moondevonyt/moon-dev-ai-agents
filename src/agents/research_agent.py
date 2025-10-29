@@ -53,12 +53,14 @@ import textwrap
 
 # Import model factory from RBI agent
 import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+project_root = Path(__file__).parent.parent.parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
 from src.models import model_factory
 
 # Define paths
 PROJECT_ROOT = Path(__file__).parent.parent.parent  # Points to project root
-DATA_DIR = PROJECT_ROOT / "src" / "data" / "rbi"
+DATA_DIR = PROJECT_ROOT / "src" / "data" / "rbi_pp_multi"  # 🌙 Using rbi_pp_multi for parallel processing
 IDEAS_TXT = DATA_DIR / "ideas.txt"
 IDEAS_CSV = DATA_DIR / "strategy_ideas.csv"
 
