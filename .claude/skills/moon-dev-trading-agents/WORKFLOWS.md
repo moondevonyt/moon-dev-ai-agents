@@ -10,7 +10,7 @@ Practical examples for working with Moon Dev's trading system.
 
 ```bash
 # Activate conda environment (NEVER create new venv!)
-conda activate tflow
+# Activate your environment (e.g., conda activate your_env_name)
 
 # Install dependencies
 pip install -r requirements.txt
@@ -23,7 +23,7 @@ cp .env_example .env
 ### Adding New Package
 
 ```bash
-conda activate tflow
+# Activate your environment (e.g., conda activate your_env_name)
 pip install package-name
 pip freeze > requirements.txt  # CRITICAL: Always update!
 ```
@@ -36,7 +36,7 @@ pip freeze > requirements.txt  # CRITICAL: Always update!
 
 ```bash
 # Activate environment
-conda activate tflow
+# Activate your environment (e.g., conda activate your_env_name)
 
 # Run any agent standalone
 python src/agents/trading_agent.py
@@ -177,7 +177,7 @@ ModelFactory.create_model('ollama')     # Local models
 ### Using RBI Agent (Recommended)
 
 ```bash
-conda activate tflow
+# Activate your environment (e.g., conda activate your_env_name)
 python src/agents/rbi_agent.py
 ```
 
@@ -553,7 +553,7 @@ git status
 ### Run Main Loop in Background
 
 ```bash
-conda activate tflow
+# Activate your environment (e.g., conda activate your_env_name)
 
 # Run with nohup
 nohup python src/main.py > trading.log 2>&1 &
@@ -581,7 +581,7 @@ htop
 
 **"Module not found":**
 ```bash
-conda activate tflow
+# Activate your environment (e.g., conda activate your_env_name)
 pip install missing-module
 pip freeze > requirements.txt
 ```

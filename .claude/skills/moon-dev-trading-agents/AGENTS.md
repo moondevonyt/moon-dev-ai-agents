@@ -284,7 +284,7 @@ Comprehensive list of all 48+ specialized AI agents in Moon Dev's trading system
 
 Any agent can run independently:
 ```bash
-conda activate tflow
+# Activate your environment (e.g., conda activate your_env_name)
 python src/agents/[agent_name].py
 ```
 

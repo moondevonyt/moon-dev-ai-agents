@@ -1,11 +1,11 @@
 ---
 name: moon-dev-trading-agents
-description: Master Moon Dev's AI trading system with 48+ specialized agents, multi-exchange support, LLM abstraction, and autonomous trading capabilities across crypto markets
+description: Master Moon Dev's Ai Agents Github with 48+ specialized agents, multi-exchange support, LLM abstraction, and autonomous trading capabilities across crypto markets
 ---
 
 # Moon Dev's AI Trading Agents System
 
-Expert knowledge for working with Moon Dev's experimental AI trading system that orchestrates 48+ specialized AI agents for cryptocurrency trading across Hyperliquid, Solana (BirdEye), and Extended Exchange.
+Expert knowledge for working with Moon Dev's experimental AI trading system that orchestrates 48+ specialized AI agents for cryptocurrency trading across Hyperliquid, Solana (BirdEye), Asterdex, and Extended Exchange.
 
 ## When to Use This Skill
 
@@ -18,15 +18,17 @@ Use this skill when:
 - Understanding backtesting with RBI agent
 - Setting up new exchanges or strategies
 
-## Repository Location
+## Environment Setup Note
 
-**Path**: `/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/`
+**For New Users**: This repo uses Python 3.10.9. If using conda, the README shows setting up an environment named `tflow`, but you can name it whatever you want. If you don't use conda, standard pip/venv works fine too.
 
 ## Quick Start Commands
 
 ```bash
-# Activate environment (ALWAYS use this, never create new envs)
-conda activate tflow
+# Activate your Python environment (conda, venv, or whatever you use)
+# Example with conda: conda activate tflow
+# Example with venv: source venv/bin/activate
+# Use whatever environment manager you prefer
 
 # Run main orchestrator (controls multiple agents)
 python src/main.py
@@ -100,7 +102,7 @@ See AGENTS.md for complete list with descriptions.
 ### 1. Run Single Agent
 
 ```bash
-conda activate tflow
+# Activate your environment first
 python src/agents/[agent_name].py
 ```
 
@@ -164,7 +166,7 @@ See WORKFLOWS.md for more examples.
 
 1. **Keep files under 800 lines** - split into new files if longer
 2. **NEVER move files** - can create new, but no moving without asking
-3. **NEVER create virtual environments** - always use `conda activate tflow`
+3. **Use existing environment** - don't create new virtual environments, use the one from initial setup
 4. **Update requirements.txt** after any pip install: `pip freeze > requirements.txt`
 5. **Use real data only** - never synthetic/fake data
 6. **Minimal error handling** - user wants to see errors, not over-engineered try/except
@@ -243,7 +245,7 @@ Result Storage (CSV/JSON in src/data/) → Optional Trade Execution
 
 **Add new package:**
 ```bash
-conda activate tflow
+# Make sure your environment is activated first
 pip install package-name
 pip freeze > requirements.txt
 ```
