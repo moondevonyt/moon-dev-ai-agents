@@ -56,7 +56,7 @@ feel free to join [our discord](https://discord.gg/8UPuVZ53bh) if you beleive ai
 ### Content Creation Agents
 - **Chat Agent** (`chat_agent.py`): Monitors YouTube live stream chat, moderates & responds to known questions. Absolute fire.
 - **Twitter Agent** (`tweet_agent.py`): Takes in text and creates tweets using DeepSeek or other models
-- **Video Agent** (`video_agent.py`): Takes in text to create videos by creating audio snippets using ElevenLabs and combining with raw_video footage
+- **Video Agent** (`video_agent.py`): 🎬 Parallel AI video generation using OpenAI's Sora 2 API - create videos directly from text prompts with 9 concurrent workers, configurable resolutions (720p/1080p), durations (4/8/12s), and aspect ratios (9:16 for TikTok/Reels, 16:9 for YouTube, 1:1 for Instagram). [See full docs](docs/video_agent.md)
 - **Clips Agent** (`clips_agent.py`): Helps clip long videos into shorter ones so you can upload to your YouTube and get paid. More info: https://discord.gg/XAw8US9aHT
 - **Real-Time Clips Agent** (`realtime_clips_agent.py`): Makes real-time clips of streamers using OBS
 - **Phone Agent** (`phone_agent.py`): An AI agent that can take phone calls for you
