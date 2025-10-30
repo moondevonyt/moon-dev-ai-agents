@@ -1,24 +1,25 @@
 """
-🌙 Moon Dev's RBI AI v3.0 PARALLEL PROCESSOR + MULTI-DATA TESTING 🚀
-Built with love by Moon Dev 🚀
+🌙 BB1151's RBI AI v4.0 PARALLEL PROCESSOR + MULTI-TIMEFRAME TESTING 🚀
+Built with love by BB1151 🚀
 
-PARALLEL PROCESSING + MULTI-DATA VALIDATION: Run up to 5 backtests simultaneously,
-each tested on 25+ different data sources!
+PARALLEL PROCESSING + MULTI-TIMEFRAME VALIDATION: Run up to 18 backtests simultaneously,
+each tested on 120 asset/timeframe combinations!
 
 - Each thread processes a different trading idea
 - Thread-safe colored output
 - Rate limiting to avoid API throttling
 - Massively faster than sequential processing
-- 🆕 AUTOMATIC MULTI-DATA TESTING on 25+ data sources (BTC, ETH, SOL, AAPL, TSLA, ES, NQ, etc.)
+- 🆕 AUTOMATIC MULTI-TIMEFRAME TESTING: 6 ASSETS × 4 PRIMARY TF × 5 INFORMATIVE TF = 120 backtests per strategy!
+  PRIMARY (1m, 5m, 15m, 30m) × INFORMATIVE (1h, 2h, 4h, 1d, 1w)
 
 HOW IT WORKS:
 1. Reads trading ideas from ideas.txt
 2. Spawns up to MAX_PARALLEL_THREADS workers
 3. Each thread independently: Research → Backtest → Debug → Optimize
-4. 🆕 Each successful backtest automatically tests on 25+ data sources!
+4. 🆕 Each successful backtest automatically tests on 120 combinations!
 5. All threads run simultaneously until target returns are hit
 6. Thread-safe file naming with unique 2-digit thread IDs
-7. 🆕 Multi-data results saved to ./results/ folders for each strategy
+7. 🆕 Multi-timeframe results saved to CSV with all 120 combinations
 
 NEW FEATURES:
 - 🎨 Color-coded output per thread (Thread 1 = cyan, Thread 2 = magenta, etc.)
@@ -152,14 +153,21 @@ OPTIMIZE_CONFIG = {
 TARGET_RETURN = 50  # Target return in %
 SAVE_IF_OVER_RETURN = 0.0  # 🌙 LOWERED: Save ALL strategies to CSV (even losses) for better analysis!
 
-# 🌙 MULTI-ASSET TESTING CONFIGURATION
+# 🌙 MULTI-TIMEFRAME TESTING CONFIGURATION - 120 COMBINATIONS!
+# Tests each strategy on 6 ASSETS × 4 PRIMARY TF × 5 INFORMATIVE TF = 120 backtests!
+# Primary TF: 1m, 5m, 15m, 30m (main trading timeframe)
+# Informative TF: 1h, 2h, 4h, 1d, 1w (higher timeframe context)
 MULTI_ASSET_ENABLED = True  # Enable testing on multiple assets
-TEST_ASSETS = [
-    {'symbol': 'BTC-USD', 'timeframe': '15m', 'file': 'BTC-USD-15m.csv'},
-    {'symbol': 'BTC-USD', 'timeframe': '30m', 'file': 'BTC-USD-30m.csv'},
-    {'symbol': 'ETH-USD', 'timeframe': '15m', 'file': 'ETH-USD-15m.csv'},
-    {'symbol': 'SOL-USD', 'timeframe': '15m', 'file': 'SOL-USD-15m.csv'},
-]
+
+# Import multi-timeframe configuration
+import sys
+CONFIG_DIR = Path(__file__).parent.parent / "config"
+sys.path.insert(0, str(CONFIG_DIR))
+from multi_timeframe_config import generate_all_combinations
+
+# Generate all 120 combinations
+TEST_ASSETS = generate_all_combinations()
+# 📊 Total: 120 backtests per strategy (6 assets × 4 primary × 5 informative)
 CONDA_ENV = None  # Not using conda - using .venv instead
 MAX_DEBUG_ITERATIONS = 10
 MAX_OPTIMIZATION_ITERATIONS = 10
@@ -174,6 +182,7 @@ CURRENT_DATE = datetime.now().strftime("%m_%d_%Y")
 # Update data directory paths - Parallel Multi-Data version uses its own folder
 PROJECT_ROOT = Path(__file__).parent.parent
 DATA_DIR = PROJECT_ROOT / "data/rbi_pp_multi"
+OHLCV_DATA_DIR = PROJECT_ROOT / "data/ohlcv"  # Where the actual OHLCV CSV files are stored
 
 # 🌙 Moon Dev: These will be updated dynamically when date changes
 TODAY_DIR = None
@@ -379,7 +388,7 @@ RISK MANAGEMENT:
 
 If you need indicators use TA lib or pandas TA.
 
-Use this data path: /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv
+Use this data path: {data_path}  # Will be dynamically replaced with actual path
 the above data head looks like below
 datetime, open, high, low, close, volume,
 2023-01-01 00:00:00, 16531.83, 16532.69, 16509.11, 16510.82, 231.05338022,
@@ -405,7 +414,7 @@ if __name__ == "__main__":
 
     # FIRST: Run standard backtest and print stats (REQUIRED for parsing!)
     print("\\n🌙 Running initial backtest for stats extraction...")
-    data = pd.read_csv('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv')
+    data = pd.read_csv('{data_path}')  # Will be dynamically replaced
     data['datetime'] = pd.to_datetime(data['datetime'])
     data = data.set_index('datetime')
     data.columns = ['Open', 'High', 'Low', 'Close', 'Volume']
@@ -623,10 +632,66 @@ def parse_return_from_output(stdout: str, thread_id: int) -> float:
         thread_print(f"❌ Error parsing return: {str(e)}", thread_id, "red")
         return None
 
+def validate_strategy_realism(stats: dict, stdout: str) -> tuple:
+    """
+    🎯 Moon Dev's Reality Check - Validates if strategy results are realistic!
+    
+    Returns: (is_realistic: bool, reasons: list)
+    
+    Checks for:
+    - Over-leveraging (volatility > 200%)
+    - Excessive returns (>500% suggests position sizing issues)
+    - Unrealistic drawdowns (>60% suggests over-leveraging)
+    - Too few trades (<10 suggests curve fitting)
+    - Extreme Sharpe (>5 suggests data issues)
+    """
+    is_realistic = True
+    issues = []
+    
+    # Extract volatility from output
+    volatility = None
+    match = re.search(r'Volatility \(Ann\.\) \[%\]\s+([\d.]+)', stdout)
+    if match:
+        volatility = float(match.group(1))
+    
+    # Check 1: Volatility suggests over-leveraging
+    if volatility and volatility > 200:
+        is_realistic = False
+        issues.append(f"Volatility {volatility:.0f}% (>200% suggests over-leveraging)")
+    
+    # Check 2: Excessive returns
+    if stats.get('return_pct') and stats['return_pct'] > 500:
+        is_realistic = False
+        issues.append(f"Return {stats['return_pct']:.0f}% (>500% suggests position sizing issues)")
+    
+    # Check 3: Excessive drawdown
+    if stats.get('max_drawdown_pct'):
+        dd = abs(stats['max_drawdown_pct'])
+        if dd > 60:
+            is_realistic = False
+            issues.append(f"Drawdown {dd:.0f}% (>60% suggests margin call risk)")
+    
+    # Check 4: Too few trades
+    if stats.get('trades') and stats['trades'] < 10:
+        is_realistic = False
+        issues.append(f"Only {stats['trades']} trades (suggests curve fitting)")
+    
+    # Check 5: Unrealistic Sharpe
+    if stats.get('sharpe') and abs(stats['sharpe']) > 5:
+        is_realistic = False
+        issues.append(f"Sharpe {stats['sharpe']:.2f} (>5 suggests data issues)")
+    
+    # Check 6: Win rate too perfect
+    if stats.get('win_rate') and stats['win_rate'] > 90:
+        is_realistic = False
+        issues.append(f"Win Rate {stats['win_rate']:.0f}% (>90% suggests overfitting)")
+    
+    return is_realistic, issues
+
 def parse_all_stats_from_output(stdout: str, thread_id: int) -> dict:
     """
     🌙 Moon Dev's Stats Parser - Extract all key stats from backtest output!
-    Returns dict with: return_pct, buy_hold_pct, max_drawdown_pct, sharpe, sortino, expectancy, trades
+    Returns dict with: return_pct, buy_hold_pct, max_drawdown_pct, sharpe, sortino, expectancy, trades, win_rate, realistic, duration
     """
     stats = {
         'return_pct': None,
@@ -635,7 +700,11 @@ def parse_all_stats_from_output(stdout: str, thread_id: int) -> dict:
         'sharpe': None,
         'sortino': None,
         'expectancy': None,
-        'trades': None
+        'trades': None,
+        'win_rate': None,
+        'realistic': True,  # 🆕 NEW: Realistic flag
+        'realistic_issues': [],  # 🆕 NEW: List of issues
+        'duration_days': None  # 📅 NEW: Backtest duration in days
     }
 
     try:
@@ -676,7 +745,27 @@ def parse_all_stats_from_output(stdout: str, thread_id: int) -> dict:
         if match:
             stats['trades'] = int(match.group(1))
 
-        thread_print(f"📊 Extracted {sum(1 for v in stats.values() if v is not None)}/7 stats", thread_id)
+        # Win Rate [%]
+        match = re.search(r'Win Rate \[%\]\s+([-\d.]+)', stdout)
+        if match:
+            stats['win_rate'] = float(match.group(1))
+        
+        # 📅 Duration (parse days from "Duration  365 days 00:00:00")
+        match = re.search(r'Duration\s+(\d+)\s+days?', stdout)
+        if match:
+            stats['duration_days'] = int(match.group(1))
+        
+        # 🎯 VALIDATE REALISM
+        is_realistic, issues = validate_strategy_realism(stats, stdout)
+        stats['realistic'] = is_realistic
+        stats['realistic_issues'] = issues
+        
+        if not is_realistic:
+            thread_print(f"⚠️  UNREALISTIC STRATEGY DETECTED!", thread_id, "yellow")
+            for issue in issues:
+                thread_print(f"   - {issue}", thread_id, "yellow")
+
+        thread_print(f"📊 Extracted {sum(1 for k, v in stats.items() if k not in ['realistic', 'realistic_issues'] and v is not None)}/8 stats", thread_id)
         return stats
 
     except Exception as e:
@@ -707,11 +796,14 @@ def log_stats_to_csv(strategy_name: str, thread_id: int, stats: dict, file_path:
                         'Max Drawdown %',
                         'Sharpe Ratio',
                         'Sortino Ratio',
-                        'EV %',  # 🌙 Moon Dev: Changed from Expectancy %
-                        'Trades',  # 🌙 Moon Dev: Added # Trades
+                        'EV %',
+                        'Trades',
+                        'Win Rate %',
+                        'Realistic',
+                        'Duration',  # 📅 NEW: Backtest duration
                         'File Path',
-                        'Data',  # 🌙 Moon Dev: Changed from Data Source
-                        'Time'   # 🌙 Moon Dev: Changed from Timestamp
+                        'Data',
+                        'Time'
                     ])
                     thread_print("📝 Created new stats CSV with headers", thread_id, "green")
 
@@ -727,7 +819,10 @@ def log_stats_to_csv(strategy_name: str, thread_id: int, stats: dict, file_path:
                     stats.get('sharpe', 'N/A'),
                     stats.get('sortino', 'N/A'),
                     stats.get('expectancy', 'N/A'),
-                    stats.get('trades', 'N/A'),  # 🌙 Moon Dev: Added # Trades
+                    stats.get('trades', 'N/A'),
+                    stats.get('win_rate', 'N/A'),
+                    'Yes' if stats.get('realistic', True) else 'No',
+                    f"{stats.get('duration_days', 'N/A')} days" if stats.get('duration_days') else 'N/A',  # 📅 Duration
                     str(file_path),
                     data_source,
                     timestamp
@@ -849,9 +944,9 @@ def save_backtest_if_threshold_met(code: str, stats: dict, strategy_name: str, i
         # Log to CSV
         log_stats_to_csv(strategy_name, thread_id, stats, str(working_file))
 
-        # 🌙 MULTI-ASSET TESTING: Test on other assets if enabled
-        if MULTI_ASSET_ENABLED and return_pct > 0:  # Only test profitable strategies on other assets
-            thread_print(f"\n🌍 Starting Multi-Asset Testing...", thread_id, "cyan", attrs=['bold'])
+        # 🌙 MULTI-ASSET TESTING: Test on ALL assets ALWAYS (no profitability check!)
+        if MULTI_ASSET_ENABLED:
+            thread_print(f"\n🌍 Starting Multi-Asset Testing on ALL 6 assets...", thread_id, "cyan", attrs=['bold'])
             test_on_multiple_assets(code, strategy_name, thread_id, stats)
 
         return True
@@ -862,24 +957,31 @@ def save_backtest_if_threshold_met(code: str, stats: dict, strategy_name: str, i
 
 def test_on_multiple_assets(code: str, strategy_name: str, thread_id: int, original_stats: dict) -> None:
     """
-    🌙 Moon Dev's Multi-Asset Tester!
-    Tests a successful strategy on multiple assets/timeframes
+    🌙 Moon Dev's Multi-Timeframe Tester!
+    Tests a successful strategy on 120 asset/timeframe combinations
+    6 assets × 4 primary TF × 5 informative TF = 120 backtests
     """
     ohlcv_dir = PROJECT_ROOT / "data" / "ohlcv"
     
-    for asset_config in TEST_ASSETS:
+    thread_print(f"🌍 Testing on {len(TEST_ASSETS)} combinations (120 backtests)...", thread_id, "cyan", attrs=['bold'])
+    
+    for idx, combo_config in enumerate(TEST_ASSETS, 1):
         try:
-            data_file = ohlcv_dir / asset_config['file']
+            # Check if primary data file exists
+            primary_file = ohlcv_dir / combo_config['primary_file']
             
-            if not data_file.exists():
-                thread_print(f"⏭️  {asset_config['symbol']} {asset_config['timeframe']}: Data not found, skipping", thread_id, "yellow")
+            if not primary_file.exists():
+                thread_print(f"⏭️  [{idx:3d}/120] {combo_config['combo_name']}: Primary data not found", thread_id, "yellow")
                 continue
             
-            # Modify code to use different data file
-            modified_code = code.replace('BTC-USD-15m.csv', asset_config['file'])
+            # Modify code to use different data file - replace any CSV filename
+            import re
+            # Replace any pattern like BTC-USDT-15m.csv, ETH-USD-30m.csv, etc.
+            modified_code = re.sub(r'[A-Z]+-US[DT]+-\d+[mhdw]+\.csv', combo_config['primary_file'], code)
             
-            # Create temp file
-            temp_file = WORKING_BACKTEST_DIR / f"T{thread_id:02d}_{strategy_name}_{asset_config['symbol'].replace('-', '')}_{asset_config['timeframe']}_TEMP.py"
+            # Create temp file with combo name
+            safe_combo_name = combo_config['combo_name'].replace('-', '_')
+            temp_file = WORKING_BACKTEST_DIR / f"T{thread_id:02d}_{strategy_name}_{safe_combo_name}_TEMP.py"
             with open(temp_file, 'w') as f:
                 f.write(modified_code)
             
@@ -887,32 +989,33 @@ def test_on_multiple_assets(code: str, strategy_name: str, thread_id: int, origi
             result = execute_backtest(str(temp_file), strategy_name, thread_id)
             
             if result['success']:
-                stats = parse_stats_from_output(result['stdout'])
-                if stats and 'Return [%]' in stats:
-                    return_pct = stats['Return [%]']
-                    thread_print(f"✅ {asset_config['symbol']} {asset_config['timeframe']}: {return_pct:.2f}%", thread_id, "green")
+                stats = parse_all_stats_from_output(result['stdout'], thread_id)
+                if stats and stats.get('return_pct') is not None:
+                    return_pct = stats['return_pct']
+                    color = 'green' if return_pct > 0 else 'yellow'
+                    thread_print(f"✅ [{idx:3d}/120] {combo_config['combo_name']:25s} → {return_pct:6.2f}%", thread_id, color)
                     
-                    # Log to CSV with asset info
+                    # Log to CSV with combo info
                     log_stats_to_csv(
-                        f"{strategy_name}_{asset_config['symbol']}_{asset_config['timeframe']}", 
-                        thread_id, 
+                        strategy_name, 
+                        'MULTI', 
                         stats, 
                         str(temp_file),
-                        data_source=asset_config['file']
+                        data_source=combo_config['combo_name']
                     )
                 else:
-                    thread_print(f"⚠️  {asset_config['symbol']} {asset_config['timeframe']}: No stats parsed", thread_id, "yellow")
+                    thread_print(f"⚠️  [{idx:3d}/120] {combo_config['combo_name']}: No stats parsed", thread_id, "yellow")
             else:
-                thread_print(f"❌ {asset_config['symbol']} {asset_config['timeframe']}: Failed", thread_id, "red")
+                thread_print(f"❌ [{idx:3d}/120] {combo_config['combo_name']}: Failed", thread_id, "red")
             
             # Clean up temp file
             if temp_file.exists():
                 temp_file.unlink()
                 
         except Exception as e:
-            thread_print(f"❌ Error testing {asset_config['symbol']}: {str(e)}", thread_id, "red")
+            thread_print(f"❌ Error testing {combo_config.get('combo_name', 'unknown')}: {str(e)}", thread_id, "red")
     
-    thread_print(f"🌍 Multi-Asset Testing Complete!", thread_id, "cyan", attrs=['bold'])
+    thread_print(f"🌍 Multi-Timeframe Testing Complete! (120 backtests)", thread_id, "cyan", attrs=['bold'])
 
 def execute_backtest(file_path: str, strategy_name: str, thread_id: int) -> dict:
     """Execute a backtest file using current Python environment"""
@@ -1150,8 +1253,15 @@ def create_backtest(strategy, strategy_name, thread_id):
     """Backtest AI: Creates backtest implementation"""
     thread_print_status(thread_id, "📊 BACKTEST", "Creating backtest code...")
 
+    # 🌙 MOON DEV: Set actual data path for initial backtest
+    # Use BTC-USDT-5m as default (will be tested on all assets later)
+    initial_data_path = str(OHLCV_DATA_DIR / "BTC-USDT-5m.csv")
+    
+    # Replace {data_path} placeholder with actual path
+    backtest_prompt_with_path = BACKTEST_PROMPT.replace('{data_path}', initial_data_path)
+
     output = chat_with_model(
-        BACKTEST_PROMPT,
+        backtest_prompt_with_path,
         f"Create a backtest for this strategy:\n\n{strategy}",
         BACKTEST_CONFIG,
         thread_id

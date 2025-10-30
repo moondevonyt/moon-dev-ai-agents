@@ -12,14 +12,15 @@ from typing import Dict, List, Optional, Any
 class MCPClient:
     """Lightweight MCP client that communicates with MCP servers via JSON-RPC"""
     
-    def __init__(self, command: str, args: List[str], timeout: int = 10):
+    def __init__(self, command: str, args: List[str], timeout: int = 10, env: Optional[Dict[str, str]] = None):
         """
         Initialize MCP client and start the server process
         
         Args:
             command: Command to run (e.g., "npx")
-            args: Arguments for the command (e.g., ["-y", "@smithery/cli@latest", ...])
+            args: Arguments for the command (e.g., ["-y", "mcp-deep-research@latest"])
             timeout: Default timeout for RPC calls in seconds
+            env: Environment variables to pass to the server process
         """
         self.timeout = timeout
         self.proc = None
@@ -27,6 +28,12 @@ class MCPClient:
         self._reader_thread = None
         
         try:
+            # Prepare environment variables
+            import os
+            process_env = os.environ.copy()
+            if env:
+                process_env.update(env)
+            
             # Start the MCP server process
             self.proc = subprocess.Popen(
                 [command, *args],
@@ -34,7 +41,8 @@ class MCPClient:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
-                bufsize=1
+                bufsize=1,
+                env=process_env
             )
             
             # Start reader thread

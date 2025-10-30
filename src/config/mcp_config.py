@@ -7,20 +7,16 @@ import os
 # MCP Server Configuration
 MCP_ENABLED = True  # Set to False to disable MCP research
 
-# Smithery Deep Research Configuration
+# MCP Deep Research Configuration
 SMITHERY_CONFIG = {
     "command": "npx",
-    "args": [
-        "-y",
-        "@smithery/cli@latest",
-        "run",
-        "@baranwang/mcp-deep-research",
-        "--key",
-        "7d9bcb4f-45e8-4ac1-8cae-7886b4222548",
-        "--profile",
-        "circular-catshark-yb728x",
-    ],
-    "timeout": 30  # seconds
+    "args": ["-y", "mcp-deep-research@latest"],
+    "env": {
+        "TAVILY_API_KEY": "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",
+        "MAX_SEARCH_KEYWORDS": "5",
+        "MAX_PLANNING_ROUNDS": "5"
+    },
+    "timeout": 60  # seconds - increased for deep research
 }
 
 # Research Query Template

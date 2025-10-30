@@ -589,3 +589,62 @@ if __name__ == "__main__":
     print("\nPress CTRL+C to stop\n")
 
     uvicorn.run(app, host="0.0.0.0", port=8001, log_level="info")
+
+# 🎨 Visualization route
+@app.get("/visualization/top_strategy.html", response_class=HTMLResponse)
+async def serve_visualization():
+    """Serve the Bokeh visualization HTML"""
+    viz_file = TEMPLATE_BASE_DIR / "visualization" / "top_strategy.html"
+    
+    if not viz_file.exists():
+        return HTMLResponse(
+            content="""
+            <html>
+            <body style="font-family: system-ui; padding: 40px; text-align: center;">
+                <h1>📊 Visualization Not Generated Yet</h1>
+                <p>Run the visualization generator first:</p>
+                <pre style="background: #f0f0f0; padding: 20px; border-radius: 8px; display: inline-block;">
+cd /Users/bb1151/Desktop/git_projects/bb1151-dev-ai-agents
+python3 src/data/rbi_pp_multi/visualization/generate_viz.py
+                </pre>
+                <p><a href="/" style="color: blue;">← Back to Dashboard</a></p>
+            </body>
+            </html>
+            """,
+            status_code=404
+        )
+    
+    with open(viz_file, 'r') as f:
+        content = f.read()
+    
+    return HTMLResponse(content=content)
+
+
+# 🌍 Multi-Asset Visualization route
+@app.get("/visualization/multi_asset_results.html", response_class=HTMLResponse)
+async def serve_multi_asset_visualization():
+    """Serve the Multi-Asset Bokeh visualization HTML"""
+    viz_file = TEMPLATE_BASE_DIR / "visualization" / "multi_asset_results.html"
+    
+    if not viz_file.exists():
+        return HTMLResponse(
+            content="""
+            <html>
+            <body style="font-family: system-ui; padding: 40px; text-align: center;">
+                <h1>🌍 Multi-Asset Visualization Not Generated Yet</h1>
+                <p>Run the multi-asset visualization generator first:</p>
+                <pre style="background: #f0f0f0; padding: 20px; border-radius: 8px; display: inline-block;">
+cd /Users/bb1151/Desktop/git_projects/bb1151-dev-ai-agents
+python3 src/data/rbi_pp_multi/visualization/generate_multi_viz.py
+                </pre>
+                <p><a href="/" style="color: blue;">← Back to Dashboard</a></p>
+            </body>
+            </html>
+            """,
+            status_code=404
+        )
+    
+    with open(viz_file, 'r') as f:
+        content = f.read()
+    
+    return HTMLResponse(content=content)

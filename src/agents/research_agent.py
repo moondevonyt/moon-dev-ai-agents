@@ -69,24 +69,70 @@ IDEAS_CSV = DATA_DIR / "strategy_ideas.csv"
 MCP_ENABLED = True  # Set to False to disable web research
 SMITHERY_CONFIG = {
     "command": "npx",
-    "args": [
-        "-y",
-        "@smithery/cli@latest",
-        "run",
-        "@baranwang/mcp-deep-research",
-        "--key",
-        "7d9bcb4f-45e8-4ac1-8cae-7886b4222548",
-        "--profile",
-        "circular-catshark-yb728x",
-    ],
-    "timeout": 30
+    "args": ["-y", "mcp-deep-research@latest"],
+    "env": {
+        "TAVILY_API_KEY": "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",
+        "MAX_SEARCH_KEYWORDS": "5",
+        "MAX_PLANNING_ROUNDS": "5"
+    },
+    "timeout": 60  # Increased timeout for deep research
 }
 
+# 🎯 TOKEN OPTIMIZATION SETTINGS
+MAX_CONTEXT_CHARS = 500  # Maximum characters to send to DeepSeek (was unlimited before!)
+REMOVE_LINKS = True  # Remove URLs to save tokens
+SUMMARIZE_CONTEXT = True  # Summarize MCP response before sending
+
+# 🌙 STRATEGY TYPE ROTATION - Different research focus each time!
+STRATEGY_TYPES = [
+    {
+        "name": "Single Timeframe",
+        "description": "Strategy using one timeframe only",
+        "timeframes": ["5m", "15m", "30m", "1h"],
+        "focus": "price action, volume, momentum indicators"
+    },
+    {
+        "name": "Multi-Timeframe (2 TFs)",
+        "description": "Strategy using primary + 1 informative timeframe",
+        "primary_tfs": ["5m", "15m", "30m"],
+        "informative_tfs": ["1h", "4h", "1d"],
+        "focus": "trend alignment, higher timeframe filters"
+    },
+    {
+        "name": "Multi-Timeframe (3+ TFs)",
+        "description": "Strategy using primary + multiple informative timeframes",
+        "primary_tfs": ["5m", "15m"],
+        "informative_tfs": ["1h", "4h", "1d", "1w"],
+        "focus": "multi-timeframe confluence, regime detection"
+    },
+    {
+        "name": "High Frequency",
+        "description": "Very short timeframe scalping strategy",
+        "timeframes": ["1m", "3m", "5m"],
+        "focus": "order flow, microstructure, tick data, bid-ask spread"
+    }
+]
+
 # Research Configuration for MCP deep-research tool
-RESEARCH_TOPIC = "crypto trading opportunities"
-RESEARCH_KEYWORDS = ["Bitcoin", "Ethereum", "Solana", "liquidations", "funding rates", "volatility", "trading volume"]
-RESEARCH_QUESTION = "What are the most significant crypto market events and trading opportunities in the last 24 hours for BTC, ETH, and SOL?"
-RESEARCH_ROUNDS = 2  # Number of search rounds for deeper research
+RESEARCH_TOPIC = "finance"
+RESEARCH_KEYWORDS_POOL = [
+    ["Bitcoin", "volatility", "volume"],
+    ["Ethereum", "DeFi", "momentum"],
+    ["crypto", "breakout", "reversal"],
+    ["liquidations", "funding", "derivatives"],
+    ["on-chain", "whale", "accumulation"]
+]
+
+# 🔥 SHORTER QUESTIONS TO SAVE TOKENS!
+RESEARCH_QUESTIONS_POOL = [
+    "Recent crypto volatility patterns?",
+    "Unusual volume or momentum shifts?",
+    "Key technical levels broken?",
+    "Derivative market signals?",
+    "On-chain activity changes?"
+]
+
+RESEARCH_ROUNDS = 1  # Reduced from 2 to save tokens!
 
 # Model configurations
 MODELS = [
@@ -227,22 +273,59 @@ def is_duplicate(idea, existing_ideas):
     
     return False
 
-def get_market_context() -> str:
-    """
-    🌙 BB1151's Market Context Fetcher
-    Uses MCP client to get real-time market research before generating strategies
-    """
+def summarize_text(text, max_chars=MAX_CONTEXT_CHARS):
+    """Summarize text to save tokens - extract key points only"""
+    if not text or len(text) <= max_chars:
+        return text
+    
+    # Remove URLs/links
+    if REMOVE_LINKS:
+        import re
+        text = re.sub(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', '', text)
+    
+    # Split into sentences
+    import re
+    sentences = re.split(r'[.!?]+', text)
+    
+    # Keep first few sentences that fit in max_chars
+    summary_parts = []
+    current_length = 0
+    
+    for sentence in sentences:
+        sentence = sentence.strip()
+        if not sentence:
+            continue
+        
+        # Skip if sentence is just a URL or source reference
+        if sentence.startswith('http') or sentence.startswith('Source:'):
+            continue
+            
+        if current_length + len(sentence) < max_chars:
+            summary_parts.append(sentence)
+            current_length += len(sentence)
+        else:
+            break
+    
+    summary = '. '.join(summary_parts)
+    if summary and not summary.endswith('.'):
+        summary += '.'
+    
+    return summary[:max_chars]
+
+def get_market_context():
+    """Fetch live market context from MCP deep-research tool - OPTIMIZED for token savings!"""
     if not MCP_ENABLED:
         return ""
     
     try:
         cprint("\n🌍 Fetching live market context via MCP...", "cyan")
         
-        # Initialize MCP client
+        # Initialize MCP client with environment variables
         mcp = MCPClient(
             command=SMITHERY_CONFIG["command"],
             args=SMITHERY_CONFIG["args"],
-            timeout=SMITHERY_CONFIG["timeout"]
+            timeout=SMITHERY_CONFIG["timeout"],
+            env=SMITHERY_CONFIG.get("env")  # Pass environment variables (TAVILY_API_KEY, etc.)
         )
         
         # Find appropriate research tool
@@ -255,46 +338,85 @@ def get_market_context() -> str:
         
         cprint(f"🔍 Using tool: {research_tool}", "green")
         
+        # 🆕 ROTATE through different questions and keywords each time!
+        import random
+        selected_question = random.choice(RESEARCH_QUESTIONS_POOL)
+        selected_keywords = random.choice(RESEARCH_KEYWORDS_POOL)
+        
         # Execute research with proper parameters for deep-research tool
         research_params = {
-            "question": RESEARCH_QUESTION,  # REQUIRED
+            "question": selected_question,  # REQUIRED - now rotating!
             "topic": RESEARCH_TOPIC,
-            "keywords": RESEARCH_KEYWORDS,
+            "keywords": selected_keywords,  # Rotating keywords!
             "search_round": RESEARCH_ROUNDS
         }
         
-        cprint(f"📝 Research question: {RESEARCH_QUESTION[:80]}...", "cyan")
+        cprint(f"📝 Research question: {selected_question}", "cyan")
+        cprint(f"🔑 Keywords: {', '.join(selected_keywords)}", "cyan")
+        
         result = mcp.call_tool(research_tool, research_params)
         mcp.close()
         
-        # Parse result - handle different response formats
+        # 🆕 LOG THE COMPLETE MCP RESPONSE
+        cprint("\n" + "="*80, "magenta")
+        cprint("📥 MCP DEEP-RESEARCH RESPONSE:", "white", "on_magenta", attrs=['bold'])
+        cprint("="*80, "magenta")
+        
+        if isinstance(result, dict):
+            import json
+            cprint(json.dumps(result, indent=2), "yellow")
+        else:
+            cprint(str(result), "yellow")
+        
+        cprint("="*80 + "\n", "magenta")
+        
+        # 🔥 PARSE & OPTIMIZE - Extract only key insights, NO LINKS!
         context_parts = []
         
         if isinstance(result, dict):
-            # Try common field names
+            # Try common field names - but limit length!
             for field in ["summary", "content", "text", "result", "answer"]:
                 if field in result and result[field]:
-                    context_parts.append(str(result[field]))
+                    text = str(result[field])
+                    # Remove URLs
+                    if REMOVE_LINKS:
+                        import re
+                        text = re.sub(r'http[s]?://\S+', '', text)
+                    # Take only first 200 chars from each field
+                    context_parts.append(text[:200])
             
-            # Check for findings/items arrays
+            # Check for findings/items - ONLY TAKE TOP 2!
             for field in ["findings", "items", "results", "insights"]:
                 if field in result and isinstance(result[field], list):
-                    context_parts.extend([f"- {item}" for item in result[field][:5]])
+                    # Only top 2 findings to save tokens!
+                    for item in result[field][:2]:
+                        item_str = str(item)[:100]  # Max 100 chars per finding
+                        if REMOVE_LINKS:
+                            import re
+                            item_str = re.sub(r'http[s]?://\S+', '', item_str)
+                        context_parts.append(f"- {item_str}")
             
-            # Check for sources
-            if "sources" in result and isinstance(result["sources"], list):
-                context_parts.append("\nSources:")
-                context_parts.extend([f"- {s}" for s in result["sources"][:3]])
+            # SKIP SOURCES - they're just URLs and waste tokens!
         
-        # Fallback: convert entire result to string
+        # Fallback: convert result to string but limit size
         if not context_parts:
-            result_str = str(result).strip()
+            result_str = str(result).strip()[:300]  # Max 300 chars
             if result_str and result_str != "None" and result_str != "{}":
+                if REMOVE_LINKS:
+                    import re
+                    result_str = re.sub(r'http[s]?://\S+', '', result_str)
                 context_parts.append(result_str)
         
         if context_parts:
-            context = "\n".join(context_parts).strip()
-            cprint(f"✅ Market context fetched ({len(context)} chars)", "green")
+            raw_context = "\n".join(context_parts).strip()
+            
+            # 🎯 SUMMARIZE if still too long!
+            if SUMMARIZE_CONTEXT:
+                context = summarize_text(raw_context, MAX_CONTEXT_CHARS)
+            else:
+                context = raw_context[:MAX_CONTEXT_CHARS]
+            
+            cprint(f"✅ Context optimized: {len(raw_context)} → {len(context)} chars (saved {len(raw_context)-len(context)} chars!)", "green")
             return context
         
         # No useful data
@@ -305,8 +427,13 @@ def get_market_context() -> str:
         cprint(f"⚠️  MCP context fetch failed: {str(e)}", "yellow")
         return ""
 
-def generate_idea(model_config):
-    """Generate a trading strategy idea using the specified model"""
+def generate_idea(model_config, strategy_type=None):
+    """Generate a trading strategy idea using the specified model
+    
+    Args:
+        model_config: Model configuration dict
+        strategy_type: Optional strategy type from STRATEGY_TYPES to focus on
+    """
     try:
         # Fun animated header
         print("\n" + "=" * min(60, TERM_WIDTH))
@@ -346,19 +473,37 @@ def generate_idea(model_config):
             cprint(f"❌ Could not initialize {model_config['type']} model!", "white", "on_red")
             return None
         
-        # 🌍 NEW: Fetch live market context via MCP
+        # 🆕 SELECT RANDOM STRATEGY TYPE
+        if not strategy_type:
+            strategy_type = random.choice(STRATEGY_TYPES)
+        
+        cprint(f"🎯 Strategy Type: {strategy_type['name']}", "magenta")
+        
+        # 🌍 Fetch live market context via MCP (now optimized!)
         market_context = get_market_context()
         
-        # Build enhanced prompt with market context
+        # 🎯 Build COMPACT prompt with strategy type guidance
+        strategy_guidance = f"\n\nSTRATEGY TYPE: {strategy_type['name']}\n"
+        strategy_guidance += f"Focus: {strategy_type.get('focus', 'general trading')}\n"
+        
+        if 'timeframes' in strategy_type:
+            strategy_guidance += f"Use timeframe: {random.choice(strategy_type['timeframes'])}\n"
+        elif 'primary_tfs' in strategy_type and 'informative_tfs' in strategy_type:
+            primary = random.choice(strategy_type['primary_tfs'])
+            informative = random.choice(strategy_type['informative_tfs'])
+            strategy_guidance += f"Primary TF: {primary}, Informative TF: {informative}\n"
+        
+        # Build COMPACT enhanced prompt
         if market_context:
             enhanced_prompt = (
                 IDEA_GENERATION_PROMPT
-                + "\n\n=== RECENT MARKET CONTEXT (DO NOT HALLUCINATE, USE THIS DATA) ===\n"
-                + market_context
-                + "\n\nOnly propose a strategy that could realistically exploit THESE recent market conditions."
+                + strategy_guidance
+                + "\n=== MARKET CONTEXT (max " + str(MAX_CONTEXT_CHARS) + " chars) ===\n"
+                + market_context  # Now optimized & short!
+                + "\n\nCreate strategy based on this context."
             )
         else:
-            enhanced_prompt = IDEA_GENERATION_PROMPT
+            enhanced_prompt = IDEA_GENERATION_PROMPT + strategy_guidance
         
         # Show generation in progress message
         cprint(f"\n⏳ GENERATING TRADING STRATEGY IDEA...", "black", "on_white")
