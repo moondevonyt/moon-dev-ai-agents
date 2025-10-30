@@ -91,6 +91,18 @@ class OpenRouterModel(BaseModel):
             "output_price": "See openrouter.ai/docs"
         },
 
+        # Kimi Models (Moonshot AI)
+        "moonshot/kimi-k2": {
+            "description": "Kimi K2 - Advanced Chinese/English model - 128k context",
+            "input_price": "$0.30/1M tokens",
+            "output_price": "$0.30/1M tokens"
+        },
+        "moonshot/kimi-v1": {
+            "description": "Kimi V1 - Moonshot AI flagship - 200k context",
+            "input_price": "$0.12/1M tokens",
+            "output_price": "$0.12/1M tokens"
+        },
+
         # 🌙 Moon Dev: ADD MORE MODELS HERE!
         # Copy the format above and paste model info from https://openrouter.ai/docs
         # Example:

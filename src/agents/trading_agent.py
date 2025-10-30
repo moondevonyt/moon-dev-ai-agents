@@ -107,8 +107,16 @@ LONG_ONLY = True  # True = Long positions only (works on all exchanges)
                   # Note: Solana is always LONG_ONLY (exchange limitation)
 
 # 🤖 SINGLE MODEL SETTINGS (only used when USE_SWARM_MODE = False)
-AI_MODEL_TYPE = 'xai'  # Options: 'groq', 'openai', 'claude', 'deepseek', 'xai', 'ollama'
-AI_MODEL_NAME = None   # None = use default, or specify: 'grok-4-fast-reasoning', 'claude-3-5-sonnet-latest', etc.
+AI_MODEL_TYPE = 'openrouter'  # 🌟 ALL MODELS VIA OPENROUTER (single API key!)
+AI_MODEL_NAME = 'google/gemini-2.5-flash'  # OpenRouter model
+# OpenRouter Model Options (change AI_MODEL_NAME to any of these):
+#   - anthropic/claude-opus-4.1, anthropic/claude-sonnet-4.5, anthropic/claude-haiku-4.5
+#   - openai/gpt-5, openai/gpt-5-mini, openai/gpt-5-nano
+#   - google/gemini-2.5-pro, google/gemini-2.5-flash (DEFAULT)
+#   - deepseek/deepseek-r1-0528
+#   - qwen/qwen3-max, qwen/qwen3-vl-32b-instruct
+#   - moonshot/kimi-k2 (NEW!), moonshot/kimi-v1
+#   - z-ai/glm-4.6
 AI_TEMPERATURE = 0.7   # Creativity vs precision (0-1)
 AI_MAX_TOKENS = 1024   # Max tokens for AI response
 

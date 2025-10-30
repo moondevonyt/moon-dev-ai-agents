@@ -75,6 +75,18 @@ df.columns = [col.strip().capitalize() for col in df.columns]
 required_cols = ['Open', 'High', 'Low', 'Close', 'Volume']
 df = df[[col for col in required_cols if col in df.columns]]
 
+# Resample to 1H timeframe
+print("🔄 Resampling from 15m to 1H timeframe...")
+df_1h = df.resample('1h').agg({
+    'Open': 'first',
+    'High': 'max',
+    'Low': 'min',
+    'Close': 'last',
+    'Volume': 'sum'
+}).dropna()
+
+df = df_1h
+
 print(f"✅ Data loaded: {len(df)} rows from {df.index[0]} to {df.index[-1]}")
 print(f"📈 Columns: {list(df.columns)}")
 print(f"📈 Sample data:\n{df.head()}\n")
