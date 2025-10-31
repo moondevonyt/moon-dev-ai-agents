@@ -1,0 +1,28 @@
+{
+  "timestamp": "20251031_005651",
+  "iteration": 73,
+  "strategy": {
+    "fast_ma": 20,
+    "slow_ma": 100,
+    "use_ema": true,
+    "leverage": 5.0,
+    "stop_loss_pct": 0.015,
+    "take_profit_pct": 0.06,
+    "rsi_min": 68,
+    "use_volume": true,
+    "volume_mult": 2.0,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v22",
+    "description": "Variation of winner strategy #22"
+  },
+  "results": {
+    "success": true,
+    "return": 65.81536089100007,
+    "buy_hold": 126.59310890020055,
+    "trades": 27,
+    "win_rate": 51.85185185185185,
+    "max_dd": -10.296151933458653,
+    "sharpe": 2.122347046520883,
+    "final_equity": 165815.36089100008,
+    "avg_trade": 2.0268950536317387
+  }
+}
