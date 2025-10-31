@@ -24,9 +24,9 @@ client = OpenAI(
 
 # Try one simple request
 try:
-    cprint("🚀 Testing with google/gemini-2.0-flash-exp...\n", "yellow")
+    cprint("🚀 Testing with google/gemini-2.5-flash (official upstream model ID)...\n", "yellow")
     response = client.chat.completions.create(
-        model="google/gemini-2.0-flash-exp",
+        model="google/gemini-2.5-flash",
         messages=[
             {"role": "user", "content": "Say hello in 5 words"}
         ],
