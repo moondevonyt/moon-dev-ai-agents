@@ -31,14 +31,14 @@ client = OpenAI(
     }
 )
 
-# Models to query - PAID VERSIONS (no :free suffix)
+# Models to query - Using official upstream model IDs from moondevonyt/moon-dev-ai-agents
 SWARM_MODELS = [
-    ("google/gemini-2.0-flash-exp", "Gemini 2.0 Flash"),
-    ("qwen/qwen-2.5-72b-instruct", "Qwen 2.5 72B"),
-    ("anthropic/claude-3.5-sonnet", "Claude 3.5 Sonnet"),
-    ("openai/gpt-4o-mini", "GPT-4o Mini"),
-    ("deepseek/deepseek-chat", "DeepSeek Chat"),
-    ("meta-llama/llama-3.1-70b-instruct", "Llama 3.1 70B"),
+    ("google/gemini-2.5-flash", "Gemini 2.5 Flash"),
+    ("qwen/qwen3-max", "Qwen 3 Max"),
+    ("moonshot/kimi-k2", "Kimi K2"),
+    ("anthropic/claude-sonnet-4.5", "Claude 4.5 Sonnet"),
+    ("openai/gpt-5-mini", "GPT-5 Mini"),
+    ("deepseek/deepseek-r1-0528", "DeepSeek R1"),
 ]
 
 # Complex query

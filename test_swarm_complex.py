@@ -5,14 +5,21 @@ Test Swarm Agent with complex trading strategy analysis
 import os
 import sys
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables first
+load_dotenv()
 
 # Setup path
 project_root = str(Path(__file__).parent)
 if project_root not in sys.path:
     sys.path.append(project_root)
 
-# Set OpenRouter API key
-os.environ['OPENROUTER_API_KEY'] = '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'
+# Check OpenRouter API key is available
+if not os.getenv('OPENROUTER_API_KEY'):
+    print("❌ ERROR: OPENROUTER_API_KEY not found in .env file!")
+    print("Please add your OpenRouter API key to .env")
+    exit(1)
 
 from src.agents.swarm_agent import SwarmAgent
 

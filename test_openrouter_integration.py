@@ -4,9 +4,18 @@ Test OpenRouter API integratie
 
 import os
 from openai import OpenAI
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # OpenRouter configuratie
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "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")
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+
+if not OPENROUTER_API_KEY:
+    print("❌ ERROR: OPENROUTER_API_KEY not found in .env file!")
+    print("Please add your OpenRouter API key to .env")
+    exit(1)
 
 print("=" * 80)
 print("🌙 OPENROUTER API INTEGRATIE TEST")
@@ -14,13 +23,13 @@ print("=" * 80)
 
 print(f"\n🔑 API Key: {OPENROUTER_API_KEY[:20]}...{OPENROUTER_API_KEY[-10:]}")
 
-# Test verschillende modellen
+# Test verschillende modellen - using official upstream model IDs
 test_models = [
-    "google/gemini-2.0-flash-thinking-exp:free",  # Gratis model
-    "anthropic/claude-3.5-sonnet",
-    "openai/gpt-4-turbo",
-    "moonshot/kimi-k2",
-    "deepseek/deepseek-chat",
+    "google/gemini-2.5-flash",  # Gemini 2.5 Flash
+    "anthropic/claude-sonnet-4.5",  # Claude 4.5 Sonnet
+    "openai/gpt-5-mini",  # GPT-5 Mini
+    "moonshot/kimi-k2",  # Kimi K2
+    "qwen/qwen3-max",  # Qwen 3 Max
 ]
 
 client = OpenAI(
