@@ -396,8 +396,8 @@ def interactive_mode():
     print_banner()
 
     cprint("\n💡 How it works:", "yellow", attrs=['bold'])
-    cprint("   1. Paste your basic prompt", "white")
-    cprint("   2. Press Enter twice (empty line to submit)", "white")
+    cprint("   1. Type your basic prompt (blank lines are fine!)", "white")
+    cprint("   2. Press Enter twice to submit", "white")
     cprint("   3. Get back a professional, enhanced prompt", "white")
     cprint("   4. Repeat!\n", "white")
 
@@ -412,9 +412,9 @@ def interactive_mode():
         return
 
     cprint("\n📝 Commands:", "magenta", attrs=['bold'])
+    cprint("   Press Enter twice - Submit your prompt", "white")
     cprint("   /quit or /exit - Exit the agent", "white")
-    cprint("   /help - Show this help message", "white")
-    cprint("   Empty prompt (Enter twice) - Submit prompt for enhancement\n", "white")
+    cprint("   /help - Show this help message\n", "white")
 
     prompt_count = 0
 
@@ -427,16 +427,12 @@ def interactive_mode():
 
             # Collect multi-line input
             lines = []
+            empty_count = 0
             while True:
                 try:
                     line = input()
-                    if line.strip() == "":
-                        if not lines:  # First empty line after no input
-                            continue
-                        else:  # Second empty line - submit
-                            break
 
-                    # Handle commands
+                    # Handle commands first
                     if line.strip().lower() in ['/quit', '/exit', '/q']:
                         raise KeyboardInterrupt
                     elif line.strip().lower() == '/help':
@@ -446,9 +442,23 @@ def interactive_mode():
                         cprint("   3. Wait for enhanced version", "white")
                         cprint("   Commands: /quit, /exit, /help\n", "cyan")
                         lines = []
+                        empty_count = 0
                         break
 
-                    lines.append(line)
+                    # Check for empty line
+                    if line.strip() == "":
+                        empty_count += 1
+                        if empty_count >= 2 and lines:
+                            # Two consecutive empty lines - submit
+                            break
+                        # Store empty line in prompt
+                        if lines:
+                            lines.append(line)
+                    else:
+                        # Reset empty counter on non-empty line
+                        empty_count = 0
+                        lines.append(line)
+
                 except EOFError:
                     break
 

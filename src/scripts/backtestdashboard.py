@@ -28,7 +28,7 @@ Built with love by Moon Dev
 ================================================================================
 """
 
-from fastapi import FastAPI, Request, BackgroundTasks
+from fastapi import FastAPI, Request, BackgroundTasks, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -49,9 +49,11 @@ from apscheduler.triggers.interval import IntervalTrigger
 import traceback
 import logging
 
-# Add path to import MoonDevAPI
-sys.path.append('/Users/md/Dropbox/dev/github/moon-dev-trading-bots')
-from api import MoonDevAPI
+# Import MoonDevAPI from this project
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from agents.api import MoonDevAPI
+import websockets
+import json
 
 # ============================================================================
 # 🔧 CONFIGURATION - CHANGE THESE PATHS TO MATCH YOUR SETUP!
@@ -83,6 +85,15 @@ TEST_DATA_DIR = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-tradin
 
 # TEST MODE for data portal - Set to True for fast testing with sample data
 TEST_MODE = True
+
+# 🎯 Polymarket CSV Paths
+POLYMARKET_SWEEPS_CSV = Path("/Users/md/Dropbox/dev/github/Polymarket-Trading-Bots/data/sweeps_database.csv")
+POLYMARKET_EXPIRING_CSV = Path("/Users/md/Dropbox/dev/github/Polymarket-Trading-Bots/data/expiring_markets.csv")
+
+# 🎯 Liquidation CSV Paths
+LIQUIDATIONS_MINI_CSV = Path("/Users/md/Dropbox/dev/github/Untitled/binance_trades_mini.csv")
+LIQUIDATIONS_BIG_CSV = Path("/Users/md/Dropbox/dev/github/Untitled/binance_trades.csv")
+LIQUIDATIONS_GRAND_CSV = Path("/Users/md/Dropbox/dev/github/Untitled/binance.csv")
 
 # ============================================================================
 # 🚀 FASTAPI APP INITIALIZATION
@@ -793,6 +804,283 @@ async def refresh_data(background_tasks: BackgroundTasks):
     """Manually trigger data refresh"""
     background_tasks.add_task(fetch_all_data)
     return JSONResponse({"message": "Data refresh initiated"})
+
+
+# ============================================================================
+# 🎯 POLYMARKET ROUTES
+# ============================================================================
+
+@app.get("/polymarket", response_class=HTMLResponse)
+async def polymarket_page(request: Request):
+    """Render the Polymarket dashboard page"""
+    return templates.TemplateResponse("polymarket.html", {"request": request})
+
+
+@app.get("/api/polymarket/sweeps")
+async def get_polymarket_sweeps():
+    """Get Polymarket sweeps data"""
+    try:
+        if not POLYMARKET_SWEEPS_CSV.exists():
+            return JSONResponse({
+                "data": [],
+                "message": "Sweeps database not found"
+            })
+
+        df = pd.read_csv(POLYMARKET_SWEEPS_CSV)
+
+        # Convert timestamp to readable format
+        if 'timestamp' in df.columns:
+            df['timestamp_readable'] = pd.to_datetime(df['timestamp'], unit='s').dt.strftime('%Y-%m-%d %H:%M:%S')
+
+        # Replace NaN with None for JSON
+        df = df.where(pd.notnull(df), None)
+
+        # Convert to records
+        data = df.to_dict('records')
+
+        return JSONResponse({
+            "data": data,
+            "total": len(data),
+            "message": f"Loaded {len(data)} sweeps"
+        })
+
+    except Exception as e:
+        print(f"❌ Error in /api/polymarket/sweeps: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return JSONResponse({
+            "data": [],
+            "error": str(e),
+            "message": "Error loading sweeps data"
+        }, status_code=500)
+
+
+@app.get("/api/polymarket/expiring")
+async def get_polymarket_expiring():
+    """Get Polymarket expiring markets data"""
+    try:
+        if not POLYMARKET_EXPIRING_CSV.exists():
+            return JSONResponse({
+                "data": [],
+                "message": "Expiring markets database not found"
+            })
+
+        df = pd.read_csv(POLYMARKET_EXPIRING_CSV)
+
+        # Calculate hours until expiration
+        if 'end_time' in df.columns:
+            current_time = datetime.now().timestamp()
+            df['hours_until'] = ((df['end_time'] - current_time) / 3600).round(1)
+            # Filter out expired markets
+            df = df[df['hours_until'] > 0]
+
+        # Replace NaN with None for JSON
+        df = df.where(pd.notnull(df), None)
+
+        # Convert to records
+        data = df.to_dict('records')
+
+        return JSONResponse({
+            "data": data,
+            "total": len(data),
+            "message": f"Loaded {len(data)} expiring markets"
+        })
+
+    except Exception as e:
+        print(f"❌ Error in /api/polymarket/expiring: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return JSONResponse({
+            "data": [],
+            "error": str(e),
+            "message": "Error loading expiring markets data"
+        }, status_code=500)
+
+
+# ============================================================================
+# 🌙 LIQUIDATIONS API ENDPOINTS
+# ============================================================================
+
+@app.get("/liquidations")
+async def liquidations_page(request: Request):
+    """Render the Liquidations dashboard page"""
+    return templates.TemplateResponse("liquidations.html", {"request": request})
+
+
+@app.get("/api/liquidations/recent")
+async def get_recent_liquidations(hours: int = 24):
+    """🌙 Moon Dev: Get stats from historical API data"""
+    try:
+        print(f"🌙 Moon Dev: Loading liquidations for stats calculation...")
+
+        # Initialize MoonDev API
+        api = MoonDevAPI()
+
+        # Get last 100k liquidations from API (ensures full 24h coverage)
+        df = api.get_liquidation_data(limit=100000)
+
+        if df is None or df.empty:
+            print("❌ No liquidation data available")
+            return JSONResponse({
+                "mini": [],
+                "big": [],
+                "major": [],
+                "stats": {
+                    "1h": {"volume": 0},
+                    "4h": {"volume": 0},
+                    "12h": {"volume": 0},
+                    "24h": {"volume": 0}
+                }
+            })
+
+        # Fix column names (first row is used as headers by pandas)
+        column_names = [
+            'symbol', 'side', 'order_type', 'time_in_force', 'original_quantity',
+            'price', 'average_price', 'order_status', 'order_last_filled_quantity',
+            'order_filled_accumulated_quantity', 'order_trade_time', 'usd_size', 'datetime'
+        ]
+        df.columns = column_names
+
+        # Calculate stats
+        now = datetime.now().timestamp() * 1000
+
+        stats = {
+            "1h": {"volume": 0},
+            "4h": {"volume": 0},
+            "12h": {"volume": 0},
+            "24h": {"volume": 0}
+        }
+
+        for _, row in df.iterrows():
+            try:
+                ts = int(row['order_trade_time'])
+                usd = float(row['usd_size'])
+
+                # 1 hour
+                if ts >= now - (1 * 3600 * 1000):
+                    stats['1h']['volume'] += usd
+
+                # 4 hours
+                if ts >= now - (4 * 3600 * 1000):
+                    stats['4h']['volume'] += usd
+
+                # 12 hours
+                if ts >= now - (12 * 3600 * 1000):
+                    stats['12h']['volume'] += usd
+
+                # 24 hours
+                if ts >= now - (24 * 3600 * 1000):
+                    stats['24h']['volume'] += usd
+            except:
+                continue
+
+        print(f"✅ Moon Dev: Calculated stats - 1h: ${stats['1h']['volume']:,.2f}, 4h: ${stats['4h']['volume']:,.2f}, 12h: ${stats['12h']['volume']:,.2f}, 24h: ${stats['24h']['volume']:,.2f}")
+
+        return JSONResponse({
+            "mini": [],
+            "big": [],
+            "major": [],
+            "stats": stats
+        })
+
+    except Exception as e:
+        print(f"❌ Error in /api/liquidations/recent: {str(e)}")
+        traceback.print_exc()
+        return JSONResponse({
+            "mini": [],
+            "big": [],
+            "major": [],
+            "stats": {
+                "1h": {"volume": 0},
+                "4h": {"volume": 0},
+                "12h": {"volume": 0},
+                "24h": {"volume": 0}
+            }
+        }, status_code=500)
+
+
+@app.websocket("/ws/liquidations")
+async def websocket_liquidations(websocket: WebSocket):
+    """🌙 Moon Dev: WebSocket endpoint for LIVE Binance liquidations streaming"""
+    await websocket.accept()
+    print("🌙 Moon Dev: Client connected to liquidations WebSocket")
+
+    binance_ws_url = "wss://fstream.binance.com/ws/!forceOrder@arr"
+    client_connected = True
+
+    try:
+        async with websockets.connect(binance_ws_url) as binance_ws:
+            print("🔗 Moon Dev: Connected to Binance liquidations stream")
+
+            async for message in binance_ws:
+                # Check if client is still connected
+                if not client_connected:
+                    break
+
+                try:
+                    data = json.loads(message)
+
+                    if 'o' in data:
+                        order = data['o']
+
+                        # Extract liquidation details
+                        symbol = order.get('s', '').replace('USDT', '')
+                        side = order.get('S', '')
+                        filled_qty = float(order.get('z', 0))
+                        price = float(order.get('p', 0))
+                        timestamp = int(order.get('T', 0))
+                        usd_size = filled_qty * price
+
+                        # Categorize: Mini ($3k-$25k), Big ($25k-$100k), Major (>$100k)
+                        category = None
+                        if 3000 < usd_size <= 25000:
+                            category = 'mini'
+                        elif 25000 < usd_size <= 100000:
+                            category = 'big'
+                        elif usd_size > 100000:
+                            category = 'major'
+
+                        if category:
+                            # Send to frontend
+                            liq_event = {
+                                'category': category,
+                                'symbol': symbol,
+                                'side': side,
+                                'qty': filled_qty,
+                                'exec_price': price,
+                                'usd_amount': usd_size,
+                                'timestamp': timestamp
+                            }
+
+                            try:
+                                await websocket.send_json(liq_event)
+                            except Exception as send_error:
+                                # Client disconnected, stop trying to send
+                                print(f"🔌 Client disconnected, stopping stream")
+                                client_connected = False
+                                break
+
+                except json.JSONDecodeError:
+                    continue
+                except Exception as e:
+                    # Only log non-send errors
+                    if "send" not in str(e).lower():
+                        print(f"❌ Error processing liquidation: {e}")
+                    continue
+
+    except WebSocketDisconnect:
+        print("🌙 Moon Dev: Client disconnected from liquidations WebSocket")
+    except Exception as e:
+        if "send" not in str(e).lower():
+            print(f"❌ Error in liquidations WebSocket: {e}")
+            traceback.print_exc()
+    finally:
+        try:
+            if not websocket.client_state.DISCONNECTED:
+                await websocket.close()
+        except:
+            pass
+        print("✅ Moon Dev: Liquidations WebSocket cleaned up")
 
 
 # ============================================================================

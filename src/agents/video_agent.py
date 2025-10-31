@@ -25,7 +25,7 @@ from openai import OpenAI
 load_dotenv()
 
 # =============================================================================
-# 🔧 CONFIGURATION
+# 🔧 CONFIGURATION 
 # =============================================================================
 
 OUTPUT_DIR = "src/data/video_agent/"
