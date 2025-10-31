@@ -8,23 +8,37 @@ from openai import OpenAI
 import time
 from concurrent.futures import ThreadPoolExecutor
 from termcolor import cprint
+from dotenv import load_dotenv
 
-# OpenRouter configuration
-OPENROUTER_API_KEY = "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"
+# Load environment variables
+load_dotenv()
+
+# OpenRouter configuration - load from environment
+OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
+
+if not OPENROUTER_API_KEY:
+    cprint("❌ ERROR: OPENROUTER_API_KEY not found in environment!", "red")
+    cprint("Please set OPENROUTER_API_KEY in your .env file", "yellow")
+    cprint("Get your key at: https://openrouter.ai/keys", "cyan")
+    exit(1)
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
     api_key=OPENROUTER_API_KEY,
+    default_headers={
+        "HTTP-Referer": "https://github.com/moon-dev-ai-agents",
+        "X-Title": "Moon Dev AI Trading Swarm",
+    }
 )
 
-# Models to query
+# Models to query - PAID VERSIONS (no :free suffix)
 SWARM_MODELS = [
-    ("google/gemini-2.5-flash", "Gemini 2.5 Flash"),
-    ("qwen/qwen3-max", "Qwen 3 Max"),
-    ("moonshot/kimi-k2", "Kimi K2"),
-    ("anthropic/claude-sonnet-4.5", "Claude 4.5 Sonnet"),
-    ("openai/gpt-5-mini", "GPT-5 Mini"),
-    ("deepseek/deepseek-r1-0528", "DeepSeek R1"),
+    ("google/gemini-2.0-flash-exp", "Gemini 2.0 Flash"),
+    ("qwen/qwen-2.5-72b-instruct", "Qwen 2.5 72B"),
+    ("anthropic/claude-3.5-sonnet", "Claude 3.5 Sonnet"),
+    ("openai/gpt-4o-mini", "GPT-4o Mini"),
+    ("deepseek/deepseek-chat", "DeepSeek Chat"),
+    ("meta-llama/llama-3.1-70b-instruct", "Llama 3.1 70B"),
 ]
 
 # Complex query
@@ -91,13 +105,24 @@ def query_model(model_id, model_name):
 
     except Exception as e:
         elapsed = time.time() - start_time
+        error_msg = str(e)
+
+        # Extract detailed error from OpenRouter if available
+        if hasattr(e, 'response'):
+            try:
+                error_details = e.response.json()
+                if 'error' in error_details:
+                    error_msg = f"{error_details['error'].get('message', error_msg)} (code: {error_details['error'].get('code', 'unknown')})"
+            except:
+                pass
+
         return {
             'model': model_name,
             'model_id': model_id,
             'response': None,
             'success': False,
             'time': round(elapsed, 2),
-            'error': str(e)
+            'error': error_msg
         }
 
 def main():
