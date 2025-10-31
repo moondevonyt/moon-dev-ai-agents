@@ -172,6 +172,10 @@ class OpenRouterModel(BaseModel):
             # Test the connection with a simple completion
             cprint(f"  ├─ Testing connection with model: {self.model_name}", "cyan")
             test_response = self.client.chat.completions.create(
+                extra_headers={
+                    "HTTP-Referer": "https://github.com/moon-dev-ai-agents",
+                    "X-Title": "Moon Dev AI Trading",
+                },
                 model=self.model_name,
                 messages=[
                     {"role": "user", "content": "Hello"}
@@ -225,6 +229,10 @@ class OpenRouterModel(BaseModel):
             timestamp = int(time.time() * 1000)  # Millisecond precision
 
             response = self.client.chat.completions.create(
+                extra_headers={
+                    "HTTP-Referer": "https://github.com/moon-dev-ai-agents",
+                    "X-Title": "Moon Dev AI Trading",
+                },
                 model=self.model_name,
                 messages=[
                     {"role": "system", "content": system_prompt},
