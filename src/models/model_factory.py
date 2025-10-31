@@ -14,7 +14,7 @@ from .base_model import BaseModel
 from .claude_model import ClaudeModel
 from .groq_model import GroqModel
 from .openai_model import OpenAIModel
-from .gemini_model import GeminiModel  # Re-enabled with Gemini 2.5 models
+# from .gemini_model import GeminiModel  # ⚠️ DISABLED: cffi dependency conflict - use OpenRouter for Gemini instead
 from .deepseek_model import DeepSeekModel
 from .ollama_model import OllamaModel
 from .xai_model import XAIModel
@@ -29,7 +29,7 @@ class ModelFactory:
         "claude": ClaudeModel,
         "groq": GroqModel,
         "openai": OpenAIModel,
-        "gemini": GeminiModel,  # Re-enabled with Gemini 2.5 models
+        # "gemini": GeminiModel,  # ⚠️ DISABLED: cffi conflict - use openrouter for Gemini
         "deepseek": DeepSeekModel,
         "ollama": OllamaModel,  # Add Ollama implementation
         "xai": XAIModel,  # xAI Grok models
@@ -41,7 +41,7 @@ class ModelFactory:
         "claude": "claude-3-5-haiku-latest",  # Latest fast Claude model
         "groq": "mixtral-8x7b-32768",        # Fast Mixtral model
         "openai": "gpt-4o",                  # Latest GPT-4 Optimized
-        "gemini": "gemini-2.5-flash",        # Fast Gemini 2.5 model
+        # "gemini": "gemini-2.5-flash",      # ⚠️ DISABLED: cffi conflict - use openrouter
         "deepseek": "deepseek-reasoner",     # Enhanced reasoning model
         "ollama": "llama3.2",                # Meta's Llama 3.2 - balanced performance
         "xai": "grok-4-fast-reasoning",      # xAI's Grok 4 Fast with reasoning (best value: 2M context, cheap!)
