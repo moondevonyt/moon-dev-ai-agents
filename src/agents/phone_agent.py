@@ -783,7 +783,8 @@ def start_server():
             cprint("3. Copy the ngrok URL to your Twilio phone number's webhook", "yellow")
             
             # Run the Flask app
-            app.run(host='0.0.0.0', port=5000)
+        host = os.environ.get('PHONE_AGENT_HOST', '127.0.0.1')
+        self.flask_thread = threading.Thread(target=self.app.run, kwargs={'host': host, 'port': self.port})
         
     except Exception as e:
         cprint(f"\n❌ Error starting server: {str(e)}", "red")
