@@ -18,6 +18,7 @@ from .openai_model import OpenAIModel
 from .deepseek_model import DeepSeekModel
 from .ollama_model import OllamaModel
 from .xai_model import XAIModel
+from .openrouter_model import OpenRouterModel
 import random
 
 class ModelFactory:
@@ -25,6 +26,7 @@ class ModelFactory:
     
     # Map model types to their implementations
     MODEL_IMPLEMENTATIONS = {
+        "openrouter": OpenRouterModel,  # 🌙 RECOMMENDED: Unified access to all models
         "claude": ClaudeModel,
         "groq": GroqModel,
         "openai": OpenAIModel,
@@ -36,6 +38,7 @@ class ModelFactory:
     
     # Default models for each type
     DEFAULT_MODELS = {
+        "openrouter": "anthropic/claude-3.5-sonnet",  # 🌙 RECOMMENDED: Best balance via OpenRouter
         "claude": "claude-3-5-haiku-latest",  # Latest fast Claude model
         "groq": "mixtral-8x7b-32768",        # Fast Mixtral model
         "openai": "gpt-4o",                  # Latest GPT-4 Optimized
@@ -67,7 +70,7 @@ class ModelFactory:
         
         # Debug current environment without exposing values
         cprint("\n🔍 Environment Check:", "cyan")
-        for key in ["GROQ_API_KEY", "OPENAI_KEY", "ANTHROPIC_KEY", "DEEPSEEK_KEY", "GROK_API_KEY"]:  # GEMINI_KEY temporarily removed
+        for key in ["OPENROUTER_API_KEY", "GROQ_API_KEY", "OPENAI_KEY", "ANTHROPIC_KEY", "DEEPSEEK_KEY", "GROK_API_KEY"]:  # GEMINI_KEY temporarily removed
             value = os.getenv(key)
             if value and len(value.strip()) > 0:
                 cprint(f"  ├─ {key}: Found ({len(value)} chars)", "green")
@@ -208,6 +211,7 @@ class ModelFactory:
     def _get_api_key_mapping(self) -> Dict[str, str]:
         """Get mapping of model types to their API key environment variable names"""
         return {
+            "openrouter": "OPENROUTER_API_KEY",  # 🌙 RECOMMENDED: One key for all models
             "claude": "ANTHROPIC_KEY",
             "groq": "GROQ_API_KEY",
             "openai": "OPENAI_KEY",

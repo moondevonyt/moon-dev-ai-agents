@@ -78,11 +78,24 @@ DATA_TIMEFRAME = '1H'  # 1m, 3m, 5m, 15m, 30m, 1H, 2H, 4H, 6H, 8H, 12H, 1D, 3D, 
 SAVE_OHLCV_DATA = False  # 🌙 Set to True to save data permanently, False will only use temp data during run
 
 # AI Model Settings 🤖
-AI_MODEL = "claude-3-haiku-20240307"  # Model Options:
-                                     # - claude-3-haiku-20240307 (Fast, efficient Claude model)
-                                     # - claude-3-sonnet-20240229 (Balanced Claude model)
-                                     # - claude-3-opus-20240229 (Most powerful Claude model)
-AI_MAX_TOKENS = 1024  # Max tokens for response
+# 🌙 RECOMMENDED: Use OpenRouter for production (one API key, all models, automatic failover)
+AI_PROVIDER = "openrouter"  # Provider options: openrouter (RECOMMENDED), claude, openai, groq, deepseek, xai, ollama
+AI_MODEL = "anthropic/claude-3.5-sonnet"  # OpenRouter model format: provider/model-name
+
+# Alternative configurations:
+# For direct Anthropic:
+# AI_PROVIDER = "claude"
+# AI_MODEL = "claude-3-haiku-20240307"
+
+# For OpenAI:
+# AI_PROVIDER = "openai"
+# AI_MODEL = "gpt-4o"
+
+# For cost-effective reasoning:
+# AI_PROVIDER = "openrouter"
+# AI_MODEL = "deepseek/deepseek-reasoner"
+
+AI_MAX_TOKENS = 4096  # Max tokens for response (increased for better responses)
 AI_TEMPERATURE = 0.7  # Creativity vs precision (0-1)
 
 # Trading Strategy Agent Settings - MAY NOT BE USED YET 1/5/25

@@ -71,13 +71,31 @@ Each agent can run independently or as part of the main orchestrator loop.
 
 Located at `src/models/model_factory.py` and `src/models/README.md`
 
-**Unified Interface**: All agents use `ModelFactory.create_model()` for consistent LLM access
-**Supported Providers**: Anthropic Claude (default), OpenAI, DeepSeek, Groq, Google Gemini, Ollama (local)
+**🌙 PRODUCTION RECOMMENDED: OpenRouter**
+- **One API Key** for 100+ models (Claude, GPT-4, Gemini, DeepSeek, etc.)
+- **Automatic Failover** - if one provider down, uses alternatives
+- **Unified Billing** - single invoice, transparent cost tracking
+- **Cost Optimization** - choose best model for your budget
+
+**Unified Interface**: All agents use `ModelFactory` for consistent LLM access
+**Supported Providers**:
+- **openrouter** (RECOMMENDED for production) - Access to 100+ models via one API
+- claude, openai, deepseek, groq, gemini, xai - Direct provider access
+- ollama - Local models (free, private)
+
 **Key Pattern**:
 ```python
 from src.models.model_factory import ModelFactory
 
-model = ModelFactory.create_model('anthropic')  # or 'openai', 'deepseek', 'groq', etc.
+# RECOMMENDED: OpenRouter (one key, all models)
+factory = ModelFactory()
+model = factory.get_model('openrouter', 'anthropic/claude-3.5-sonnet')
+
+# Alternative: Direct provider access
+model = factory.get_model('claude', 'claude-3-haiku-20240307')
+model = factory.get_model('openai', 'gpt-4o')
+
+# Generate response
 response = model.generate_response(system_prompt, user_content, temperature, max_tokens)
 ```
 
@@ -90,9 +108,13 @@ response = model.generate_response(system_prompt, user_content, temperature, max
 - AI settings: `AI_MODEL`, `AI_MAX_TOKENS`, `AI_TEMPERATURE`
 
 **Environment Variables**: `.env` (see `.env_example`)
+- **AI Services** (PRODUCTION): `OPENROUTER_API_KEY` - One key for all LLM providers (RECOMMENDED)
+- AI Services (Alternative): `ANTHROPIC_KEY`, `OPENAI_KEY`, `DEEPSEEK_KEY`, `GROQ_API_KEY`, `GEMINI_KEY`, `GROK_API_KEY`
 - Trading APIs: `BIRDEYE_API_KEY`, `MOONDEV_API_KEY`, `COINGECKO_API_KEY`
-- AI Services: `ANTHROPIC_KEY`, `OPENAI_KEY`, `DEEPSEEK_KEY`, `GROQ_API_KEY`, `GEMINI_KEY`
+- Other AI: `ELEVENLABS_API_KEY` (for voice)
 - Blockchain: `SOLANA_PRIVATE_KEY`, `HYPER_LIQUID_ETH_PRIVATE_KEY`, `RPC_ENDPOINT`
+
+**Security**: See `PRODUCTION_SETUP.md` for secure API key management and deployment guide
 
 ### Shared Utilities
 
@@ -192,18 +214,33 @@ class YourStrategy(BaseStrategy):
 5. Store results in `src/data/your_agent/`
 
 ### Switching AI Models
-Edit `config.py`:
+
+**RECOMMENDED: Use OpenRouter in config.py**:
 ```python
-AI_MODEL = "claude-3-haiku-20240307"  # Fast, cheap
-# AI_MODEL = "claude-3-sonnet-20240229"  # Balanced
-# AI_MODEL = "claude-3-opus-20240229"  # Most powerful
+AI_PROVIDER = "openrouter"  # One API key, access to 100+ models
+AI_MODEL = "anthropic/claude-3.5-sonnet"  # Best balance
+# AI_MODEL = "deepseek/deepseek-reasoner"  # Best value for reasoning
+# AI_MODEL = "openai/gpt-4o"  # OpenAI flagship
+# AI_MODEL = "mistralai/mistral-small"  # Cheapest option
 ```
 
-Or use different models per agent via ModelFactory:
+**Per-Agent Model Selection**:
 ```python
-model = ModelFactory.create_model('deepseek')  # Reasoning tasks
-model = ModelFactory.create_model('groq')      # Fast inference
+from src.models.model_factory import ModelFactory
+
+factory = ModelFactory()
+
+# High-stakes decisions (trading, risk management)
+model = factory.get_model('openrouter', 'anthropic/claude-3.5-sonnet')
+
+# Fast simple tasks (tweets, chat)
+model = factory.get_model('openrouter', 'mistralai/mistral-small')
+
+# Heavy reasoning (strategy development, research)
+model = factory.get_model('openrouter', 'deepseek/deepseek-reasoner')
 ```
+
+See `src/models/README.md` for full model list and pricing.
 
 ### Reading Market Data
 ```python

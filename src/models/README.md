@@ -2,18 +2,86 @@
 
 A unified interface for managing multiple AI model providers. This module handles initialization, API key management, and provides a consistent interface for generating responses across different AI models.
 
-## 🔑 Required API Keys
+## 🚀 RECOMMENDED FOR PRODUCTION: OpenRouter
 
-Add these to your `.env` file in the project root:
+**OpenRouter provides unified access to 100+ AI models through a single API key.**
+
+### Why OpenRouter?
+- ✅ **One API Key** - Access Claude, GPT-4, Gemini, DeepSeek, and more
+- ✅ **Unified Billing** - Single invoice, transparent cost tracking
+- ✅ **Automatic Failover** - If one model is down, automatically uses alternatives
+- ✅ **Load Balancing** - Distributes requests across providers
+- ✅ **Cost Optimization** - Choose best model for your budget
+- ✅ **No Rate Limits Sync** - Handles multiple provider rate limits intelligently
+
+### Quick Start with OpenRouter
+
+1. Get your API key: https://openrouter.ai/keys
+2. Add to `.env`:
+```env
+OPENROUTER_API_KEY=your_openrouter_key_here
+```
+
+3. That's it! You now have access to 100+ models with one key.
+
+## 🔑 API Keys
+
+### Production Setup (RECOMMENDED)
+Add to your `.env` file in the project root:
+```env
+# 🌙 RECOMMENDED: One key for all models
+OPENROUTER_API_KEY=your_openrouter_key_here
+```
+
+### Alternative: Direct Provider Keys
+If you prefer direct API access (not recommended for production):
 ```env
 ANTHROPIC_KEY=your_key_here    # For Claude models
 GROQ_API_KEY=your_key_here     # For Groq models (includes Mixtral, Llama, etc.)
 OPENAI_KEY=your_key_here       # For OpenAI models (GPT-4, O1, etc.)
 GEMINI_KEY=your_key_here       # For Gemini models
 DEEPSEEK_KEY=your_key_here     # For DeepSeek models
+GROK_API_KEY=your_key_here     # For xAI Grok models
 ```
 
 ## 🤖 Available Models
+
+### OpenRouter Models (100+ models via one API)
+
+**Anthropic Claude** (Best for complex reasoning):
+- `anthropic/claude-3.5-sonnet` - Best balance ($3/$15 per 1M tokens)
+- `anthropic/claude-3-opus` - Most powerful ($15/$75 per 1M tokens)
+- `anthropic/claude-3-haiku` - Fast and efficient ($0.25/$1.25 per 1M tokens)
+
+**OpenAI GPT** (Best for general tasks):
+- `openai/gpt-4o` - Latest flagship ($2.50/$10 per 1M tokens)
+- `openai/gpt-4o-mini` - Fast and cheap ($0.15/$0.60 per 1M tokens)
+- `openai/o1` - Advanced reasoning ($15/$60 per 1M tokens)
+
+**Google Gemini** (Best for multimodal + huge context):
+- `google/gemini-2.0-flash-exp` - Fast multimodal ($0.30/$1.20 per 1M tokens)
+- `google/gemini-pro-1.5` - 2M context window ($1.25/$5 per 1M tokens)
+
+**DeepSeek** (Best value for reasoning):
+- `deepseek/deepseek-chat` - Fast chat ($0.14/$0.28 per 1M tokens)
+- `deepseek/deepseek-reasoner` - R1 reasoning ($0.55/$2.19 per 1M tokens)
+
+**Meta Llama** (Open source):
+- `meta-llama/llama-3.3-70b-instruct` - High performance ($0.50/$0.70 per 1M tokens)
+
+**xAI Grok** (Real-time knowledge):
+- `x-ai/grok-beta` - Latest from X/Twitter ($5/$15 per 1M tokens)
+
+**Mistral** (European AI):
+- `mistralai/mistral-large` - Top-tier ($2/$6 per 1M tokens)
+- `mistralai/mistral-small` - Cost-effective ($0.20/$0.60 per 1M tokens)
+
+**Qwen** (Alibaba):
+- `qwen/qwen-2.5-72b-instruct` - Strong multilingual ($0.40/$0.40 per 1M tokens)
+
+See all models: https://openrouter.ai/models
+
+### Direct Provider Models
 
 ### OpenAI Models
 Latest Models:
@@ -109,21 +177,50 @@ Interesting models for future use:
 
 ## 🚀 Usage Example
 
+### Using OpenRouter (RECOMMENDED)
+
 ```python
 from src.models import model_factory
 
 # Initialize the model factory
 factory = model_factory.ModelFactory()
 
-# Get a specific model
-model = factory.get_model("openai", "gpt-4o")  # Using latest GPT-4 Optimized
+# Get OpenRouter model - access ANY model through one API
+model = factory.get_model("openrouter", "anthropic/claude-3.5-sonnet")
+
+# Generate a response
+response = model.generate_response(
+    system_prompt="You are a helpful AI trading assistant.",
+    user_content="Analyze the current market conditions.",
+    temperature=0.7,
+    max_tokens=4096
+)
+
+print(response.content)
+
+# Switch models easily - same API, different model
+model = factory.get_model("openrouter", "openai/gpt-4o")  # GPT-4
+model = factory.get_model("openrouter", "deepseek/deepseek-reasoner")  # Cost-effective reasoning
+model = factory.get_model("openrouter", "google/gemini-pro-1.5")  # Huge context window
+```
+
+### Using Direct Provider Access
+
+```python
+from src.models import model_factory
+
+# Initialize the model factory
+factory = model_factory.ModelFactory()
+
+# Get a specific model directly
+model = factory.get_model("openai", "gpt-4o")
 
 # Generate a response
 response = model.generate_response(
     system_prompt="You are a helpful AI assistant.",
     user_content="Hello!",
-    temperature=0.7,  # Optional: Control randomness (0.0-1.0)
-    max_tokens=1024   # Optional: Control response length
+    temperature=0.7,
+    max_tokens=1024
 )
 
 print(response.content)
