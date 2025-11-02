@@ -1,0 +1,39 @@
+[
+  {
+    "timestamp": "2025-11-01T19:58:04.895752",
+    "daily_summary": {
+      "date": "2025-11-01",
+      "total_trades": 10,
+      "winning_trades": 3,
+      "losing_trades": 7,
+      "win_rate": 0.3,
+      "avg_pnl": -41.5,
+      "total_pnl": -415,
+      "sharpe": -0.7003395155707353,
+      "needs_improvement": true
+    },
+    "llm_analysis": "PATTERNS IDENTIFIED:\n- All trades entered long positions on meme coins (DOGE, SHIB, PEPE, WIF, BONK, FLOKI, BOME) with consistently high RSI values (76\u201388), indicating overbought conditions.\n- High funding rates (1.4%\u20132.5%) across all trades, suggesting costly carry and potential overextension.\n- Weak momentum signals, with Momentum Z-Scores ranging from 0.2 to 0.6, below typical strong momentum thresholds.\n\nROOT CAUSES:\n- The strategy is chasing overextended moves by entering long positions when assets are already overbought (high RSI) and momentum is weak (low Z-Score), compounded by high funding costs that erode profits and often precede reversals. This results in entries at peaks, leading to quick drawdowns.\n\nRECOMMENDED IMPROVEMENTS:\n1. Skip long entries if RSI > 75 to avoid overbought conditions and reduce reversal risk.\n2. Skip long entries if funding rate > 1.0% to minimize cost drag and avoid overextended markets.\n3. Require a minimum Momentum Z-Score > 1.0 for long entries to ensure stronger momentum confirmation.\n\nEXPECTED IMPACT:\n- These filters should reduce losses by preventing entries in overbought, high-cost environments, improving risk-adjusted returns through fewer false signals and lower funding expenses.",
+    "proposed_improvements": [
+      {
+        "description": "Skip long entries if RSI > 75 to avoid overbought conditions and reduce reversal risk.",
+        "timestamp": "2025-11-01T19:58:04.895682",
+        "status": "proposed",
+        "validated": false
+      },
+      {
+        "description": "Skip long entries if funding rate > 1.0% to minimize cost drag and avoid overextended markets.",
+        "timestamp": "2025-11-01T19:58:04.895707",
+        "status": "proposed",
+        "validated": false
+      },
+      {
+        "description": "Require a minimum Momentum Z-Score > 1.0 for long entries to ensure stronger momentum confirmation.",
+        "timestamp": "2025-11-01T19:58:04.895710",
+        "status": "proposed",
+        "validated": false
+      }
+    ],
+    "losing_trades_count": 7,
+    "status": "validated"
+  }
+]

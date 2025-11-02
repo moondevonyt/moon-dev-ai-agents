@@ -6,7 +6,7 @@ This module manages all available AI models and provides a unified interface.
 """
 
 import os
-from typing import Dict, Optional, Type
+from typing import Dict, Optional, Type, List
 from termcolor import cprint
 from dotenv import load_dotenv
 from pathlib import Path
@@ -45,7 +45,7 @@ class ModelFactory:
         "deepseek": "deepseek-reasoner",     # Enhanced reasoning model
         "ollama": "llama3.2",                # Meta's Llama 3.2 - balanced performance
         "xai": "grok-4-fast-reasoning",      # xAI's Grok 4 Fast with reasoning (best value: 2M context, cheap!)
-        "openrouter": "google/gemini-2.5-flash"  # 🌙 Moon Dev: OpenRouter default - fast & cheap Gemini!
+        "openrouter": "deepseek/deepseek-chat-v3-0324:free"  # 🌙 Moon Dev: OpenRouter default - FREE DeepSeek V3 (50 req/day per key)
     }
     
     def __init__(self):
@@ -68,23 +68,75 @@ class ModelFactory:
         cprint("\n🏭 Moon Dev's Model Factory Initialization", "cyan")
         cprint("═" * 50, "cyan")
         
-        # 🌙 Moon Dev: Only initialize DeepSeek (user only has this API key)
-        models_to_init = ["deepseek"]  # Only initialize DeepSeek
+        # 🌙 Moon Dev: Initialize OpenRouter with free models
+        models_to_init = ["openrouter"]  # Initialize OpenRouter with key rotation
         
         # Debug current environment without exposing values
         cprint("\n🔍 Environment Check:", "cyan")
-        for key in ["DEEPSEEK_KEY"]:  # Only check DeepSeek key
-            value = os.getenv(key)
-            if value and len(value.strip()) > 0:
-                cprint(f"  ├─ {key}: Found ({len(value)} chars)", "green")
-            else:
-                cprint(f"  ├─ {key}: Not found or empty", "red")
+        openrouter_keys = self._get_openrouter_api_keys()
+        if openrouter_keys:
+            cprint(f"  ├─ OPENROUTER_API_KEY_*: Found {len(openrouter_keys)} keys", "green")
+        else:
+            cprint(f"  ├─ OPENROUTER_API_KEY_*: Not found", "red")
         
-        # Try to initialize each model type (only DeepSeek)
+        # Try to initialize each model type (OpenRouter with key rotation)
         for model_type, key_name in self._get_api_key_mapping().items():
             if model_type not in models_to_init:
                 continue  # Skip models not in our list
             cprint(f"\n🔄 Initializing {model_type} model...", "cyan")
+            
+            # Special handling for OpenRouter (multiple keys)
+            if model_type == "openrouter":
+                api_keys = self._get_openrouter_api_keys()
+                if not api_keys:
+                    cprint(f"  └─ ℹ️ No OPENROUTER_API_KEY_* found", "blue")
+                    continue
+                
+                try:
+                    cprint(f"  ├─ Found {len(api_keys)} OpenRouter API keys", "green")
+                    cprint(f"  ├─ Getting model class for {model_type}...", "cyan")
+                    
+                    if model_type not in self.MODEL_IMPLEMENTATIONS:
+                        cprint(f"  ├─ ❌ Model type not found in implementations!", "red")
+                        cprint(f"  └─ Available implementations: {list(self.MODEL_IMPLEMENTATIONS.keys())}", "yellow")
+                        continue
+                    
+                    model_class = self.MODEL_IMPLEMENTATIONS[model_type]
+                    cprint(f"  ├─ Using model class: {model_class.__name__}", "cyan")
+                    
+                    # Create instance with multiple keys
+                    try:
+                        cprint(f"  ├─ Creating model instance with key rotation...", "cyan")
+                        cprint(f"  ├─ Default model name: {self.DEFAULT_MODELS[model_type]}", "cyan")
+                        model_instance = model_class(api_keys)  # Pass list of keys
+                        cprint(f"  ├─ Model instance created", "green")
+                        
+                        # Test if instance is properly initialized
+                        cprint(f"  ├─ Testing model availability...", "cyan")
+                        if model_instance.is_available():
+                            self._models[model_type] = model_instance
+                            initialized = True
+                            cprint(f"  └─ ✨ Successfully initialized {model_type} with {len(api_keys)} keys", "green")
+                        else:
+                            cprint(f"  └─ ⚠️ Model instance created but not available", "yellow")
+                    except Exception as instance_error:
+                        cprint(f"  ├─ ⚠️ Error creating model instance", "yellow")
+                        cprint(f"  ├─ Error type: {type(instance_error).__name__}", "yellow")
+                        cprint(f"  ├─ Error message: {str(instance_error)}", "yellow")
+                        if hasattr(instance_error, '__traceback__'):
+                            import traceback
+                            cprint(f"  └─ Traceback:\n{traceback.format_exc()}", "yellow")
+                        
+                except Exception as e:
+                    cprint(f"  ├─ ⚠️ Failed to initialize {model_type} model", "yellow")
+                    cprint(f"  ├─ Error type: {type(e).__name__}", "yellow")
+                    cprint(f"  ├─ Error message: {str(e)}", "yellow")
+                    if hasattr(e, '__traceback__'):
+                        import traceback
+                        cprint(f"  └─ Traceback:\n{traceback.format_exc()}", "yellow")
+                continue
+            
+            # Standard single-key handling for other models
             cprint(f"  ├─ Looking for {key_name}...", "cyan")
             
             if api_key := os.getenv(key_name):
@@ -196,6 +248,13 @@ class ModelFactory:
                 # Special handling for Ollama models
                 if model_type == "ollama":
                     model = self.MODEL_IMPLEMENTATIONS[model_type](model_name=model_name)
+                # Special handling for OpenRouter (multiple keys)
+                elif model_type == "openrouter":
+                    api_keys = self._get_openrouter_api_keys()
+                    if not api_keys:
+                        cprint(f"❌ No OpenRouter API keys found", "red")
+                        return None
+                    model = self.MODEL_IMPLEMENTATIONS[model_type](api_keys, model_name=model_name)
                 else:
                     # For API-based models that need a key
                     if api_key := os.getenv(self._get_api_key_mapping()[model_type]):
@@ -223,9 +282,27 @@ class ModelFactory:
             "gemini": "GEMINI_KEY",  # Re-enabled with Gemini 2.5 models
             "deepseek": "DEEPSEEK_KEY",
             "xai": "GROK_API_KEY",  # Grok/xAI uses GROK_API_KEY
-            "openrouter": "OPENROUTER_API_KEY",  # 🌙 Moon Dev: OpenRouter - 200+ models!
+            "openrouter": "OPENROUTER_API_KEY",  # 🌙 Moon Dev: OpenRouter - 200+ models! (special handling)
             # Ollama doesn't need an API key as it runs locally
         }
+    
+    def _get_openrouter_api_keys(self) -> List[str]:
+        """Load all OPENROUTER_API_KEY_* environment variables"""
+        api_keys = []
+        
+        # Load keys from OPENROUTER_API_KEY_1 to OPENROUTER_API_KEY_20 (or until not found)
+        for i in range(1, 21):  # Support up to 20 keys
+            key_name = f"OPENROUTER_API_KEY_{i}"
+            key_value = os.getenv(key_name)
+            if key_value and len(key_value.strip()) > 0:
+                api_keys.append(key_value.strip())
+        
+        # Also check for legacy single key
+        legacy_key = os.getenv("OPENROUTER_API_KEY")
+        if legacy_key and len(legacy_key.strip()) > 0 and legacy_key not in api_keys:
+            api_keys.append(legacy_key.strip())
+        
+        return api_keys
     
     @property
     def available_models(self) -> Dict[str, list]:

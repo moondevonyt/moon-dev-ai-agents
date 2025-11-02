@@ -134,13 +134,10 @@ RESEARCH_QUESTIONS_POOL = [
 
 RESEARCH_ROUNDS = 1  # Reduced from 2 to save tokens!
 
-# Model configurations
+# Model configurations - Using OpenRouter with Free DeepSeek models
 MODELS = [
-    # {"type": "ollama", "name": "DeepSeek-R1:latest"},
-    # {"type": "ollama", "name": "llama3.2:latest"},
-    # {"type": "ollama", "name": "gemma:2b"}
-    {"type": "deepseek", "name": "deepseek-chat"},
-    {"type": "deepseek", "name": "deepseek-reasoner"}
+    {"type": "openrouter", "name": "deepseek/deepseek-chat-v3-0324:free"},
+    {"type": "openrouter", "name": "deepseek/deepseek-r1-0528:free"}
 ]
 
 # Fun emojis for animation
