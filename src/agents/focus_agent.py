@@ -26,8 +26,6 @@ import time as time_lib
 from datetime import datetime, timedelta, time
 from google.cloud import speech_v1p1beta1 as speech
 import pyaudio
-import openai
-from anthropic import Anthropic
 from termcolor import cprint
 from dotenv import load_dotenv
 from random import randint, uniform
@@ -90,9 +88,8 @@ cprint(f"📝 .env Path: {env_path}", "cyan")
 # - "gemma:2b": Fast and efficient for simple tasks
 # - "llama3.2": Balanced model good for most tasks
 
-# Model override settings
-MODEL_TYPE = "claude"  # Choose from model types above
-MODEL_NAME = "claude-3-haiku-20240307"  # Choose from models above
+# Model settings (will use ModelFactory)
+# Models are managed via model_factory for unified access
 
 # Configuration for faster testing
 MIN_INTERVAL_MINUTES = 2  # Less than a second
