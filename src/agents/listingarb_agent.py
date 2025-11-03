@@ -109,30 +109,15 @@ from datetime import datetime, timedelta
 import time
 from pathlib import Path
 from termcolor import colored, cprint
-import anthropic
 from dotenv import load_dotenv
 import requests
 import numpy as np
 import concurrent.futures
-import openai
 import src.config as config
+from src.agents.model_helper import get_agent_model
 
 # Load environment variables
 load_dotenv()
-
-# Model override settings
-# Set to "0" to use config.py's AI_MODEL setting
-# Available models:
-# - "deepseek-chat" (DeepSeek's V3 model - fast & efficient)
-# - "deepseek-reasoner" (DeepSeek's R1 reasoning model)
-# - "0" (Use config.py's AI_MODEL setting)
-MODEL_OVERRIDE = "deepseek-chat"  # Set to "0" to disable override
-
-# DeepSeek API settings
-DEEPSEEK_BASE_URL = "https://api.deepseek.com"  # Base URL for DeepSeek API
-
-# 🤖 Agent Model Selection
-AI_MODEL = MODEL_OVERRIDE if MODEL_OVERRIDE != "0" else config.AI_MODEL
 
 # 📁 File Paths
 DISCOVERED_TOKENS_FILE = Path("src/data/discovered_tokens.csv")  # Input from token discovery script
@@ -212,24 +197,13 @@ Help Moon Dev evaluate which tokens have the best fundamentals! 🚀
 class AIAgent:
     """AI Agent for analyzing tokens"""
     
-    def __init__(self, name: str, model: str):
+    def __init__(self, name: str):
         self.name = name
-        self.model = model
-        
-        # Initialize appropriate client based on model
-        if "deepseek" in self.model.lower():
-            deepseek_key = os.getenv("DEEPSEEK_KEY")
-            if deepseek_key:
-                self.client = openai.OpenAI(
-                    api_key=deepseek_key,
-                    base_url=DEEPSEEK_BASE_URL
-                )
-                print(f"🚀 {name} using DeepSeek model: {model}")
-            else:
-                raise ValueError("🚨 DEEPSEEK_KEY not found in environment variables!")
-        else:
-            self.client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_KEY"))
-            print(f"🤖 {name} using Claude model: {model}")
+
+        # Initialize AI model via OpenRouter
+        self.model = get_agent_model(verbose=True)
+        if not self.model:
+            raise ValueError(f"🚨 Failed to initialize AI model for {name}!")
             
         self.memory_file = Path(f"src/data/agent_memory/{name.lower().replace(' ', '_')}.json")
         self.memory = {
@@ -322,27 +296,19 @@ Focus on:
 
 Remember to reference specific data points from the OHLCV table in your analysis!"""
             
-            # Get AI response with correct client
-            if "deepseek" in self.model.lower():
-                response = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": user_prompt}
-                    ],
-                    max_tokens=300,
-                    temperature=0.7
-                )
-                analysis = response.choices[0].message.content
+            # Get AI response via OpenRouter
+            response = self.model.generate_response(
+                system_prompt=system_prompt,
+                user_content=user_prompt,
+                temperature=0.7,
+                max_tokens=300
+            )
+
+            # Parse response
+            if response and hasattr(response, 'content'):
+                analysis = response.content
             else:
-                response = self.client.messages.create(
-                    model=self.model,
-                    max_tokens=300,
-                    temperature=0.7,
-                    system=system_prompt,
-                    messages=[{"role": "user", "content": user_prompt}]
-                )
-                analysis = response.content[0].text
+                analysis = str(response)
             
             # Update memory with OHLCV context
             if not isinstance(self.memory['analyzed_tokens'], list):
@@ -388,8 +354,8 @@ class ListingArbSystem:
     """AI Agent system for analyzing potential listing opportunities"""
     
     def __init__(self):
-        self.agent_one = AIAgent("Agent One", AI_MODEL)
-        self.agent_two = AIAgent("Agent Two", AI_MODEL)
+        self.agent_one = AIAgent("Agent One")
+        self.agent_two = AIAgent("Agent Two")
         self.analysis_log = self._load_analysis_log()
         cprint("🔍 Moon Dev's Listing Arb System Ready!", "white", "on_green", attrs=["bold"])
         

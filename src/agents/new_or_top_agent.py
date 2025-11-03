@@ -98,8 +98,7 @@ import json
 from datetime import datetime
 from pathlib import Path
 from dotenv import load_dotenv
-import anthropic
-import openai
+from src.agents.model_helper import get_agent_model
 from typing import Dict, List
 import time
 from termcolor import colored, cprint
@@ -169,20 +168,10 @@ class NewOrTopAgent:
             "Content-Type": "application/json"
         }
         
-        # Initialize AI client based on model
-        if "deepseek" in AI_MODEL.lower():
-            deepseek_key = os.getenv("DEEPSEEK_KEY")
-            if deepseek_key:
-                self.ai_client = openai.OpenAI(
-                    api_key=deepseek_key,
-                    base_url=DEEPSEEK_BASE_URL
-                )
-                print(f"🚀 Using DeepSeek model: {AI_MODEL}")
-            else:
-                raise ValueError("🚨 DEEPSEEK_KEY not found in environment variables!")
-        else:
-            self.ai_client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_KEY"))
-            print(f"🤖 Using Claude model: {AI_MODEL}")
+        # Initialize AI model via OpenRouter
+        self.model = get_agent_model(verbose=True)
+        if not self.model:
+            raise ValueError("🚨 Failed to initialize AI model!")
             
         print_fancy("🌙 Moon Dev's New & Top Coins Agent Initialized! 🌟", 'white', 'on_magenta', SUCCESS_EMOJIS)
         
@@ -365,29 +354,19 @@ class NewOrTopAgent:
             
             print_fancy("🧠 AI Agent Processing...", 'yellow', 'on_blue', SPINNER_EMOJIS)
             
-            # Get AI response
-            if "deepseek" in AI_MODEL.lower():
-                response = self.ai_client.chat.completions.create(
-                    model=AI_MODEL,
-                    messages=[
-                        {"role": "system", "content": "You are a cryptocurrency analyst."},
-                        {"role": "user", "content": prompt}
-                    ],
-                    max_tokens=500,
-                    temperature=0.7
-                )
-                analysis = response.choices[0].message.content
+            # Get AI response via OpenRouter
+            response = self.model.generate_response(
+                system_prompt="You are a cryptocurrency analyst.",
+                user_content=prompt,
+                temperature=0.7,
+                max_tokens=500
+            )
+
+            # Parse response
+            if response and hasattr(response, 'content'):
+                analysis = response.content
             else:
-                response = self.ai_client.messages.create(
-                    model=AI_MODEL,
-                    max_tokens=500,
-                    temperature=0.7,
-                    messages=[{
-                        "role": "user",
-                        "content": prompt
-                    }]
-                )
-                analysis = response.content[0].text
+                analysis = str(response)
                 
             # Extract and display recommendation prominently
             recommendation = self.extract_recommendation(analysis)
