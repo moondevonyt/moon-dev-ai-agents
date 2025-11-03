@@ -158,11 +158,14 @@ python scripts/check_agent_updates.py
 ```
 
 **Current Status:**
-- ✅ 1 agent fully updated (risk_agent)
+- ✅ 4 agents fully updated (risk, funding, whale, chartanalysis) ← +3 new!
 - ⚡ 7 agents compatible (using ModelFactory, can optimize)
-- ❌ 15 agents need update (using old direct API pattern)
+- ❌ 12 agents need update (using old direct API pattern)
 
-**For Developers:** See `AGENT_UPDATE_GUIDE.md` for step-by-step migration instructions.
+**For Developers:**
+- See `AGENT_UPDATE_GUIDE.md` for step-by-step migration instructions
+- Check `MIGRATION_PROGRESS.md` for detailed progress tracking
+- Use `python scripts/check_agent_updates.py` to see current status
 
 ---
 
