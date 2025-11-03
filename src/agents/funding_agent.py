@@ -4,17 +4,10 @@ Built with love by Moon Dev 🚀
 
 Fran the Funding Agent tracks funding rate changes across different timeframes and announces significant changes via OpenAI TTS.
 
+Updated to use OpenRouter for unified LLM access.
+
 Need an API key? for a limited time, bootcamp members get free api keys for claude, openai, helius, birdeye & quant elite gets access to the moon dev api. join here: https://algotradecamp.com
 """
-
-# Model override settings
-# Set to "0" to use config.py's AI_MODEL setting
-# Available models:
-# - "deepseek-chat" (DeepSeek's V3 model - fast & efficient)
-# - "deepseek-reasoner" (DeepSeek's R1 reasoning model)
-# - "0" (Use config.py's AI_MODEL setting)
-MODEL_OVERRIDE = "deepseek-chat"  # Set to "deepseek-chat" to use DeepSeek
-DEEPSEEK_BASE_URL = "https://api.deepseek.com"  # Base URL for DeepSeek API
 
 import os
 import pandas as pd
@@ -23,13 +16,13 @@ from datetime import datetime, timedelta
 from termcolor import colored, cprint
 from dotenv import load_dotenv
 import openai
-import anthropic
 from pathlib import Path
 from src import nice_funcs as n
 from src import nice_funcs_hl as hl
 from src.agents.api import MoonDevAPI
 from collections import deque
 from src.agents.base_agent import BaseAgent
+from src.agents.model_helper import get_agent_model
 import traceback
 import numpy as np
 import re
@@ -97,40 +90,25 @@ class FundingAgent(BaseAgent):
     def __init__(self):
         """Initialize Fran the Funding Agent"""
         super().__init__('funding')
-        
-        # Set active model - use override if set, otherwise use config
-        self.active_model = MODEL_OVERRIDE if MODEL_OVERRIDE != "0" else config.AI_MODEL
-        
+
         load_dotenv()
-        
+
+        # Initialize AI model using helper (uses config.py or OpenRouter)
+        self.model = get_agent_model(verbose=True)
+
+        if not self.model:
+            raise ValueError("🚨 Failed to initialize AI model! Check your API keys in .env")
+
         # Initialize OpenAI client for voice only
         openai_key = os.getenv("OPENAI_KEY")
         if not openai_key:
             raise ValueError("🚨 OPENAI_KEY not found in environment variables!")
         openai.api_key = openai_key
-        
-        # Initialize Anthropic for Claude models
-        anthropic_key = os.getenv("ANTHROPIC_KEY")
-        if not anthropic_key:
-            raise ValueError("🚨 ANTHROPIC_KEY not found in environment variables!")
-        self.anthropic_client = anthropic.Anthropic(api_key=anthropic_key)
-        
-        # Initialize DeepSeek client if needed
-        if "deepseek" in self.active_model.lower():
-            deepseek_key = os.getenv("DEEPSEEK_KEY")
-            if deepseek_key:
-                self.deepseek_client = openai.OpenAI(
-                    api_key=deepseek_key,
-                    base_url=DEEPSEEK_BASE_URL
-                )
-                cprint("🚀 Moon Dev's Funding Agent using DeepSeek override!", "green")
-            else:
-                self.deepseek_client = None
-                cprint("⚠️ DEEPSEEK_KEY not found - DeepSeek model will not be available", "yellow")
-        else:
-            self.deepseek_client = None
-            cprint(f"🎯 Moon Dev's Funding Agent using Claude model: {self.active_model}!", "green")
-        
+
+        # Set AI parameters from config
+        self.ai_temperature = config.AI_TEMPERATURE if AI_TEMPERATURE == 0 else AI_TEMPERATURE
+        self.ai_max_tokens = config.AI_MAX_TOKENS if AI_MAX_TOKENS == 0 else AI_MAX_TOKENS
+
         self.api = MoonDevAPI()
         
         # Create data directories if they don't exist
@@ -193,36 +171,19 @@ class FundingAgent(BaseAgent):
             )
             
             print(f"\n🤖 Analyzing {symbol} with AI...")
-            
-            # Use either DeepSeek or Claude based on active_model
-            if "deepseek" in self.active_model.lower():
-                if not self.deepseek_client:
-                    raise ValueError("🚨 DeepSeek client not initialized - check DEEPSEEK_KEY")
-                    
-                cprint(f"🤖 Using DeepSeek model: {self.active_model}", "cyan")
-                response = self.deepseek_client.chat.completions.create(
-                    model="deepseek-chat",
-                    messages=[
-                        {"role": "system", "content": FUNDING_ANALYSIS_PROMPT},
-                        {"role": "user", "content": context}
-                    ],
-                    max_tokens=AI_MAX_TOKENS if AI_MAX_TOKENS > 0 else config.AI_MAX_TOKENS,
-                    temperature=AI_TEMPERATURE if AI_TEMPERATURE > 0 else config.AI_TEMPERATURE,
-                    stream=False
-                )
-                content = response.choices[0].message.content.strip()
+
+            # Use unified model interface (OpenRouter or configured provider)
+            response = self.model.generate_response(
+                system_prompt=FUNDING_ANALYSIS_PROMPT,
+                user_content=context,
+                temperature=self.ai_temperature,
+                max_tokens=self.ai_max_tokens
+            )
+
+            if response and hasattr(response, 'content'):
+                content = response.content.strip()
             else:
-                cprint(f"🤖 Using Claude model: {self.active_model}", "cyan")
-                response = self.anthropic_client.messages.create(
-                    model=self.active_model,
-                    max_tokens=AI_MAX_TOKENS if AI_MAX_TOKENS > 0 else config.AI_MAX_TOKENS,
-                    temperature=AI_TEMPERATURE if AI_TEMPERATURE > 0 else config.AI_TEMPERATURE,
-                    system=FUNDING_ANALYSIS_PROMPT,
-                    messages=[
-                        {"role": "user", "content": context}
-                    ]
-                )
-                content = response.content[0].text
+                content = str(response).strip()
             
             # Debug: Print raw response
             print("\n🔍 Raw response:")

@@ -3,6 +3,8 @@
 Built with love by Moon Dev 🌙
 
 Chuck the Chart Agent generates and analyzes trading charts using AI vision capabilities.
+
+Updated to use OpenRouter for unified LLM access.
 """
 
 import os
@@ -14,11 +16,11 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import time
 from dotenv import load_dotenv
-import anthropic
 import openai
 from src import nice_funcs as n
 from src import nice_funcs_hl as hl
 from src.agents.base_agent import BaseAgent
+from src.agents.model_helper import get_agent_model
 import traceback
 import base64
 from io import BytesIO
@@ -75,35 +77,34 @@ class ChartAnalysisAgent(BaseAgent):
     def __init__(self):
         """Initialize Chuck the Chart Agent"""
         super().__init__('chartanalysis')
-        
+
         # Set up directories
         self.charts_dir = PROJECT_ROOT / "src" / "data" / "charts"
         self.audio_dir = PROJECT_ROOT / "src" / "audio"
         self.charts_dir.mkdir(parents=True, exist_ok=True)
         self.audio_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Load environment variables
         load_dotenv()
-        
-        # Initialize API clients
+
+        # Initialize AI model using helper (uses config.py or OpenRouter)
+        self.model = get_agent_model(verbose=True)
+
+        if not self.model:
+            raise ValueError("🚨 Failed to initialize AI model! Check your API keys in .env")
+
+        # Initialize OpenAI client for TTS only
         openai_key = os.getenv("OPENAI_KEY")
-        anthropic_key = os.getenv("ANTHROPIC_KEY")
-        
-        if not openai_key or not anthropic_key:
-            raise ValueError("🚨 API keys not found in environment variables!")
-            
-        self.openai_client = openai.OpenAI(api_key=openai_key)  # For TTS only
-        self.client = anthropic.Anthropic(api_key=anthropic_key)
-        
-        # Set AI parameters - use config values unless overridden
-        self.ai_model = AI_MODEL if AI_MODEL else config.AI_MODEL
-        self.ai_temperature = AI_TEMPERATURE if AI_TEMPERATURE > 0 else config.AI_TEMPERATURE
-        self.ai_max_tokens = AI_MAX_TOKENS if AI_MAX_TOKENS > 0 else config.AI_MAX_TOKENS
-        
+        if not openai_key:
+            raise ValueError("🚨 OPENAI_KEY not found in environment variables!")
+
+        self.openai_client = openai.OpenAI(api_key=openai_key)
+
+        # Set AI parameters from config
+        self.ai_temperature = config.AI_TEMPERATURE if AI_TEMPERATURE == 0 else AI_TEMPERATURE
+        self.ai_max_tokens = config.AI_MAX_TOKENS if AI_MAX_TOKENS == 0 else AI_MAX_TOKENS
+
         print("📊 Chuck the Chart Agent initialized!")
-        print(f"🤖 Using AI Model: {self.ai_model}")
-        if AI_MODEL or AI_TEMPERATURE > 0 or AI_MAX_TOKENS > 0:
-            print("⚠️ Note: Using some override settings instead of config.py defaults")
         print(f"🎯 Analyzing {len(TIMEFRAMES)} timeframes: {', '.join(TIMEFRAMES)}")
         print(f"📈 Using indicators: {', '.join(INDICATORS)}")
         
@@ -178,28 +179,28 @@ class ChartAnalysisAgent(BaseAgent):
             )
             
             print(f"\n🤖 Analyzing {symbol} with AI...")
-            
-            # Get AI analysis using instance settings
-            message = self.client.messages.create(
-                model=self.ai_model,
-                max_tokens=self.ai_max_tokens,
+
+            # Use unified model interface (OpenRouter or configured provider)
+            response = self.model.generate_response(
+                system_prompt="You are Chuck, Moon Dev's Chart Analysis AI. Analyze charts and provide trading recommendations.",
+                user_content=context,
                 temperature=self.ai_temperature,
-                messages=[{
-                    "role": "user",
-                    "content": context
-                }]
+                max_tokens=self.ai_max_tokens
             )
-            
-            if not message or not message.content:
+
+            if not response:
                 print("❌ No response from AI")
                 return None
-                
+
             # Debug: Print raw response
             print("\n🔍 Raw response:")
-            print(repr(message.content))
-            
-            # Get the raw content and convert to string
-            content = str(message.content)
+            print(repr(response))
+
+            # Get the content
+            if hasattr(response, 'content'):
+                content = str(response.content)
+            else:
+                content = str(response)
             
             # Clean up TextBlock formatting - new format handling
             if 'TextBlock' in content:
