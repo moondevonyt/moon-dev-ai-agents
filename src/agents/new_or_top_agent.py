@@ -14,13 +14,10 @@ This agent goes through and analyzes all of the new tokens that have been listed
 2. Choose AI model by setting MODEL_OVERRIDE at top of file:
    ```python
    # Use config.py's AI_MODEL (Default)
-   MODEL_OVERRIDE = "0"  
    
    # For DeepSeek Chat (Faster, more concise)
-   MODEL_OVERRIDE = "deepseek-chat"  
    
    # For DeepSeek Reasoner (Better reasoning, more detailed)
-   MODEL_OVERRIDE = "deepseek-reasoner"
    ```
 
    🔍 Model Comparison:
@@ -108,19 +105,8 @@ import src.config as config
 # Load environment variables
 load_dotenv()
 
-# Model override settings
-# Set to "0" to use config.py's AI_MODEL setting
-# Available models:
-# - "deepseek-chat" (DeepSeek's V3 model - fast & efficient)
-# - "deepseek-reasoner" (DeepSeek's R1 reasoning model)
-# - "0" (Use config.py's AI_MODEL setting)
-MODEL_OVERRIDE = "deepseek-chat"  # Set to "0" to disable override
-
-# DeepSeek API settings
-DEEPSEEK_BASE_URL = "https://api.deepseek.com"  # Base URL for DeepSeek API
-
-# 🤖 Agent Model Selection
-AI_MODEL = MODEL_OVERRIDE if MODEL_OVERRIDE != "0" else config.AI_MODEL
+# 🤖 Agent Model Selection (via OpenRouter)
+# Models are now managed via model_helper for unified LLM access
 
 # Configuration
 COINGECKO_API_KEY = os.getenv("COINGECKO_API_KEY")

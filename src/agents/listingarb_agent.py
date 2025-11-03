@@ -63,9 +63,9 @@ Usage:
    - COINGECKO_API_KEY
 
 2. Configure model preference:
-   MODEL_OVERRIDE = "0"           # Use Claude (default)
-   MODEL_OVERRIDE = "deepseek-chat"    # Use DeepSeek Chat
-   MODEL_OVERRIDE = "deepseek-reasoner" # Use DeepSeek Reasoner
+   # Models now managed via OpenRouter           # Use Claude (default)
+   # Model access via OpenRouter    # Use DeepSeek Chat
+   # Unified LLM access # Use DeepSeek Reasoner
 
 3. Run the agent:
    python src/agents/listingarb_agent.py
