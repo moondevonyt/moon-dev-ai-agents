@@ -15,26 +15,20 @@ from pathlib import Path
 import re
 
 import pandas as pd
-from anthropic import Anthropic
 from dotenv import load_dotenv
 import openai
 
 from src.agents.base_agent import BaseAgent
 from src.nice_funcs_hl import get_funding_rates
-from src.config import AI_MODEL, AI_TEMPERATURE, AI_MAX_TOKENS
+from src.agents.model_helper import get_agent_model
+from src import config
 
 # Configuration
 CHECK_INTERVAL_MINUTES = 15  # How often to check funding rates
 YEARLY_FUNDING_THRESHOLD = 100 # 100% yearly funding rate threshold - only for positive rates
 
-# Model override settings - Adding DeepSeek support
-MODEL_OVERRIDE = "deepseek-chat"  # Set to "deepseek-chat" or "deepseek-reasoner" to use DeepSeek, "0" to use default
-DEEPSEEK_BASE_URL = "https://api.deepseek.com"  # Base URL for DeepSeek API
-
 # Only set these if you want to override config.py settings
-AI_MODEL = False  # Set to model name to override config.AI_MODEL
-AI_TEMPERATURE = 0  # Set > 0 to override config.AI_TEMPERATURE
-AI_MAX_TOKENS = 25  # Set > 0 to override config.AI_MAX_TOKENS
+AI_MAX_TOKENS = 25  # Override for fundingarb analysis (short responses)
 
 # Voice settings
 VOICE_MODEL = "tts-1"
@@ -81,48 +75,21 @@ class FundingArbAgent(BaseAgent):
     def __init__(self):
         """Initialize Moon Dev's Funding Arbitrage Agent"""
         super().__init__('fundingarb')  # Initialize base agent with type
-        
-        # Set AI parameters - use config values unless overridden
-        self.ai_model = AI_MODEL if AI_MODEL else "claude-3-haiku-20240307"
-        self.ai_temperature = AI_TEMPERATURE if AI_TEMPERATURE > 0 else 0.5
-        self.ai_max_tokens = AI_MAX_TOKENS if AI_MAX_TOKENS > 0 else 150
-        
-        print(f"🤖 Using AI Model: {self.ai_model}")
-        if AI_MODEL or AI_TEMPERATURE > 0 or AI_MAX_TOKENS > 0:
-            print("⚠️ Note: Using some override settings instead of defaults")
-            if AI_MODEL:
-                print(f"  - Model: {AI_MODEL}")
-            if AI_TEMPERATURE > 0:
-                print(f"  - Temperature: {AI_TEMPERATURE}")
-            if AI_MAX_TOKENS > 0:
-                print(f"  - Max Tokens: {AI_MAX_TOKENS}")
-        
-        # Load environment variables
         load_dotenv()
-        
-        # Get API keys
+
+        # Initialize AI model via OpenRouter
+        self.model = get_agent_model(verbose=True)
+        if not self.model:
+            raise ValueError("🚨 Failed to initialize AI model!")
+
+        self.ai_temperature = config.AI_TEMPERATURE
+        self.ai_max_tokens = AI_MAX_TOKENS  # Use short token limit for fundingarb analysis
+
+        # Initialize OpenAI for voice (still needed for TTS)
         openai_key = os.getenv("OPENAI_KEY")
-        anthropic_key = os.getenv("ANTHROPIC_KEY")
-        deepseek_key = os.getenv("DEEPSEEK_KEY")
-        
         if not openai_key:
             raise ValueError("🚨 OPENAI_KEY not found in environment variables!")
-        if not anthropic_key:
-            raise ValueError("🚨 ANTHROPIC_KEY not found in environment variables!")
-            
-        # Initialize OpenAI client for DeepSeek
-        if deepseek_key and MODEL_OVERRIDE.lower() == "deepseek-chat":
-            self.deepseek_client = openai.OpenAI(
-                api_key=deepseek_key,
-                base_url=DEEPSEEK_BASE_URL
-            )
-            print("🚀 DeepSeek model initialized!")
-        else:
-            self.deepseek_client = None
-            
-        # Initialize other clients
         openai.api_key = openai_key
-        self.client = Anthropic(api_key=anthropic_key)
         
         # Create data directories
         self.data_dir = Path("src/data/fundingarb")
@@ -150,48 +117,25 @@ class FundingArbAgent(BaseAgent):
             {market_data}
             """
             
-            # Use DeepSeek if configured
-            if self.deepseek_client and MODEL_OVERRIDE.lower() == "deepseek-chat":
-                print("🚀 Using DeepSeek for analysis...")
-                response = self.deepseek_client.chat.completions.create(
-                    model="deepseek-chat",
-                    messages=[
-                        {"role": "system", "content": "You are a funding arbitrage analyst. You must respond in exactly 2 lines: ARBITRAGE/SKIP and your reason."},
-                        {"role": "user", "content": FUNDING_ANALYSIS_PROMPT.format(
-                            market_data=context,
-                            threshold=YEARLY_FUNDING_THRESHOLD
-                        )}
-                    ],
-                    max_tokens=self.ai_max_tokens,
-                    temperature=self.ai_temperature,
-                    stream=False
-                )
-                content = response.choices[0].message.content.strip()
+            # Get AI analysis via OpenRouter
+            print("🤖 Analyzing funding opportunity with AI...")
+            response = self.model.generate_response(
+                system_prompt="You are a funding arbitrage analyst. You must respond in exactly 2 lines: ARBITRAGE/SKIP and your reason.",
+                user_content=FUNDING_ANALYSIS_PROMPT.format(
+                    market_data=context,
+                    threshold=YEARLY_FUNDING_THRESHOLD
+                ),
+                temperature=self.ai_temperature,
+                max_tokens=self.ai_max_tokens
+            )
+
+            # Parse response
+            if response and hasattr(response, 'content'):
+                content = response.content
             else:
-                # Use Claude as before
-                print("🤖 Using Claude for analysis...")
-                response = self.client.messages.create(
-                    model=self.ai_model,
-                    max_tokens=self.ai_max_tokens,
-                    temperature=self.ai_temperature,
-                    system="You are a funding arbitrage analyst. You must respond in exactly 2 lines: ARBITRAGE/SKIP and your reason.",
-                    messages=[{
-                        "role": "user",
-                        "content": FUNDING_ANALYSIS_PROMPT.format(
-                            market_data=context,
-                            threshold=YEARLY_FUNDING_THRESHOLD
-                        )
-                    }]
-                )
-                content = str(response.content)
-            
+                content = str(response)
+
             print(f"\n🤖 Raw AI response:\n{content}")  # Debug print
-            
-            # Handle TextBlock format if using Claude
-            if 'TextBlock' in content:
-                match = re.search(r"text='([^']*)'", content)
-                if match:
-                    content = match.group(1)
             
             # Clean up response and split into lines
             content = content.replace('\\n', '\n')  # Handle escaped newlines

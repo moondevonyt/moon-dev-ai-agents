@@ -14,7 +14,6 @@ from datetime import datetime, timedelta
 from termcolor import colored, cprint
 from dotenv import load_dotenv
 import openai
-import anthropic
 from pathlib import Path
 from src import nice_funcs as n
 from src import nice_funcs_hl as hl
@@ -24,6 +23,7 @@ from src.agents.base_agent import BaseAgent
 import traceback
 import numpy as np
 import re
+from src.agents.model_helper import get_agent_model
 
 # Get the project root directory
 PROJECT_ROOT = Path(__file__).parent.parent.parent
@@ -32,10 +32,6 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 CHECK_INTERVAL_MINUTES = 10  # How often to check liquidations
 LIQUIDATION_ROWS = 10000   # Number of rows to fetch each time
 LIQUIDATION_THRESHOLD = .5  # Multiplier for average liquidation to detect significant events
-
-# Model override settings - Adding DeepSeek support
-MODEL_OVERRIDE = "deepseek-chat"  # Set to "deepseek-chat" or "deepseek-reasoner" to use DeepSeek, "0" to use default
-DEEPSEEK_BASE_URL = "https://api.deepseek.com"  # Base URL for DeepSeek API
 
 # OHLCV Data Settings
 TIMEFRAME = '15m'  # Candlestick timeframe
@@ -47,13 +43,10 @@ LOOKBACK_BARS = 100  # Number of candles to analyze
 # 240 = 4 hours (longer-term changes)
 COMPARISON_WINDOW = 15  # Default to 15 minutes for quick reactions
 
-# AI Settings - Override config.py if set
+# AI Settings
 from src import config
 
-# Only set these if you want to override config.py settings
-AI_MODEL = False  # Set to model name to override config.AI_MODEL
-AI_TEMPERATURE = 0  # Set > 0 to override config.AI_TEMPERATURE
-AI_MAX_TOKENS = 50  # Set > 0 to override config.AI_MAX_TOKENS
+AI_MAX_TOKENS = 50  # Override for liquidation analysis (short responses)
 
 # Voice settings
 VOICE_MODEL = "tts-1"
@@ -87,48 +80,22 @@ class LiquidationAgent(BaseAgent):
     def __init__(self):
         """Initialize Luna the Liquidation Agent"""
         super().__init__('liquidation')
-        
-        # Set AI parameters - use config values unless overridden
-        self.ai_model = AI_MODEL if AI_MODEL else config.AI_MODEL
-        self.ai_temperature = AI_TEMPERATURE if AI_TEMPERATURE > 0 else config.AI_TEMPERATURE
-        self.ai_max_tokens = AI_MAX_TOKENS if AI_MAX_TOKENS > 0 else config.AI_MAX_TOKENS
-        
-        print(f"🤖 Using AI Model: {self.ai_model}")
-        if AI_MODEL or AI_TEMPERATURE > 0 or AI_MAX_TOKENS > 0:
-            print("⚠️ Note: Using some override settings instead of config.py defaults")
-            if AI_MODEL:
-                print(f"  - Model: {AI_MODEL}")
-            if AI_TEMPERATURE > 0:
-                print(f"  - Temperature: {AI_TEMPERATURE}")
-            if AI_MAX_TOKENS > 0:
-                print(f"  - Max Tokens: {AI_MAX_TOKENS}")
-                
         load_dotenv()
-        
-        # Get API keys
+
+        # Initialize AI model via OpenRouter
+        self.model = get_agent_model(verbose=True)
+        if not self.model:
+            raise ValueError("🚨 Failed to initialize AI model!")
+
+        self.ai_temperature = config.AI_TEMPERATURE
+        self.ai_max_tokens = AI_MAX_TOKENS  # Use short token limit for liquidation analysis
+
+        # Initialize OpenAI for voice (still needed for TTS)
         openai_key = os.getenv("OPENAI_KEY")
-        anthropic_key = os.getenv("ANTHROPIC_KEY")
-        deepseek_key = os.getenv("DEEPSEEK_KEY")
-        
         if not openai_key:
             raise ValueError("🚨 OPENAI_KEY not found in environment variables!")
-        if not anthropic_key:
-            raise ValueError("🚨 ANTHROPIC_KEY not found in environment variables!")
-            
-        # Initialize OpenAI client for DeepSeek
-        if deepseek_key and MODEL_OVERRIDE.lower() == "deepseek-chat":
-            self.deepseek_client = openai.OpenAI(
-                api_key=deepseek_key,
-                base_url=DEEPSEEK_BASE_URL
-            )
-            print("🚀 DeepSeek model initialized!")
-        else:
-            self.deepseek_client = None
-            
-        # Initialize other clients
         openai.api_key = openai_key
-        self.client = anthropic.Anthropic(api_key=anthropic_key)
-        
+
         self.api = MoonDevAPI()
         
         # Create data directories if they don't exist
@@ -321,45 +288,25 @@ class LiquidationAgent(BaseAgent):
             )
             
             print(f"\n🤖 Analyzing liquidation spike with AI...")
-            
-            # Use DeepSeek if configured
-            if self.deepseek_client and MODEL_OVERRIDE.lower() == "deepseek-chat":
-                print("🚀 Using DeepSeek for analysis...")
-                response = self.deepseek_client.chat.completions.create(
-                    model="deepseek-chat",
-                    messages=[
-                        {"role": "system", "content": "You are a liquidation analyst. You must respond in exactly 3 lines: BUY/SELL/NOTHING, reason, and confidence."},
-                        {"role": "user", "content": context}
-                    ],
-                    max_tokens=self.ai_max_tokens,
-                    temperature=self.ai_temperature,
-                    stream=False
-                )
-                response_text = response.choices[0].message.content.strip()
+
+            # Get AI analysis via OpenRouter
+            response = self.model.generate_response(
+                system_prompt="You are a liquidation analyst. You must respond in exactly 3 lines: BUY/SELL/NOTHING, reason, and confidence.",
+                user_content=context,
+                temperature=self.ai_temperature,
+                max_tokens=self.ai_max_tokens
+            )
+
+            # Parse response
+            if response and hasattr(response, 'content'):
+                response_text = response.content
             else:
-                # Use Claude as before
-                print("🤖 Using Claude for analysis...")
-                message = self.client.messages.create(
-                    model=self.ai_model,
-                    max_tokens=self.ai_max_tokens,
-                    temperature=self.ai_temperature,
-                    messages=[{
-                        "role": "user",
-                        "content": context
-                    }]
-                )
-                response_text = str(message.content)
-            
+                response_text = str(response)
+
             # Handle response
             if not response_text:
                 print("❌ No response from AI")
                 return None
-                
-            # Handle TextBlock response if using Claude
-            if 'TextBlock' in response_text:
-                match = re.search(r"text='([^']*)'", response_text)
-                if match:
-                    response_text = match.group(1)
                     
             # Parse response - handle both newline and period-based splits
             lines = [line.strip() for line in response_text.split('\n') if line.strip()]
@@ -392,8 +339,7 @@ class LiquidationAgent(BaseAgent):
                 'confidence': confidence,
                 'pct_change': total_pct_change,
                 'pct_change_longs': pct_change_longs,
-                'pct_change_shorts': pct_change_shorts,
-                'model_used': 'deepseek-chat' if self.deepseek_client else self.ai_model
+                'pct_change_shorts': pct_change_shorts
             }
             
         except Exception as e:

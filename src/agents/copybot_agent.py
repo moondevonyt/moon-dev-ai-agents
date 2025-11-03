@@ -13,7 +13,6 @@ Need an API key? for a limited time, bootcamp members get free api keys for clau
 
 import os
 import pandas as pd
-import anthropic
 from termcolor import colored, cprint
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
@@ -21,6 +20,7 @@ import time
 from src.config import *
 from src import nice_funcs as n
 from src.data.ohlcv_collector import collect_all_tokens, collect_token_data
+from src.agents.model_helper import get_agent_model
 
 # Data path for current copybot portfolio
 COPYBOT_PORTFOLIO_PATH = '/Users/md/Dropbox/dev/github/solana-copy-trader/csvs/current_portfolio.csv'
@@ -68,7 +68,14 @@ class CopyBotAgent:
     def __init__(self):
         """Initialize the CopyBot agent with LLM"""
         load_dotenv()
-        self.client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_KEY"))
+
+        # Initialize AI model via OpenRouter
+        self.model = get_agent_model(verbose=True)
+        if not self.model:
+            raise ValueError("🚨 Failed to initialize AI model!")
+
+        self.ai_temperature = AI_TEMPERATURE
+        self.ai_max_tokens = AI_MAX_TOKENS
         self.recommendations_df = pd.DataFrame(columns=['token', 'action', 'confidence', 'reasoning'])
         print("🤖 Moon Dev's CopyBot Agent initialized!")
         
@@ -135,25 +142,20 @@ class CopyBotAgent:
             print("=" * 80)
             
             print("\n🤖 Sending data to Moon Dev's AI for analysis...")
-            
-            # Get LLM analysis
-            message = self.client.messages.create(
-                model=AI_MODEL,
-                max_tokens=AI_MAX_TOKENS,
-                temperature=AI_TEMPERATURE,
-                messages=[{
-                    "role": "user",
-                    "content": full_prompt
-                }]
+
+            # Get LLM analysis via OpenRouter
+            response = self.model.generate_response(
+                system_prompt="You are Moon Dev's CopyBot Agent analyzing portfolio positions.",
+                user_content=full_prompt,
+                temperature=self.ai_temperature,
+                max_tokens=self.ai_max_tokens
             )
-            
+
             # Parse response
-            response = message.content
-            if isinstance(response, list):
-                response = '\n'.join([
-                    item.text if hasattr(item, 'text') else str(item)
-                    for item in response
-                ])
+            if response and hasattr(response, 'content'):
+                response = response.content
+            else:
+                response = str(response)
             
             print("\n🎯 AI Analysis Results:")
             print("=" * 50)

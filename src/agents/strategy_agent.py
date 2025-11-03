@@ -6,12 +6,12 @@ Handles all strategy-based trading decisions
 from src.config import *
 import json
 from termcolor import cprint
-import anthropic
 import os
 import importlib
 import inspect
 import time
 from src import nice_funcs as n
+from src.agents.model_helper import get_agent_model
 
 # 🎯 Strategy Evaluation Prompt
 STRATEGY_EVAL_PROMPT = """
@@ -50,8 +50,15 @@ class StrategyAgent:
     def __init__(self):
         """Initialize the Strategy Agent"""
         self.enabled_strategies = []
-        self.client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_KEY"))
-        
+
+        # Initialize AI model via OpenRouter
+        self.model = get_agent_model(verbose=True)
+        if not self.model:
+            raise ValueError("🚨 Failed to initialize AI model!")
+
+        self.ai_temperature = AI_TEMPERATURE
+        self.ai_max_tokens = AI_MAX_TOKENS
+
         if ENABLE_STRATEGIES:
             try:
                 # Import strategies directly
@@ -83,23 +90,23 @@ class StrategyAgent:
                 
             # Format signals for prompt
             signals_str = json.dumps(signals, indent=2)
-            
-            message = self.client.messages.create(
-                model=AI_MODEL,
-                max_tokens=AI_MAX_TOKENS,
-                temperature=AI_TEMPERATURE,
-                messages=[{
-                    "role": "user",
-                    "content": STRATEGY_EVAL_PROMPT.format(
-                        strategy_signals=signals_str,
-                        market_data=market_data
-                    )
-                }]
+
+            # Get LLM evaluation via OpenRouter
+            response = self.model.generate_response(
+                system_prompt="You are Moon Dev's Strategy Validation Assistant",
+                user_content=STRATEGY_EVAL_PROMPT.format(
+                    strategy_signals=signals_str,
+                    market_data=market_data
+                ),
+                temperature=self.ai_temperature,
+                max_tokens=self.ai_max_tokens
             )
-            
-            response = message.content
-            if isinstance(response, list):
-                response = response[0].text if hasattr(response[0], 'text') else str(response[0])
+
+            # Parse response
+            if response and hasattr(response, 'content'):
+                response = response.content
+            else:
+                response = str(response)
             
             # Parse response
             lines = response.split('\n')
