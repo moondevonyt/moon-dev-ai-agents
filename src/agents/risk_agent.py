@@ -1,11 +1,9 @@
 """
 🌙 Moon Dev's Risk Management Agent
 Built with love by Moon Dev 🚀
-"""
 
-# Model override settings - Adding DeepSeek support
-MODEL_OVERRIDE = "0"  # Set to "deepseek-chat" or "deepseek-reasoner" to use DeepSeek, "0" to use default
-DEEPSEEK_BASE_URL = "https://api.deepseek.com"  # Base URL for DeepSeek API
+Updated to use OpenRouter for unified LLM access.
+"""
 
 # 🛡️ Risk Override Prompt - The Secret Sauce!
 RISK_OVERRIDE_PROMPT = """
@@ -41,13 +39,11 @@ or
 RESPECT_LIMIT: <detailed reason for each position>
 """
 
-import anthropic
 import os
 import pandas as pd
 import json
 from termcolor import colored, cprint
 from dotenv import load_dotenv
-import openai
 from src import config
 from src import nice_funcs as n
 from src.data.ohlcv_collector import collect_all_tokens
@@ -55,6 +51,7 @@ from datetime import datetime, timedelta
 import time
 from src.config import *
 from src.agents.base_agent import BaseAgent
+from src.agents.model_helper import get_risk_model
 import traceback
 
 # Load environment variables
@@ -64,54 +61,24 @@ class RiskAgent(BaseAgent):
     def __init__(self):
         """Initialize Moon Dev's Risk Agent 🛡️"""
         super().__init__('risk')  # Initialize base agent with type
-        
-        # Set AI parameters - use config values unless overridden
-        self.ai_model = AI_MODEL if AI_MODEL else config.AI_MODEL
-        self.ai_temperature = AI_TEMPERATURE if AI_TEMPERATURE > 0 else config.AI_TEMPERATURE
-        self.ai_max_tokens = AI_MAX_TOKENS if AI_MAX_TOKENS > 0 else config.AI_MAX_TOKENS
-        
-        print(f"🤖 Using AI Model: {self.ai_model}")
-        if AI_MODEL or AI_TEMPERATURE > 0 or AI_MAX_TOKENS > 0:
-            print("⚠️ Note: Using some override settings instead of config.py defaults")
-            if AI_MODEL:
-                print(f"  - Model: {AI_MODEL}")
-            if AI_TEMPERATURE > 0:
-                print(f"  - Temperature: {AI_TEMPERATURE}")
-            if AI_MAX_TOKENS > 0:
-                print(f"  - Max Tokens: {AI_MAX_TOKENS}")
-                
-        load_dotenv()
-        
-        # Get API keys
-        openai_key = os.getenv("OPENAI_KEY")
-        anthropic_key = os.getenv("ANTHROPIC_KEY")
-        deepseek_key = os.getenv("DEEPSEEK_KEY")
-        
-        if not openai_key:
-            raise ValueError("🚨 OPENAI_KEY not found in environment variables!")
-        if not anthropic_key:
-            raise ValueError("🚨 ANTHROPIC_KEY not found in environment variables!")
-            
-        # Initialize OpenAI client for DeepSeek
-        if deepseek_key and MODEL_OVERRIDE.lower() == "deepseek-chat":
-            self.deepseek_client = openai.OpenAI(
-                api_key=deepseek_key,
-                base_url=DEEPSEEK_BASE_URL
-            )
-            print("🚀 DeepSeek model initialized!")
-        else:
-            self.deepseek_client = None
-            
-        # Initialize Anthropic client
-        self.client = anthropic.Anthropic(api_key=anthropic_key)
-        
+
+        # Initialize AI model using helper (optimized for risk management)
+        self.model = get_risk_model(verbose=True)
+
+        if not self.model:
+            raise ValueError("🚨 Failed to initialize AI model! Check your API keys in .env")
+
+        # Set AI parameters from config
+        self.ai_temperature = config.AI_TEMPERATURE
+        self.ai_max_tokens = config.AI_MAX_TOKENS
+
         self.override_active = False
         self.last_override_check = None
-        
+
         # Initialize start balance using portfolio value
         self.start_balance = self.get_portfolio_value()
         print(f"🏦 Initial Portfolio Balance: ${self.start_balance:.2f}")
-        
+
         self.current_value = self.start_balance
         cprint("🛡️ Risk Agent initialized!", "white", "on_blue")
         
@@ -278,34 +245,19 @@ class RiskAgent(BaseAgent):
             )
             
             cprint("🤖 AI Agent analyzing market data...", "white", "on_green")
-            
-            # Use DeepSeek if configured
-            if self.deepseek_client and MODEL_OVERRIDE.lower() == "deepseek-chat":
-                print("🚀 Using DeepSeek for analysis...")
-                response = self.deepseek_client.chat.completions.create(
-                    model="deepseek-chat",
-                    messages=[
-                        {"role": "system", "content": "You are Moon Dev's Risk Management AI. Analyze positions and respond with OVERRIDE or RESPECT_LIMIT."},
-                        {"role": "user", "content": prompt}
-                    ],
-                    max_tokens=self.ai_max_tokens,
-                    temperature=self.ai_temperature,
-                    stream=False
-                )
-                response_text = response.choices[0].message.content.strip()
+
+            # Use unified model interface (OpenRouter or configured provider)
+            response = self.model.generate_response(
+                system_prompt="You are Moon Dev's Risk Management AI. Analyze positions and respond with OVERRIDE or RESPECT_LIMIT.",
+                user_content=prompt,
+                temperature=self.ai_temperature,
+                max_tokens=self.ai_max_tokens
+            )
+
+            if response and hasattr(response, 'content'):
+                response_text = response.content
             else:
-                # Use Claude as before
-                print("🤖 Using Claude for analysis...")
-                message = self.client.messages.create(
-                    model=self.ai_model,
-                    max_tokens=self.ai_max_tokens,
-                    temperature=self.ai_temperature,
-                    messages=[{
-                        "role": "user",
-                        "content": prompt
-                    }]
-                )
-                response_text = str(message.content)
+                response_text = str(response)
             
             # Handle TextBlock format if using Claude
             if 'TextBlock' in response_text:
@@ -495,33 +447,18 @@ Respond with:
 CLOSE_ALL or HOLD_POSITIONS
 Then explain your reasoning.
 """
-            # Use DeepSeek if configured
-            if self.deepseek_client and MODEL_OVERRIDE.lower() == "deepseek-chat":
-                print("🚀 Using DeepSeek for analysis...")
-                response = self.deepseek_client.chat.completions.create(
-                    model="deepseek-chat",
-                    messages=[
-                        {"role": "system", "content": "You are Moon Dev's Risk Management AI. Analyze the breach and decide whether to close positions."},
-                        {"role": "user", "content": prompt}
-                    ],
-                    max_tokens=self.ai_max_tokens,
-                    temperature=self.ai_temperature,
-                    stream=False
-                )
-                response_text = response.choices[0].message.content.strip()
+            # Use unified model interface (OpenRouter or configured provider)
+            response = self.model.generate_response(
+                system_prompt="You are Moon Dev's Risk Management AI. Analyze the breach and decide whether to close positions.",
+                user_content=prompt,
+                temperature=self.ai_temperature,
+                max_tokens=self.ai_max_tokens
+            )
+
+            if response and hasattr(response, 'content'):
+                response_text = response.content
             else:
-                # Use Claude as before
-                print("🤖 Using Claude for analysis...")
-                message = self.client.messages.create(
-                    model=self.ai_model,
-                    max_tokens=self.ai_max_tokens,
-                    temperature=self.ai_temperature,
-                    messages=[{
-                        "role": "user",
-                        "content": prompt
-                    }]
-                )
-                response_text = str(message.content)
+                response_text = str(response)
             
             # Handle TextBlock format if using Claude
             if 'TextBlock' in response_text:

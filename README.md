@@ -76,6 +76,39 @@ Project updates will be posted in discord, join here: [moondev.com](http://moond
 
 ## 🚀 Quick Start Guide
 
+### 🌟 NEW: Production-Ready OpenRouter Setup
+
+**We now support OpenRouter for unified LLM access!** One API key gives you access to 100+ models (Claude, GPT-4, Gemini, DeepSeek, etc.) with automatic failover and unified billing.
+
+```bash
+# 1. Get OpenRouter API key (RECOMMENDED for production)
+# Visit: https://openrouter.ai/keys
+
+# 2. Setup environment
+cp .env_example .env
+# Add to .env: OPENROUTER_API_KEY=your_key_here
+
+# 3. Run security check
+python scripts/security_check.py
+
+# 4. Test OpenRouter
+python scripts/test_openrouter.py
+
+# 5. Start trading!
+conda activate tflow
+python src/main.py
+```
+
+**Benefits:**
+- ✅ One API key instead of 5+ keys
+- ✅ Automatic failover between providers
+- ✅ Unified billing and cost tracking
+- ✅ 100+ models accessible instantly
+
+See `QUICKSTART.md` for detailed setup or `PRODUCTION_SETUP.md` for secure deployment.
+
+### Traditional Setup
+
 python 3.10.9 is what was used during dev
 
 1. ⭐ **Star the Repo**
@@ -92,7 +125,8 @@ python 3.10.9 is what was used during dev
 4. 🔑 **Set Environment Variables**
    - Check `.env.example` for required variables
    - Create a copy of above and name it `.env` file with your keys:
-     - Anthropic API key
+     - **RECOMMENDED**: `OPENROUTER_API_KEY` (one key for all models)
+     - Alternative: Individual provider keys (Anthropic, OpenAI, etc.)
      - Other trading API keys
    - ⚠️ Never commit or share your API keys!
 
@@ -114,6 +148,23 @@ python 3.10.9 is what was used during dev
 ---
 *Built with love by Moon Dev - Pioneering the future of AI-powered trading*
 
+## 🔄 Agent Update Status
+
+We're migrating all agents to use OpenRouter for better reliability and cost optimization:
+
+```bash
+# Check which agents need updating
+python scripts/check_agent_updates.py
+```
+
+**Current Status:**
+- ✅ 1 agent fully updated (risk_agent)
+- ⚡ 7 agents compatible (using ModelFactory, can optimize)
+- ❌ 15 agents need update (using old direct API pattern)
+
+**For Developers:** See `AGENT_UPDATE_GUIDE.md` for step-by-step migration instructions.
+
+---
 
 ## 📜 Detailed Disclaimer
 The content presented is for educational and informational purposes only and does not constitute financial advice. All trading involves risk and may not be suitable for all investors. You should carefully consider your investment objectives, level of experience, and risk appetite before investing.
