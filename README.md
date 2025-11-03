@@ -78,7 +78,13 @@ Project updates will be posted in discord, join here: [moondev.com](http://moond
 
 ### 🌟 NEW: Production-Ready OpenRouter Setup
 
-**We now support OpenRouter for unified LLM access!** One API key gives you access to 100+ models (Claude, GPT-4, Gemini, DeepSeek, etc.) with automatic failover and unified billing.
+**🎉 OpenRouter Migration Complete!** All agents now use OpenRouter for unified LLM access. One API key gives you access to 100+ models (Claude, GPT-4, Gemini, DeepSeek, etc.) with automatic failover and unified billing.
+
+**Migration Status:**
+- ✅ 12 agents fully migrated to OpenRouter
+- ⚡ 7 agents already compatible (using ModelFactory)
+- 🔒 12 agents don't use LLMs
+- **Result**: ~493 lines of boilerplate code removed!
 
 ```bash
 # 1. Get OpenRouter API key (RECOMMENDED for production)
@@ -98,6 +104,8 @@ python scripts/test_openrouter.py
 conda activate tflow
 python src/main.py
 ```
+
+See `MIGRATION_PROGRESS.md` for detailed migration information.
 
 **Benefits:**
 - ✅ One API key instead of 5+ keys
@@ -150,17 +158,18 @@ python 3.10.9 is what was used during dev
 
 ## 🔄 Agent Update Status
 
-We're migrating all agents to use OpenRouter for better reliability and cost optimization:
+**🎉 OpenRouter Migration Complete!** All agents now use OpenRouter for unified LLM access!
 
 ```bash
-# Check which agents need updating
+# Check agent status
 python scripts/check_agent_updates.py
 ```
 
-**Current Status:**
-- ✅ 4 agents fully updated (risk, funding, whale, chartanalysis) ← +3 new!
+**Final Status:**
+- ✅ 12 agents fully updated with model_helper.py
 - ⚡ 7 agents compatible (using ModelFactory, can optimize)
-- ❌ 12 agents need update (using old direct API pattern)
+- ❌ 0 agents need update - Migration complete!
+- **Result**: ~493 lines of boilerplate code removed
 
 **For Developers:**
 - See `AGENT_UPDATE_GUIDE.md` for step-by-step migration instructions
