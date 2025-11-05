@@ -1,0 +1,2902 @@
+[
+  {
+    "iteration": 59,
+    "name": "5.0xEMA20/100_RSI70_Vol2.0x_v8",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.05,
+      "rsi_min": 70,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI70_Vol2.0x_v8",
+      "description": "Variation of winner strategy #8"
+    },
+    "results": {
+      "success": true,
+      "return": 66.37578844800012,
+      "buy_hold": 126.59310890020055,
+      "trades": 29,
+      "win_rate": 55.172413793103445,
+      "max_dd": -6.468104893632775,
+      "sharpe": 2.5056061649638735,
+      "final_equity": 166375.78844800012,
+      "avg_trade": 1.8634013030897512
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 94,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v43",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.05,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v43",
+      "description": "Variation of winner strategy #43"
+    },
+    "results": {
+      "success": true,
+      "return": 66.37578844800012,
+      "buy_hold": 126.59310890020055,
+      "trades": 29,
+      "win_rate": 55.172413793103445,
+      "max_dd": -6.468104893632775,
+      "sharpe": 2.5056061649638735,
+      "final_equity": 166375.78844800012,
+      "avg_trade": 1.8634013030897512
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 73,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v22",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v22",
+      "description": "Variation of winner strategy #22"
+    },
+    "results": {
+      "success": true,
+      "return": 65.81536089100007,
+      "buy_hold": 126.59310890020055,
+      "trades": 27,
+      "win_rate": 51.85185185185185,
+      "max_dd": -10.296151933458653,
+      "sharpe": 2.122347046520883,
+      "final_equity": 165815.36089100008,
+      "avg_trade": 2.0268950536317387
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 98,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v47",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v47",
+      "description": "Variation of winner strategy #47"
+    },
+    "results": {
+      "success": true,
+      "return": 65.81536089100007,
+      "buy_hold": 126.59310890020055,
+      "trades": 27,
+      "win_rate": 51.85185185185185,
+      "max_dd": -10.296151933458653,
+      "sharpe": 2.122347046520883,
+      "final_equity": 165815.36089100008,
+      "avg_trade": 2.0268950536317387
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 51,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v0",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v0",
+      "description": "Variation of winner strategy #0"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 52,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v1",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v1",
+      "description": "Variation of winner strategy #1"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 53,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v2",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v2",
+      "description": "Variation of winner strategy #2"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 54,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v3",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v3",
+      "description": "Variation of winner strategy #3"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 61,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v10",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v10",
+      "description": "Variation of winner strategy #10"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 65,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v14",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v14",
+      "description": "Variation of winner strategy #14"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 67,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v16",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v16",
+      "description": "Variation of winner strategy #16"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 68,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v17",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v17",
+      "description": "Variation of winner strategy #17"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 71,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v20",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v20",
+      "description": "Variation of winner strategy #20"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 72,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v21",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v21",
+      "description": "Variation of winner strategy #21"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 74,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v23",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v23",
+      "description": "Variation of winner strategy #23"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 80,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v29",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v29",
+      "description": "Variation of winner strategy #29"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 90,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v39",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v39",
+      "description": "Variation of winner strategy #39"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 92,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v41",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v41",
+      "description": "Variation of winner strategy #41"
+    },
+    "results": {
+      "success": true,
+      "return": 64.78191479300003,
+      "buy_hold": 126.59310890020055,
+      "trades": 31,
+      "win_rate": 45.16129032258064,
+      "max_dd": -8.705594733195277,
+      "sharpe": 2.129441116669411,
+      "final_equity": 164781.91479300003,
+      "avg_trade": 1.7388923668145706
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 89,
+    "name": "5.0xEMA20/100_RSI65_Vol2.0x_v38",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.07,
+      "rsi_min": 65,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI65_Vol2.0x_v38",
+      "description": "Variation of winner strategy #38"
+    },
+    "results": {
+      "success": true,
+      "return": 64.30600177300009,
+      "buy_hold": 126.59310890020055,
+      "trades": 32,
+      "win_rate": 43.75,
+      "max_dd": -6.839974442100305,
+      "sharpe": 1.926015420686858,
+      "final_equity": 164306.00177300008,
+      "avg_trade": 1.6911825957289128
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 86,
+    "name": "5.0xEMA20/100_RSI65_Vol2.0x_v35",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 65,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI65_Vol2.0x_v35",
+      "description": "Variation of winner strategy #35"
+    },
+    "results": {
+      "success": true,
+      "return": 64.17369997900009,
+      "buy_hold": 126.59310890020055,
+      "trades": 32,
+      "win_rate": 46.875,
+      "max_dd": -8.729322508516846,
+      "sharpe": 2.1497676178285015,
+      "final_equity": 164173.69997900008,
+      "avg_trade": 1.6652624036123997
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 97,
+    "name": "5.0xEMA20/100_RSI65_Vol2.0x_v46",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 65,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI65_Vol2.0x_v46",
+      "description": "Variation of winner strategy #46"
+    },
+    "results": {
+      "success": true,
+      "return": 64.17369997900009,
+      "buy_hold": 126.59310890020055,
+      "trades": 32,
+      "win_rate": 46.875,
+      "max_dd": -8.729322508516846,
+      "sharpe": 2.1497676178285015,
+      "final_equity": 164173.69997900008,
+      "avg_trade": 1.6652624036123997
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 16,
+    "name": "5.0xEMA25/100_RSI65_Vol1.5x",
+    "strategy": {
+      "fast_ma": 25,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.05,
+      "rsi_min": 65,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "5.0xEMA25/100_RSI65_Vol1.5x",
+      "description": "5.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 63.86723335700013,
+      "buy_hold": 126.59310890020055,
+      "trades": 37,
+      "win_rate": 45.94594594594595,
+      "max_dd": -7.276572594252539,
+      "sharpe": 2.321582273595873,
+      "final_equity": 163867.23335700014,
+      "avg_trade": 1.421619643113936
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 70,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v19",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v19",
+      "description": "Variation of winner strategy #19"
+    },
+    "results": {
+      "success": true,
+      "return": 63.78932886880011,
+      "buy_hold": 126.59310890020055,
+      "trades": 34,
+      "win_rate": 41.17647058823529,
+      "max_dd": -8.782451019510884,
+      "sharpe": 2.1589973226765866,
+      "final_equity": 163789.3288688001,
+      "avg_trade": 1.5634948789655656
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 91,
+    "name": "5.0xEMA20/75_RSI68_Vol2.0x_v40",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 75,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/75_RSI68_Vol2.0x_v40",
+      "description": "Variation of winner strategy #40"
+    },
+    "results": {
+      "success": true,
+      "return": 62.55803240300008,
+      "buy_hold": 126.59310890020055,
+      "trades": 33,
+      "win_rate": 42.42424242424242,
+      "max_dd": -9.307405982117412,
+      "sharpe": 2.133540189586681,
+      "final_equity": 162558.03240300008,
+      "avg_trade": 1.5749707134786073
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 63,
+    "name": "5.0xEMA20/100_RSI68_Vol2.0x_v12",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.012,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_Vol2.0x_v12",
+      "description": "Variation of winner strategy #12"
+    },
+    "results": {
+      "success": true,
+      "return": 62.21927598840007,
+      "buy_hold": 126.59310890020055,
+      "trades": 30,
+      "win_rate": 46.666666666666664,
+      "max_dd": -9.619798423772686,
+      "sharpe": 2.0561394218503652,
+      "final_equity": 162219.27598840007,
+      "avg_trade": 1.749571691247831
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 75,
+    "name": "5.0xEMA15/100_RSI68_Vol2.0x_v24",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA15/100_RSI68_Vol2.0x_v24",
+      "description": "Variation of winner strategy #24"
+    },
+    "results": {
+      "success": true,
+      "return": 61.69099447700006,
+      "buy_hold": 126.59310890020055,
+      "trades": 33,
+      "win_rate": 42.42424242424242,
+      "max_dd": -9.866373784474536,
+      "sharpe": 2.1058535593425636,
+      "final_equity": 161690.99447700006,
+      "avg_trade": 1.5554012905700798
+    },
+    "is_winner": true
+  },
+  {
+    "iteration": 12,
+    "name": "5.0xSMA25/75_RSI72_NoVol",
+    "strategy": {
+      "fast_ma": 25,
+      "slow_ma": 75,
+      "use_ema": false,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.05,
+      "rsi_min": 72,
+      "use_volume": false,
+      "volume_mult": 1.5,
+      "name": "5.0xSMA25/75_RSI72_NoVol",
+      "description": "5.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 57.41859880300009,
+      "buy_hold": 124.77945821944381,
+      "trades": 41,
+      "win_rate": 48.78048780487805,
+      "max_dd": -9.08030183538222,
+      "sharpe": 2.264186712631807,
+      "final_equity": 157418.5988030001,
+      "avg_trade": 1.2207992730302264
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 2,
+    "name": "4.0xEMA30/120_RSI65_NoVol",
+    "strategy": {
+      "fast_ma": 30,
+      "slow_ma": 120,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.07,
+      "rsi_min": 65,
+      "use_volume": false,
+      "volume_mult": 2.0,
+      "name": "4.0xEMA30/120_RSI65_NoVol",
+      "description": "4.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 51.647183288000086,
+      "buy_hold": 127.64474894081712,
+      "trades": 50,
+      "win_rate": 38.0,
+      "max_dd": -15.121905111994572,
+      "sharpe": 1.4909037189741803,
+      "final_equity": 151647.1832880001,
+      "avg_trade": 0.9845589483600037
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 64,
+    "name": "5.0xEMA20/100_RSI68_Vol1.5x_v13",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "5.0xEMA20/100_RSI68_Vol1.5x_v13",
+      "description": "Variation of winner strategy #13"
+    },
+    "results": {
+      "success": true,
+      "return": 50.960158619000055,
+      "buy_hold": 126.59310890020055,
+      "trades": 38,
+      "win_rate": 36.84210526315789,
+      "max_dd": -14.258250687412243,
+      "sharpe": 1.8453461585357191,
+      "final_equity": 150960.15861900005,
+      "avg_trade": 1.1699697697184153
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 78,
+    "name": "5.0xEMA20/100_RSI68_Vol1.5x_v27",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "5.0xEMA20/100_RSI68_Vol1.5x_v27",
+      "description": "Variation of winner strategy #27"
+    },
+    "results": {
+      "success": true,
+      "return": 50.960158619000055,
+      "buy_hold": 126.59310890020055,
+      "trades": 38,
+      "win_rate": 36.84210526315789,
+      "max_dd": -14.258250687412243,
+      "sharpe": 1.8453461585357191,
+      "final_equity": 150960.15861900005,
+      "avg_trade": 1.1699697697184153
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 81,
+    "name": "5.0xEMA20/100_RSI68_Vol1.5x_v30",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "5.0xEMA20/100_RSI68_Vol1.5x_v30",
+      "description": "Variation of winner strategy #30"
+    },
+    "results": {
+      "success": true,
+      "return": 50.960158619000055,
+      "buy_hold": 126.59310890020055,
+      "trades": 38,
+      "win_rate": 36.84210526315789,
+      "max_dd": -14.258250687412243,
+      "sharpe": 1.8453461585357191,
+      "final_equity": 150960.15861900005,
+      "avg_trade": 1.1699697697184153
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 95,
+    "name": "5.0xEMA20/100_RSI68_Vol1.5x_v44",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "5.0xEMA20/100_RSI68_Vol1.5x_v44",
+      "description": "Variation of winner strategy #44"
+    },
+    "results": {
+      "success": true,
+      "return": 50.960158619000055,
+      "buy_hold": 126.59310890020055,
+      "trades": 38,
+      "win_rate": 36.84210526315789,
+      "max_dd": -14.258250687412243,
+      "sharpe": 1.8453461585357191,
+      "final_equity": 150960.15861900005,
+      "avg_trade": 1.1699697697184153
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 22,
+    "name": "4.0xEMA15/150_RSI68_NoVol",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 150,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.08,
+      "rsi_min": 68,
+      "use_volume": false,
+      "volume_mult": 2.5,
+      "name": "4.0xEMA15/150_RSI68_NoVol",
+      "description": "4.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 40.446716282880054,
+      "buy_hold": 127.64474894081712,
+      "trades": 61,
+      "win_rate": 22.950819672131146,
+      "max_dd": -15.492155363515202,
+      "sharpe": 1.4219259664580866,
+      "final_equity": 140446.71628288005,
+      "avg_trade": 0.6889209255133588
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 43,
+    "name": "4.0xEMA20/150_RSI70_NoVol",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 150,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.08,
+      "rsi_min": 70,
+      "use_volume": false,
+      "volume_mult": 2.0,
+      "name": "4.0xEMA20/150_RSI70_NoVol",
+      "description": "4.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 39.74177105439999,
+      "buy_hold": 127.64474894081712,
+      "trades": 60,
+      "win_rate": 25.0,
+      "max_dd": -16.445914085803327,
+      "sharpe": 1.3787026096506385,
+      "final_equity": 139741.7710544,
+      "avg_trade": 0.7070011679139565
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 25,
+    "name": "4.0xEMA30/75_RSI68_NoVol",
+    "strategy": {
+      "fast_ma": 30,
+      "slow_ma": 75,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.08,
+      "rsi_min": 68,
+      "use_volume": false,
+      "volume_mult": 2.5,
+      "name": "4.0xEMA30/75_RSI68_NoVol",
+      "description": "4.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 38.867421310000005,
+      "buy_hold": 127.64474894081712,
+      "trades": 55,
+      "win_rate": 29.09090909090909,
+      "max_dd": -17.442165097410633,
+      "sharpe": 1.1969516638945523,
+      "final_equity": 138867.42131,
+      "avg_trade": 0.753991054830605
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 13,
+    "name": "4.0xSMA25/120_RSI65_NoVol",
+    "strategy": {
+      "fast_ma": 25,
+      "slow_ma": 120,
+      "use_ema": false,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.07,
+      "rsi_min": 65,
+      "use_volume": false,
+      "volume_mult": 2.5,
+      "name": "4.0xSMA25/120_RSI65_NoVol",
+      "description": "4.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 38.65409581199993,
+      "buy_hold": 123.50631682861153,
+      "trades": 57,
+      "win_rate": 29.82456140350877,
+      "max_dd": -12.260373700421379,
+      "sharpe": 1.2721616870038257,
+      "final_equity": 138654.09581199993,
+      "avg_trade": 0.6826352058376672
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 19,
+    "name": "4.0xSMA20/120_RSI72_Vol1.5x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 120,
+      "use_ema": false,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.07,
+      "rsi_min": 72,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "4.0xSMA20/120_RSI72_Vol1.5x",
+      "description": "4.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 36.88669368080006,
+      "buy_hold": 123.50631682861153,
+      "trades": 37,
+      "win_rate": 40.54054054054054,
+      "max_dd": -12.863450672771881,
+      "sharpe": 1.4876404236403418,
+      "final_equity": 136886.69368080006,
+      "avg_trade": 1.0561881624788771
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 33,
+    "name": "4.0xSMA30/100_RSI65_Vol2.0x",
+    "strategy": {
+      "fast_ma": 30,
+      "slow_ma": 100,
+      "use_ema": false,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.08,
+      "rsi_min": 65,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "4.0xSMA30/100_RSI65_Vol2.0x",
+      "description": "4.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 35.03686043712005,
+      "buy_hold": 123.52398545917944,
+      "trades": 54,
+      "win_rate": 24.074074074074073,
+      "max_dd": -16.930304494849036,
+      "sharpe": 1.3444906286126597,
+      "final_equity": 135036.86043712005,
+      "avg_trade": 0.6676330748508263
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 34,
+    "name": "5.0xSMA20/150_RSI70_Vol1.5x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 150,
+      "use_ema": false,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.05,
+      "rsi_min": 70,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "5.0xSMA20/150_RSI70_Vol1.5x",
+      "description": "5.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 33.85810916840011,
+      "buy_hold": 122.117823833034,
+      "trades": 16,
+      "win_rate": 56.25,
+      "max_dd": -4.486882781118052,
+      "sharpe": 2.2105293528744543,
+      "final_equity": 133858.10916840011,
+      "avg_trade": 2.0176749646301673
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 76,
+    "name": "5.0xEMA25/100_RSI68_Vol2.0x_v25",
+    "strategy": {
+      "fast_ma": 25,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA25/100_RSI68_Vol2.0x_v25",
+      "description": "Variation of winner strategy #25"
+    },
+    "results": {
+      "success": true,
+      "return": 33.74536784900003,
+      "buy_hold": 126.59310890020055,
+      "trades": 17,
+      "win_rate": 47.05882352941176,
+      "max_dd": -5.493710921134731,
+      "sharpe": 1.8696537219123521,
+      "final_equity": 133745.36784900003,
+      "avg_trade": 1.8873420050723455
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 36,
+    "name": "4.0xEMA25/100_RSI70_Vol2.0x",
+    "strategy": {
+      "fast_ma": 25,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.05,
+      "rsi_min": 70,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "4.0xEMA25/100_RSI70_Vol2.0x",
+      "description": "4.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 32.68441166080013,
+      "buy_hold": 126.59310890020055,
+      "trades": 42,
+      "win_rate": 42.857142857142854,
+      "max_dd": -11.714095814872937,
+      "sharpe": 1.508546241957623,
+      "final_equity": 132684.41166080013,
+      "avg_trade": 0.8689903136785526
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 3,
+    "name": "4.0xEMA20/75_RSI68_Vol2.0x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 75,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.08,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "4.0xEMA20/75_RSI68_Vol2.0x",
+      "description": "4.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 32.50015247104011,
+      "buy_hold": 126.59310890020055,
+      "trades": 59,
+      "win_rate": 23.728813559322035,
+      "max_dd": -21.326990939798897,
+      "sharpe": 1.2377230526687588,
+      "final_equity": 132500.1524710401,
+      "avg_trade": 0.6572391819958057
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 42,
+    "name": "4.0xSMA20/120_RSI68_NoVol",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 120,
+      "use_ema": false,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": false,
+      "volume_mult": 2.5,
+      "name": "4.0xSMA20/120_RSI68_NoVol",
+      "description": "4.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 32.48486654960006,
+      "buy_hold": 123.50631682861153,
+      "trades": 46,
+      "win_rate": 30.434782608695656,
+      "max_dd": -10.406681810871888,
+      "sharpe": 1.4160324371952857,
+      "final_equity": 132484.86654960006,
+      "avg_trade": 0.7031710878859121
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 60,
+    "name": "4.0xEMA20/100_RSI68_Vol2.0x_v9",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "4.0xEMA20/100_RSI68_Vol2.0x_v9",
+      "description": "Variation of winner strategy #9"
+    },
+    "results": {
+      "success": true,
+      "return": 31.856378658400093,
+      "buy_hold": 126.59310890020055,
+      "trades": 49,
+      "win_rate": 30.612244897959183,
+      "max_dd": -11.17197583909496,
+      "sharpe": 1.3556711642120747,
+      "final_equity": 131856.3786584001,
+      "avg_trade": 0.7156735838211192
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 82,
+    "name": "4.0xEMA20/100_RSI68_Vol2.0x_v31",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "4.0xEMA20/100_RSI68_Vol2.0x_v31",
+      "description": "Variation of winner strategy #31"
+    },
+    "results": {
+      "success": true,
+      "return": 31.856378658400093,
+      "buy_hold": 126.59310890020055,
+      "trades": 49,
+      "win_rate": 30.612244897959183,
+      "max_dd": -11.17197583909496,
+      "sharpe": 1.3556711642120747,
+      "final_equity": 131856.3786584001,
+      "avg_trade": 0.7156735838211192
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 99,
+    "name": "4.0xEMA20/100_RSI68_Vol2.0x_v48",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "4.0xEMA20/100_RSI68_Vol2.0x_v48",
+      "description": "Variation of winner strategy #48"
+    },
+    "results": {
+      "success": true,
+      "return": 31.856378658400093,
+      "buy_hold": 126.59310890020055,
+      "trades": 49,
+      "win_rate": 30.612244897959183,
+      "max_dd": -11.17197583909496,
+      "sharpe": 1.3556711642120747,
+      "final_equity": 131856.3786584001,
+      "avg_trade": 0.7156735838211192
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 46,
+    "name": "3.0xEMA25/120_RSI65_Vol1.5x",
+    "strategy": {
+      "fast_ma": 25,
+      "slow_ma": 120,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.012,
+      "take_profit_pct": 0.08,
+      "rsi_min": 65,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "3.0xEMA25/120_RSI65_Vol1.5x",
+      "description": "3.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 31.660040427119995,
+      "buy_hold": 126.59310890020055,
+      "trades": 63,
+      "win_rate": 26.984126984126984,
+      "max_dd": -17.011171355227372,
+      "sharpe": 1.3131870506495533,
+      "final_equity": 131660.04042712,
+      "avg_trade": 0.6828917659899458
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 29,
+    "name": "4.0xEMA15/150_RSI65_Vol2.0x",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 150,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.012,
+      "take_profit_pct": 0.07,
+      "rsi_min": 65,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "4.0xEMA15/150_RSI65_Vol2.0x",
+      "description": "4.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 31.549398524800083,
+      "buy_hold": 126.59310890020055,
+      "trades": 37,
+      "win_rate": 35.13513513513514,
+      "max_dd": -14.091100661278977,
+      "sharpe": 1.2747482792837246,
+      "final_equity": 131549.39852480008,
+      "avg_trade": 0.9294811788484791
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 41,
+    "name": "4.0xEMA20/150_RSI65_Vol2.0x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 150,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.012,
+      "take_profit_pct": 0.06,
+      "rsi_min": 65,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "4.0xEMA20/150_RSI65_Vol2.0x",
+      "description": "4.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 31.442828775040077,
+      "buy_hold": 126.59310890020055,
+      "trades": 41,
+      "win_rate": 34.146341463414636,
+      "max_dd": -12.431237843667809,
+      "sharpe": 1.3271119863494607,
+      "final_equity": 131442.82877504008,
+      "avg_trade": 0.8364794285498522
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 69,
+    "name": "5.0xEMA20/100_RSI72_Vol2.0x_v18",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 72,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI72_Vol2.0x_v18",
+      "description": "Variation of winner strategy #18"
+    },
+    "results": {
+      "success": true,
+      "return": 30.544324348000007,
+      "buy_hold": 126.59310890020055,
+      "trades": 13,
+      "win_rate": 53.84615384615385,
+      "max_dd": -4.762380942102906,
+      "sharpe": 2.140988334787113,
+      "final_equity": 130544.32434800001,
+      "avg_trade": 2.3098101726739317
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 93,
+    "name": "5.0xEMA20/100_RSI72_Vol2.0x_v42",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 72,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI72_Vol2.0x_v42",
+      "description": "Variation of winner strategy #42"
+    },
+    "results": {
+      "success": true,
+      "return": 30.544324348000007,
+      "buy_hold": 126.59310890020055,
+      "trades": 13,
+      "win_rate": 53.84615384615385,
+      "max_dd": -4.762380942102906,
+      "sharpe": 2.140988334787113,
+      "final_equity": 130544.32434800001,
+      "avg_trade": 2.3098101726739317
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 21,
+    "name": "4.0xEMA30/150_RSI68_NoVol",
+    "strategy": {
+      "fast_ma": 30,
+      "slow_ma": 150,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": false,
+      "volume_mult": 1.5,
+      "name": "4.0xEMA30/150_RSI68_NoVol",
+      "description": "4.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 28.784444375200053,
+      "buy_hold": 127.64474894081712,
+      "trades": 49,
+      "win_rate": 30.612244897959183,
+      "max_dd": -14.449151973538953,
+      "sharpe": 1.2506570338701488,
+      "final_equity": 128784.44437520005,
+      "avg_trade": 0.6419742466831524
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 96,
+    "name": "5.0xEMA20/100_RSI68_NoVol_v45",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": false,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_NoVol_v45",
+      "description": "Variation of winner strategy #45"
+    },
+    "results": {
+      "success": true,
+      "return": 28.161864307000055,
+      "buy_hold": 127.64474894081712,
+      "trades": 19,
+      "win_rate": 42.10526315789473,
+      "max_dd": -5.261031927891924,
+      "sharpe": 1.9814789000686648,
+      "final_equity": 128161.86430700005,
+      "avg_trade": 1.4863044752758903
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 100,
+    "name": "5.0xEMA20/100_RSI68_NoVol_v49",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": false,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/100_RSI68_NoVol_v49",
+      "description": "Variation of winner strategy #49"
+    },
+    "results": {
+      "success": true,
+      "return": 28.161864307000055,
+      "buy_hold": 127.64474894081712,
+      "trades": 19,
+      "win_rate": 42.10526315789473,
+      "max_dd": -5.261031927891924,
+      "sharpe": 1.9814789000686648,
+      "final_equity": 128161.86430700005,
+      "avg_trade": 1.4863044752758903
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 8,
+    "name": "3.0xEMA25/100_RSI70_NoVol",
+    "strategy": {
+      "fast_ma": 25,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.012,
+      "take_profit_pct": 0.08,
+      "rsi_min": 70,
+      "use_volume": false,
+      "volume_mult": 2.0,
+      "name": "3.0xEMA25/100_RSI70_NoVol",
+      "description": "3.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 26.87869199088005,
+      "buy_hold": 127.64474894081712,
+      "trades": 62,
+      "win_rate": 25.806451612903224,
+      "max_dd": -14.063075891667488,
+      "sharpe": 1.2405708613708502,
+      "final_equity": 126878.69199088005,
+      "avg_trade": 0.6451021904419374
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 30,
+    "name": "5.0xSMA15/150_RSI70_NoVol",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 150,
+      "use_ema": false,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.06,
+      "rsi_min": 70,
+      "use_volume": false,
+      "volume_mult": 2.5,
+      "name": "5.0xSMA15/150_RSI70_NoVol",
+      "description": "5.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 26.563310933500052,
+      "buy_hold": 122.117823833034,
+      "trades": 14,
+      "win_rate": 50.0,
+      "max_dd": -6.834836737297301,
+      "sharpe": 1.723953788285817,
+      "final_equity": 126563.31093350005,
+      "avg_trade": 1.7767612852294334
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 55,
+    "name": "5.0xEMA25/150_RSI68_Vol2.0x_v4",
+    "strategy": {
+      "fast_ma": 25,
+      "slow_ma": 150,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA25/150_RSI68_Vol2.0x_v4",
+      "description": "Variation of winner strategy #4"
+    },
+    "results": {
+      "success": true,
+      "return": 26.53763488300002,
+      "buy_hold": 126.59310890020055,
+      "trades": 11,
+      "win_rate": 54.54545454545454,
+      "max_dd": -4.81999717051832,
+      "sharpe": 1.953312707322559,
+      "final_equity": 126537.63488300002,
+      "avg_trade": 2.352350593263286
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 5,
+    "name": "4.0xEMA20/75_RSI72_Vol2.5x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 75,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.012,
+      "take_profit_pct": 0.07,
+      "rsi_min": 72,
+      "use_volume": true,
+      "volume_mult": 2.5,
+      "name": "4.0xEMA20/75_RSI72_Vol2.5x",
+      "description": "4.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 23.897874410240007,
+      "buy_hold": 126.59310890020055,
+      "trades": 35,
+      "win_rate": 31.428571428571427,
+      "max_dd": -18.83301302765422,
+      "sharpe": 1.1359122947900757,
+      "final_equity": 123897.87441024001,
+      "avg_trade": 0.8323721037294618
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 40,
+    "name": "4.0xEMA20/150_RSI70_NoVol",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 150,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.07,
+      "rsi_min": 70,
+      "use_volume": false,
+      "volume_mult": 2.0,
+      "name": "4.0xEMA20/150_RSI70_NoVol",
+      "description": "4.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 22.902833860800005,
+      "buy_hold": 127.64474894081712,
+      "trades": 45,
+      "win_rate": 26.666666666666668,
+      "max_dd": -10.749262828763662,
+      "sharpe": 1.0737387533827034,
+      "final_equity": 122902.8338608,
+      "avg_trade": 0.6005111834244348
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 48,
+    "name": "4.0xSMA20/100_RSI72_Vol1.5x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": false,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.07,
+      "rsi_min": 72,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "4.0xSMA20/100_RSI72_Vol1.5x",
+      "description": "4.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 22.538757786240108,
+      "buy_hold": 123.52398545917944,
+      "trades": 52,
+      "win_rate": 23.076923076923077,
+      "max_dd": -17.063639419765543,
+      "sharpe": 1.083339707177259,
+      "final_equity": 122538.75778624011,
+      "avg_trade": 0.5109452848312657
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 45,
+    "name": "4.0xEMA15/100_RSI70_NoVol",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 4.0,
+      "stop_loss_pct": 0.012,
+      "take_profit_pct": 0.07,
+      "rsi_min": 70,
+      "use_volume": false,
+      "volume_mult": 2.5,
+      "name": "4.0xEMA15/100_RSI70_NoVol",
+      "description": "4.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 21.601983221599948,
+      "buy_hold": 127.64474894081712,
+      "trades": 52,
+      "win_rate": 26.923076923076923,
+      "max_dd": -15.131945004097691,
+      "sharpe": 0.894763354777893,
+      "final_equity": 121601.98322159995,
+      "avg_trade": 0.5187165288773166
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 35,
+    "name": "3.0xEMA30/100_RSI65_NoVol",
+    "strategy": {
+      "fast_ma": 30,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.08,
+      "rsi_min": 65,
+      "use_volume": false,
+      "volume_mult": 2.5,
+      "name": "3.0xEMA30/100_RSI65_NoVol",
+      "description": "3.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 19.827602902200013,
+      "buy_hold": 127.64474894081712,
+      "trades": 65,
+      "win_rate": 27.692307692307693,
+      "max_dd": -24.37449417967391,
+      "sharpe": 0.803477103694396,
+      "final_equity": 119827.60290220001,
+      "avg_trade": 0.46747864456007093
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 24,
+    "name": "3.0xEMA15/75_RSI72_Vol1.5x",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 75,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.05,
+      "rsi_min": 72,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "3.0xEMA15/75_RSI72_Vol1.5x",
+      "description": "3.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 19.49075681796017,
+      "buy_hold": 126.59310890020055,
+      "trades": 72,
+      "win_rate": 29.166666666666668,
+      "max_dd": -14.855481714060714,
+      "sharpe": 1.3495206471478949,
+      "final_equity": 119490.75681796017,
+      "avg_trade": 0.42744419848501636
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 56,
+    "name": "5.0xEMA20/120_RSI68_Vol2.0x_v5",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 120,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/120_RSI68_Vol2.0x_v5",
+      "description": "Variation of winner strategy #5"
+    },
+    "results": {
+      "success": true,
+      "return": 18.390261391000006,
+      "buy_hold": 126.59310890020055,
+      "trades": 11,
+      "win_rate": 45.45454545454545,
+      "max_dd": -6.04044731359088,
+      "sharpe": 1.537332362590375,
+      "final_equity": 118390.26139100001,
+      "avg_trade": 1.7189615953933757
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 77,
+    "name": "5.0xEMA30/100_RSI68_Vol2.0x_v26",
+    "strategy": {
+      "fast_ma": 30,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA30/100_RSI68_Vol2.0x_v26",
+      "description": "Variation of winner strategy #26"
+    },
+    "results": {
+      "success": true,
+      "return": 18.390261391000006,
+      "buy_hold": 126.59310890020055,
+      "trades": 11,
+      "win_rate": 45.45454545454545,
+      "max_dd": -6.04044731359088,
+      "sharpe": 1.537332362590375,
+      "final_equity": 118390.26139100001,
+      "avg_trade": 1.7189615953933757
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 83,
+    "name": "5.0xEMA20/120_RSI68_Vol2.0x_v32",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 120,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/120_RSI68_Vol2.0x_v32",
+      "description": "Variation of winner strategy #32"
+    },
+    "results": {
+      "success": true,
+      "return": 18.390261391000006,
+      "buy_hold": 126.59310890020055,
+      "trades": 11,
+      "win_rate": 45.45454545454545,
+      "max_dd": -6.04044731359088,
+      "sharpe": 1.537332362590375,
+      "final_equity": 118390.26139100001,
+      "avg_trade": 1.7189615953933757
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 87,
+    "name": "5.0xEMA20/150_RSI68_Vol2.0x_v36",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 150,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xEMA20/150_RSI68_Vol2.0x_v36",
+      "description": "Variation of winner strategy #36"
+    },
+    "results": {
+      "success": true,
+      "return": 18.351195430000004,
+      "buy_hold": 126.59310890020055,
+      "trades": 11,
+      "win_rate": 45.45454545454545,
+      "max_dd": -6.071451723731524,
+      "sharpe": 1.5340154839147684,
+      "final_equity": 118351.19543,
+      "avg_trade": 1.7183515047775488
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 47,
+    "name": "3.0xEMA15/120_RSI70_Vol1.5x",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 120,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.05,
+      "rsi_min": 70,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "3.0xEMA15/120_RSI70_Vol1.5x",
+      "description": "3.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 16.753274722200178,
+      "buy_hold": 126.59310890020055,
+      "trades": 74,
+      "win_rate": 29.72972972972973,
+      "max_dd": -13.231037226515873,
+      "sharpe": 1.0774324310819317,
+      "final_equity": 116753.27472220018,
+      "avg_trade": 0.3578071299954688
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 32,
+    "name": "3.0xEMA30/120_RSI68_NoVol",
+    "strategy": {
+      "fast_ma": 30,
+      "slow_ma": 120,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.08,
+      "rsi_min": 68,
+      "use_volume": false,
+      "volume_mult": 2.0,
+      "name": "3.0xEMA30/120_RSI68_NoVol",
+      "description": "3.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 16.40550494550004,
+      "buy_hold": 127.64474894081712,
+      "trades": 62,
+      "win_rate": 25.806451612903224,
+      "max_dd": -19.479504905696864,
+      "sharpe": 0.7162516447095468,
+      "final_equity": 116405.50494550004,
+      "avg_trade": 0.37813553987253723
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 9,
+    "name": "5.0xSMA20/75_RSI70_Vol2.5x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 75,
+      "use_ema": false,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.05,
+      "rsi_min": 70,
+      "use_volume": true,
+      "volume_mult": 2.5,
+      "name": "5.0xSMA20/75_RSI70_Vol2.5x",
+      "description": "5.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 15.489181758599981,
+      "buy_hold": 124.77945821944381,
+      "trades": 6,
+      "win_rate": 66.66666666666666,
+      "max_dd": -2.753381793325982,
+      "sharpe": 1.6958282288269728,
+      "final_equity": 115489.18175859998,
+      "avg_trade": 2.628191518902079
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 7,
+    "name": "3.0xEMA20/100_RSI68_Vol2.5x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.08,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.5,
+      "name": "3.0xEMA20/100_RSI68_Vol2.5x",
+      "description": "3.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 14.021203614719969,
+      "buy_hold": 126.59310890020055,
+      "trades": 53,
+      "win_rate": 22.641509433962266,
+      "max_dd": -13.635736028820178,
+      "sharpe": 0.7819484352215541,
+      "final_equity": 114021.20361471997,
+      "avg_trade": 0.4454671455447867
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 1,
+    "name": "5.0xSMA15/150_RSI65_Vol2.0x",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 150,
+      "use_ema": false,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.012,
+      "take_profit_pct": 0.06,
+      "rsi_min": 65,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xSMA15/150_RSI65_Vol2.0x",
+      "description": "5.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 13.402527764400016,
+      "buy_hold": 122.117823833034,
+      "trades": 9,
+      "win_rate": 44.44444444444444,
+      "max_dd": -3.461627055614236,
+      "sharpe": 1.2943293871146064,
+      "final_equity": 113402.52776440002,
+      "avg_trade": 1.532357137342144
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 79,
+    "name": "3.0xEMA20/100_RSI70_Vol2.0x_v28",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 70,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "3.0xEMA20/100_RSI70_Vol2.0x_v28",
+      "description": "Variation of winner strategy #28"
+    },
+    "results": {
+      "success": true,
+      "return": 9.509509411200124,
+      "buy_hold": 126.59310890020055,
+      "trades": 64,
+      "win_rate": 25.0,
+      "max_dd": -12.823215962558299,
+      "sharpe": 0.6429305199779717,
+      "final_equity": 109509.50941120012,
+      "avg_trade": 0.32455126584660654
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 38,
+    "name": "3.0xEMA20/120_RSI70_Vol2.5x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 120,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.06,
+      "rsi_min": 70,
+      "use_volume": true,
+      "volume_mult": 2.5,
+      "name": "3.0xEMA20/120_RSI70_Vol2.5x",
+      "description": "3.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 9.303545030700057,
+      "buy_hold": 126.59310890020055,
+      "trades": 45,
+      "win_rate": 31.11111111111111,
+      "max_dd": -14.827008597590696,
+      "sharpe": 0.6141066861784163,
+      "final_equity": 109303.54503070006,
+      "avg_trade": 0.4411139314409951
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 26,
+    "name": "3.0xEMA30/75_RSI68_NoVol",
+    "strategy": {
+      "fast_ma": 30,
+      "slow_ma": 75,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.07,
+      "rsi_min": 68,
+      "use_volume": false,
+      "volume_mult": 1.5,
+      "name": "3.0xEMA30/75_RSI68_NoVol",
+      "description": "3.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 9.257694787799933,
+      "buy_hold": 127.64474894081712,
+      "trades": 71,
+      "win_rate": 22.535211267605636,
+      "max_dd": -21.59854156935692,
+      "sharpe": 0.5054648352357515,
+      "final_equity": 109257.69478779993,
+      "avg_trade": 0.26779725644212604
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 66,
+    "name": "3.0xEMA20/100_RSI68_Vol2.0x_v15",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "3.0xEMA20/100_RSI68_Vol2.0x_v15",
+      "description": "Variation of winner strategy #15"
+    },
+    "results": {
+      "success": true,
+      "return": 8.23718548020009,
+      "buy_hold": 126.59310890020055,
+      "trades": 65,
+      "win_rate": 24.615384615384617,
+      "max_dd": -13.219958647596364,
+      "sharpe": 0.5336856425725622,
+      "final_equity": 108237.18548020009,
+      "avg_trade": 0.29652861493312255
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 18,
+    "name": "3.0xEMA25/100_RSI72_Vol2.0x",
+    "strategy": {
+      "fast_ma": 25,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.06,
+      "rsi_min": 72,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "3.0xEMA25/100_RSI72_Vol2.0x",
+      "description": "3.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 7.391514165900123,
+      "buy_hold": 126.59310890020055,
+      "trades": 40,
+      "win_rate": 32.5,
+      "max_dd": -15.85874470294495,
+      "sharpe": 0.5187443185414015,
+      "final_equity": 107391.51416590012,
+      "avg_trade": 0.44432209552767166
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 57,
+    "name": "5.0xSMA20/100_RSI68_Vol2.0x_v6",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": false,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.05,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xSMA20/100_RSI68_Vol2.0x_v6",
+      "description": "Variation of winner strategy #6"
+    },
+    "results": {
+      "success": true,
+      "return": 6.95949915899997,
+      "buy_hold": 123.52398545917944,
+      "trades": 7,
+      "win_rate": 42.857142857142854,
+      "max_dd": -2.9262987247563377,
+      "sharpe": 1.4761753262753048,
+      "final_equity": 106959.49915899997,
+      "avg_trade": 1.1245685697008678
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 58,
+    "name": "5.0xSMA20/100_RSI68_NoVol_v7",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": false,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": false,
+      "volume_mult": 2.0,
+      "name": "5.0xSMA20/100_RSI68_NoVol_v7",
+      "description": "Variation of winner strategy #7"
+    },
+    "results": {
+      "success": true,
+      "return": 6.743927693999955,
+      "buy_hold": 123.52398545917944,
+      "trades": 9,
+      "win_rate": 33.33333333333333,
+      "max_dd": -5.442889058807998,
+      "sharpe": 1.315170155081195,
+      "final_equity": 106743.92769399995,
+      "avg_trade": 0.8826196062920566
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 31,
+    "name": "6.0xEMA20/75_RSI65_NoVol",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 75,
+      "use_ema": true,
+      "leverage": 6.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.07,
+      "rsi_min": 65,
+      "use_volume": false,
+      "volume_mult": 2.0,
+      "name": "6.0xEMA20/75_RSI65_NoVol",
+      "description": "6.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 6.548235876000021,
+      "buy_hold": 127.64474894081712,
+      "trades": 1,
+      "win_rate": 100.0,
+      "max_dd": -1.3317002742845085,
+      "sharpe": 2.378930110322628,
+      "final_equity": 106548.23587600002,
+      "avg_trade": 6.586000000000003
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 6,
+    "name": "3.0xEMA25/75_RSI72_Vol2.0x",
+    "strategy": {
+      "fast_ma": 25,
+      "slow_ma": 75,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.05,
+      "rsi_min": 72,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "3.0xEMA25/75_RSI72_Vol2.0x",
+      "description": "3.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 6.495678729120045,
+      "buy_hold": 126.59310890020055,
+      "trades": 56,
+      "win_rate": 26.785714285714285,
+      "max_dd": -14.655428280851623,
+      "sharpe": 0.5648402159564408,
+      "final_equity": 106495.67872912005,
+      "avg_trade": 0.24533541906444079
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 10,
+    "name": "3.0xSMA20/150_RSI65_Vol2.0x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 150,
+      "use_ema": false,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.08,
+      "rsi_min": 65,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "3.0xSMA20/150_RSI65_Vol2.0x",
+      "description": "3.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 5.76686309663998,
+      "buy_hold": 122.117823833034,
+      "trades": 64,
+      "win_rate": 18.75,
+      "max_dd": -15.071973628327873,
+      "sharpe": 0.3813043103684057,
+      "final_equity": 105766.86309663998,
+      "avg_trade": 0.20915077461627352
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 44,
+    "name": "5.0xSMA20/150_RSI65_Vol2.5x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 150,
+      "use_ema": false,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.012,
+      "take_profit_pct": 0.06,
+      "rsi_min": 65,
+      "use_volume": true,
+      "volume_mult": 2.5,
+      "name": "5.0xSMA20/150_RSI65_Vol2.5x",
+      "description": "5.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 5.569365742399983,
+      "buy_hold": 122.117823833034,
+      "trades": 5,
+      "win_rate": 40.0,
+      "max_dd": -3.596117485149475,
+      "sharpe": 1.1188777992436045,
+      "final_equity": 105569.36574239998,
+      "avg_trade": 1.2210758563474533
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 85,
+    "name": "6.0xEMA20/100_RSI68_Vol2.0x_v34",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 6.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "6.0xEMA20/100_RSI68_Vol2.0x_v34",
+      "description": "Variation of winner strategy #34"
+    },
+    "results": {
+      "success": true,
+      "return": 5.56821882720002,
+      "buy_hold": 126.59310890020055,
+      "trades": 1,
+      "win_rate": 100.0,
+      "max_dd": -1.3338743394762043,
+      "sharpe": 2.3744814318077694,
+      "final_equity": 105568.21882720002,
+      "avg_trade": 5.59099542435979
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 88,
+    "name": "6.0xEMA20/100_RSI68_Vol2.0x_v37",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 6.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "6.0xEMA20/100_RSI68_Vol2.0x_v37",
+      "description": "Variation of winner strategy #37"
+    },
+    "results": {
+      "success": true,
+      "return": 5.56821882720002,
+      "buy_hold": 126.59310890020055,
+      "trades": 1,
+      "win_rate": 100.0,
+      "max_dd": -1.3338743394762043,
+      "sharpe": 2.3744814318077694,
+      "final_equity": 105568.21882720002,
+      "avg_trade": 5.59099542435979
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 62,
+    "name": "5.0xEMA20/100_RSI68_Vol2.5x_v11",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.5,
+      "name": "5.0xEMA20/100_RSI68_Vol2.5x_v11",
+      "description": "Variation of winner strategy #11"
+    },
+    "results": {
+      "success": true,
+      "return": 5.423486361999982,
+      "buy_hold": 126.59310890020055,
+      "trades": 5,
+      "win_rate": 40.0,
+      "max_dd": -3.8845234946234264,
+      "sharpe": 0.9401413246725067,
+      "final_equity": 105423.48636199998,
+      "avg_trade": 1.3446850066514804
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 23,
+    "name": "5.0xSMA15/75_RSI65_Vol2.5x",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 75,
+      "use_ema": false,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.05,
+      "rsi_min": 65,
+      "use_volume": true,
+      "volume_mult": 2.5,
+      "name": "5.0xSMA15/75_RSI65_Vol2.5x",
+      "description": "5.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 5.239062851999974,
+      "buy_hold": 124.77945821944381,
+      "trades": 4,
+      "win_rate": 50.0,
+      "max_dd": -2.5712413288350944,
+      "sharpe": 1.0655597916844195,
+      "final_equity": 105239.06285199997,
+      "avg_trade": 1.5583896253121177
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 37,
+    "name": "3.0xEMA15/75_RSI70_Vol2.5x",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 75,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.05,
+      "rsi_min": 70,
+      "use_volume": true,
+      "volume_mult": 2.5,
+      "name": "3.0xEMA15/75_RSI70_Vol2.5x",
+      "description": "3.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 3.7164720711000845,
+      "buy_hold": 126.59310890020055,
+      "trades": 49,
+      "win_rate": 32.6530612244898,
+      "max_dd": -19.138672756738927,
+      "sharpe": 0.26249050761187137,
+      "final_equity": 103716.47207110008,
+      "avg_trade": 0.19730396995074617
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 84,
+    "name": "5.0xSMA15/100_RSI68_Vol2.0x_v33",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 100,
+      "use_ema": false,
+      "leverage": 5.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "5.0xSMA15/100_RSI68_Vol2.0x_v33",
+      "description": "Variation of winner strategy #33"
+    },
+    "results": {
+      "success": true,
+      "return": 3.606240101999967,
+      "buy_hold": 123.52398545917944,
+      "trades": 7,
+      "win_rate": 28.57142857142857,
+      "max_dd": -5.004061889542022,
+      "sharpe": 0.6194413565795057,
+      "final_equity": 103606.24010199997,
+      "avg_trade": 0.5491051224570276
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 50,
+    "name": "3.0xSMA20/75_RSI65_NoVol",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 75,
+      "use_ema": false,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.07,
+      "rsi_min": 65,
+      "use_volume": false,
+      "volume_mult": 2.0,
+      "name": "3.0xSMA20/75_RSI65_NoVol",
+      "description": "3.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 1.9859731430999525,
+      "buy_hold": 124.77945821944381,
+      "trades": 74,
+      "win_rate": 27.027027027027028,
+      "max_dd": -25.43116264711218,
+      "sharpe": 0.09465227374528123,
+      "final_equity": 101985.97314309995,
+      "avg_trade": 0.05648805516949018
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 11,
+    "name": "3.0xSMA15/120_RSI68_Vol2.5x",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 120,
+      "use_ema": false,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.05,
+      "rsi_min": 68,
+      "use_volume": true,
+      "volume_mult": 2.5,
+      "name": "3.0xSMA15/120_RSI68_Vol2.5x",
+      "description": "3.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 0.09252394170005572,
+      "buy_hold": 123.50631682861153,
+      "trades": 43,
+      "win_rate": 32.55813953488372,
+      "max_dd": -20.273997587541047,
+      "sharpe": 0.006774654181640109,
+      "final_equity": 100092.52394170006,
+      "avg_trade": 0.10847661850921231
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 4,
+    "name": "6.0xSMA15/150_RSI68_NoVol",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 150,
+      "use_ema": false,
+      "leverage": 6.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.07,
+      "rsi_min": 68,
+      "use_volume": false,
+      "volume_mult": 2.0,
+      "name": "6.0xSMA15/150_RSI68_NoVol",
+      "description": "6.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 0.0,
+      "buy_hold": 122.117823833034,
+      "trades": 0,
+      "win_rate": NaN,
+      "max_dd": -0.0,
+      "sharpe": NaN,
+      "final_equity": 100000.0,
+      "avg_trade": NaN
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 14,
+    "name": "6.0xSMA25/150_RSI72_NoVol",
+    "strategy": {
+      "fast_ma": 25,
+      "slow_ma": 150,
+      "use_ema": false,
+      "leverage": 6.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.07,
+      "rsi_min": 72,
+      "use_volume": false,
+      "volume_mult": 2.0,
+      "name": "6.0xSMA25/150_RSI72_NoVol",
+      "description": "6.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 0.0,
+      "buy_hold": 122.117823833034,
+      "trades": 0,
+      "win_rate": NaN,
+      "max_dd": -0.0,
+      "sharpe": NaN,
+      "final_equity": 100000.0,
+      "avg_trade": NaN
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 15,
+    "name": "6.0xEMA20/75_RSI72_Vol1.5x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 75,
+      "use_ema": true,
+      "leverage": 6.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.08,
+      "rsi_min": 72,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "6.0xEMA20/75_RSI72_Vol1.5x",
+      "description": "6.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 0.0,
+      "buy_hold": 126.59310890020055,
+      "trades": 0,
+      "win_rate": NaN,
+      "max_dd": -0.0,
+      "sharpe": NaN,
+      "final_equity": 100000.0,
+      "avg_trade": NaN
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 20,
+    "name": "6.0xSMA25/100_RSI70_Vol2.5x",
+    "strategy": {
+      "fast_ma": 25,
+      "slow_ma": 100,
+      "use_ema": false,
+      "leverage": 6.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.07,
+      "rsi_min": 70,
+      "use_volume": true,
+      "volume_mult": 2.5,
+      "name": "6.0xSMA25/100_RSI70_Vol2.5x",
+      "description": "6.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 0.0,
+      "buy_hold": 123.52398545917944,
+      "trades": 0,
+      "win_rate": NaN,
+      "max_dd": -0.0,
+      "sharpe": NaN,
+      "final_equity": 100000.0,
+      "avg_trade": NaN
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 27,
+    "name": "6.0xEMA20/120_RSI72_Vol2.0x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 120,
+      "use_ema": true,
+      "leverage": 6.0,
+      "stop_loss_pct": 0.015,
+      "take_profit_pct": 0.06,
+      "rsi_min": 72,
+      "use_volume": true,
+      "volume_mult": 2.0,
+      "name": "6.0xEMA20/120_RSI72_Vol2.0x",
+      "description": "6.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 0.0,
+      "buy_hold": 126.59310890020055,
+      "trades": 0,
+      "win_rate": NaN,
+      "max_dd": -0.0,
+      "sharpe": NaN,
+      "final_equity": 100000.0,
+      "avg_trade": NaN
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 28,
+    "name": "6.0xSMA20/120_RSI68_NoVol",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 120,
+      "use_ema": false,
+      "leverage": 6.0,
+      "stop_loss_pct": 0.012,
+      "take_profit_pct": 0.06,
+      "rsi_min": 68,
+      "use_volume": false,
+      "volume_mult": 2.0,
+      "name": "6.0xSMA20/120_RSI68_NoVol",
+      "description": "6.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 0.0,
+      "buy_hold": 123.50631682861153,
+      "trades": 0,
+      "win_rate": NaN,
+      "max_dd": -0.0,
+      "sharpe": NaN,
+      "final_equity": 100000.0,
+      "avg_trade": NaN
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 39,
+    "name": "6.0xSMA20/75_RSI70_Vol1.5x",
+    "strategy": {
+      "fast_ma": 20,
+      "slow_ma": 75,
+      "use_ema": false,
+      "leverage": 6.0,
+      "stop_loss_pct": 0.012,
+      "take_profit_pct": 0.08,
+      "rsi_min": 70,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "6.0xSMA20/75_RSI70_Vol1.5x",
+      "description": "6.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 0.0,
+      "buy_hold": 124.77945821944381,
+      "trades": 0,
+      "win_rate": NaN,
+      "max_dd": -0.0,
+      "sharpe": NaN,
+      "final_equity": 100000.0,
+      "avg_trade": NaN
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 49,
+    "name": "6.0xSMA30/100_RSI70_Vol1.5x",
+    "strategy": {
+      "fast_ma": 30,
+      "slow_ma": 100,
+      "use_ema": false,
+      "leverage": 6.0,
+      "stop_loss_pct": 0.01,
+      "take_profit_pct": 0.07,
+      "rsi_min": 70,
+      "use_volume": true,
+      "volume_mult": 1.5,
+      "name": "6.0xSMA30/100_RSI70_Vol1.5x",
+      "description": "6.0x leverage SMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": 0.0,
+      "buy_hold": 123.52398545917944,
+      "trades": 0,
+      "win_rate": NaN,
+      "max_dd": -0.0,
+      "sharpe": NaN,
+      "final_equity": 100000.0,
+      "avg_trade": NaN
+    },
+    "is_winner": false
+  },
+  {
+    "iteration": 17,
+    "name": "3.0xEMA15/100_RSI65_NoVol",
+    "strategy": {
+      "fast_ma": 15,
+      "slow_ma": 100,
+      "use_ema": true,
+      "leverage": 3.0,
+      "stop_loss_pct": 0.008,
+      "take_profit_pct": 0.07,
+      "rsi_min": 65,
+      "use_volume": false,
+      "volume_mult": 2.5,
+      "name": "3.0xEMA15/100_RSI65_NoVol",
+      "description": "3.0x leverage EMA crossover with RSI and volume filters"
+    },
+    "results": {
+      "success": true,
+      "return": -20.473407946680048,
+      "buy_hold": 127.64474894081712,
+      "trades": 87,
+      "win_rate": 13.793103448275861,
+      "max_dd": -29.528263992020676,
+      "sharpe": -1.7168468040077671,
+      "final_equity": 79526.59205331995,
+      "avg_trade": -0.2121167477202146
+    },
+    "is_winner": false
+  }
+]

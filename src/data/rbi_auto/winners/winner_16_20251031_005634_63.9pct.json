@@ -1,0 +1,28 @@
+{
+  "timestamp": "20251031_005634",
+  "iteration": 16,
+  "strategy": {
+    "fast_ma": 25,
+    "slow_ma": 100,
+    "use_ema": true,
+    "leverage": 5.0,
+    "stop_loss_pct": 0.008,
+    "take_profit_pct": 0.05,
+    "rsi_min": 65,
+    "use_volume": true,
+    "volume_mult": 1.5,
+    "name": "5.0xEMA25/100_RSI65_Vol1.5x",
+    "description": "5.0x leverage EMA crossover with RSI and volume filters"
+  },
+  "results": {
+    "success": true,
+    "return": 63.86723335700013,
+    "buy_hold": 126.59310890020055,
+    "trades": 37,
+    "win_rate": 45.94594594594595,
+    "max_dd": -7.276572594252539,
+    "sharpe": 2.321582273595873,
+    "final_equity": 163867.23335700014,
+    "avg_trade": 1.421619643113936
+  }
+}

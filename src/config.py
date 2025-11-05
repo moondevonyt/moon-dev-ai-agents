@@ -96,10 +96,33 @@ DATA_TIMEFRAME = '1H'  # 1m, 3m, 5m, 15m, 30m, 1H, 2H, 4H, 6H, 8H, 12H, 1D, 3D, 
 SAVE_OHLCV_DATA = False  # 🌙 Set to True to save data permanently, False will only use temp data during run
 
 # AI Model Settings 🤖
-AI_MODEL = "claude-3-haiku-20240307"  # Model Options:
-                                     # - claude-3-haiku-20240307 (Fast, efficient Claude model)
-                                     # - claude-3-sonnet-20240229 (Balanced Claude model)
-                                     # - claude-3-opus-20240229 (Most powerful Claude model)
+# 🌟 ALL MODELS NOW USE OPENROUTER FOR UNIFIED ACCESS 🌟
+AI_PROVIDER = "openrouter"  # Use OpenRouter for all models (single API key!)
+AI_MODEL = "google/gemini-2.5-flash"  # Default OpenRouter model (fast & cheap)
+
+# OpenRouter Model Options (all accessible with OPENROUTER_API_KEY):
+# Claude Models:
+#   - anthropic/claude-opus-4.1 (Most powerful)
+#   - anthropic/claude-sonnet-4.5 (Balanced)
+#   - anthropic/claude-haiku-4.5 (Fast & cheap)
+# OpenAI Models:
+#   - openai/gpt-5 (Latest flagship)
+#   - openai/gpt-5-mini (Fast & efficient)
+#   - openai/gpt-5-nano (Ultra-fast & cheap)
+# Google Models:
+#   - google/gemini-2.5-pro (Advanced reasoning)
+#   - google/gemini-2.5-flash (Fast multimodal) ⭐ DEFAULT
+# DeepSeek Models:
+#   - deepseek/deepseek-r1-0528 (Advanced reasoning)
+# Qwen Models:
+#   - qwen/qwen3-max (Flagship model)
+#   - qwen/qwen3-vl-32b-instruct (Vision & Language)
+# Kimi Models (Moonshot AI):
+#   - moonshot/kimi-k2 (Advanced Chinese/English) ⭐ NEW!
+#   - moonshot/kimi-v1 (Moonshot flagship)
+# GLM Models:
+#   - z-ai/glm-4.6 (Zhipu AI)
+
 AI_MAX_TOKENS = 1024  # Max tokens for response
 AI_TEMPERATURE = 0.7  # Creativity vs precision (0-1)
 
