@@ -66,7 +66,7 @@ SWARM_MODELS = {
     "openrouter_qwen": (True, "openrouter", "qwen/qwen3-max"),  # Qwen 3 Max - Powerful reasoning ($1.00/$1.00 per 1M tokens)
 
     # 🔇 Disabled Models (uncomment to enable)
-    #"claude": (True, "claude", "claude-sonnet-4-5"),  # Claude 4.5 Sonnet - Latest & Greatest!
+    "claude": (True, "claude", "claude-sonnet-4-5"),  # Claude 4.5 Sonnet - Latest & Greatest!
     #"openai": (True, "openai", "gpt-5"),  # GPT-5 - Most advanced model!
     #"ollama_qwen": (True, "ollama", "qwen3:8b"),  # Qwen3 8B via Ollama - Fast local reasoning!
     #"ollama": (True, "ollama", "DeepSeek-R1:latest"),  # DeepSeek-R1 local model via Ollama
@@ -75,10 +75,10 @@ SWARM_MODELS = {
     # 🌙 OpenRouter Models - Access 200+ models through one API!
     # Uncomment any of these to add them to your swarm:
     #"openrouter_gemini": (True, "openrouter", "google/gemini-2.5-flash"),  # Gemini 2.5 Flash - Fast & cheap! ($0.10/$0.40 per 1M tokens)
-    #"openrouter_glm": (True, "openrouter", "z-ai/glm-4.6"),  # GLM 4.6 - Zhipu AI reasoning ($0.50/$0.50 per 1M tokens)
+    "openrouter_glm": (True, "openrouter", "z-ai/glm-4.6"),  # GLM 4.6 - Zhipu AI reasoning ($0.50/$0.50 per 1M tokens)
     #"openrouter_deepseek_r1": (True, "openrouter", "deepseek/deepseek-r1-0528"),  # DeepSeek R1 - Advanced reasoning ($0.55/$2.19 per 1M tokens)
     #"openrouter_claude_opus": (True, "openrouter", "anthropic/claude-opus-4.1"),  # Claude Opus 4.1 via OpenRouter
-    #"openrouter_gpt5_mini": (True, "openrouter", "openai/gpt-5-mini"),  # GPT-5 Mini via OpenRouter
+    "openrouter_gpt5_mini": (True, "openrouter", "openai/gpt-5-mini"),  # GPT-5 Mini via OpenRouter
 
     # 💡 See all 200+ models at: https://openrouter.ai/docs
     # 💡 Any model from openrouter_model.py can be used here!
@@ -89,7 +89,7 @@ DEFAULT_TEMPERATURE = 0.7
 DEFAULT_MAX_TOKENS = 2048  # Increased for model compatibility (Gemini/Groq/Qwen need 2048+ minimum)
 
 # Timeout for each model (seconds)
-MODEL_TIMEOUT = 90
+MODEL_TIMEOUT = 120  # 🌙 Moon Dev - Increased to 120s for more reliability
 
 # Consensus Reviewer - Synthesizes all responses into a clean summary
 CONSENSUS_REVIEWER_MODEL = ("deepseek", "deepseek-chat")  # Using DeepSeek Chat API (fast)
@@ -289,9 +289,10 @@ class SwarmAgent:
                             "response_time": 0
                         }
 
-            except TimeoutError:
+            except TimeoutError as timeout_error:
                 # as_completed timed out waiting for all futures
                 cprint(f"\n⏰ Overall timeout reached - some models didn't respond", "yellow")
+                cprint(f"⚠️ {str(timeout_error)}", "yellow")
                 # Mark any remaining futures as timed out
                 for future, provider in futures.items():
                     if provider not in all_responses:
@@ -304,6 +305,8 @@ class SwarmAgent:
                             "error": f"Global timeout - no response received",
                             "response_time": MODEL_TIMEOUT
                         }
+                # 🌙 Moon Dev - Don't raise, continue with partial results
+                cprint(f"✅ Continuing with {len([r for r in all_responses.values() if r['success']])} successful responses", "green")
 
         # Generate consensus review summary (with model mapping)
         consensus_summary, model_mapping = self._generate_consensus_review(all_responses, prompt)
