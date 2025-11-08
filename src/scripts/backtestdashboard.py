@@ -21,7 +21,7 @@ Built with love by Moon Dev
    python src/scripts/backtestdashboard.py
    ```
 
-4. OPEN YOUR BROWSER to: http://localhost:8001
+4. OPEN YOUR BROWSER to: http://localhost:8002
 
 ================================================================================
 ⚙️ CONFIGURATION:
@@ -345,6 +345,12 @@ async def get_backtests():
         for record in df.to_dict('records'):
             cleaned_record = {}
             for key, value in record.items():
+                # 🌙 Moon Dev - Cap Return % display at 10,000+%
+                if key == 'Return %' and isinstance(value, (float, np.floating)):
+                    if not (np.isnan(value) or np.isinf(value)) and value > 10000:
+                        cleaned_record[key] = "10,000+%"
+                        continue
+
                 # Check if value is a problematic float
                 if isinstance(value, (float, np.floating)):
                     if np.isnan(value) or np.isinf(value):
@@ -429,13 +435,22 @@ async def get_stats():
             except:
                 return default
 
+        # 🌙 Moon Dev - Filter out extreme outliers (Return % > 10,000) for stats calculation
+        df_filtered = df.copy()
+        if 'Return %' in df_filtered.columns:
+            # Keep only rows where Return % <= 10,000 (exclude bad data from stats)
+            df_filtered = df_filtered[
+                (df_filtered['Return %'].isna()) | (df_filtered['Return %'] <= 10000)
+            ]
+            print(f"📊 Filtered {len(df) - len(df_filtered)} extreme outliers (>10,000%) from stats calculation")
+
         stats = {
-            "total_backtests": len(df),
+            "total_backtests": len(df),  # 🌙 Use original count (includes all data)
             "unique_strategies": df['Strategy Name'].nunique() if 'Strategy Name' in df.columns else 0,
             "unique_data_sources": df['Data'].nunique() if 'Data' in df.columns else 0,
-            "avg_return": safe_stat(df['Return %'], lambda s: s.mean()) if 'Return %' in df.columns else 0,
-            "max_return": safe_stat(df['Return %'], lambda s: s.max()) if 'Return %' in df.columns else 0,
-            "avg_sortino": safe_stat(df['Sortino Ratio'], lambda s: s.mean()) if 'Sortino Ratio' in df.columns else 0,
+            "avg_return": safe_stat(df_filtered['Return %'], lambda s: s.mean()) if 'Return %' in df_filtered.columns else 0,
+            "max_return": safe_stat(df_filtered['Return %'], lambda s: s.max()) if 'Return %' in df_filtered.columns else 0,
+            "avg_sortino": safe_stat(df_filtered['Sortino Ratio'], lambda s: s.mean()) if 'Sortino Ratio' in df_filtered.columns else 0,
         }
 
         return JSONResponse(stats)
@@ -485,6 +500,169 @@ async def list_folders_with_details():
         import traceback
         traceback.print_exc()
         return JSONResponse({"folders": [], "error": str(e)}, status_code=500)
+
+
+@app.get("/api/folders/dates")
+async def list_date_folders():
+    """🌙 Moon Dev: Get auto-generated date folders from backtest Time column"""
+    try:
+        if not STATS_CSV.exists():
+            return JSONResponse({"dates": [], "message": "No backtest data found"})
+
+        # Read CSV
+        with open(STATS_CSV, 'r') as f:
+            header_line = f.readline().strip()
+
+        if 'Exposure %' not in header_line:
+            df = pd.read_csv(
+                STATS_CSV,
+                names=['Strategy Name', 'Thread ID', 'Return %', 'Buy & Hold %',
+                       'Max Drawdown %', 'Sharpe Ratio', 'Sortino Ratio', 'Exposure %',
+                       'EV %', 'Trades', 'File Path', 'Data', 'Time'],
+                skiprows=1,
+                on_bad_lines='warn'
+            )
+        else:
+            df = pd.read_csv(STATS_CSV, on_bad_lines='warn')
+
+        if 'Time' not in df.columns or len(df) == 0:
+            return JSONResponse({"dates": [], "message": "No Time data found"})
+
+        # Parse dates from Time column (format: "MM/DD HH:MM")
+        # Extract just the date part and convert to MM-DD-YYYY format
+        date_counts = {}
+        current_year = datetime.now().year
+        for time_str in df['Time'].dropna():
+            try:
+                # Format: "10/27 16:29" -> need to add year
+                time_str = str(time_str).strip()
+                # Add current year to make it parseable
+                time_with_year = f"{time_str}/{current_year}"
+                # Parse: "10/27 16:29/2025"
+                dt = pd.to_datetime(time_with_year, format="%m/%d %H:%M/%Y")
+                # Format as MM-DD-YYYY
+                date_key = dt.strftime("%m-%d-%Y")
+                date_counts[date_key] = date_counts.get(date_key, 0) + 1
+            except Exception as e:
+                print(f"⚠️ Failed to parse time '{time_str}': {e}")
+                continue
+
+        # Convert to list of dicts, sorted by date (most recent first)
+        dates_info = [
+            {"name": date, "count": count}
+            for date, count in date_counts.items()
+        ]
+
+        # Sort by date descending (most recent first)
+        dates_info.sort(key=lambda x: datetime.strptime(x['name'], "%m-%d-%Y"), reverse=True)
+
+        return JSONResponse({"dates": dates_info})
+
+    except Exception as e:
+        print(f"❌ Error in /api/folders/dates: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return JSONResponse({"dates": [], "error": str(e)}, status_code=500)
+
+
+@app.get("/api/backtests/by-date/{date}")
+async def get_backtests_by_date(date: str):
+    """🌙 Moon Dev: Get backtests filtered by date (MM-DD-YYYY format)"""
+    try:
+        if not STATS_CSV.exists():
+            return JSONResponse({
+                "data": [],
+                "message": f"No backtest data found for {date}"
+            })
+
+        # Read CSV
+        with open(STATS_CSV, 'r') as f:
+            header_line = f.readline().strip()
+
+        if 'Exposure %' not in header_line:
+            df = pd.read_csv(
+                STATS_CSV,
+                names=['Strategy Name', 'Thread ID', 'Return %', 'Buy & Hold %',
+                       'Max Drawdown %', 'Sharpe Ratio', 'Sortino Ratio', 'Exposure %',
+                       'EV %', 'Trades', 'File Path', 'Data', 'Time'],
+                skiprows=1,
+                on_bad_lines='warn'
+            )
+        else:
+            df = pd.read_csv(STATS_CSV, on_bad_lines='warn')
+
+        if 'Time' not in df.columns or len(df) == 0:
+            return JSONResponse({
+                "data": [],
+                "message": f"No Time data found"
+            })
+
+        # Filter by date (format: "MM/DD HH:MM")
+        filtered_rows = []
+        current_year = datetime.now().year
+        for idx, row in df.iterrows():
+            try:
+                # Format: "10/27 16:29" -> need to add year
+                time_str = str(row['Time']).strip()
+                time_with_year = f"{time_str}/{current_year}"
+                # Parse: "10/27 16:29/2025"
+                dt = pd.to_datetime(time_with_year, format="%m/%d %H:%M/%Y")
+                row_date = dt.strftime("%m-%d-%Y")
+                if row_date == date:
+                    filtered_rows.append(idx)
+            except Exception as e:
+                print(f"⚠️ Failed to parse time for filtering '{row['Time']}': {e}")
+                continue
+
+        df_filtered = df.loc[filtered_rows]
+
+        if len(df_filtered) == 0:
+            return JSONResponse({
+                "data": [],
+                "message": f"No backtests found for {date}"
+            })
+
+        # Convert numeric columns
+        numeric_cols = ['Return %', 'Buy & Hold %', 'Max Drawdown %', 'Sharpe Ratio', 'Sortino Ratio', 'Exposure %', 'EV %', 'Trades']
+        for col in numeric_cols:
+            if col in df_filtered.columns:
+                df_filtered[col] = pd.to_numeric(df_filtered[col], errors='coerce')
+
+        # Replace inf/-inf with None
+        df_filtered = df_filtered.replace([np.inf, -np.inf], None)
+        df_filtered = df_filtered.where(pd.notnull(df_filtered), None)
+
+        # Convert to records and clean floats (same as /api/backtests)
+        data = []
+        for record in df_filtered.to_dict('records'):
+            cleaned_record = {}
+            for key, value in record.items():
+                # 🌙 Moon Dev - Cap Return % display at 10,000+%
+                if key == 'Return %' and isinstance(value, (float, np.floating)):
+                    if not (np.isnan(value) or np.isinf(value)) and value > 10000:
+                        cleaned_record[key] = "10,000+%"
+                        continue
+
+                if isinstance(value, (float, np.floating)):
+                    if np.isnan(value) or np.isinf(value):
+                        cleaned_record[key] = None
+                    else:
+                        cleaned_record[key] = float(value)
+                else:
+                    cleaned_record[key] = value
+            data.append(cleaned_record)
+
+        return JSONResponse({
+            "data": data,
+            "total": len(data),
+            "message": f"Found {len(data)} backtests for {date}"
+        })
+
+    except Exception as e:
+        print(f"❌ Error in /api/backtests/by-date/{date}: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return JSONResponse({"data": [], "error": str(e)}, status_code=500)
 
 
 @app.post("/api/folders/add")
@@ -1157,9 +1335,9 @@ async def startup_event():
     if TEST_MODE:
         logger.info("🧪 TEST MODE ENABLED - Using sample data for Data Portal")
     logger.info("")
-    logger.info("🚀 Server is now available at: http://localhost:8001")
-    logger.info("📊 Analysis Dashboard: http://localhost:8001/")
-    logger.info("📊 Data Portal: http://localhost:8001/data")
+    logger.info("🚀 Server is now available at: http://localhost:8002")
+    logger.info("📊 Analysis Dashboard: http://localhost:8002/")
+    logger.info("📊 Data Portal: http://localhost:8002/data")
     logger.info("📊 Data will begin downloading in the background...")
     logger.info("")
 
@@ -1190,14 +1368,14 @@ if __name__ == "__main__":
     print(f"\n📊 CSV Path: {STATS_CSV}")
     print(f"📁 Templates: {TEMPLATE_BASE_DIR}")
     print(f"📂 Data Downloads: {DATA_DIR}")
-    print(f"🌐 Starting server at: http://localhost:8001")
-    print(f"\n💡 Page 1 (Analysis): http://localhost:8001/")
-    print(f"💡 Page 2 (Data Portal): http://localhost:8001/data")
+    print(f"🌐 Starting server at: http://localhost:8002")
+    print(f"\n💡 Page 1 (Analysis): http://localhost:8002/")
+    print(f"💡 Page 2 (Data Portal): http://localhost:8002/data")
     if TEST_MODE:
         print(f"\n🧪 TEST MODE: Data portal will use sample data")
         print(f"   Set TEST_MODE = False in backtestdashboard.py for real data")
     print(f"\n💡 NOTE: Make sure you've run rbi_agent_pp_multi.py first to generate backtest data!")
-    print(f"💡 Port 8001 is used to avoid conflict with main API on port 8000")
+    print(f"💡 Port 8002 is used to avoid conflict with other services")
     print("\nPress CTRL+C to stop\n")
 
-    uvicorn.run(app, host="0.0.0.0", port=8001, log_level="info")
+    uvicorn.run(app, host="0.0.0.0", port=8002, log_level="info")
