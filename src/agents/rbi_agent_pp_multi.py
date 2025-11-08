@@ -58,6 +58,8 @@ from dotenv import load_dotenv
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import Lock, Semaphore, Thread
 from queue import Queue
+import requests
+from io import BytesIO
 
 # Load environment variables FIRST
 load_dotenv()
@@ -65,7 +67,7 @@ print("✅ Environment variables loaded")
 
 # Add config values directly to avoid import issues
 AI_TEMPERATURE = 0.7
-AI_MAX_TOKENS = 4000
+AI_MAX_TOKENS = 16000  # 🌙 Moon Dev: Increased for complete backtest code generation with execution block!
 
 # Import model factory with proper path handling
 import sys
@@ -85,6 +87,23 @@ MAX_PARALLEL_THREADS = 18  # How many ideas to process simultaneously
 RATE_LIMIT_DELAY = .5  # Seconds to wait between API calls (per thread)
 RATE_LIMIT_GLOBAL_DELAY = 0.5  # Global delay between any API calls
 
+# ============================================
+# 📁 STRATEGY SOURCE CONFIGURATION - Moon Dev
+# ============================================
+# IMPORTANT: Choose where to read trading strategies from
+#
+# Option 1 (Default): STRATEGIES_FROM_FILES = False
+#   - Reads from ideas.txt (one strategy per line)
+#   - Classic behavior - works exactly as before
+#
+# Option 2: STRATEGIES_FROM_FILES = True
+#   - Reads all .md and .txt files from STRATEGIES_FOLDER
+#   - Each FILE = one complete strategy idea
+#   - Perfect for auto-generated strategies from web search agent!
+#
+STRATEGIES_FROM_FILES = False  # Set to True to read from folder instead of ideas.txt
+STRATEGIES_FOLDER = "/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/web_search_research/final_strategies"
+
 # Thread color mapping
 THREAD_COLORS = {
     0: "cyan",
@@ -98,31 +117,48 @@ THREAD_COLORS = {
 console_lock = Lock()
 api_lock = Lock()
 file_lock = Lock()
+date_lock = Lock()  # 🌙 Moon Dev: Lock for date checking/updating
 
 # Rate limiter
 rate_limiter = Semaphore(MAX_PARALLEL_THREADS)
 
-# Model Configurations (same as v3)
+# 🌙 Moon Dev's Model Configurations
+# Available types: "claude", "openai", "deepseek", "groq", "gemini", "xai", "ollama", "openrouter"
+#
+# OpenRouter Models (just set type="openrouter" and pick any model below):
+# - Gemini: google/gemini-2.5-pro, google/gemini-2.5-flash
+# - Qwen: qwen/qwen3-vl-32b-instruct, qwen/qwen3-max
+# - DeepSeek: deepseek/deepseek-r1-0528
+# - OpenAI: openai/gpt-4.5-preview, openai/gpt-5, openai/gpt-5-mini, openai/gpt-5-nano
+# - Claude: anthropic/claude-sonnet-4.5, anthropic/claude-haiku-4.5, anthropic/claude-opus-4.1
+# - GLM: z-ai/glm-4.6
+# See src/models/openrouter_model.py for ALL available models!
+
+# 🧠 RESEARCH: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 RESEARCH_CONFIG = {
     "type": "xai",
     "name": "grok-4-fast-reasoning"
 }
 
+# 💻 BACKTEST CODE GEN: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 BACKTEST_CONFIG = {
     "type": "xai",
     "name": "grok-4-fast-reasoning"
 }
 
+# 🐛 DEBUGGING: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 DEBUG_CONFIG = {
     "type": "xai",
     "name": "grok-4-fast-reasoning"
 }
 
+# 📦 PACKAGE CHECK: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 PACKAGE_CONFIG = {
     "type": "xai",
     "name": "grok-4-fast-reasoning"
 }
 
+# 🚀 OPTIMIZATION: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 OPTIMIZE_CONFIG = {
     "type": "xai",
     "name": "grok-4-fast-reasoning"
@@ -139,30 +175,66 @@ EXECUTION_TIMEOUT = 300  # 5 minutes
 # DeepSeek Configuration
 DEEPSEEK_BASE_URL = "https://api.deepseek.com"
 
-# Get today's date for organizing outputs
-TODAY_DATE = datetime.now().strftime("%m_%d_%Y")
+# 🌙 Moon Dev: Date tracking for always-on mode - will update when date changes!
+CURRENT_DATE = datetime.now().strftime("%m_%d_%Y")
 
 # Update data directory paths - Parallel Multi-Data version uses its own folder
 PROJECT_ROOT = Path(__file__).parent.parent
 DATA_DIR = PROJECT_ROOT / "data/rbi_pp_multi"
-TODAY_DIR = DATA_DIR / TODAY_DATE
-RESEARCH_DIR = TODAY_DIR / "research"
-BACKTEST_DIR = TODAY_DIR / "backtests"
-PACKAGE_DIR = TODAY_DIR / "backtests_package"
-WORKING_BACKTEST_DIR = TODAY_DIR / "backtests_working"  # Moon Dev's working iterations!
-FINAL_BACKTEST_DIR = TODAY_DIR / "backtests_final"
-OPTIMIZATION_DIR = TODAY_DIR / "backtests_optimized"
-CHARTS_DIR = TODAY_DIR / "charts"
-EXECUTION_DIR = TODAY_DIR / "execution_results"
+
+# 🌙 Moon Dev: These will be updated dynamically when date changes
+TODAY_DIR = None
+RESEARCH_DIR = None
+BACKTEST_DIR = None
+PACKAGE_DIR = None
+WORKING_BACKTEST_DIR = None
+FINAL_BACKTEST_DIR = None
+OPTIMIZATION_DIR = None
+CHARTS_DIR = None
+EXECUTION_DIR = None
+
 PROCESSED_IDEAS_LOG = DATA_DIR / "processed_ideas.log"
 STATS_CSV = DATA_DIR / "backtest_stats.csv"  # Moon Dev's stats tracker!
-
 IDEAS_FILE = DATA_DIR / "ideas.txt"
 
-# Create main directories if they don't exist
-for dir in [DATA_DIR, TODAY_DIR, RESEARCH_DIR, BACKTEST_DIR, PACKAGE_DIR,
-            WORKING_BACKTEST_DIR, FINAL_BACKTEST_DIR, OPTIMIZATION_DIR, CHARTS_DIR, EXECUTION_DIR]:
-    dir.mkdir(parents=True, exist_ok=True)
+def update_date_folders():
+    """
+    🌙 Moon Dev's Date Folder Updater!
+    Checks if date has changed and updates all folder paths accordingly.
+    Thread-safe and works in always-on mode! 🚀
+    """
+    global CURRENT_DATE, TODAY_DIR, RESEARCH_DIR, BACKTEST_DIR, PACKAGE_DIR
+    global WORKING_BACKTEST_DIR, FINAL_BACKTEST_DIR, OPTIMIZATION_DIR, CHARTS_DIR, EXECUTION_DIR
+
+    with date_lock:
+        new_date = datetime.now().strftime("%m_%d_%Y")
+
+        # Check if date has changed
+        if new_date != CURRENT_DATE:
+            with console_lock:
+                cprint(f"\n🌅 NEW DAY DETECTED! {CURRENT_DATE} → {new_date}", "cyan", attrs=['bold'])
+                cprint(f"📁 Creating new folder structure for {new_date}...\n", "yellow")
+
+            CURRENT_DATE = new_date
+
+        # Update all directory paths (whether date changed or first run)
+        TODAY_DIR = DATA_DIR / CURRENT_DATE
+        RESEARCH_DIR = TODAY_DIR / "research"
+        BACKTEST_DIR = TODAY_DIR / "backtests"
+        PACKAGE_DIR = TODAY_DIR / "backtests_package"
+        WORKING_BACKTEST_DIR = TODAY_DIR / "backtests_working"
+        FINAL_BACKTEST_DIR = TODAY_DIR / "backtests_final"
+        OPTIMIZATION_DIR = TODAY_DIR / "backtests_optimized"
+        CHARTS_DIR = TODAY_DIR / "charts"
+        EXECUTION_DIR = TODAY_DIR / "execution_results"
+
+        # Create directories if they don't exist
+        for dir in [DATA_DIR, TODAY_DIR, RESEARCH_DIR, BACKTEST_DIR, PACKAGE_DIR,
+                    WORKING_BACKTEST_DIR, FINAL_BACKTEST_DIR, OPTIMIZATION_DIR, CHARTS_DIR, EXECUTION_DIR]:
+            dir.mkdir(parents=True, exist_ok=True)
+
+# 🌙 Moon Dev: Initialize folders on startup!
+update_date_folders()
 
 # ============================================
 # 🎨 THREAD-SAFE PRINTING
@@ -204,6 +276,127 @@ def rate_limited_api_call(func, thread_id, *args, **kwargs):
     time.sleep(RATE_LIMIT_DELAY)
 
     return result
+
+# ============================================
+# 📄 PDF & YOUTUBE EXTRACTION - Moon Dev
+# ============================================
+
+def get_youtube_transcript(video_id, thread_id):
+    """Get transcript from YouTube video - Moon Dev"""
+    try:
+        try:
+            from youtube_transcript_api import YouTubeTranscriptApi
+        except ImportError:
+            thread_print("⚠️ youtube-transcript-api not installed", thread_id, "yellow")
+            return None
+
+        thread_print(f"🎥 Fetching transcript for video ID: {video_id}", thread_id, "cyan")
+
+        # 🌙 Moon Dev: Using youtube-transcript-api v1.2.3+ API
+        api = YouTubeTranscriptApi()
+        transcript_data = api.fetch(video_id, languages=['en'])
+
+        # Get the full transcript text
+        transcript_text = ' '.join([snippet.text for snippet in transcript_data])
+
+        thread_print(f"✅ Transcript extracted! Length: {len(transcript_text)} characters", thread_id, "green")
+
+        # 🌙 Moon Dev: Print first 300 characters for verification
+        preview = transcript_text[:300].replace('\n', ' ')
+        thread_print(f"📝 Preview: {preview}...", thread_id, "cyan")
+
+        return transcript_text
+    except Exception as e:
+        thread_print(f"❌ Error fetching YouTube transcript: {e}", thread_id, "red")
+        return None
+
+def get_pdf_text(url, thread_id):
+    """Extract text from PDF URL - Moon Dev"""
+    try:
+        try:
+            import PyPDF2
+        except ImportError:
+            thread_print("⚠️ PyPDF2 not installed", thread_id, "yellow")
+            return None
+
+        thread_print(f"📚 Fetching PDF from: {url[:60]}...", thread_id, "cyan")
+
+        # Add headers to simulate browser request
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+        }
+
+        response = requests.get(url, stream=True, headers=headers)
+        response.raise_for_status()
+
+        thread_print("📖 Extracting text from PDF...", thread_id, "cyan")
+        reader = PyPDF2.PdfReader(BytesIO(response.content))
+        text = ''
+        for page in reader.pages:
+            page_text = page.extract_text()
+            text += page_text + '\n'
+
+        thread_print(f"✅ PDF extracted! Pages: {len(reader.pages)}, Length: {len(text)} characters", thread_id, "green")
+
+        # 🌙 Moon Dev: Print first 300 characters for verification
+        preview = text[:300].replace('\n', ' ')
+        thread_print(f"📝 Preview: {preview}...", thread_id, "cyan")
+
+        return text
+    except Exception as e:
+        thread_print(f"❌ Error reading PDF: {e}", thread_id, "red")
+        return None
+
+def extract_youtube_id(url):
+    """Extract video ID from YouTube URL - Moon Dev"""
+    try:
+        if "v=" in url:
+            video_id = url.split("v=")[1].split("&")[0]
+        else:
+            video_id = url.split("/")[-1].split("?")[0]
+        return video_id
+    except:
+        return None
+
+def extract_content_from_url(idea: str, thread_id: int) -> str:
+    """
+    🌙 Moon Dev: Extract content from PDF or YouTube URLs
+    Returns extracted content or original idea if not a URL
+    """
+    idea = idea.strip()
+
+    # Check if it's a YouTube URL
+    if "youtube.com" in idea or "youtu.be" in idea:
+        video_id = extract_youtube_id(idea)
+        if video_id:
+            transcript = get_youtube_transcript(video_id, thread_id)
+            if transcript:
+                return f"Strategy from YouTube video:\n\n{transcript}"
+            else:
+                # Red background warning
+                with console_lock:
+                    cprint("="*80, "white", "on_red", attrs=['bold'])
+                    cprint(f"⚠️  YOUTUBE EXTRACTION FAILED - Sleeping 30s", "white", "on_red", attrs=['bold'])
+                    cprint("="*80, "white", "on_red", attrs=['bold'])
+                time.sleep(30)
+                return idea  # Return original idea to continue processing
+
+    # Check if it's a PDF URL
+    elif idea.endswith(".pdf") or "pdf" in idea.lower():
+        pdf_text = get_pdf_text(idea, thread_id)
+        if pdf_text:
+            return f"Strategy from PDF document:\n\n{pdf_text}"
+        else:
+            # Red background warning
+            with console_lock:
+                cprint("="*80, "white", "on_red", attrs=['bold'])
+                cprint(f"⚠️  PDF EXTRACTION FAILED - Sleeping 30s", "white", "on_red", attrs=['bold'])
+                cprint("="*80, "white", "on_red", attrs=['bold'])
+            time.sleep(30)
+            return idea  # Return original idea to continue processing
+
+    # Not a URL, return as-is
+    return idea
 
 # ============================================
 # 📝 PROMPTS (Same as v3)
@@ -250,7 +443,14 @@ Remember: The name must be UNIQUE and SPECIFIC to this strategy's approach!
 """
 
 BACKTEST_PROMPT = """
-You are Moon Dev's Backtest AI 🌙 ONLY SEND BACK CODE, NO OTHER TEXT.
+You are Moon Dev's Backtest AI 🌙
+
+🚨 CRITICAL: Your code MUST have TWO parts:
+PART 1: Strategy class definition
+PART 2: if __name__ == "__main__" block (SEE TEMPLATE BELOW - MANDATORY!)
+
+If you don't include the if __name__ == "__main__" block with stats printing, the code will FAIL!
+
 Create a backtesting.py implementation for the strategy.
 USE BACKTESTING.PY
 Include:
@@ -315,8 +515,12 @@ datetime, open, high, low, close, volume,
 
 Always add plenty of Moon Dev themed debug prints with emojis to make debugging easier! 🌙 ✨ 🚀
 
-MULTI-DATA TESTING REQUIREMENT:
-At the VERY END of your code (after all strategy definitions), you MUST add this EXACT block:
+🚨🚨🚨 MANDATORY EXECUTION BLOCK - DO NOT SKIP THIS! 🚨🚨🚨
+
+YOU ABSOLUTELY MUST INCLUDE THIS BLOCK AT THE END OF YOUR CODE!
+WITHOUT THIS BLOCK, THE STATS CANNOT BE PARSED AND THE BACKTEST WILL FAIL!
+
+Copy this EXACT template and replace YourStrategyClassName with your actual class name:
 
 ```python
 # 🌙 MOON DEV'S MULTI-DATA TESTING FRAMEWORK 🚀
@@ -324,8 +528,27 @@ At the VERY END of your code (after all strategy definitions), you MUST add this
 if __name__ == "__main__":
     import sys
     import os
+    from backtesting import Backtest
+    import pandas as pd
 
-    # Import the multi-data tester from Moon Dev's trading bots repo
+    # FIRST: Run standard backtest and print stats (REQUIRED for parsing!)
+    print("\\n🌙 Running initial backtest for stats extraction...")
+    data = pd.read_csv('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv')
+    data['datetime'] = pd.to_datetime(data['datetime'])
+    data = data.set_index('datetime')
+    data.columns = ['Open', 'High', 'Low', 'Close', 'Volume']
+
+    bt = Backtest(data, YourStrategyClassName, cash=1_000_000, commission=0.002)
+    stats = bt.run()
+
+    # 🌙 CRITICAL: Print full stats for Moon Dev's parser!
+    print("\\n" + "="*80)
+    print("📊 BACKTEST STATISTICS (Moon Dev's Format)")
+    print("="*80)
+    print(stats)
+    print("="*80 + "\\n")
+
+    # THEN: Run multi-data testing
     sys.path.append('/Users/md/Dropbox/dev/github/moon-dev-trading-bots/backtests')
     from multi_data_tester import test_on_all_data
 
@@ -347,6 +570,15 @@ if __name__ == "__main__":
 
 IMPORTANT: Replace 'YourStrategyClassName' with your actual strategy class name!
 IMPORTANT: Replace 'YourStrategyName' with a descriptive name for the CSV output!
+
+🚨 FINAL REMINDER 🚨
+Your response MUST include:
+1. Import statements
+2. Strategy class (with init() and next() methods)
+3. The if __name__ == "__main__" block shown above (MANDATORY!)
+
+Do NOT send ONLY the strategy class. You MUST include the execution block!
+ONLY SEND BACK CODE, NO OTHER TEXT.
 
 FOR THE PYTHON BACKTESTING LIBRARY USE BACKTESTING.PY AND SEND BACK ONLY THE CODE, NO OTHER TEXT.
 ONLY SEND BACK CODE, NO OTHER TEXT.
@@ -572,7 +804,12 @@ def parse_all_stats_from_output(stdout: str, thread_id: int) -> dict:
         if match:
             stats['trades'] = int(match.group(1))
 
-        thread_print(f"📊 Extracted {sum(1 for v in stats.values() if v is not None)}/7 stats", thread_id)
+        # 🌙 Moon Dev: Exposure Time [%]
+        match = re.search(r'Exposure Time \[%\]\s+([-\d.]+)', stdout)
+        if match:
+            stats['exposure'] = float(match.group(1))
+
+        thread_print(f"📊 Extracted {sum(1 for v in stats.values() if v is not None)}/8 stats", thread_id)
         return stats
 
     except Exception as e:
@@ -603,6 +840,7 @@ def log_stats_to_csv(strategy_name: str, thread_id: int, stats: dict, file_path:
                         'Max Drawdown %',
                         'Sharpe Ratio',
                         'Sortino Ratio',
+                        'Exposure %',  # 🌙 Moon Dev: Added Exposure Time
                         'EV %',  # 🌙 Moon Dev: Changed from Expectancy %
                         'Trades',  # 🌙 Moon Dev: Added # Trades
                         'File Path',
@@ -622,6 +860,7 @@ def log_stats_to_csv(strategy_name: str, thread_id: int, stats: dict, file_path:
                     stats.get('max_drawdown_pct', 'N/A'),
                     stats.get('sharpe', 'N/A'),
                     stats.get('sortino', 'N/A'),
+                    stats.get('exposure', 'N/A'),  # 🌙 Moon Dev: Added Exposure %
                     stats.get('expectancy', 'N/A'),
                     stats.get('trades', 'N/A'),  # 🌙 Moon Dev: Added # Trades
                     str(file_path),
@@ -677,6 +916,7 @@ def parse_and_log_multi_data_results(strategy_name: str, thread_id: int, backtes
                 'max_drawdown_pct': row.get('Max_DD_%', None),
                 'sharpe': row.get('Sharpe', None),
                 'sortino': row.get('Sortino', None),
+                'exposure': row.get('Exposure_Time_%', None),  # 🌙 Moon Dev: Added Exposure % (matches multi_data_tester.py column name)
                 'expectancy': row.get('Expectancy_%', None),
                 'trades': row.get('Trades', None)  # 🌙 Moon Dev: Added # Trades
             }
@@ -913,13 +1153,28 @@ def clean_model_output(output, content_type="text"):
     if content_type == "code" and "```" in cleaned_output:
         try:
             import re
+            # Try to extract code blocks with closing ```
             code_blocks = re.findall(r'```python\n(.*?)\n```', cleaned_output, re.DOTALL)
             if not code_blocks:
                 code_blocks = re.findall(r'```(?:python)?\n(.*?)\n```', cleaned_output, re.DOTALL)
-            if code_blocks:
+
+            # If no complete blocks found, try extracting from opening fence to end
+            if not code_blocks:
+                # Handle case where code starts with ```python but no closing ```
+                match = re.search(r'```(?:python)?\s*\n(.*)', cleaned_output, re.DOTALL)
+                if match:
+                    cleaned_output = match.group(1).strip()
+                    # Remove any trailing ``` if present
+                    if cleaned_output.endswith('```'):
+                        cleaned_output = cleaned_output[:-3].strip()
+            else:
                 cleaned_output = "\n\n".join(code_blocks)
         except Exception as e:
             thread_print(f"❌ Error extracting code: {str(e)}", 0, "red")
+
+    # 🌙 Moon Dev: Final cleanup - strip any remaining markdown fences
+    if content_type == "code":
+        cleaned_output = cleaned_output.replace('```python', '').replace('```', '').strip()
 
     return cleaned_output
 
@@ -1077,10 +1332,16 @@ def process_trading_idea_parallel(idea: str, thread_id: int) -> dict:
     This is the worker function for each parallel thread
     """
     try:
+        # 🌙 Moon Dev: Check if date has changed and update folders!
+        update_date_folders()
+
         thread_print(f"🚀 Starting processing", thread_id, attrs=['bold'])
 
+        # 🌙 Moon Dev: Extract content from PDF/YouTube if URL provided
+        processed_idea = extract_content_from_url(idea, thread_id)
+
         # Phase 1: Research
-        strategy, strategy_name = research_strategy(idea, thread_id)
+        strategy, strategy_name = research_strategy(processed_idea, thread_id)
 
         if not strategy:
             thread_print("❌ Research failed", thread_id, "red")
@@ -1332,18 +1593,47 @@ def process_trading_idea_parallel(idea: str, thread_id: int) -> dict:
         thread_print(f"❌ FATAL ERROR: {str(e)}", thread_id, "red", attrs=['bold'])
         return {"success": False, "error": str(e), "thread_id": thread_id}
 
+def get_strategies_from_files():
+    """🌙 Moon Dev: Read all .md and .txt files from STRATEGIES_FOLDER"""
+    strategies = []
+    folder_path = Path(STRATEGIES_FOLDER)
+
+    if not folder_path.exists():
+        return strategies
+
+    # Get all .md and .txt files
+    for file_path in folder_path.glob('*'):
+        if file_path.suffix.lower() in ['.md', '.txt']:
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    content = f.read().strip()
+                    if content:  # Only add non-empty files
+                        strategies.append(content)
+            except Exception as e:
+                with console_lock:
+                    cprint(f"⚠️ Error reading {file_path.name}: {str(e)}", "yellow")
+
+    return strategies
+
+
 def idea_monitor_thread(idea_queue: Queue, queued_ideas: set, queued_lock: Lock, stop_flag: dict):
-    """🌙 Moon Dev: Producer thread - continuously monitors ideas.txt and queues new ideas"""
+    """🌙 Moon Dev: Producer thread - monitors ideas.txt OR strategy files and queues new ideas"""
     global IDEAS_FILE
 
     while not stop_flag.get('stop', False):
         try:
-            if not IDEAS_FILE.exists():
-                time.sleep(1)
-                continue
+            # 🌙 Moon Dev: Check which mode we're in
+            if STRATEGIES_FROM_FILES:
+                # MODE: Read from files
+                ideas = get_strategies_from_files()
+            else:
+                # MODE: Read from ideas.txt (classic behavior)
+                if not IDEAS_FILE.exists():
+                    time.sleep(1)
+                    continue
 
-            with open(IDEAS_FILE, 'r') as f:
-                ideas = [line.strip() for line in f if line.strip() and not line.startswith('#')]
+                with open(IDEAS_FILE, 'r') as f:
+                    ideas = [line.strip() for line in f if line.strip() and not line.startswith('#')]
 
             # Find new unprocessed ideas
             for idea in ideas:
@@ -1430,7 +1720,7 @@ def main(ideas_file_path=None, run_name=None):
     cprint(f"🌟 Moon Dev's RBI AI v3.0 PARALLEL PROCESSOR + MULTI-DATA 🚀", "cyan", attrs=['bold'])
     cprint(f"{'='*60}", "cyan", attrs=['bold'])
 
-    cprint(f"\n📅 Date: {TODAY_DATE}", "magenta")
+    cprint(f"\n📅 Date: {CURRENT_DATE}", "magenta")
     cprint(f"🎯 Target Return: {TARGET_RETURN}%", "green", attrs=['bold'])
     cprint(f"🔀 Max Parallel Threads: {MAX_PARALLEL_THREADS}", "yellow", attrs=['bold'])
     cprint(f"🐍 Conda env: {CONDA_ENV}", "cyan")
@@ -1440,6 +1730,24 @@ def main(ideas_file_path=None, run_name=None):
         cprint(f"📁 Run Name: {run_name}\n", "green", attrs=['bold'])
     else:
         cprint("", "white")
+
+    # 🌙 Moon Dev: Show VERY CLEAR configuration mode
+    cprint(f"\n{'='*60}", "white", attrs=['bold'])
+    if STRATEGIES_FROM_FILES:
+        cprint(f"📁 STRATEGY SOURCE: FILES FROM FOLDER", "green", attrs=['bold'])
+        cprint(f"📂 Folder: {STRATEGIES_FOLDER}", "yellow")
+        # Count files
+        folder_path = Path(STRATEGIES_FOLDER)
+        if folder_path.exists():
+            file_count = len([f for f in folder_path.glob('*') if f.suffix.lower() in ['.md', '.txt']])
+            cprint(f"📊 Found {file_count} strategy files (.md/.txt)", "cyan", attrs=['bold'])
+        else:
+            cprint(f"⚠️  Folder does not exist yet!", "red")
+    else:
+        cprint(f"📝 STRATEGY SOURCE: ideas.txt (line by line)", "cyan", attrs=['bold'])
+        cprint(f"📄 File: {IDEAS_FILE}", "yellow")
+        cprint(f"💡 Classic mode - one strategy per line", "white")
+    cprint(f"{'='*60}\n", "white", attrs=['bold'])
 
     # Create template if needed
     if not IDEAS_FILE.exists():
@@ -1455,7 +1763,10 @@ def main(ideas_file_path=None, run_name=None):
 
     # 🌙 Moon Dev: CONTINUOUS QUEUE MODE
     cprint(f"\n🔄 CONTINUOUS QUEUE MODE ACTIVATED", "cyan", attrs=['bold'])
-    cprint(f"⏰ Monitoring ideas.txt every 1 second", "yellow")
+    if STRATEGIES_FROM_FILES:
+        cprint(f"⏰ Monitoring strategy files in folder every 1 second", "yellow")
+    else:
+        cprint(f"⏰ Monitoring ideas.txt every 1 second", "yellow")
     cprint(f"🧵 {MAX_PARALLEL_THREADS} worker threads ready\n", "yellow")
 
     # Shared queue, queued ideas set, and stats
@@ -1488,6 +1799,9 @@ def main(ideas_file_path=None, run_name=None):
     try:
         while True:
             time.sleep(5)  # Status update every 5 seconds
+
+            # 🌙 Moon Dev: Check for date changes periodically (even when idle!)
+            update_date_folders()
 
             with console_lock:
                 if stats['active'] > 0 or not idea_queue.empty():

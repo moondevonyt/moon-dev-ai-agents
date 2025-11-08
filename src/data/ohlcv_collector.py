@@ -18,10 +18,10 @@ def collect_token_data(token, days_back=DAYSBACK_4_DATA, timeframe=DATA_TIMEFRAM
     """Collect OHLCV data for a single token
 
     Args:
-        token: Token symbol (BTC, ETH) for Aster/HyperLiquid OR contract address for Solana
+        token: Token symbol (BTC, ETH) for Aster/HyperLiquid/Extended OR contract address for Solana
         days_back: Days of historical data to fetch
         timeframe: Candle timeframe (1m, 5m, 15m, 1H, etc.)
-        exchange: "SOLANA", "ASTER", or "HYPERLIQUID"
+        exchange: "SOLANA", "ASTER", "HYPERLIQUID", or "EXTENDED"
     """
     cprint(f"\n🤖 Moon Dev's AI Agent fetching data for {token}...", "white", "on_blue")
 
@@ -51,6 +51,10 @@ def collect_token_data(token, days_back=DAYSBACK_4_DATA, timeframe=DATA_TIMEFRAM
         elif exchange == "ASTER":
             # Use HyperLiquid API for Aster symbols too (same symbols, same data)
             cprint(f"🏦 Using HyperLiquid API for {token} (Aster symbols)", "cyan")
+            data = hl.get_data(symbol=token, timeframe=hl_timeframe, bars=bars_needed, add_indicators=True)
+        elif exchange == "EXTENDED":
+            # Use HyperLiquid API for Extended symbols (same data source)
+            cprint(f"🏦 Using HyperLiquid API for {token} (Extended symbols)", "cyan")
             data = hl.get_data(symbol=token, timeframe=hl_timeframe, bars=bars_needed, add_indicators=True)
         else:
             # Default: Use Solana/Birdeye API
@@ -87,10 +91,10 @@ def collect_all_tokens(tokens=None, days_back=None, timeframe=None, exchange="SO
     Collect OHLCV data for all monitored tokens
 
     Args:
-        tokens: List of token symbols (BTC, ETH for Aster/HyperLiquid) OR addresses (for Solana)
+        tokens: List of token symbols (BTC, ETH for Aster/HyperLiquid/Extended) OR addresses (for Solana)
         days_back: Days of historical data (defaults to DAYSBACK_4_DATA from config)
         timeframe: Bar timeframe (defaults to DATA_TIMEFRAME from config)
-        exchange: "SOLANA", "ASTER", or "HYPERLIQUID"
+        exchange: "SOLANA", "ASTER", "HYPERLIQUID", or "EXTENDED"
     """
     market_data = {}
 

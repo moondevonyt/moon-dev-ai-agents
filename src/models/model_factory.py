@@ -18,6 +18,7 @@ from .gemini_model import GeminiModel  # Re-enabled with Gemini 2.5 models
 from .deepseek_model import DeepSeekModel
 from .ollama_model import OllamaModel
 from .xai_model import XAIModel
+from .openrouter_model import OpenRouterModel  # 🌙 Moon Dev: OpenRouter - access to 200+ models!
 import random
 
 class ModelFactory:
@@ -31,7 +32,8 @@ class ModelFactory:
         "gemini": GeminiModel,  # Re-enabled with Gemini 2.5 models
         "deepseek": DeepSeekModel,
         "ollama": OllamaModel,  # Add Ollama implementation
-        "xai": XAIModel  # xAI Grok models
+        "xai": XAIModel,  # xAI Grok models
+        "openrouter": OpenRouterModel  # 🌙 Moon Dev: OpenRouter - 200+ models!
     }
     
     # Default models for each type
@@ -42,7 +44,8 @@ class ModelFactory:
         "gemini": "gemini-2.5-flash",        # Fast Gemini 2.5 model
         "deepseek": "deepseek-reasoner",     # Enhanced reasoning model
         "ollama": "llama3.2",                # Meta's Llama 3.2 - balanced performance
-        "xai": "grok-4-fast-reasoning"       # xAI's Grok 4 Fast with reasoning (best value: 2M context, cheap!)
+        "xai": "grok-4-fast-reasoning",      # xAI's Grok 4 Fast with reasoning (best value: 2M context, cheap!)
+        "openrouter": "google/gemini-2.5-flash"  # 🌙 Moon Dev: OpenRouter default - fast & cheap Gemini!
     }
     
     def __init__(self):
@@ -67,7 +70,7 @@ class ModelFactory:
         
         # Debug current environment without exposing values
         cprint("\n🔍 Environment Check:", "cyan")
-        for key in ["GROQ_API_KEY", "OPENAI_KEY", "ANTHROPIC_KEY", "DEEPSEEK_KEY", "GROK_API_KEY", "GEMINI_KEY"]:
+        for key in ["GROQ_API_KEY", "OPENAI_KEY", "ANTHROPIC_KEY", "DEEPSEEK_KEY", "GROK_API_KEY", "GEMINI_KEY", "OPENROUTER_API_KEY"]:
             value = os.getenv(key)
             if value and len(value.strip()) > 0:
                 cprint(f"  ├─ {key}: Found ({len(value)} chars)", "green")
@@ -214,6 +217,7 @@ class ModelFactory:
             "gemini": "GEMINI_KEY",  # Re-enabled with Gemini 2.5 models
             "deepseek": "DEEPSEEK_KEY",
             "xai": "GROK_API_KEY",  # Grok/xAI uses GROK_API_KEY
+            "openrouter": "OPENROUTER_API_KEY",  # 🌙 Moon Dev: OpenRouter - 200+ models!
             # Ollama doesn't need an API key as it runs locally
         }
     

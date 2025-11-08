@@ -108,6 +108,7 @@ src/frontend/
 src/data/ai_analysis_buys.csv
 src/data/chat_agent/knowledge_base.txt
 src/data/code_runner
+src/data/web_search_research/
 
 src/data/videos/raw_vids/howtouseo3fortrading.mov
 src/data/videos/finished_clips
@@ -162,3 +163,6 @@ binance_trades.csv
 
 # Ignore large video files (assistant)
 src/data/chat_agent/*.mov
+
+# Video Agent - Sora 2 generated videos
+src/data/video_agent/

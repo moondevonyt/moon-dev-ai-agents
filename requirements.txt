@@ -1,96 +1,639 @@
-# 🌙 Moon Dev's AI Trading Agents Requirements 🌙
-# Built with ❤️ by Moon Dev
-
-# ========== Core AI/LLM Dependencies ==========
+absl-py==2.1.0
+aiodns==3.2.0
+aiofiles==24.1.0
+aiohappyeyeballs==2.6.1
+aiohttp==3.10.11
+aiohttp-retry==2.9.1
+aiosignal==1.4.0
+anchorpy==0.20.1
+anchorpy-core==0.2.0
+annotated-types==0.7.0
 anthropic==0.40.0
-openai==1.59.5  # Also used for xAI (Grok) integration
-groq==0.16.0
+anyio==3.7.1
+apischema==0.17.5
+appnope==0.1.4
+APScheduler==3.11.0
+argon2-cffi==23.1.0
+argon2-cffi-bindings==21.2.0
+arrow==1.3.0
+asgiref==3.8.1
+astor==0.8.1
+asttokens==2.4.1
+astunparse==1.6.3
+async-lru==2.0.4
+async-timeout==5.0.1
+attrs==25.3.0
+auditwheel_emscripten==0.0.16
+av==14.4.0
+Babel==2.15.0
+backcall==0.2.0
+backoff==2.2.1
+backports.asyncio.runner==1.2.0
+Backtesting==0.3.3
+backtrader==1.9.78.123
+base58==2.1.1
+based58==0.1.1
+bcrypt==4.2.1
+beautifulsoup4==4.12.3
+bitarray==3.4.3
+bleach==6.1.0
+blessed==1.20.0
+blinker==1.8.2
+bokeh==3.4.0
+borsh-construct==0.1.0
+boto3==1.40.0
+botocore==1.40.0
+Bottleneck @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_2bxpizxa3c/croot/bottleneck_1707864819812/work
+Brotli @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_f7i0oxypt6/croot/brotli-split_1736182464088/work
+build==1.2.2.post1
+cachetools==4.2.4
+cbpro==1.1.4
+ccxt==4.2.87
+certifi @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_53iribkvo4/croot/certifi_1738623743875/work/certifi
+cffi==1.16.0
+char==0.1.2
+charset-normalizer @ file:///croot/charset-normalizer_1721748349566/work
+ckzg==2.1.1
+click==8.1.7
+cloudpickle==3.1.0
+cloudscraper==1.2.71
+cmake==3.31.2
+cmdstanpy==1.2.4
+colorama==0.4.6
+coloredlogs==15.0.1
+comm==0.2.2
+construct==2.10.68
+construct-typing==0.5.6
+contourpy==1.2.0
+crypto_cpp_py==1.4.5
+cryptography==42.0.5
+cssselect==1.2.0
+ctranslate2==4.6.0
+cycler==0.12.1
+Cython==0.29.37
+cytoolz==1.0.1
+dateparser==1.2.2
+deap==1.4.1
+debugpy==1.8.1
+decorator==4.4.2
+defusedxml==0.7.1
+Deprecated @ file:///home/conda/feedstock_root/build_artifacts/deprecated_1737986966356/work
+dill==0.3.9
+discord.py==2.3.2
+distlib==0.3.9
+distro==1.9.0
+docopt==0.6.2
+ecdsa==0.18.0
+editor==1.6.6
+elevenlabs==0.2.24
+emoji==2.14.0
+eth-abi==4.2.1
+eth-account==0.11.0
+eth-hash==0.7.1
+eth-keyfile==0.8.1
+eth-keys==0.7.0
+eth-rlp==1.0.1
+eth-typing==4.4.0
+eth-utils==2.3.2
+exceptiongroup==1.2.0
+executing==2.0.1
+fake-useragent==2.2.0
+fast-stark-crypto==0.3.8
+fastapi==0.115.5
+fastecdsa==2.3.2
+faster-whisper==1.1.1
+fastjsonschema==2.19.1
+feedparser==6.0.11
+ffmpeg-python==0.2.0
+filelock==3.15.4
+filetype==1.2.0
+Flask==3.0.3
+flask-cors==6.0.1
+flatbuffers==24.3.25
+fonttools==4.51.0
+fqdn==1.5.1
+frozendict==2.3.10
+frozenlist==1.7.0
+fsspec==2024.6.1
+future==1.0.0
+gast==0.5.4
+git-python==1.0.3
+gitdb==4.0.11
+GitPython==3.1.43
+google-ai-generativelanguage==0.6.10
+google-api-core==2.19.0
+google-api-python-client==2.156.0
+google-auth==2.29.0
+google-auth-httplib2==0.2.0
+google-auth-oauthlib==1.2.2
+google-cloud==0.34.0
+google-cloud-core==2.4.1
+google-cloud-speech==2.26.0
+google-cloud-storage==2.16.0
+google-crc32c==1.5.0
 google-generativeai==0.8.3
-# Note: xAI/Grok uses OpenAI client - no separate package needed
-# Note: google-generativeai may have protobuf conflicts
-# If issues occur, use: protobuf==4.25.1
-
-# ========== Crypto/Trading Dependencies ==========
-# Solana
+google-pasta==0.2.0
+google-resumable-media==2.7.0
+googleapis-common-protos==1.63.0
+greenlet==3.0.3
+groq==0.16.0
+grpcio @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_d2dk367etj/croot/grpc-split_1716834577849/work
+grpcio-status==1.62.2
+h11==0.14.0
+h5py==3.10.0
+hexbytes==0.3.1
+hmmlearn==0.3.2
+holidays==0.57
+html2image==2.0.4.3
+html5lib==1.1
+httpcore==1.0.7
+httplib2==0.22.0
+httptools==0.6.4
+httpx==0.28.1
+huggingface-hub==0.27.1
+humanfriendly==10.0
+hyperliquid-python-sdk==0.20.0
+ibapi==10.19.1
+idna==3.10
+imageio @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_c8zh9c28_k/croot/imageio_1738160231939/work
+imageio-ffmpeg @ file:///home/conda/feedstock_root/build_artifacts/imageio-ffmpeg_1737102630951/work
+imbalanced-learn==0.13.0
+importlib_metadata==8.0.0
+importlib_resources==6.4.5
+iniconfig==2.1.0
+inquirer==3.3.0
+ipykernel==6.29.4
+ipython==8.12.3
+ipython-genutils==0.2.0
+ipywidgets==7.8.1
+isodate==0.7.2
+isoduration==20.11.0
+itsdangerous==2.2.0
+jedi==0.19.1
+Jinja2==3.1.2
+jiter==0.11.1
+jmespath==1.0.1
+joblib==1.4.2
+json5==0.9.25
+jsonalias==0.1.1
+jsonpointer==2.4
+jsonrpcclient==4.0.3
+jsonrpcserver==5.0.9
+jsonschema==4.24.0
+jsonschema-specifications==2025.4.1
+jupyter-events==0.10.0
+jupyter-lsp==2.2.5
+jupyter_client==8.6.1
+jupyter_core==5.7.2
+jupyter_server==2.14.0
+jupyter_server_terminals==0.5.3
+jupyterlab==4.2.0
+jupyterlab-widgets==1.1.7
+jupyterlab_pygments==0.3.0
+jupyterlab_server==2.27.1
+keras==3.1.1
+keyboard==0.13.5
+kiwisolver==1.4.5
+langdetect==1.0.9
+lark==1.2.2
+leb128==1.0.8
+libclang==18.1.1
+lighter-sdk==0.1.3
+lighter-v1-python==1.0.7
+lightgbm==4.6.0
+litellm==1.40.8
+llvmlite @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_22a8mvi_vz/croot/llvmlite_1720455324093/work
+loky==3.4.1
+lru-dict==1.2.0
+lxml==5.2.1
+lz4==4.4.4
+Markdown==3.6
+markdown-it-py==3.0.0
+MarkupSafe==2.1.5
+marshmallow==3.26.1
+marshmallow-oneofschema==3.2.0
+marshmallow_dataclass==8.7.1
+matplotlib==3.7.1
+matplotlib-inline==0.1.7
+mdurl==0.1.2
+mistune==3.0.2
+ml-dtypes==0.3.2
+moralis==0.1.49
+more-itertools==8.14.0
+MouseInfo==0.1.3
+moviepy==1.0.3
+mpire==2.10.2
+mplfinance==0.12.10b0
+mpmath==1.3.0
+msgpack==1.0.8
+multidict==6.6.3
+multiprocess==0.70.17
+multitasking==0.0.11
+mypy_extensions==1.1.0
+namex==0.0.7
+narwhals==1.32.0
+nbclient==0.10.0
+nbconvert==7.16.4
+nbformat==5.10.4
+nest-asyncio==1.6.0
+networkx==3.3
+nltk==3.8.1
+noise==1.2.2
+notebook==7.2.0
+notebook_shim==0.2.4
+notion-client==2.2.1
+numba==0.60.0
+numexpr @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_45yefq0kt6/croot/numexpr_1696515289183/work
+numpy==1.26.2
+oauthlib==3.2.2
+onnxruntime==1.22.0
+open-interpreter==0.3.3
+openai==2.6.1
+openai-whisper==20231117
+opencv-python==4.10.0.84
+opt-einsum==3.3.0
+optree==0.11.0
+OSlash==0.6.3
+outcome==1.3.0.post0
+overrides==7.7.0
+packaging==24.0
+pandas==2.1.4
+pandas-ta==0.3.14b0
+pandocfilters==1.5.1
+paramiko==3.5.0
+parsel==1.9.1
+parsimonious==0.9.0
+parso==0.8.4
+pathlib==1.0.1
+pathos==0.3.3
+patsy==0.5.6
+pdfminer.six==20231228
+pdfplumber==0.11.0
+peewee==3.17.6
+pexpect==4.9.0
+pickleshare==0.7.5
+pillow==10.3.0
+pipreqs==0.5.0
+platformdirs==4.2.2
+playsound==1.3.0
+playwright==1.43.0
+plotly==6.0.1
+pluggy==1.6.0
+polars==1.11.0
+poly_eip712_structs==0.0.1
+poseidon_py==0.1.5
+pox==0.3.5
+ppft==1.7.6.9
+proglog @ file:///home/conda/feedstock_root/build_artifacts/proglog_1728452852274/work
+prometheus_client==0.20.0
+prompt-toolkit==3.0.43
+propcache==0.3.2
+prophet==1.1.6
+proto-plus==1.23.0
+protobuf==4.25.8
+psutil==5.9.8
+ptyprocess==0.7.0
+pure-eval==0.2.2
+py==1.11.0
+py-ecc==8.0.0
+py_clob_client==0.23.0
+py_order_utils==0.3.2
+pyaml==24.4.0
+pyarrow @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_36v5ad2oyu/croot/pyarrow_1721673857195/work/python
+pyasn1==0.6.0
+pyasn1_modules==0.4.0
+PyAudio==0.2.14
+PyAutoGUI==0.9.54
+pycares==4.4.0
+pycountry==24.6.1
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_pycparser_1733195786/work
+pycryptodome==3.23.0
+pydantic==2.12.1
+pydantic_core==2.41.3
+pyee==11.1.0
+pygame==2.6.0
+PyGetWindow==0.0.9
+PyGithub @ file:///home/conda/feedstock_root/build_artifacts/pygithub_1730939050081/work
+Pygments==2.17.2
+pyheck==0.1.5
+PyJWT @ file:///home/conda/feedstock_root/build_artifacts/pyjwt_1732782409051/work
+pykalman==0.9.7
+pymongo==3.5.1
+PyMsgBox==1.0.9
+PyMuPDF==1.24.13
+PyNaCl @ file:///Users/runner/miniforge3/conda-bld/pynacl_1725739297326/work
+pynput==1.8.1
+pyobjc==11.0
+pyobjc-core==11.0
+pyobjc-framework-Accessibility==11.0
+pyobjc-framework-Accounts==11.0
+pyobjc-framework-AddressBook==11.0
+pyobjc-framework-AdServices==11.0
+pyobjc-framework-AdSupport==11.0
+pyobjc-framework-AppleScriptKit==11.0
+pyobjc-framework-AppleScriptObjC==11.0
+pyobjc-framework-ApplicationServices==11.0
+pyobjc-framework-AppTrackingTransparency==11.0
+pyobjc-framework-AudioVideoBridging==11.0
+pyobjc-framework-AuthenticationServices==11.0
+pyobjc-framework-AutomaticAssessmentConfiguration==11.0
+pyobjc-framework-Automator==11.0
+pyobjc-framework-AVFoundation==11.0
+pyobjc-framework-AVKit==11.0
+pyobjc-framework-AVRouting==11.0
+pyobjc-framework-BackgroundAssets==11.0
+pyobjc-framework-BrowserEngineKit==11.0
+pyobjc-framework-BusinessChat==11.0
+pyobjc-framework-CalendarStore==11.0
+pyobjc-framework-CallKit==11.0
+pyobjc-framework-Carbon==11.0
+pyobjc-framework-CFNetwork==11.0
+pyobjc-framework-Cinematic==11.0
+pyobjc-framework-ClassKit==11.0
+pyobjc-framework-CloudKit==11.0
+pyobjc-framework-Cocoa==11.0
+pyobjc-framework-Collaboration==11.0
+pyobjc-framework-ColorSync==11.0
+pyobjc-framework-Contacts==11.0
+pyobjc-framework-ContactsUI==11.0
+pyobjc-framework-CoreAudio==11.0
+pyobjc-framework-CoreAudioKit==11.0
+pyobjc-framework-CoreBluetooth==11.0
+pyobjc-framework-CoreData==11.0
+pyobjc-framework-CoreHaptics==11.0
+pyobjc-framework-CoreLocation==11.0
+pyobjc-framework-CoreMedia==11.0
+pyobjc-framework-CoreMediaIO==11.0
+pyobjc-framework-CoreMIDI==11.0
+pyobjc-framework-CoreML==11.0
+pyobjc-framework-CoreMotion==11.0
+pyobjc-framework-CoreServices==11.0
+pyobjc-framework-CoreSpotlight==11.0
+pyobjc-framework-CoreText==11.0
+pyobjc-framework-CoreWLAN==11.0
+pyobjc-framework-CryptoTokenKit==11.0
+pyobjc-framework-DataDetection==11.0
+pyobjc-framework-DeviceCheck==11.0
+pyobjc-framework-DictionaryServices==11.0
+pyobjc-framework-DiscRecording==11.0
+pyobjc-framework-DiscRecordingUI==11.0
+pyobjc-framework-DiskArbitration==11.0
+pyobjc-framework-DVDPlayback==11.0
+pyobjc-framework-EventKit==11.0
+pyobjc-framework-ExceptionHandling==11.0
+pyobjc-framework-ExecutionPolicy==11.0
+pyobjc-framework-ExtensionKit==11.0
+pyobjc-framework-ExternalAccessory==11.0
+pyobjc-framework-FileProvider==11.0
+pyobjc-framework-FileProviderUI==11.0
+pyobjc-framework-FinderSync==11.0
+pyobjc-framework-FSEvents==11.0
+pyobjc-framework-GameCenter==11.0
+pyobjc-framework-GameController==11.0
+pyobjc-framework-GameKit==11.0
+pyobjc-framework-GameplayKit==11.0
+pyobjc-framework-HealthKit==11.0
+pyobjc-framework-ImageCaptureCore==11.0
+pyobjc-framework-InputMethodKit==11.0
+pyobjc-framework-InstallerPlugins==11.0
+pyobjc-framework-InstantMessage==11.0
+pyobjc-framework-Intents==11.0
+pyobjc-framework-IntentsUI==11.0
+pyobjc-framework-IOBluetooth==11.0
+pyobjc-framework-IOBluetoothUI==11.0
+pyobjc-framework-IOSurface==11.0
+pyobjc-framework-iTunesLibrary==11.0
+pyobjc-framework-KernelManagement==11.0
+pyobjc-framework-LatentSemanticMapping==11.0
+pyobjc-framework-LaunchServices==11.0
+pyobjc-framework-libdispatch==11.0
+pyobjc-framework-libxpc==11.0
+pyobjc-framework-LinkPresentation==11.0
+pyobjc-framework-LocalAuthentication==11.0
+pyobjc-framework-LocalAuthenticationEmbeddedUI==11.0
+pyobjc-framework-MailKit==11.0
+pyobjc-framework-MapKit==11.0
+pyobjc-framework-MediaAccessibility==11.0
+pyobjc-framework-MediaLibrary==11.0
+pyobjc-framework-MediaPlayer==11.0
+pyobjc-framework-MediaToolbox==11.0
+pyobjc-framework-Metal==11.0
+pyobjc-framework-MetalFX==11.0
+pyobjc-framework-MetalKit==11.0
+pyobjc-framework-MetalPerformanceShaders==11.0
+pyobjc-framework-MetalPerformanceShadersGraph==11.0
+pyobjc-framework-MetricKit==11.0
+pyobjc-framework-MLCompute==11.0
+pyobjc-framework-ModelIO==11.0
+pyobjc-framework-MultipeerConnectivity==11.0
+pyobjc-framework-NaturalLanguage==11.0
+pyobjc-framework-NetFS==11.0
+pyobjc-framework-Network==11.0
+pyobjc-framework-NetworkExtension==11.0
+pyobjc-framework-NotificationCenter==11.0
+pyobjc-framework-OpenDirectory==11.0
+pyobjc-framework-OSAKit==11.0
+pyobjc-framework-OSLog==11.0
+pyobjc-framework-PassKit==11.0
+pyobjc-framework-PencilKit==11.0
+pyobjc-framework-PHASE==11.0
+pyobjc-framework-Photos==11.0
+pyobjc-framework-PhotosUI==11.0
+pyobjc-framework-PreferencePanes==11.0
+pyobjc-framework-PushKit==11.0
+pyobjc-framework-Quartz==11.0
+pyobjc-framework-QuickLookThumbnailing==11.0
+pyobjc-framework-ReplayKit==11.0
+pyobjc-framework-SafariServices==11.0
+pyobjc-framework-SafetyKit==11.0
+pyobjc-framework-SceneKit==11.0
+pyobjc-framework-ScreenCaptureKit==11.0
+pyobjc-framework-ScreenSaver==11.0
+pyobjc-framework-ScreenTime==11.0
+pyobjc-framework-ScriptingBridge==11.0
+pyobjc-framework-SearchKit==11.0
+pyobjc-framework-Security==11.0
+pyobjc-framework-SecurityFoundation==11.0
+pyobjc-framework-SecurityInterface==11.0
+pyobjc-framework-SensitiveContentAnalysis==11.0
+pyobjc-framework-ServiceManagement==11.0
+pyobjc-framework-SharedWithYou==11.0
+pyobjc-framework-SharedWithYouCore==11.0
+pyobjc-framework-ShazamKit==11.0
+pyobjc-framework-Social==11.0
+pyobjc-framework-SoundAnalysis==11.0
+pyobjc-framework-Speech==11.0
+pyobjc-framework-SpriteKit==11.0
+pyobjc-framework-StoreKit==11.0
+pyobjc-framework-Symbols==11.0
+pyobjc-framework-SyncServices==11.0
+pyobjc-framework-SystemConfiguration==11.0
+pyobjc-framework-SystemExtensions==11.0
+pyobjc-framework-ThreadNetwork==11.0
+pyobjc-framework-UniformTypeIdentifiers==11.0
+pyobjc-framework-UserNotifications==11.0
+pyobjc-framework-UserNotificationsUI==11.0
+pyobjc-framework-VideoSubscriberAccount==11.0
+pyobjc-framework-VideoToolbox==11.0
+pyobjc-framework-Virtualization==11.0
+pyobjc-framework-Vision==11.0
+pyobjc-framework-WebKit==11.0
+pyodide-build==0.25.1
+pyodide-cli==0.2.4
+pyodide-http==0.2.1
+pyodide-lock==0.1.0a4
+pyotp==2.9.0
+pyparsing==3.1.2
+PyPDF2==3.0.0
+pypdfium2==4.29.0
+pyperclip==1.8.2
+pyproject_hooks==1.2.0
+PyRect==0.2.0
+PyScreeze==0.1.30
+PySocks @ file:///Users/ktietz/ci_310/pysocks_1643961536721/work
+pytesseract==0.3.13
+pytest==8.4.1
+pytest-asyncio==1.1.0
+pytest-mock==3.14.1
+python-dateutil==2.8.2
+python-dotenv==1.0.0
+python-json-logger==2.0.7
+python-multipart==0.0.12
+pytube==15.0.0
+pytweening==1.2.0
+pytz==2025.2
+pyunormalize==16.0.0
+PyYAML==6.0.1
+pyzmq==26.0.3
+readchar==4.1.0
+referencing==0.36.2
+regex==2024.11.6
+replicate==0.32.0
+reportlab==4.0.7
+requests @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_ee45nsd33z/croot/requests_1730999134038/work
+requests-mock==1.12.1
+requests-oauthlib==1.3.1
+requests-toolbelt==1.0.0
+resolvelib==1.1.0
+rfc3339-validator==0.1.4
+rfc3986==1.5.0
+rfc3986-validator==0.1.1
+rich==13.7.1
+rlp==4.1.0
+rpds-py==0.26.0
+rsa==4.9
+ruamel.yaml==0.18.6
+ruamel.yaml.clib==0.2.12
+rubicon-objc==0.4.8
+runs==1.2.2
+s3transfer==0.13.1
+safetensors==0.5.2
+schedule==1.2.0
+scikit-learn==1.3.2
+scikit-optimize==0.10.1
+scipy==1.13.1
+seaborn==0.13.2
+selenium==4.20.0
+Send2Trash==1.8.3
+sgmllib3k==1.0.0
+shap==0.46.0
+shellingham==1.5.4
+six @ file:///tmp/build/80754af9/six_1644875935023/work
+sklearn-compat==0.1.3
+slicer==0.0.8
+smmap==5.0.1
+sniffio==1.3.1
+socksio==1.0.0
 solana==0.35.1
 solders==0.21.0
-
-# HyperLiquid (Updated for v0.20.0)
-hyperliquid-python-sdk==0.20.0
-eth-account==0.11.0
-web3==6.20.1
-
-# ========== Data & Analysis ==========
-pandas==2.1.4
-numpy==1.26.2
-pandas-ta==0.3.14b0
-TA-Lib==0.4.32  # Technical indicators
-Backtesting==0.3.3  # Backtesting framework
-yfinance==0.2.43  # For fetching Yahoo Finance data
-
-# ========== Utilities ==========
-python-dotenv==1.0.0
+sortedcontainers==2.4.0
+sounddevice==0.4.6
+soundfile==0.12.1
+soupsieve==2.5
+SpeechRecognition==3.10.4
+sse-starlette==2.2.1
+stack-data==0.6.3
+stanio==0.5.1
+starknet-py==0.27.0
+starlette==0.41.3
+statsmodels==0.14.2
+streamlink==7.5.0
+StrEnum==0.4.15
+sumtypes==0.1a6
+sympy==1.12
+ta==0.11.0
+TA-Lib==0.4.32
+tabulate==0.9.0
+tenacity==9.1.2
+tensorboard==2.16.2
+tensorboard-data-server==0.7.2
+tensorflow==2.16.1
+tensorflow-io-gcs-filesystem==0.36.0
+tensorflow-macos==2.16.1
+tensorflow-metal==1.1.0
 termcolor==2.3.0
-colorama==0.4.6  # For colored terminal output
-requests==2.31.0
+terminado==0.18.1
+threadpoolctl==3.5.0
+tiktoken==0.6.0
+tinycss2==1.3.0
+tokenizers==0.21.0
+tokentrim==0.1.13
+toml==0.10.2
+tomli==2.0.1
+toolz==1.0.0
+torch==2.4.1
+tornado==6.4
+tox==3.25.0
 tqdm==4.67.1
-pathlib
-schedule==1.2.0  # For scheduled tasks
-psutil==5.9.8  # System and process utilities
-asyncio  # Built-in, but noting for async support
-httpx==0.28.1  # Modern HTTP client
-
-# ========== Media Processing ==========
-# For real-time clips and video agents
-opencv-python==4.10.0.84
-pillow==10.3.0
-ffmpeg-python==0.2.0
+traitlets==5.14.3
+transformers==4.47.1
+trio==0.25.0
+trio-websocket==0.11.1
+tweepy==4.14.0
+twikit==2.2.1
+twilio==9.4.4
+typeguard==4.4.4
+typer==0.15.1
+types-cachetools==4.2.10
+types-python-dateutil==2.9.0.20240316
+types-requests==2.32.0.20241016
+typing-inspect==0.9.0
+typing-inspection==0.4.2
+typing_extensions==4.14.1
+tzdata @ file:///croot/python-tzdata_1690578112552/work
+tzlocal==5.3.1
+unearth==0.17.2
+uri-template==1.3.0
+uritemplate==4.1.1
+urllib3==2.0.7
+uvicorn==0.32.1
+uvloop==0.21.0
+virtualenv==20.28.0
+w3lib==2.1.2
+watchdog==6.0.0
+watchfiles==1.1.0
+Wave==0.0.2
+wcwidth==0.2.13
+web3==6.20.1
+webcolors==1.13
+webdriver-manager==4.0.2
+webencodings==0.5.1
+websocket-client==1.6.4
+websockets==12.0
+Werkzeug==3.0.2
+wget==3.2
 whisper==1.1.10
-openai-whisper==20231117
-elevenlabs==0.2.24
-
-# ========== Document Processing ==========
-PyPDF2==3.0.0
-youtube-transcript-api==0.6.2
-
-# ========== Social Media / Twitter ==========
-twikit==2.2.1  # Twitter API client
-
-# ========== Optional/Advanced ==========
-# Uncomment if needed for specific agents:
-# jupyter==1.0.0  # For notebook support
-# beautifulsoup4==4.12.0  # For web scraping
-# selenium==4.15.0  # For browser automation
-# playwright==1.40.0  # Alternative browser automation
-
-# ========== Notes ==========
-# Python version: 3.10.9 recommended
-# Environment: Use conda environment 'tflow'
-#
-# API Keys Required (in .env file):
-# - ANTHROPIC_KEY (Claude)
-# - OPENAI_KEY (GPT-4)
-# - GROK_API_KEY (xAI Grok - uses OpenAI client)
-# - GROQ_API_KEY (Groq)
-# - GEMINI_KEY (Google)
-# - DEEPSEEK_KEY (DeepSeek - if using)
-# - BIRDEYE_API_KEY (Solana data)
-# - MOONDEV_API_KEY (Custom signals)
-# - SOLANA_PRIVATE_KEY (Trading)
-# - HYPER_LIQUID_KEY (HyperLiquid)
-#
-# To install all requirements:
-# pip install -r requirements.txt
-#
-# For TA-Lib on Mac:
-# brew install ta-lib
-# pip install TA-Lib
-#
-# For TA-Lib on Linux:
-# wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
-# tar -xzf ta-lib-0.4.0-src.tar.gz
-# cd ta-lib/
-# ./configure --prefix=/usr
-# make
-# sudo make install
-# pip install TA-Lib
+widgetsnbextension==3.6.6
+wrapt==1.16.0
+wsproto==1.2.0
+x10-python-trading==0.4.5
+x10-python-trading-starknet==0.0.11
+xgboost==2.1.1
+xmod==1.8.1
+xyzservices==2023.10.1
+yarg==0.1.9
+yarl==1.20.1
+yfinance==0.2.43
+youtube-transcript-api==1.2.3
+yt-dlp==2025.1.26
+zipp==3.19.2
