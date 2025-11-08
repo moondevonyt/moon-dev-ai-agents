@@ -63,8 +63,8 @@ SCREENSHOT_HEIGHT = 1200  # Shorter but captures top area
 AI_CHAT_SCREENSHOT_PROMPT = "Does this image have more than 5 emojis in it? Return ONLY true or false."
 
 # AI Model settings
-MODEL_TYPE = "openai"  # Using OpenAI for image analysis
-MODEL_NAME = "gpt-4o-mini"  # GPT-4 Vision model
+MODEL_TYPE = "gemini"  # Using OpenAI for image analysis
+MODEL_NAME = "gemini-2.5-pro"  # GPT-4 Vision model
 
 # Easily configurable settings
 CLICK_PAUSE = 2.0         # Pause after movement before clicking

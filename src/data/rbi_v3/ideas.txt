@@ -19,7 +19,7 @@ A trend-following strategy that uses Fibonacci retracement levels combined with 
 Dynamic Range Breakout with Fractal Support and Resistance
 Enter long positions when the 50-period Bollinger Band Midpoint (BBMP) is above the Simple Moving Average (SMA), and exit when it's below the SMA, with a trailing stop set at 2 standard deviations from the BBMP.
 Sell put options during times of high open interest in declining futures contracts, exiting when open interest begins to increase.
-Buy put spreads on index ETFs during periods of low liquidity (e.g.
+Buy put spreads on index ETFs during periods of low liquidity
 Combining Relative Strength Index divergence and Stochastic oscillator convergence can generate a unique trading strategy. This strategy would enter long when the RSI diverges from price action while the Stochastic oscillator displays convergence, indicating a potential trend reversal.
 A mean-reversion strategy that uses a divergence between RSI(20) and Stochastic Oscillator(8,20), entering short when RSI(20) > 20-period MA while SO(8) < 20-period MA, exiting on SO/RSI reversion or price reaching $10/$50.
 A trend-following strategy that enters long/short positions when MACD divergence occurs while RSI indicates overbought/oversold conditions, with exits based on volatility measures like ATR.

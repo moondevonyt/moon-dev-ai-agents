@@ -37,7 +37,7 @@ python src/agents/chat_agent.py
 ```bash
 # Use backtesting.py library with pandas_ta or talib for indicators
 # Sample OHLCV data available at:
-# /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv
+# /src/data/rbi/BTC-USD-15m.csv
 ```
 
 ## Architecture Overview
@@ -123,7 +123,7 @@ Result Storage (CSV/JSON in src/data/) → Optional Trade Execution
 ### Backtesting
 - Use `backtesting.py` library (NOT their built-in indicators)
 - Use `pandas_ta` or `talib` for technical indicators instead
-- Sample data available at `/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv`
+- Sample data available at `/src/data/rbi/BTC-USD-15m.csv`
 
 ### Code Style
 - **No fake/synthetic data** - always use real data or fail the script

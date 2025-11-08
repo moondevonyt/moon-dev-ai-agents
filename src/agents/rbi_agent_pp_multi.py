@@ -44,6 +44,7 @@ import json
 from pathlib import Path
 
 # Core imports
+import codecs   # JLAKER: Added for UTF-8 handling
 import os
 import time
 import re
@@ -61,6 +62,11 @@ from queue import Queue
 import requests
 from io import BytesIO
 
+# Force UTF-8 encoding for console output
+os.system('chcp 65001')  # Set console to UTF-8
+sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
+sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer)
+
 # Load environment variables FIRST
 load_dotenv()
 print("✅ Environment variables loaded")
@@ -71,7 +77,7 @@ AI_MAX_TOKENS = 16000  # 🌙 Moon Dev: Increased for complete backtest code gen
 
 # Import model factory with proper path handling
 import sys
-sys.path.append('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading')
+sys.path.append('/moon-dev-ai-agents-for-trading')
 
 try:
     from src.models import model_factory
@@ -102,7 +108,7 @@ RATE_LIMIT_GLOBAL_DELAY = 0.5  # Global delay between any API calls
 #   - Perfect for auto-generated strategies from web search agent!
 #
 STRATEGIES_FROM_FILES = False  # Set to True to read from folder instead of ideas.txt
-STRATEGIES_FOLDER = "/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/web_search_research/final_strategies"
+STRATEGIES_FOLDER = "/src/data/web_search_research/final_strategies"
 
 # Thread color mapping
 THREAD_COLORS = {
@@ -136,32 +142,32 @@ rate_limiter = Semaphore(MAX_PARALLEL_THREADS)
 
 # 🧠 RESEARCH: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 RESEARCH_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
+    "type": "gemini",
+    "name": "gemini-2.5-pro"
 }
 
 # 💻 BACKTEST CODE GEN: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 BACKTEST_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
+    "type": "gemini",
+    "name": "gemini-2.5-pro"
 }
 
 # 🐛 DEBUGGING: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 DEBUG_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
+    "type": "gemini",
+    "name": "gemini-2.5-pro"
 }
 
 # 📦 PACKAGE CHECK: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 PACKAGE_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
+    "type": "gemini",
+    "name": "gemini-2.5-pro"
 }
 
 # 🚀 OPTIMIZATION: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 OPTIMIZE_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
+    "type": "gemini",
+    "name": "gemini-2.5-pro"
 }
 
 # 🎯 PROFIT TARGET CONFIGURATION
@@ -507,7 +513,7 @@ RISK MANAGEMENT:
 
 If you need indicators use TA lib or pandas TA.
 
-Use this data path: /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv
+Use this data path: /src/data/rbi/BTC-USD-15m.csv
 the above data head looks like below
 datetime, open, high, low, close, volume,
 2023-01-01 00:00:00, 16531.83, 16532.69, 16509.11, 16510.82, 231.05338022,
@@ -533,7 +539,7 @@ if __name__ == "__main__":
 
     # FIRST: Run standard backtest and print stats (REQUIRED for parsing!)
     print("\\n🌙 Running initial backtest for stats extraction...")
-    data = pd.read_csv('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv')
+    data = pd.read_csv('/src/data/rbi/BTC-USD-15m.csv')
     data['datetime'] = pd.to_datetime(data['datetime'])
     data = data.set_index('datetime')
     data.columns = ['Open', 'High', 'Low', 'Close', 'Volume']

@@ -43,7 +43,7 @@ AI_MAX_TOKENS = 4000
 
 # Import model factory with proper path handling
 import sys
-sys.path.append('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading')
+sys.path.append('')
 
 try:
     from src.models import model_factory
@@ -204,7 +204,7 @@ RISK MANAGEMENT:
 
 If you need indicators use TA lib or pandas TA. 
 
-Use this data path: /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv
+Use this data path: /src/data/rbi/BTC-USD-15m.csv
 the above data head looks like below
 datetime, open, high, low, close, volume,
 2023-01-01 00:00:00, 16531.83, 16532.69, 16509.11, 16510.82, 231.05338022,

@@ -11,7 +11,7 @@ from datetime import datetime
 from pathlib import Path
 
 # CONFIGURATION - Change this to test different files
-BACKTEST_FILE = "/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/agents/test_backtest_working.py"
+BACKTEST_FILE = "/src/agents/test_backtest_working.py"
 CONDA_ENV = "tflow"  # Your conda environment name
 
 def run_backtest_in_conda(file_path: str, conda_env: str = "tflow"):

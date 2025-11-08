@@ -132,10 +132,10 @@ RAW TEXT ONLY. NO MARKDOWN. NO QUOTES. NO ANALYSIS. NO THINKING. JUST THE INTRO.
 """
 
 # Constants for directories
-INPUT_DIR = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/videos/raw_streams")
-OUTPUT_DIR = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/videos/finished_clips")
-TEMP_DIR = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/videos/temp")
-YOUTUBE_MATERIALS_DIR = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/videos/youtube_materials")
+INPUT_DIR = Path("/src/data/videos/raw_streams")
+OUTPUT_DIR = Path("/src/data/videos/finished_clips")
+TEMP_DIR = Path("/src/data/videos/temp")
+YOUTUBE_MATERIALS_DIR = Path("/src/data/videos/youtube_materials")
 
 class ClipsAgent:
     def __init__(self):

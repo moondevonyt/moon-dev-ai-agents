@@ -49,7 +49,7 @@ AD_COUNTDOWN_MINUTES = 5  # How many minutes until ad plays (e.g., 1, 2, 3, etc.
 AD_INTERVAL_SECONDS = 10   # How often to check/show countdown
 CHATS_TO_PREVENT_AD = 10    # Number of chats needed to prevent ad
 AD_VIDEO_PATHS = [
-    "/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/chat_agent/7 minute ATC ad.mov"
+    "/src/data/chat_agent/7 minute ATC ad.mov"
     # Add more video paths here as needed
 ]
 

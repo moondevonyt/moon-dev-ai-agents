@@ -29,9 +29,9 @@ Dr. Data Dawg's master plan for intelligent Polymarket trading agents. Building 
 
 **Existing Assets to Leverage:**
 ```
-/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/agents/sentiment_agent.py
-/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/agents/tweet_agent.py
-/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/agents/research_agent.py
+/src/agents/sentiment_agent.py
+/src/agents/tweet_agent.py
+/src/agents/research_agent.py
 ```
 
 **What to build:**
@@ -54,8 +54,8 @@ Dr. Data Dawg's master plan for intelligent Polymarket trading agents. Building 
 
 **Existing Assets to Leverage:**
 ```
-/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/agents/swarm_agent.py
-/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/agents/base_agent.py
+/src/agents/swarm_agent.py
+/src/agents/base_agent.py
 ```
 
 **What to build:**
