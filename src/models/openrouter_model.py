@@ -164,7 +164,7 @@ class OpenRouterModel(BaseModel):
                 messages=[
                     {"role": "user", "content": "Hello"}
                 ],
-                max_tokens=10
+                max_tokens=50  # Increased from 10 to support models with higher minimums (e.g., GPT-5 Mini requires 16+)
             )
             cprint(f"  ├─ ✅ Test response received", "green")
             cprint(f"  ├─ Response content: {test_response.choices[0].message.content}", "cyan")
