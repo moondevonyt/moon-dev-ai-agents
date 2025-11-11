@@ -62,11 +62,11 @@ import json
 # 📊 Path to your backtest stats CSV file
 # This CSV is created by rbi_agent_pp_multi.py after running backtests
 # Default: src/data/rbi_pp_multi/backtest_stats.csv
-STATS_CSV = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp_multi/backtest_stats.csv")
+STATS_CSV = Path("src/data/rbi_pp_multi/backtest_stats.csv")
 
 # 📁 Directory for static files (CSS, JS) and templates (HTML)
 # These files are located in: src/data/rbi_pp_multi/static and src/data/rbi_pp_multi/templates
-TEMPLATE_BASE_DIR = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp_multi")
+TEMPLATE_BASE_DIR = Path("src/data/rbi_pp_multi")
 
 # 🗂️ Directory to store user-created folders
 # Folders allow you to organize and group your backtest results
@@ -81,7 +81,7 @@ DATA_DIR = TEMPLATE_BASE_DIR / "downloads"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 # 📊 Test Data Sets Directory - Historical datasets for backtesting
-TEST_DATA_DIR = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/private_data")
+TEST_DATA_DIR = Path("src/data/private_data")
 
 # TEST MODE for data portal - Set to True for fast testing with sample data
 TEST_MODE = True
@@ -120,9 +120,20 @@ data_status = {
     "oi": {"status": "pending", "last_updated": None, "file_size": None}
 }
 
-# Mount static files and templates
-app.mount("/static", StaticFiles(directory=str(TEMPLATE_BASE_DIR / "static")), name="static")
-templates = Jinja2Templates(directory=str(TEMPLATE_BASE_DIR / "templates"))
+# Mount static files and templates only if they exist
+static_dir = TEMPLATE_BASE_DIR / "static"
+templates_dir = TEMPLATE_BASE_DIR / "templates"
+
+if static_dir.exists():
+    app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+else:
+    logger.warning(f"Static directory not found: {static_dir}")
+
+if templates_dir.exists():
+    templates = Jinja2Templates(directory=str(templates_dir))
+else:
+    logger.warning(f"Templates directory not found: {templates_dir}")
+    templates = None
 
 
 # 🌙 Moon Dev: Request models for folder operations

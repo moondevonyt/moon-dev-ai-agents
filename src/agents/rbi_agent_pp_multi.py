@@ -41,11 +41,12 @@ IMPORTANT: Each thread is fully independent and won't interfere with others!
 # Import execution functionality
 import subprocess
 import json
-from pathlib import Path
 
 # Core imports
-import codecs   # JLAKER: Added for UTF-8 handling
+import sys
 import os
+from pathlib import Path
+import codecs   # JLAKER: Added for UTF-8 handling
 import time
 import re
 import hashlib
@@ -53,7 +54,6 @@ import csv
 import pandas as pd
 from datetime import datetime
 from termcolor import cprint
-import sys
 import argparse  # 🌙 Moon Dev: For command-line args
 from dotenv import load_dotenv
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -75,8 +75,11 @@ print("✅ Environment variables loaded")
 AI_TEMPERATURE = 0.7
 AI_MAX_TOKENS = 16000  # 🌙 Moon Dev: Increased for complete backtest code generation with execution block!
 
+# Add the project root to Python path
+root_dir = Path(__file__).resolve().parents[2]
+sys.path.append(str(root_dir))
+
 # Import model factory with proper path handling
-import sys
 sys.path.append('/moon-dev-ai-agents-for-trading')
 
 try:
@@ -143,31 +146,31 @@ rate_limiter = Semaphore(MAX_PARALLEL_THREADS)
 # 🧠 RESEARCH: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 RESEARCH_CONFIG = {
     "type": "gemini",
-    "name": "gemini-2.5-pro"
+    "name": "gemini-2.5-flash"
 }
 
 # 💻 BACKTEST CODE GEN: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 BACKTEST_CONFIG = {
     "type": "gemini",
-    "name": "gemini-2.5-pro"
+    "name": "gemini-2.5-flash"
 }
 
 # 🐛 DEBUGGING: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 DEBUG_CONFIG = {
     "type": "gemini",
-    "name": "gemini-2.5-pro"
+    "name": "gemini-2.5-flash"
 }
 
 # 📦 PACKAGE CHECK: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 PACKAGE_CONFIG = {
     "type": "gemini",
-    "name": "gemini-2.5-pro"
+    "name": "gemini-2.5-flash"
 }
 
 # 🚀 OPTIMIZATION: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 OPTIMIZE_CONFIG = {
     "type": "gemini",
-    "name": "gemini-2.5-pro"
+    "name": "gemini-2.5-flash"
 }
 
 # 🎯 PROFIT TARGET CONFIGURATION

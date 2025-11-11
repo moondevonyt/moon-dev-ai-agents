@@ -22,3 +22,10 @@ google-generativeai
 google-pasta==0.2.0
 google-resumable-media==2.7.0
 googleapis-common-protos==1.63.0
+
+# Added for web dashboard & background tasks
+fastapi
+uvicorn[standard]
+jinja2
+websockets
+apscheduler

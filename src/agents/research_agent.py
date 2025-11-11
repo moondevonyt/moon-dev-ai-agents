@@ -23,12 +23,12 @@ Come up with ONE unique trading strategy idea that can be backtested
 The idea should be innovative, specific, and concise (1-2 sentences only).
 
 Focus on one of these areas:
+- Cryptocurrency markets
 - Technical indicators with unique combinations
 - Volume patterns
 - Volatility-based strategies
 - Liquidation events
 - technical indicators that can be backtested
-
 
 Your response should be ONLY the strategy idea text - no explanations, no introductions, 
 no numbering, and no extra formatting. Just the raw idea in 1-2 sentences.
@@ -67,8 +67,9 @@ MODELS = [
     # {"type": "ollama", "name": "DeepSeek-R1:latest"},
     # {"type": "ollama", "name": "llama3.2:latest"},
     # {"type": "ollama", "name": "gemma:2b"}
-    {"type": "deepseek", "name": "deepseek-chat"},
-    {"type": "deepseek", "name": "deepseek-reasoner"}
+    # {"type": "deepseek", "name": "deepseek-chat"},
+    # {"type": "deepseek", "name": "deepseek-reasoner"}
+    {"type": "gemini", "name": "gemini-2.5-flash"}
 ]
 
 # Fun emojis for animation
