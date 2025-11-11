@@ -71,6 +71,7 @@ To get started with Ollama:
    ollama pull deepseek-r1      # DeepSeek R1 7B - shows thinking process
    ollama pull gemma:2b         # Google's Gemma 2B - fast responses
    ollama pull llama3.2         # Meta's Llama 3.2 - balanced performance
+   ollama pull kimi-k2-thinking # Kimi K2 Thinking - Moonshot AI's best open-source thinking model
    ```
 4. Check they're ready: `ollama list`
 
@@ -78,6 +79,7 @@ Available Models:
 - `deepseek-r1`: Good for complex reasoning (7B parameters), shows thinking process with <think> tags
 - `gemma:2b`: Fast and efficient for simple tasks, great for high-volume processing
 - `llama3.2`: Balanced model good for most tasks, especially good at following instructions
+- `kimi-k2-thinking`: Moonshot AI's best open-source thinking model, excels at reasoning and agentic tasks.
 
 Benefits:
 - 🚀 Free to use - no API costs
@@ -98,6 +100,9 @@ model = factory.get_model("ollama", "deepseek-r1")
 
 # Or Gemma for faster responses
 model = factory.get_model("ollama", "gemma:2b")
+
+# Or Kimi K2 Thinking for advanced reasoning
+model = factory.get_model("ollama", "kimi-k2-thinking")
 
 # For the most powerful reasoning, use DeepSeek API
 model = factory.get_model("deepseek", "deepseek-reasoner")
