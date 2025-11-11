@@ -30,7 +30,7 @@ from src.models.model_factory import ModelFactory
 # ==============================================================================
 
 # Trade filtering
-MIN_TRADE_SIZE_USD = 1000  # Only track trades over this amount
+MIN_TRADE_SIZE_USD = 500  # Only track trades over this amount
 IGNORE_PRICE_THRESHOLD = 0.02  # Ignore trades within X cents of resolution ($0 or $1)
 LOOKBACK_HOURS = 24  # How many hours back to fetch historical trades on startup
 
@@ -58,11 +58,13 @@ ANALYSIS_CHECK_INTERVAL_SECONDS = 300  # How often to check for new markets to a
 NEW_MARKETS_FOR_ANALYSIS = 25  # Trigger analysis when we have 25 NEW unanalyzed markets
 MARKETS_TO_ANALYZE = 25  # Number of recent markets to send to AI
 MARKETS_TO_DISPLAY = 20  # Number of recent markets to print after each update
+REANALYSIS_HOURS = 8  # Re-analyze markets after this many hours (even if previously analyzed)
 
 # AI Configuration
 USE_SWARM_MODE = True  # Use swarm AI (multiple models) instead of single XAI model
 AI_MODEL_PROVIDER = "xai"  # Model to use if USE_SWARM_MODE = False
 AI_MODEL_NAME = "grok-2-fast-reasoning"  # Model name if not using swarm
+SEND_PRICE_INFO_TO_AI = False  # Send market price/odds to AI models (True = include price, False = no price)
 
 # 🌙 Moon Dev - AI Prompts (customize these for your own edge!)
 # ==============================================================================
@@ -150,6 +152,7 @@ class PolymarketAgent:
 
         # Track which markets have been analyzed
         self.last_analyzed_count = 0
+        self.last_analysis_run_timestamp = None  # When we last ran AI analysis
 
         # WebSocket connection
         self.ws = None
@@ -206,7 +209,7 @@ class PolymarketAgent:
         # Create new DataFrame with required columns
         return pd.DataFrame(columns=[
             'timestamp', 'market_id', 'event_slug', 'title',
-            'outcome', 'price', 'size_usd', 'first_seen'
+            'outcome', 'price', 'size_usd', 'first_seen', 'last_analyzed', 'last_trade_timestamp'
         ])
 
     def _load_predictions(self):
@@ -221,11 +224,13 @@ class PolymarketAgent:
                 cprint("Creating new predictions DataFrame", "yellow")
 
         # Create new DataFrame with required columns
+        # 🌙 Moon Dev - Link column at END for clickable CSVs in Excel/Numbers
         return pd.DataFrame(columns=[
-            'analysis_timestamp', 'analysis_run_id', 'market_title', 'market_slug', 'market_link',
+            'analysis_timestamp', 'analysis_run_id', 'market_title', 'market_slug',
             'claude_prediction', 'openai_prediction', 'groq_prediction',
             'gemini_prediction', 'deepseek_prediction', 'xai_prediction',
-            'ollama_prediction', 'consensus_prediction', 'num_models_responded'
+            'ollama_prediction', 'consensus_prediction', 'num_models_responded',
+            'market_link'  # 🌙 Link at end for clickable CSVs
         ])
 
     def _save_markets(self):
@@ -482,13 +487,10 @@ class PolymarketAgent:
                 unique_markets[market_id] = trade
 
         new_markets = 0
+        updated_markets = 0
 
         for market_id, trade in unique_markets.items():
             try:
-                # Check if market already exists
-                if market_id in self.markets_df['market_id'].values:
-                    continue
-
                 # Extract trade data from Polymarket API structure
                 event_slug = trade.get('eventSlug', '')
                 title = trade.get('title', 'Unknown Market')
@@ -496,9 +498,19 @@ class PolymarketAgent:
                 price = float(trade.get('price', 0))
                 size_usd = float(trade.get('size', 0))
                 timestamp = trade.get('timestamp', '')
-
-                # conditionId is the unique market identifier
                 condition_id = trade.get('conditionId', '')
+
+                # Check if market already exists
+                if market_id in self.markets_df['market_id'].values:
+                    # 🌙 Moon Dev - UPDATE existing market with new trade data (fresh odds!)
+                    mask = self.markets_df['market_id'] == market_id
+                    self.markets_df.loc[mask, 'timestamp'] = timestamp
+                    self.markets_df.loc[mask, 'outcome'] = outcome
+                    self.markets_df.loc[mask, 'price'] = price
+                    self.markets_df.loc[mask, 'size_usd'] = size_usd
+                    self.markets_df.loc[mask, 'last_trade_timestamp'] = datetime.now().isoformat()  # Track fresh trade!
+                    updated_markets += 1
+                    continue
 
                 # Add new market
                 new_market = {
@@ -509,7 +521,9 @@ class PolymarketAgent:
                     'outcome': outcome,
                     'price': price,
                     'size_usd': size_usd,
-                    'first_seen': datetime.now().isoformat()
+                    'first_seen': datetime.now().isoformat(),
+                    'last_analyzed': None,  # Never analyzed yet
+                    'last_trade_timestamp': datetime.now().isoformat()  # Fresh trade!
                 }
 
                 self.markets_df = pd.concat([
@@ -526,9 +540,11 @@ class PolymarketAgent:
                 cprint(f"⚠️ Error processing trade: {e}", "yellow")
                 continue
 
-        # Save if we added new markets
-        if new_markets > 0:
+        # Save if we added or updated markets
+        if new_markets > 0 or updated_markets > 0:
             self._save_markets()
+            if updated_markets > 0:
+                cprint(f"🔄 Updated {updated_markets} existing markets with fresh trade data", "cyan")
 
     def display_recent_markets(self):
         """Display the most recent markets from CSV"""
@@ -572,16 +588,28 @@ class PolymarketAgent:
         cprint("\n" + "="*80, "magenta")
         cprint(f"🤖 AI Analysis - Analyzing {len(markets_to_analyze)} markets", "magenta", attrs=['bold'])
         cprint(f"📊 Analysis Run ID: {analysis_run_id}", "magenta")
+        cprint(f"💰 Price info to AI: {'✅ ENABLED' if SEND_PRICE_INFO_TO_AI else '❌ DISABLED'}", "green" if SEND_PRICE_INFO_TO_AI else "yellow")
         cprint("="*80, "magenta")
 
         # Build prompt with market information
-        markets_text = "\n\n".join([
-            f"Market {i+1}:\n"
-            f"Title: {row['title']}\n"
-            f"Recent trade: ${row['size_usd']:,.2f} on {row['outcome']}\n"
-            f"Link: https://polymarket.com/event/{row['event_slug']}"
-            for i, (_, row) in enumerate(markets_to_analyze.iterrows())
-        ])
+        # 🌙 Moon Dev - Conditionally include price info based on config
+        if SEND_PRICE_INFO_TO_AI:
+            markets_text = "\n\n".join([
+                f"Market {i+1}:\n"
+                f"Title: {row['title']}\n"
+                f"Current Price: ${row['price']:.2f} ({row['price']*100:.1f}% odds for {row['outcome']})\n"
+                f"Recent trade: ${row['size_usd']:,.2f} on {row['outcome']}\n"
+                f"Link: https://polymarket.com/event/{row['event_slug']}"
+                for i, (_, row) in enumerate(markets_to_analyze.iterrows())
+            ])
+        else:
+            markets_text = "\n\n".join([
+                f"Market {i+1}:\n"
+                f"Title: {row['title']}\n"
+                f"Recent trade: ${row['size_usd']:,.2f} on {row['outcome']}\n"
+                f"Link: https://polymarket.com/event/{row['event_slug']}"
+                for i, (_, row) in enumerate(markets_to_analyze.iterrows())
+            ])
 
         system_prompt = MARKET_ANALYSIS_SYSTEM_PROMPT
 
@@ -661,6 +689,9 @@ Provide predictions for each market in the specified format."""
                 cprint(f"❌ Error saving predictions: {e}", "red")
                 import traceback
                 traceback.print_exc()
+
+            # 🌙 Moon Dev - Mark analyzed markets with timestamp
+            self._mark_markets_analyzed(markets_to_analyze, analysis_timestamp)
         else:
             # Use single model
             cprint(f"\n🤖 Getting predictions from {AI_MODEL_PROVIDER}/{AI_MODEL_NAME}...\n", "cyan")
@@ -703,8 +734,40 @@ Provide predictions for each market in the specified format."""
                 self._save_predictions()
                 cprint(f"✅ Saved analysis run {analysis_run_id} to predictions database", "green")
 
+                # 🌙 Moon Dev - Mark analyzed markets with timestamp
+                self._mark_markets_analyzed(markets_to_analyze, analysis_timestamp)
+
             except Exception as e:
                 cprint(f"❌ Error getting prediction: {e}", "red")
+
+    def _mark_markets_analyzed(self, markets, analysis_timestamp):
+        """🌙 Moon Dev - Mark markets as analyzed with timestamp
+
+        Args:
+            markets: DataFrame of markets that were just analyzed
+            analysis_timestamp: ISO timestamp of when analysis completed
+        """
+        try:
+            cprint("\n🕒 Marking markets as analyzed...", "cyan")
+
+            # Get market_ids from the analyzed markets
+            analyzed_market_ids = markets['market_id'].tolist()
+
+            # Update last_analyzed for these markets
+            for market_id in analyzed_market_ids:
+                mask = self.markets_df['market_id'] == market_id
+                self.markets_df.loc[mask, 'last_analyzed'] = analysis_timestamp
+
+            # Save updated markets DataFrame
+            self._save_markets()
+
+            cprint(f"✅ Marked {len(analyzed_market_ids)} markets with analysis timestamp", "green")
+            cprint(f"   Next re-analysis eligible after: {REANALYSIS_HOURS}h", "cyan")
+
+        except Exception as e:
+            cprint(f"❌ Error marking markets as analyzed: {e}", "red")
+            import traceback
+            traceback.print_exc()
 
     def _save_swarm_predictions(self, analysis_run_id, analysis_timestamp, markets, swarm_result):
         """🌙 Moon Dev - Save swarm predictions to CSV database (one row per market)
@@ -785,7 +848,6 @@ Provide predictions for each market in the specified format."""
                         'analysis_run_id': analysis_run_id,
                         'market_title': market_title,
                         'market_slug': market_slug,
-                        'market_link': market_link,
                         'claude_prediction': predictions.get('claude', 'N/A'),
                         'openai_prediction': predictions.get('openai', 'N/A'),
                         'groq_prediction': predictions.get('groq', 'N/A'),
@@ -794,7 +856,8 @@ Provide predictions for each market in the specified format."""
                         'xai_prediction': predictions.get('xai', 'N/A'),
                         'ollama_prediction': predictions.get('ollama', 'N/A'),
                         'consensus_prediction': consensus,
-                        'num_models_responded': len(predictions)
+                        'num_models_responded': len(predictions),
+                        'market_link': market_link  # 🌙 Moon Dev - Link at end for clickable CSVs
                     }
                     new_records.append(record)
 
@@ -1090,7 +1153,7 @@ Provide predictions for each market in the specified format."""
             timestamp = datetime.now().isoformat()
             run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-            # Convert to records for CSV
+            # Convert to records for CSV (🌙 Moon Dev - link at END for clickable CSVs)
             records = []
             for pick in picks:
                 record = {
@@ -1103,18 +1166,19 @@ Provide predictions for each market in the specified format."""
                     'consensus': pick.get('consensus', ''),
                     'consensus_count': pick.get('consensus_count', ''),
                     'total_models': pick.get('total_models', ''),
-                    'link': pick.get('link', ''),
-                    'reasoning': pick.get('reasoning', '')
+                    'reasoning': pick.get('reasoning', ''),
+                    'link': pick.get('link', '')  # 🌙 Link at end for clickable CSVs
                 }
                 records.append(record)
 
-            # Load or create consensus picks CSV
+            # Load or create consensus picks CSV (🌙 Moon Dev - link at END for clickable CSVs)
             if os.path.exists(CONSENSUS_PICKS_CSV):
                 consensus_df = pd.read_csv(CONSENSUS_PICKS_CSV)
             else:
                 consensus_df = pd.DataFrame(columns=[
                     'timestamp', 'run_id', 'rank', 'market_number', 'market_title',
-                    'side', 'consensus', 'consensus_count', 'total_models', 'link', 'reasoning'
+                    'side', 'consensus', 'consensus_count', 'total_models', 'reasoning',
+                    'link'  # 🌙 Link at end for clickable CSVs
                 ])
 
             # Append new records
@@ -1146,7 +1210,44 @@ Provide predictions for each market in the specified format."""
                 time.sleep(30)
 
                 total_markets = len(self.markets_df)
-                new_markets = total_markets - self.last_analyzed_count
+
+                # 🌙 Moon Dev - Count markets with FRESH TRADES that are also ELIGIBLE
+                now = datetime.now()
+                cutoff_time = now - timedelta(hours=REANALYSIS_HOURS)
+                fresh_eligible_count = 0
+
+                for idx, row in self.markets_df.iterrows():
+                    last_analyzed = row.get('last_analyzed')
+                    last_trade = row.get('last_trade_timestamp')
+
+                    # Check if eligible
+                    is_eligible = False
+                    if pd.isna(last_analyzed) or last_analyzed is None:
+                        is_eligible = True
+                    else:
+                        try:
+                            analyzed_time = pd.to_datetime(last_analyzed)
+                            if analyzed_time < cutoff_time:
+                                is_eligible = True
+                        except:
+                            is_eligible = True
+
+                    # Check if has fresh trade
+                    has_fresh_trade = False
+                    if self.last_analysis_run_timestamp is None:
+                        has_fresh_trade = not pd.isna(last_trade) and last_trade is not None
+                    else:
+                        try:
+                            if not pd.isna(last_trade) and last_trade is not None:
+                                trade_time = pd.to_datetime(last_trade)
+                                last_run_time = pd.to_datetime(self.last_analysis_run_timestamp)
+                                if trade_time > last_run_time:
+                                    has_fresh_trade = True
+                        except:
+                            pass
+
+                    if is_eligible and has_fresh_trade:
+                        fresh_eligible_count += 1
 
                 cprint(f"\n{'='*60}", "cyan")
                 cprint(f"📊 Moon Dev Status @ {datetime.now().strftime('%H:%M:%S')}", "cyan", attrs=['bold'])
@@ -1157,13 +1258,13 @@ Provide predictions for each market in the specified format."""
                 cprint(f"   Ignored sports: {self.ignored_sports_count}", "red")
                 cprint(f"   Filtered trades (>=${MIN_TRADE_SIZE_USD}): {self.filtered_trades_count}", "yellow")
                 cprint(f"   Total markets in database: {total_markets}", "white")
-                cprint(f"   Already analyzed: {self.last_analyzed_count}", "white")
-                cprint(f"   New unanalyzed: {new_markets}", "yellow" if new_markets < NEW_MARKETS_FOR_ANALYSIS else "green", attrs=['bold'])
+                cprint(f"   Fresh eligible markets: {fresh_eligible_count}", "yellow" if fresh_eligible_count < NEW_MARKETS_FOR_ANALYSIS else "green", attrs=['bold'])
+                cprint(f"   (Eligible + traded since last run)", "white")
 
-                if new_markets >= NEW_MARKETS_FOR_ANALYSIS:
-                    cprint(f"   ✅ Ready for analysis! (Have {new_markets}, need {NEW_MARKETS_FOR_ANALYSIS})", "green", attrs=['bold'])
+                if fresh_eligible_count >= NEW_MARKETS_FOR_ANALYSIS:
+                    cprint(f"   ✅ Ready for analysis! (Have {fresh_eligible_count}, need {NEW_MARKETS_FOR_ANALYSIS})", "green", attrs=['bold'])
                 else:
-                    cprint(f"   ⏳ Collecting... (Have {new_markets}, need {NEW_MARKETS_FOR_ANALYSIS})", "yellow")
+                    cprint(f"   ⏳ Collecting... (Have {fresh_eligible_count}, need {NEW_MARKETS_FOR_ANALYSIS})", "yellow")
 
                 cprint(f"{'='*60}\n", "cyan")
 
@@ -1173,7 +1274,7 @@ Provide predictions for each market in the specified format."""
                 cprint(f"❌ Error in status display loop: {e}", "red")
 
     def analysis_cycle(self):
-        """Check if we have enough new markets and run AI analysis"""
+        """Check if we have enough eligible markets and run AI analysis"""
         cprint("\n" + "="*80, "magenta")
         cprint("🤖 ANALYSIS CYCLE CHECK", "magenta", attrs=['bold'])
         cprint(f"⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", "magenta")
@@ -1183,34 +1284,7 @@ Provide predictions for each market in the specified format."""
         with self.csv_lock:
             self.markets_df = self._load_markets()
 
-        # Check how many new markets we have
         total_markets = len(self.markets_df)
-        new_markets = total_markets - self.last_analyzed_count
-        is_first_run = (self.last_analyzed_count == 0)
-
-        cprint(f"📊 Market Analysis Status:", "cyan", attrs=['bold'])
-        cprint(f"   Total markets in database: {total_markets}", "white")
-        cprint(f"   Already analyzed (last run): {self.last_analyzed_count}", "white")
-        cprint(f"   New unanalyzed markets: {new_markets}", "yellow" if new_markets < NEW_MARKETS_FOR_ANALYSIS else "green", attrs=['bold'])
-        cprint("", "white")
-
-        if is_first_run:
-            cprint(f"🎬 FIRST ANALYSIS RUN", "yellow", attrs=['bold'])
-            cprint(f"   Will analyze whatever markets we have collected (minimum 1)", "yellow")
-            cprint(f"   Future runs will require {NEW_MARKETS_FOR_ANALYSIS} NEW markets\n", "yellow")
-        else:
-            cprint(f"🎯 Analysis Trigger Requirement:", "cyan", attrs=['bold'])
-            cprint(f"   Need: {NEW_MARKETS_FOR_ANALYSIS} new markets", "white")
-            cprint(f"   Have: {new_markets} new markets", "white")
-            if new_markets >= NEW_MARKETS_FOR_ANALYSIS:
-                cprint(f"   ✅ REQUIREMENT MET - Running analysis!", "green", attrs=['bold'])
-            else:
-                cprint(f"   ❌ Need {NEW_MARKETS_FOR_ANALYSIS - new_markets} more markets", "yellow", attrs=['bold'])
-            cprint("", "white")
-
-        # First run: analyze whatever we have (if at least 1 market)
-        # Subsequent runs: wait for NEW_MARKETS_FOR_ANALYSIS
-        should_analyze = (is_first_run and total_markets > 0) or (new_markets >= NEW_MARKETS_FOR_ANALYSIS)
 
         # 🌙 Moon Dev - Skip if no markets exist yet
         if total_markets == 0:
@@ -1218,11 +1292,78 @@ Provide predictions for each market in the specified format."""
             cprint(f"   First analysis will run when markets are collected\n", "yellow")
             return
 
+        # 🌙 Moon Dev - Count markets with FRESH TRADES that are also ELIGIBLE for re-analysis
+        now = datetime.now()
+        cutoff_time = now - timedelta(hours=REANALYSIS_HOURS)
+
+        fresh_eligible_count = 0
+        for idx, row in self.markets_df.iterrows():
+            last_analyzed = row.get('last_analyzed')
+            last_trade = row.get('last_trade_timestamp')
+
+            # Check if market is ELIGIBLE (never analyzed OR past threshold)
+            is_eligible = False
+            if pd.isna(last_analyzed) or last_analyzed is None:
+                is_eligible = True
+            else:
+                try:
+                    analyzed_time = pd.to_datetime(last_analyzed)
+                    if analyzed_time < cutoff_time:
+                        is_eligible = True
+                except:
+                    is_eligible = True
+
+            # Check if market has FRESH TRADE (traded since last analysis run)
+            has_fresh_trade = False
+            if self.last_analysis_run_timestamp is None:
+                # First run - all markets with trades are "fresh"
+                has_fresh_trade = not pd.isna(last_trade) and last_trade is not None
+            else:
+                # Subsequent runs - only count if traded after last analysis
+                try:
+                    if not pd.isna(last_trade) and last_trade is not None:
+                        trade_time = pd.to_datetime(last_trade)
+                        last_run_time = pd.to_datetime(self.last_analysis_run_timestamp)
+                        if trade_time > last_run_time:
+                            has_fresh_trade = True
+                except:
+                    pass
+
+            # Count if BOTH eligible AND has fresh trade
+            if is_eligible and has_fresh_trade:
+                fresh_eligible_count += 1
+
+        is_first_run = (self.last_analysis_run_timestamp is None)
+
+        cprint(f"📊 Market Analysis Status:", "cyan", attrs=['bold'])
+        cprint(f"   Total markets in database: {total_markets}", "white")
+        cprint(f"   Fresh eligible markets: {fresh_eligible_count}", "yellow" if fresh_eligible_count < NEW_MARKETS_FOR_ANALYSIS else "green", attrs=['bold'])
+        cprint(f"   (Eligible markets with trades since last run)", "white")
+        cprint("", "white")
+
+        if is_first_run:
+            cprint(f"🎬 FIRST ANALYSIS RUN", "yellow", attrs=['bold'])
+            cprint(f"   Will analyze whatever markets we have collected (minimum 1)", "yellow")
+            cprint(f"   Future runs will require {NEW_MARKETS_FOR_ANALYSIS} fresh eligible markets\n", "yellow")
+        else:
+            cprint(f"🎯 Analysis Trigger Requirement:", "cyan", attrs=['bold'])
+            cprint(f"   Need: {NEW_MARKETS_FOR_ANALYSIS} fresh eligible markets", "white")
+            cprint(f"   Have: {fresh_eligible_count} fresh eligible markets", "white")
+            if fresh_eligible_count >= NEW_MARKETS_FOR_ANALYSIS:
+                cprint(f"   ✅ REQUIREMENT MET - Running analysis!", "green", attrs=['bold'])
+            else:
+                cprint(f"   ❌ Need {NEW_MARKETS_FOR_ANALYSIS - fresh_eligible_count} more fresh eligible markets", "yellow", attrs=['bold'])
+            cprint("", "white")
+
+        # First run: analyze whatever we have (if at least 1 market)
+        # Subsequent runs: wait for NEW_MARKETS_FOR_ANALYSIS fresh eligible markets
+        should_analyze = (is_first_run and total_markets > 0) or (fresh_eligible_count >= NEW_MARKETS_FOR_ANALYSIS)
+
         if should_analyze:
             if is_first_run:
                 cprint(f"\n✅ First run with {total_markets} markets! Running initial AI analysis...\n", "green", attrs=['bold'])
             else:
-                cprint(f"\n✅ {new_markets} new markets! Running AI analysis...\n", "green", attrs=['bold'])
+                cprint(f"\n✅ {fresh_eligible_count} fresh eligible markets! Running AI analysis...\n", "green", attrs=['bold'])
 
             # Display recent markets
             self.display_recent_markets()
@@ -1230,12 +1371,15 @@ Provide predictions for each market in the specified format."""
             # Run AI predictions
             self.get_ai_predictions()
 
-            # Update the last analyzed count
+            # 🌙 Moon Dev - Update analysis run timestamp
+            self.last_analysis_run_timestamp = datetime.now().isoformat()
             self.last_analyzed_count = total_markets
-            cprint(f"\n💾 Updated analysis tracker: {self.last_analyzed_count} markets analyzed", "green")
+            cprint(f"\n💾 Updated analysis tracker: {self.last_analyzed_count} markets in database", "green")
+            cprint(f"⏰ Next run will only count markets with fresh trades after {datetime.now().strftime('%H:%M:%S')}", "cyan")
         else:
-            needed = NEW_MARKETS_FOR_ANALYSIS - new_markets
-            cprint(f"\n⏳ Need {needed} more new markets before next analysis", "yellow")
+            needed = NEW_MARKETS_FOR_ANALYSIS - fresh_eligible_count
+            cprint(f"\n⏳ Need {needed} more fresh eligible markets before next analysis", "yellow")
+            cprint(f"   Waiting for trades on eligible markets (never analyzed OR >{REANALYSIS_HOURS}h old)", "yellow")
 
         cprint("\n" + "="*80, "green")
         cprint("✅ Analysis check complete!", "green", attrs=['bold'])
@@ -1286,6 +1430,7 @@ def main():
     cprint(f"   🎯 AI Analysis triggers when {NEW_MARKETS_FOR_ANALYSIS} new markets collected", "yellow")
     cprint("", "yellow")
     cprint(f"🤖 AI Mode: {'SWARM (6 models)' if USE_SWARM_MODE else 'Single Model'}", "yellow")
+    cprint(f"💰 Price Info to AI: {'ENABLED' if SEND_PRICE_INFO_TO_AI else 'DISABLED'}", "green" if SEND_PRICE_INFO_TO_AI else "yellow")
     cprint("", "yellow")
     cprint("📁 Data Files:", "cyan", attrs=['bold'])
     cprint(f"   Markets: {MARKETS_CSV}", "white")
