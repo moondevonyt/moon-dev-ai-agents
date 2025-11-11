@@ -19,6 +19,7 @@ class OllamaModel(BaseModel):
         "qwen3:8b",         # Qwen 3 8B model - fast reasoning model
         "gemma:2b",         # Google's Gemma 2B model
         "llama3.2",         # Meta's Llama 3.2 model - fast and efficient
+        "kimi-k2-thinking", # Kimi K2 Thinking model
         # implement your own local models through hugging face/ollama here
     ]
     
@@ -174,7 +175,8 @@ class OllamaModel(BaseModel):
                 "deepseek-r1": "7B",
                 "qwen3:8b": "8B",
                 "gemma:2b": "2B",
-                "llama3.2": "70B"
+                "llama3.2": "70B",
+                "kimi-k2-thinking": "Unknown"
             }
             
             if model_name in known_models:
