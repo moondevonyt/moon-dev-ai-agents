@@ -19,7 +19,7 @@ from .deepseek_model import DeepSeekModel
 from .ollama_model import OllamaModel
 from .xai_model import XAIModel
 from .openrouter_model import OpenRouterModel  # 🌙 Moon Dev: OpenRouter - access to 200+ models!
-import random
+from .moonshot_model import MoonshotModel
 
 class ModelFactory:
     """Factory for creating and managing AI models"""
@@ -29,23 +29,25 @@ class ModelFactory:
         "claude": ClaudeModel,
         "groq": GroqModel,
         "openai": OpenAIModel,
-        "gemini": GeminiModel,  # Re-enabled with Gemini 2.5 models
+        "gemini": GeminiModel,
         "deepseek": DeepSeekModel,
-        "ollama": OllamaModel,  # Add Ollama implementation
-        "xai": XAIModel,  # xAI Grok models
-        "openrouter": OpenRouterModel  # 🌙 Moon Dev: OpenRouter - 200+ models!
+        "ollama": OllamaModel,
+        "xai": XAIModel,
+        "openrouter": OpenRouterModel,
+        "moonshot": MoonshotModel  # 🌙 Add Moonshot support
     }
     
     # Default models for each type
     DEFAULT_MODELS = {
-        "claude": "claude-3-5-haiku-latest",  # Latest fast Claude model
-        "groq": "mixtral-8x7b-32768",        # Fast Mixtral model
-        "openai": "gpt-4o",                  # Latest GPT-4 Optimized
-        "gemini": "gemini-2.5-flash",        # Fast Gemini 2.5 model
-        "deepseek": "deepseek-reasoner",     # Enhanced reasoning model
-        "ollama": "llama3.2",                # Meta's Llama 3.2 - balanced performance
-        "xai": "grok-4-fast-reasoning",      # xAI's Grok 4 Fast with reasoning (best value: 2M context, cheap!)
-        "openrouter": "google/gemini-2.5-flash"  # 🌙 Moon Dev: OpenRouter default - fast & cheap Gemini!
+        "claude": "claude-3-5-haiku-latest",
+        "groq": "mixtral-8x7b-32768",
+        "openai": "gpt-4o",
+        "gemini": "gemini-2.5-flash",
+        "deepseek": "deepseek-reasoner",
+        "ollama": "llama3.2",
+        "xai": "grok-4-fast-reasoning",
+        "openrouter": "google/gemini-2.5-flash",
+        "moonshot": "moonshot-v1-128k"  # 🌙 Add Moonshot default
     }
     
     def __init__(self):
@@ -258,4 +260,4 @@ class ModelFactory:
             return None
 
 # Create a singleton instance
-model_factory = ModelFactory() 
+model_factory = ModelFactory()

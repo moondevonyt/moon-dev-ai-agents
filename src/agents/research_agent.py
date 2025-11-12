@@ -64,12 +64,7 @@ IDEAS_CSV = DATA_DIR / "strategy_ideas.csv"
 
 # Model configurations
 MODELS = [
-    # {"type": "ollama", "name": "DeepSeek-R1:latest"},
-    # {"type": "ollama", "name": "llama3.2:latest"},
-    # {"type": "ollama", "name": "gemma:2b"}
-    # {"type": "deepseek", "name": "deepseek-chat"},
-    # {"type": "deepseek", "name": "deepseek-reasoner"}
-    {"type": "gemini", "name": "gemini-2.5-flash"}
+    {"type": "ollama", "name": "kimi-k2-thinking:cloud"}
 ]
 
 # Fun emojis for animation
@@ -78,7 +73,10 @@ MOON_PHASES = ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"]
 
 # Get terminal width for better formatting
 TERM_WIDTH = shutil.get_terminal_size().columns
-
+# Model configurations - Use Moonshot for best results
+MODELS = [
+    {"type": "moonshot", "name": "moonshot-v1-128k"}
+]
 def clear_line():
     """Clear the current line in the terminal"""
     print("\r" + " " * TERM_WIDTH, end="\r", flush=True)
