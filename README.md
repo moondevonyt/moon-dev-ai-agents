@@ -33,6 +33,7 @@ feel free to join [our discord](https://discord.gg/8UPuVZ53bh) if you beleive ai
 - **RBI Parallel Agent** (`rbi_agent_pp_multi.py`): Parallel version with 18 threads, tests across 20+ data sources, web dashboard included
 - **Research Agent** (`research_agent.py`): Fills the ideas.txt file so the RBI agent can run forever
 - **Websearch Agent** (`websearch_agent.py`): This agent searches the web, in my use case for trading strategy resources and then uses other ai's to split the website ideas into strategy files i can have my  `rbi_agent_pp_multi.py` process and build out backtests
+- **Volume Agent** (`volume_agent.py`): this is an agent swarm that watches the volume of all hyperliquid tokens so we always see upcoming runners early.
 
 ### Live Trading Agents
 - **Trading Agent** (`trading_agent.py`): **DUAL-MODE AI trading system** - Toggle between single model (fast ~10s) or swarm mode (6-model consensus ~45-60s). Swarm mode queries Claude 4.5, GPT-5, Gemini 2.5, Grok-4, DeepSeek, and DeepSeek-R1 local for majority vote trading decisions. Configure via `USE_SWARM_MODE` in config.py

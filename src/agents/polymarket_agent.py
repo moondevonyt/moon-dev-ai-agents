@@ -55,8 +55,8 @@ IGNORE_SPORTS_KEYWORDS = [
 
 # Agent behavior - REAL-TIME WebSocket + Analysis
 ANALYSIS_CHECK_INTERVAL_SECONDS = 300  # How often to check for new markets to analyze (5 minutes)
-NEW_MARKETS_FOR_ANALYSIS = 25  # Trigger analysis when we have 25 NEW unanalyzed markets
-MARKETS_TO_ANALYZE = 25  # Number of recent markets to send to AI
+NEW_MARKETS_FOR_ANALYSIS = 3  # Trigger analysis when we have 3 NEW unanalyzed markets
+MARKETS_TO_ANALYZE = 3  # Number of recent markets to send to AI
 MARKETS_TO_DISPLAY = 20  # Number of recent markets to print after each update
 REANALYSIS_HOURS = 8  # Re-analyze markets after this many hours (even if previously analyzed)
 
