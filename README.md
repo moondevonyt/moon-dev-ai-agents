@@ -138,7 +138,7 @@ cd moon-dev-ai-agents-for-trading
 
 **Recommended IDEs:**
 - [Cursor](https://www.cursor.com/) - AI-enabled coding
-- [Windsurfer](https://codeium.com/) - AI-enabled coding
+- [Windsurf](https://codeium.com/) - AI-enabled coding
 
 ### Step 3: 🔑 Set Up Environment Variables
 
