@@ -9,7 +9,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # 🌙 Data Loading with Adaptive Header Detection
-data_path = '/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv'
+data_path = '/home/user/moon-dev-ai-agents/src/data/rbi/BTC-USD-15m.csv'
 
 def load_btc_data(file_path):
     """Load and prepare BTC data with adaptive header detection"""

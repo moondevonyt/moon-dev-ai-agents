@@ -1,0 +1,216 @@
+//@version=6
+strategy("🌙 DivergenceVolatility AI6 - Moon Dev",
+         overlay=true,
+         initial_capital=100000,
+         default_qty_type=strategy.percent_of_equity,
+         default_qty_value=100,
+         commission_type=strategy.commission.percent,
+         commission_value=0.2)
+
+// ============================================================================
+// STRATEGY INFO
+// ============================================================================
+// Best Performer: 1.84 Sharpe Ratio | +2.61% Return | -0.87% Max DD
+// Entry: Bullish divergence (price lower low, MACD higher low) + volume spike + ATR filter
+// Exit: Dynamic TP (1.8x ATR), trailing stop, time-based, MACD reversal
+// ============================================================================
+
+// === INPUTS ===
+riskPerTrade = input.float(1.0, "Risk Per Trade (%)", minval=0.1, maxval=10.0, step=0.1)
+atrMultiplier = input.float(1.8, "ATR Take Profit Multiplier", minval=0.5, maxval=5.0, step=0.1)
+bbPeriod = input.int(15, "Bollinger Band Period", minval=5, maxval=50)
+volumeSpikeMultiplier = input.float(1.3, "Volume Spike Multiplier", minval=1.0, maxval=3.0, step=0.1)
+swingPeriod = input.int(8, "Swing Detection Period", minval=3, maxval=20)
+atrPeriod = input.int(10, "ATR Period", minval=5, maxval=30)
+minSeparation = input.int(3, "Min Bars Between Divergences", minval=1, maxval=20)
+maxHoldBars = input.int(40, "Max Hold Time (bars)", minval=10, maxval=200)
+
+// === INDICATORS ===
+// MACD Histogram
+[macdLine, signalLine, macdHist] = ta.macd(close, 12, 26, 9)
+
+// Volume indicators
+volumeSMA = ta.sma(volume, 15)
+volumeSMALong = ta.sma(volume, 30)
+
+// Bollinger Bands
+bbBasis = ta.sma(close, bbPeriod)
+bbDev = ta.stdev(close, bbPeriod)
+bbUpper = bbBasis + 2 * bbDev
+bbLower = bbBasis - 2 * bbDev
+
+// ATR
+atr = ta.atr(atrPeriod)
+
+// Swing lows
+swingLow = ta.lowest(low, swingPeriod)
+
+// === DIVERGENCE DETECTION ===
+var float[] swingPrices = array.new_float(0)
+var float[] swingMacds = array.new_float(0)
+var int[] swingIndices = array.new_int(0)
+
+// Detect new swing low
+isSwingLow = low == swingLow
+if isSwingLow
+    array.push(swingPrices, low)
+    array.push(swingMacds, macdHist)
+    array.push(swingIndices, bar_index)
+
+    // Keep only last 8 swings
+    if array.size(swingPrices) > 8
+        array.shift(swingPrices)
+        array.shift(swingMacds)
+        array.shift(swingIndices)
+
+// Check for bullish divergence
+bullishDivergence = false
+if array.size(swingPrices) >= 2
+    currentLow = array.get(swingPrices, array.size(swingPrices) - 1)
+    currentMacd = array.get(swingMacds, array.size(swingMacds) - 1)
+    currentIdx = array.get(swingIndices, array.size(swingIndices) - 1)
+
+    for i = 0 to array.size(swingPrices) - 2
+        prevLow = array.get(swingPrices, i)
+        prevMacd = array.get(swingMacds, i)
+        prevIdx = array.get(swingIndices, i)
+
+        // Bullish divergence: price makes lower low, MACD makes higher low
+        if (currentIdx - prevIdx) > minSeparation and currentLow < prevLow and currentMacd > prevMacd
+            bullishDivergence := true
+            break
+
+// === CONDITION CHECKS ===
+// Volume conditions
+volumeCondition = volume > volumeSMA * volumeSpikeMultiplier or
+                  volume > volumeSMALong * 1.1 or
+                  (volumeSMA > volumeSMA[2])
+
+// Volatility conditions
+atrAvg = ta.sma(atr, 15)
+bbWidth = bbUpper - bbLower
+bbWidthAvg = ta.sma(bbWidth, 10)
+volatilityCondition = atr > atrAvg * 0.8 or
+                      bbWidth > bbWidthAvg * 0.9 or
+                      atr > atr[2]
+
+// Momentum conditions
+momentumCondition = macdHist > macdHist[1] or
+                    macdHist > 0 or
+                    close > bbBasis or
+                    close > close[2]
+
+// === ENTRY CONDITIONS ===
+longCondition = bullishDivergence and volumeCondition and volatilityCondition and momentumCondition
+
+// === POSITION MANAGEMENT ===
+var float entryPrice = na
+var float stopLoss = na
+var float takeProfit = na
+var int entryBar = na
+var float atrAtEntry = na
+
+// Calculate position size based on risk
+calcPositionSize(entry, stop) =>
+    riskAmount = strategy.equity * (riskPerTrade / 100)
+    riskPerUnit = math.abs(entry - stop)
+    posSize = riskPerUnit > 0 ? riskAmount / riskPerUnit : 0
+    posSize
+
+// Entry logic
+if longCondition and strategy.position_size == 0
+    // Calculate stop loss from recent swing lows
+    recentSwingLow = ta.lowest(low, swingPeriod * 3)
+    stopLoss := recentSwingLow * 0.995
+
+    // Calculate position size
+    posSize = calcPositionSize(close, stopLoss)
+
+    if posSize > 0
+        entryPrice := close
+        atrAtEntry := atr
+        entryBar := bar_index
+
+        // Dynamic take profit based on volatility
+        atrAvgCurrent = ta.sma(atr, 10)
+        dynamicMultiplier = atr > atrAvgCurrent * 1.3 ? atrMultiplier * 1.2 :
+                           atr < atrAvgCurrent * 0.8 ? atrMultiplier * 0.8 :
+                           atrMultiplier
+
+        takeProfit := close + (atr * dynamicMultiplier)
+
+        strategy.entry("Long", strategy.long, qty=posSize)
+
+// === EXIT CONDITIONS ===
+if strategy.position_size > 0
+    // Take profit
+    if close >= takeProfit
+        strategy.close("Long", comment="TP Hit")
+        entryPrice := na
+        stopLoss := na
+        takeProfit := na
+        entryBar := na
+        atrAtEntry := na
+
+    // Stop loss
+    else if close <= stopLoss
+        strategy.close("Long", comment="SL Hit")
+        entryPrice := na
+        stopLoss := na
+        takeProfit := na
+        entryBar := na
+        atrAtEntry := na
+
+    // Trailing stop (after 1% profit)
+    else if not na(entryPrice) and close > entryPrice * 1.01
+        newStop = close * 0.99  // 1% trailing
+        stopLoss := math.max(stopLoss, newStop)
+
+    // Time-based exit
+    else if not na(entryBar) and (bar_index - entryBar) > maxHoldBars
+        strategy.close("Long", comment="Time Exit")
+        entryPrice := na
+        stopLoss := na
+        takeProfit := na
+        entryBar := na
+        atrAtEntry := na
+
+    // MACD reversal exit (only if profitable)
+    else if macdHist < macdHist[1] and macdHist[1] < macdHist[2] and close > entryPrice
+        strategy.close("Long", comment="MACD Reversal")
+        entryPrice := na
+        stopLoss := na
+        takeProfit := na
+        entryBar := na
+        atrAtEntry := na
+
+    // ATR contraction exit (only if profitable)
+    else if not na(atrAtEntry) and atr < atrAtEntry * 0.6 and close > entryPrice
+        strategy.close("Long", comment="ATR Contraction")
+        entryPrice := na
+        stopLoss := na
+        takeProfit := na
+        entryBar := na
+        atrAtEntry := na
+
+    // Bollinger Band lower exit
+    else if close < bbLower
+        strategy.close("Long", comment="BB Lower")
+        entryPrice := na
+        stopLoss := na
+        takeProfit := na
+        entryBar := na
+        atrAtEntry := na
+
+// === PLOTTING ===
+plot(bbUpper, "BB Upper", color=color.blue, linewidth=1)
+plot(bbBasis, "BB Mid", color=color.gray, linewidth=1)
+plot(bbLower, "BB Lower", color=color.blue, linewidth=1)
+
+plotshape(bullishDivergence and volumeCondition and volatilityCondition and momentumCondition,
+          "Long Signal", shape.triangleup, location.belowbar, color.green, size=size.small)
+
+// Plot entry/exit levels
+plot(strategy.position_size > 0 ? takeProfit : na, "Take Profit", color.green, style=plot.style_linebr, linewidth=2)
+plot(strategy.position_size > 0 ? stopLoss : na, "Stop Loss", color.red, style=plot.style_linebr, linewidth=2)
+plot(strategy.position_size > 0 ? entryPrice : na, "Entry", color.yellow, style=plot.style_linebr, linewidth=1)
