@@ -105,7 +105,7 @@ if __name__ == "__main__":
 
     # FIRST: Run standard backtest and print stats (REQUIRED for parsing!)
     print("\n🌙 Running initial backtest for stats extraction...")
-    data = pd.read_csv('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv')
+    data = pd.read_csv('./src/data/rbi/BTC-USD-15m.csv')
     data.columns = data.columns.str.strip().str.lower()
     data = data.drop(columns=[col for col in data.columns if 'unnamed' in col.lower()])
     data.rename(columns={'datetime': 'Datetime', 'open': 'Open', 'high': 'High', 'low': 'Low', 'close': 'Close', 'volume': 'Volume'}, inplace=True)
