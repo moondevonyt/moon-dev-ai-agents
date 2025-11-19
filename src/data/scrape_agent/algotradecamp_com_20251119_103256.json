@@ -1,0 +1,66 @@
+{
+  "url": "https://algotradecamp.com",
+  "timestamp": "2025-11-19T10:32:56.544745",
+  "scraped_data": {
+    "url": "https://algotradecamp.com",
+    "title": "Algo Trade Camp - Automate Your Trading",
+    "description": "Learn to build automated trading bots in 15 days. Remove emotions from your trading with proven algorithmic strategies.",
+    "keywords": "No keywords found",
+    "content": "Algo Trade Camp - Automate Your Trading\nLoading...",
+    "success": true,
+    "error": null,
+    "timestamp": "2025-11-19T10:32:28.588393"
+  },
+  "analysis": {
+    "success": true,
+    "ai_mode": "SWARM",
+    "consensus_summary": "Consensus analysis reveals unanimous agreement that Algo Trade Camp is a 15-day educational program teaching automated trading bot development using algorithmic strategies to eliminate emotional trading. All responses consistently emphasize emotion-free trading, systematic approaches, and practical skill-building, with no notable disagreements among the AI models. This represents a focused, time-bound training solution for traders seeking to automate their strategies through proven methods.",
+    "model_mapping": {
+      "AI #1": "DEEPSEEK",
+      "AI #2": "XAI",
+      "AI #3": "CLAUDE",
+      "AI #4": "OPENROUTER_QWEN",
+      "AI #5": "OPENROUTER_GPT5_MINI",
+      "AI #6": "OPENROUTER_GLM"
+    },
+    "responses": {
+      "deepseek": {
+        "response": "This website teaches individuals how to create automated trading bots using algorithmic strategies to eliminate emotional decision-making from their trading activities. The program promises to deliver these skills through a structured 15-day learning course.\n\n- Learn to build automated trading bots from scratch\n- Complete the training program within 15 days\n- Remove emotional bias from trading decisions\n- Implement proven algorithmic trading strategies\n- Automate your trading activities entirely\n- Focus on systematic rather than emotional trading\n- Develop custom trading algorithms\n- Master automated trading techniques\n- Transform manual trading into automated systems\n- Gain practical algorithmic trading skills",
+        "response_time": 5.91,
+        "success": true
+      },
+      "xai": {
+        "response": "Algo Trade Camp is an online educational program designed to teach individuals how to develop automated trading bots using algorithmic strategies, aiming to eliminate emotional decision-making in financial trading. The camp promises a structured 15-day curriculum that equips participants with practical skills to automate their trading processes for more consistent and data-driven results.\n\n- Focuses on algorithmic trading to automate buy/sell decisions in financial markets.\n- Offers a 15-day intensive learning program for beginners and intermediate traders.\n- Emphasizes removing human emotions from trading to improve performance and reduce errors.\n- Teaches proven strategies for building custom trading bots.\n- Targets users interested in stock, forex, or crypto trading automation.\n- Provides step-by-step guidance on coding and implementing trading algorithms.\n- Aims to empower traders to create passive income streams through automated systems.\n- Highlights the benefits of data-driven, rule-based trading over manual methods.\n- Likely includes video lessons, tutorials, and practical exercises (inferred from program structure).\n- Positions itself as a comprehensive camp for transforming trading habits into automated efficiency.",
+        "response_time": 6.18,
+        "success": true
+      },
+      "claude": {
+        "response": "# Algo Trade Camp - Automate Your Trading\n\nAlgo Trade Camp is an educational platform that teaches individuals how to build automated trading bots within a 15-day timeframe. The program focuses on removing emotional decision-making from trading by implementing proven algorithmic strategies.\n\n## Key Points:\n\n• **Automated trading bot development** - Core focus on creating bots that execute trades automatically\n\n• **15-day learning program** - Structured, time-bound curriculum for quick skill acquisition\n\n• **Emotion-free trading** - Eliminates psychological biases and emotional reactions from trading decisions\n\n• **Algorithmic strategies** - Uses proven, systematic approaches rather than intuition-based trading\n\n• **Educational platform** - Designed to teach rather than simply provide ready-made solutions\n\n• **Beginner-friendly approach** - Structured program suggests accessibility for those new to algo trading\n\n• **Trading automation focus** - Emphasizes removing manual intervention from the trading process\n\n• **Systematic methodology** - Promotes rule-based trading over discretionary decision-making\n\n• **Skill-building emphasis** - Teaches users to create their own bots rather than relying on third-party tools\n\n• **Time-efficient learning** - Compressed timeline suggests practical, hands-on instruction methods",
+        "response_time": 8.37,
+        "success": true
+      },
+      "openrouter_qwen": {
+        "response": "**Two-sentence summary:**  \nAlgo Trade Camp is an educational program designed to teach individuals how to build automated trading bots within just 15 days. It focuses on removing emotional decision-making from trading by using proven algorithmic strategies.\n\n**Ten bullet points:**  \n- Teaches users how to create automated trading bots from scratch.  \n- Promises a 15-day learning timeline for building functional trading algorithms.  \n- Aims to eliminate emotional biases that often hinder manual trading.  \n- Focuses on algorithmic trading strategies that are data-driven and systematic.  \n- Targets both beginners and intermediate traders interested in automation.  \n- Emphasizes practical, hands-on learning rather than just theory.  \n- Likely covers programming, backtesting, and live deployment of bots.  \n- May include instruction on integrating with trading platforms or brokers.  \n- Designed to help traders achieve consistent, rules-based performance.  \n- Positions algorithmic trading as a smarter, more disciplined approach to markets.",
+        "response_time": 9.4,
+        "success": true
+      },
+      "openrouter_gpt5_mini": {
+        "response": "Algo Trade Camp is a short, focused program that teaches you how to build automated trading bots in 15 days using proven algorithmic strategies. The site emphasizes removing emotional decision‑making from trading by replacing discretionary choices with tested, rules‑based systems.\n\n- A 15‑day course/bootcamp format aimed at rapidly teaching automated trading.\n- Teaches how to design and implement algorithmic trading strategies (bots).\n- Emphasizes using proven, rules‑based strategies to reduce emotional trading.\n- Likely covers practical skills such as coding strategy logic and creating bot workflows.\n- Includes methods for testing strategies (backtesting/simulation) before live use.\n- Focus on consistency, discipline, and repeatable trade execution via automation.\n- Teaches risk‑management principles to control drawdowns and position sizing.\n- Geared toward traders who want to move from manual to automated approaches.\n- Practical, hands‑on orientation with templates or example strategies to adapt.\n- Aimed at helping traders deploy and monitor automated systems for real markets.",
+        "response_time": 13.36,
+        "success": true
+      },
+      "openrouter_glm": {
+        "response": "Algo Trade Camp is an intensive educational program designed to teach individuals how to build automated trading bots. The 15-day course focuses on helping traders remove emotion from their decisions by implementing proven algorithmic strategies.\n\n*   An intensive training program focused on algorithmic trading.\n*   Teaches participants how to build automated trading bots from scratch.\n*   The entire course is structured to be completed within a 15-day timeframe.\n*   Aims to eliminate emotional decision-making from trading activities.\n*   Provides instruction on using pre-tested and proven algorithmic strategies.\n*   Designed for traders looking to automate their manual strategies.\n*   Positions itself as a \"camp,\" suggesting a hands-on, immersive learning experience.\n*   The goal is to help users create more efficient and consistent trading systems.\n*   Focuses on the practical application of coding for financial markets.\n*   Offers a fast-track entry into the world of automated trading.",
+        "response_time": 23.59,
+        "success": true
+      }
+    },
+    "metadata": {
+      "total_models": 6,
+      "successful_responses": 6,
+      "failed_responses": 0,
+      "total_time": 27.95
+    },
+    "error": null
+  }
+}

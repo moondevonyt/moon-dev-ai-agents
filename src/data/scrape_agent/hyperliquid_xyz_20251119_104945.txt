@@ -1,0 +1,146 @@
+URL: https://hyperliquid.xyz
+Timestamp: 2025-11-19T10:49:45.868361
+================================================================================
+
+METADATA:
+================================================================================
+
+Title:
+Hyper Foundation
+
+Description:
+Hyperliquid is the blockchain to house all finance. For the first time, build projects, create value, and exchange assets on the same hyper-performant chain.
+
+Keywords:
+No keywords found
+
+================================================================================
+
+AI ANALYSIS:
+================================================================================
+
+🧠 AI CONSENSUS SUMMARY:
+--------------------------------------------------------------------------------
+All AI models consistently describe Hyperliquid as a high-performance blockchain unifying fragmented crypto finance through a flagship decentralized exchange with zero gas fees, high leverage, and seamless trading. They unanimously agree on its dual-layer architecture combining HyperCore for native performance and HyperEVM for Ethereum compatibility, supported by community governance via the HYPE token. No notable disagreements exist, with all responses emphasizing its goal to consolidate trading, building, and asset management on a single, efficient platform.
+
+🔢 MODEL KEY:
+--------------------------------------------------------------------------------
+AI #1 = XAI
+AI #2 = DEEPSEEK
+AI #3 = CLAUDE
+AI #4 = OPENROUTER_QWEN
+AI #5 = OPENROUTER_GPT5_MINI
+AI #6 = OPENROUTER_GLM
+
+📋 INDIVIDUAL AI RESPONSES:
+--------------------------------------------------------------------------------
+
+🤖 XAI:
+Hyperliquid is a high-performance blockchain platform aimed at unifying fragmented crypto finance by enabling users to build projects, create value, and trade assets on a single, efficient chain. Its flagship decentralized exchange offers low-fee, high-leverage trading with seamless on-chain execution, while the broader ecosystem supports programmable applications through integrated HyperCore and HyperEVM layers, all powered by community governance via the native HYPE token.
+
+- **Core Mission**: Hyperliquid seeks to consolidate crypto's fragmented landscape into one hyper-performant blockchain for all financial activities, from trading to project development.
+- **Flagship DEX**: Features a premier decentralized exchange with zero gas fees, low trading costs, and up to 40x leverage for perpetuals and spot markets.
+- **Transparency and On-Chain Execution**: All trades, funding rates, and liquidations occur fully on the Hyperliquid L1 blockchain with a transparent order book.
+- **User Experience**: Enables one-click trading without wallet approvals, ensuring seamless and uninterrupted flows for users.
+- **Technical Stack**: Built on HyperCore for native high-performance financial primitives like order books, integrated with the general-purpose HyperEVM for Ethereum-compatible app development.
+- **Unified State**: HyperCore and HyperEVM share a single state, allowing applications to combine performance, liquidity, and programmability in one ecosystem.
+- **Consensus Mechanism**: Relies on HyperBFT for fast agreement among nodes, achieving a 0.07-second block time and up to 200,000 TPS.
+- **Impressive Stats**: Boasts over 1.2 million users and $7.9 billion in daily trading volume, highlighting its scale and adoption.
+- **Community-Driven Model**: Operates without investors, paid market makers, or company fees, emphasizing a "community first" approach with HYPE token for ownership, governance, and network security.
+- **Ecosystem Opportunities**: Invites users to start trading, building projects, launching tokens, or participating in governance, with resources like docs and an app launcher for easy entry.
+
+--------------------------------------------------------------------------------
+
+🤖 DEEPSEEK:
+Hyperliquid is a high-performance blockchain designed to unify all financial applications, enabling users to build projects, create value, and trade assets seamlessly on a single platform. It features a decentralized exchange with advanced trading capabilities and supports both native high-performance applications and user-built apps through its integrated HyperEVM and HyperCore architecture.
+
+- Aims to consolidate fragmented crypto finance into one blockchain
+- Offers a premier decentralized exchange as its flagship application
+- Provides zero gas fees and low transaction costs
+- Supports up to 40x leverage trading
+- Features fully on-chain order books and transparent operations
+- Enables one-click trading without wallet interruptions
+- Combines HyperCore for high-performance applications with HyperEVM for user-built apps
+- Uses HyperBFT consensus with 0.07-second block times
+- Supports 200,000 maximum transactions per second
+- Operates with a community-first model using the HYPE native token
+
+--------------------------------------------------------------------------------
+
+🤖 CLAUDE:
+## Two-Sentence Summary
+
+Hyperliquid is a high-performance blockchain platform designed to unify all financial activities—trading, building, and asset exchange—on a single decentralized infrastructure. It features a flagship decentralized exchange (DEX) with an on-chain order book, zero gas fees, and combines native high-performance applications (HyperCore) with Ethereum-compatible smart contracts (HyperEVM).
+
+## Ten Key Points
+
+• **Unified Financial Blockchain**: Aims to consolidate fragmented crypto finance onto one hyper-performant chain
+
+• **Decentralized Exchange**: Offers perpetual and spot trading with up to 40x leverage and transparent, fully on-chain order books
+
+• **Zero Gas Fees**: Provides low-cost trading with no gas fees on orders and seamless one-click trading experience
+
+• **Dual Architecture**: Combines HyperCore (native high-performance apps) with HyperEVM (Ethereum-compatible environment) in unified state
+
+• **Exceptional Performance**: Boasts 0.07-second block times and capacity for 200,000 transactions per second
+
+• **Community-Owned**: No investors or paid market makers; governed by HYPE, the native token that anyone can own
+
+• **HyperBFT Consensus**: Uses proprietary consensus mechanism allowing distributed nodes to agree on blockchain state
+
+• **Significant Traction**: Reports 1.2+ million users and $7.9 billion in daily trading volume
+
+• **Developer-Friendly**: Supports familiar Ethereum tooling while enabling high-performance financial primitives
+
+• **Transparent Operations**: All trades, funding, and liquidations occur on-chain on the Hyperliquid L1 blockchain
+
+--------------------------------------------------------------------------------
+
+🤖 OPENROUTER_QWEN:
+Hyperliquid.xyz is the official site of the Hyper Foundation, promoting Hyperliquid—a high-performance, decentralized blockchain designed to unify trading, building, and asset exchange in one seamless, community-governed ecosystem. It features a flagship decentralized exchange with zero gas fees, up to 40x leverage, and deep integration between its custom HyperCore and Ethereum-compatible HyperEVM layers.
+
+- Hyperliquid is a Layer 1 blockchain built to consolidate all financial activities—trading, building, and asset creation—on a single high-speed chain.  
+- Its flagship application is a fully onchain, decentralized perpetual and spot exchange with transparent order books.  
+- The platform charges zero gas fees and offers low trading fees to enhance capital efficiency.  
+- Traders can access up to 40x leverage with seamless, one-click execution and no wallet approval interruptions.  
+- Hyperliquid combines two integrated layers: HyperCore (for high-performance financial primitives) and HyperEVM (an Ethereum-compatible environment for smart contracts).  
+- Both layers share a unified state, enabling apps to simultaneously leverage speed, liquidity, and programmability.  
+- The network runs on HyperBFT consensus, achieving a 0.07-second block time and up to 200,000 transactions per second (TPS).  
+- It boasts over 1.2 million users and $7.9 billion in daily trading volume, operating without traditional investors or paid market makers.  
+- The ecosystem is community-owned and governed through HYPE, its native token, which allows participation in governance and network security.  
+- Hyperliquid emphasizes decentralization, transparency, and community-first principles, with no fees flowing to a central company.
+
+--------------------------------------------------------------------------------
+
+🤖 OPENROUTER_GPT5_MINI:
+Hyperliquid is a high-performance blockchain and ecosystem built to host financial applications so projects can be built, assets issued, and trading executed on the same unified chain. It pairs a low-latency native layer for financial primitives (HyperCore) with an Ethereum-compatible HyperEVM, offering fully on-chain order books, near-zero gas on orders, and community governance via the HYPE token.
+
+- Flagship use case: a fully on-chain, decentralized exchange (perpetuals and spot order books).  
+- Very low costs: zero gas on orders and generally low fees.  
+- Up to 40x leverage available for traders to maximize capital efficiency.  
+- Seamless UX: one-click trading with no wallet approvals interrupting flow.  
+- Core architecture: HyperCore (high-performance financial primitives) + HyperEVM (general-purpose, Ethereum tooling) sharing one unified state.  
+- Consensus: HyperBFT secures the network and lets nodes agree on system state.  
+- High performance stats: ~0.07s block time, up to 200,000 TPS, $7.9B daily volume, ~1.23M users.  
+- Community-first model: no investors or paid market makers; governance and ownership via the HYPE token.  
+- Developer-friendly: user-built apps can interact with HyperCore to launch tokens, access liquidity, and trade.  
+- Calls to action: Start Trading or Start Building — the platform aims to consolidate fragmented crypto finance into one chain.
+
+--------------------------------------------------------------------------------
+
+🤖 OPENROUTER_GLM:
+Hyperliquid is a high-performance blockchain built to unify all of finance by enabling users to build projects, create value, and trade assets on a single, integrated platform. It achieves this through a unique architecture that combines HyperCore for high-performance financial applications with HyperEVM for general-purpose, user-built apps.
+
+*   Aims to be an all-in-one blockchain for building, creating value, and trading digital assets.
+*   Its flagship product is a premier decentralized exchange (DEX) with a fully on-chain order book.
+*   Offers zero gas fees and low trading fees on all orders placed on its exchange.
+*   Provides traders with up to 40x leverage to maximize capital efficiency.
+*   Built on HyperCore, a layer for native, high-performance financial applications like spot and perpetual order books.
+*   Features HyperEVM, a general-purpose layer compatible with familiar Ethereum tooling for developers.
+*   HyperCore and HyperEVM operate with a unified state, allowing applications to be both performant and programmable.
+*   Boasts an extremely fast block time of 0.07 seconds and a maximum throughput of 200,000 TPS.
+*   The platform is community-governed through its native HYPE token.
+*   Operates with a "Community first" philosophy, having no outside investors or paid market makers.
+
+--------------------------------------------------------------------------------
+

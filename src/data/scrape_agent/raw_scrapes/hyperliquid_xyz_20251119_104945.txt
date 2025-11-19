@@ -1,0 +1,111 @@
+URL: https://hyperliquid.xyz
+Timestamp: 2025-11-19T10:49:45.868776
+================================================================================
+
+RAW SCRAPED CONTENT:
+================================================================================
+
+Hyper Foundation
+Stats
+Docs
+Ecosystem
+Launch App
+The Blockchain To
+House All Finance
+Crypto is fragmented today, but it doesn’t need to be.
+For the first time, build projects, create value, and
+exchange assets on the same hyper-performant chain.
+Start Trading
+Start Building
+The flagship application: the premier
+D
+D
+E
+E
+C
+C
+E
+E
+N
+N
+T
+T
+R
+R
+A
+A
+L
+L
+I
+I
+S
+S
+E
+E
+D
+D
+exchange
+Low fees
+Zero gas and low fees
+on all orders.
+Up to 40x leverage
+Trade with conviction to maximize
+capital efficiency.
+Transparent
+Fully onchain order book. Trades,
+funding, and liquidations all happen
+on the Hyperliquid L1.
+Seamless
+One-click trading. No wallet
+approvals to interrupt your flow.
+The
+Stack
+Perps and spot order books are
+two flagship applications built on
+HyperCore. But they are
+just the tip of the iceberg.
+User-built applications on the HyperEVM
+interact seamlessly with HyperCore
+to let anyone use apps, launch tokens,
+and trade, all in one place.
+High performance applications are built
+natively. These financial primitives on
+HyperCore are accessible to user-built
+applications on the general-purpose
+HyperEVM, which supports familiar
+Ethereum tooling. The HyperEVM and
+HyperCore exist as one unified state,
+unlocking applications that
+simultaneously require performance,
+liquidity, and programmability.
+The foundation of the Hyperliquid
+blockchain is HyperBFT consensus,
+which lets a disparate set of nodes
+agree on the state of the world. The
+state comprises all applications,
+both those built on HyperCore
+and the HyperEVM.
+Block time
+0.07 seconds
+Users
+1,227,183
+Max TPS
+200,000
+Daily volume
+$7.9B
+No investors. No paid market makers. No fees to any company.
+Community first.
+Anyone can own, govern, and
+secure
+Hyperliquid
+through
+HYPE,
+the network's native token.
+Own a piece of Hyperliquid today.
+Start Trading
+Start Building
+2025
+Terms of Service
+Privacy Policy
+Genesis Event Terms & Conditions
+NFT Terms & License

@@ -57,8 +57,9 @@ AI_TEMPERATURE = 0.7
 AI_MAX_TOKENS = 4000
 
 # Import model factory with proper path handling
+PROJECT_ROOT = Path(__file__).parent.parent.parent
 import sys
-sys.path.append('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading')
+sys.path.append(str(PROJECT_ROOT))
 
 try:
     from src.models import model_factory
@@ -131,9 +132,8 @@ DEEPSEEK_BASE_URL = "https://api.deepseek.com"
 # Get today's date for organizing outputs
 TODAY_DATE = datetime.now().strftime("%m_%d_%Y")
 
-# Update data directory paths - Parallel version uses its own folder
-PROJECT_ROOT = Path(__file__).parent.parent
-DATA_DIR = PROJECT_ROOT / "data/rbi_pp"
+# Update data directory paths - Parallel version uses its own folder (PROJECT_ROOT already defined above)
+DATA_DIR = PROJECT_ROOT / "src" / "data" / "rbi_pp"
 TODAY_DIR = DATA_DIR / TODAY_DATE
 RESEARCH_DIR = TODAY_DIR / "research"
 BACKTEST_DIR = TODAY_DIR / "backtests"

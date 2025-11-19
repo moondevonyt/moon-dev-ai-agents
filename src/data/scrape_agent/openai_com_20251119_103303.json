@@ -1,0 +1,66 @@
+{
+  "url": "https://openai.com",
+  "timestamp": "2025-11-19T10:33:03.080392",
+  "scraped_data": {
+    "url": "https://openai.com",
+    "title": "OpenAI",
+    "description": "We believe our research will eventually lead to artificial general intelligence, a system that can solve human-level problems. Building safe and beneficial AGI is our mission.",
+    "keywords": "No keywords found",
+    "content": "OpenAI\nSwitch to\nChatGPT\n(opens in a new window)\nSora\n(opens in a new window)\nAPI Platform\n(opens in a new window)\nOpenAI\nWhat can I help with?\nMessage ChatGPT\nSearch with ChatGPT\nTalk with ChatGPT\nResearch\nSora\nMore\nIntroducing ChatGPT Atlas, the browser with ChatGPT built in\nProduct\n7 min read\nIntroducing ChatGPT Atlas, the browser with ChatGPT built in\nProduct\n7 min read\nGPT-5.1: A smarter, more conversational ChatGPT\nProduct\n7 min read\nIntroducing GPT-5.1 for developers\nProduct\nNov 13, 2025\n8 min read\nSora 2 is here\nResearch\n8 min read\nLatest news\nView all\nIntuit and OpenAI join forces on new AI-powered experiences\nCompany\nNov 18, 2025\nOpenAI named Emerging Leader in Generative AI\nCompany\nNov 17, 2025\nPiloting group chats in ChatGPT\nProduct\nNov 13, 2025\nFighting the New York Times’ invasion of user privacy\nSecurity\nNov 12, 2025\nFree ChatGPT for transitioning U.S. servicemembers and veterans\nCompany\nNov 10, 2025\nUnderstanding prompt injections: a frontier security challenge\nSecurity\nNov 7, 2025\nStories\nView all\nCoding and design with GPT-5\nGPT-5\nAug 7, 2025\n2 min read\nCreative writing with GPT-5\nGPT-5\nAug 7, 2025\n2 min read\nMedical research with GPT-5\nGPT-5\nAug 7, 2025\n2 min read\nLatest research\nView all\nUnderstanding neural networks through sparse circuits\nResearch\nNov 13, 2025\nIntroducing IndQA\nResearch\nNov 3, 2025\nOpenAI for business\nView all\nKnowledge preservation powered by ChatGPT\nChatGPT\nDoppel’s AI defense system stops attacks before they spread\nAPI\nA law and tax firm redefines efficiency with ChatGPT Business\nChatGPT\nGet started with ChatGPT\nDownload",
+    "success": true,
+    "error": null,
+    "timestamp": "2025-11-19T10:32:26.944958"
+  },
+  "analysis": {
+    "success": true,
+    "ai_mode": "SWARM",
+    "consensus_summary": "All AI models unanimously identify OpenAI's mission to develop safe, beneficial artificial general intelligence (AGI) as the website's core theme, while consistently highlighting key products like ChatGPT, Sora, and developer APIs. There is strong agreement across all responses about recent advancements such as GPT-5.1 and ChatGPT Atlas, with no notable disagreements regarding the company's focus on research, security, and business applications. This consensus presents OpenAI as an AGI-focused organization actively deploying AI tools through continuous product updates and strategic partnerships.",
+    "model_mapping": {
+      "AI #1": "XAI",
+      "AI #2": "DEEPSEEK",
+      "AI #3": "OPENROUTER_GPT5_MINI",
+      "AI #4": "CLAUDE",
+      "AI #5": "OPENROUTER_QWEN",
+      "AI #6": "OPENROUTER_GLM"
+    },
+    "responses": {
+      "xai": {
+        "response": "OpenAI's website serves as the central hub for the organization's mission to develop safe and beneficial artificial general intelligence (AGI), showcasing advancements in AI products, research, and real-world applications. It highlights cutting-edge tools like enhanced versions of ChatGPT and Sora, alongside news on partnerships, security challenges, and business integrations that demonstrate AI's transformative potential.\n\n- The site emphasizes OpenAI's core goal of creating AGI capable of solving human-level problems through safe and innovative AI development.\n- Key products include ChatGPT, with new features like group chats and a built-in browser called ChatGPT Atlas for seamless integration.\n- Sora, OpenAI's video generation tool, is updated to Sora 2, focusing on advanced research and creative applications.\n- The API Platform enables developers to integrate OpenAI's models, with recent introductions like GPT-5.1 for more conversational and efficient AI experiences.\n- Latest news covers partnerships, such as with Intuit for AI-powered experiences, and recognitions like being named an Emerging Leader in Generative AI.\n- Security topics address challenges like prompt injections and user privacy invasions, including responses to legal issues with The New York Times.\n- Community initiatives include free ChatGPT access for U.S. servicemembers and veterans to support transitions.\n- Stories illustrate practical uses of GPT-5 in coding, design, creative writing, and medical research, highlighting its versatility.\n- Research sections feature publications on neural networks, sparse circuits, and new benchmarks like IndQA for evaluating AI capabilities.\n- Business applications showcase how ChatGPT and APIs enhance efficiency in areas like knowledge preservation, AI defense systems, and law firm operations.",
+        "response_time": 5.21,
+        "success": true
+      },
+      "deepseek": {
+        "response": "This website presents OpenAI's mission to develop artificial general intelligence (AGI) safely while showcasing their latest AI products and research advancements. It serves as the central hub for accessing their technologies like ChatGPT and learning about new developments.\n\n• Develops artificial general intelligence (AGI) to solve human-level problems\n• Creates safe and beneficial AI systems as core mission\n• Offers ChatGPT for conversational AI interactions and assistance  \n• Features Sora AI model for advanced research applications\n• Provides API platform for developers to build AI solutions\n• Introduces new products like ChatGPT Atlas browser integration\n• Advances AI capabilities with models like GPT-5.1\n• Publishes latest research on neural networks and AI security\n• Partners with companies like Intuit for AI-powered experiences\n• Offers business solutions and enterprise AI applications",
+        "response_time": 7.82,
+        "success": true
+      },
+      "openrouter_gpt5_mini": {
+        "response": "OpenAI is an AI research and deployment company whose mission is to build safe, beneficial artificial general intelligence (AGI). The website publishes product announcements, research, security and company news, and provides access to tools like ChatGPT, Sora, and developer APIs.\n\n- Mission-driven focus on developing safe, human-level AGI.  \n- ChatGPT product and ecosystem (chat interface, messaging, search integrations).  \n- ChatGPT Atlas — a browser with ChatGPT built in.  \n- Sora (including Sora 2) as a research/product offering.  \n- API platform and developer tools for building with OpenAI models.  \n- Ongoing model releases such as GPT-5 and GPT-5.1 for developers.  \n- Research publications and technical projects (e.g., IndQA, neural network studies).  \n- Company news, partnerships, awards, and initiatives for widescale adoption.  \n- Security and privacy content addressing challenges like prompt injection and data protection.  \n- Business and industry use cases, case studies, and resources to get started or download tools.",
+        "response_time": 7.99,
+        "success": true
+      },
+      "claude": {
+        "response": "This website is the homepage for OpenAI, an artificial intelligence research company focused on developing artificial general intelligence (AGI) that is safe and beneficial. It showcases their latest AI products, research developments, and applications across various industries.\n\n**Key points about the website:**\n\n• Promotes ChatGPT as their flagship conversational AI product with multiple access points and features\n• Announces major product updates including GPT-5.1 and ChatGPT Atlas browser\n• Showcases Sora, their AI video generation technology, with a Sora 2 release\n• Highlights research breakthroughs in neural networks and AI development\n• Features business applications and case studies across industries like law, tax, and cybersecurity\n• Provides access to their API Platform for developers to build AI-powered applications\n• Shares company news including partnerships (like with Intuit) and industry recognition\n• Offers specialized content about GPT-5 capabilities in coding, creative writing, and medical research\n• Addresses security concerns like prompt injections and user privacy protection\n• Demonstrates social initiatives such as free ChatGPT access for U.S. veterans and servicemembers",
+        "response_time": 9.6,
+        "success": true
+      },
+      "openrouter_qwen": {
+        "response": "This website belongs to OpenAI, an artificial intelligence company focused on developing safe and beneficial artificial general intelligence (AGI). It showcases OpenAI's products (like ChatGPT, Sora, and GPT-5.1), research breakthroughs, business applications, and company news.\n\n- OpenAI’s mission is to build safe and beneficial artificial general intelligence (AGI).\n- The site highlights flagship products including ChatGPT, Sora (a video generation model), and the API platform.\n- Recent product announcements include ChatGPT Atlas (a browser with built-in ChatGPT) and GPT-5.1.\n- OpenAI shares ongoing research, such as studies on neural networks and new models like IndQA.\n- The company collaborates with businesses and organizations, like its partnership with Intuit.\n- Security and ethical AI are emphasized, with posts on prompt injection threats and user privacy.\n- OpenAI offers specialized services for enterprises, such as ChatGPT Business for knowledge management.\n- The site features real-world use cases across coding, creative writing, and medical research using GPT-5.\n- Support initiatives include free ChatGPT access for U.S. veterans and transitioning service members.\n- Regular updates include company milestones, product launches, and research publications.",
+        "response_time": 14.27,
+        "success": true
+      },
+      "openrouter_glm": {
+        "response": "This website is for OpenAI, a research company with the mission to build safe and beneficial artificial general intelligence. They develop and offer advanced AI models like ChatGPT and Sora for a wide range of applications, from personal assistance to enterprise solutions and creative work.\n\n*   The company's core mission is to build safe artificial general intelligence (AGI) that can solve human-level problems.\n*   ChatGPT is their flagship product, a conversational AI that can message, search, and talk with users.\n*   They recently introduced \"ChatGPT Atlas,\" a new web browser with the AI assistant built-in.\n*   A new, more advanced model called \"GPT-5.1\" has been released for both consumers and developers.\n*   Sora is their AI model for generating videos from text prompts, with a new \"Sora 2\" version now available.\n*   Developers can access OpenAI's models through an API Platform to integrate AI into their own applications.\n*   The technology is used by businesses for tasks like knowledge preservation, customer support, and increasing efficiency.\n*   OpenAI's tools are applied in diverse fields including coding, creative writing, and medical research.\n*   The company actively publishes research on topics like neural networks and AI security challenges.\n*   They engage in corporate partnerships, such as with Intuit, and offer special programs like free access for U.S. veterans.",
+        "response_time": 31.03,
+        "success": true
+      }
+    },
+    "metadata": {
+      "total_models": 6,
+      "successful_responses": 6,
+      "failed_responses": 0,
+      "total_time": 36.13
+    },
+    "error": null
+  }
+}

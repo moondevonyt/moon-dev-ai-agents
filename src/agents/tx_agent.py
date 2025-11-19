@@ -17,6 +17,10 @@ from rich.console import Console
 from rich import print as rprint
 from playsound import playsound
 
+# 🌙 Moon Dev: Calculate project root dynamically
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+GITHUB_DIR = PROJECT_ROOT.parent  # Parent folder containing all repos
+
 # Add src directory to Python path
 src_path = str(Path(__file__).parent.parent)
 if src_path not in sys.path:
@@ -54,10 +58,10 @@ TRANSACTION_EMOJIS = [
     "🌙", "⭐", "✨", "💫", "🌟", "⚡",   # Moon Dev specials
 ]
 
-# Sound effects paths
+# Sound effects paths - 🌙 Moon Dev: External repo (sibling to this repo)
 SOUND_EFFECTS = [
-    "/Users/md/Dropbox/dev/github/Untitled/sounds/crack1.wav",
-    "/Users/md/Dropbox/dev/github/Untitled/sounds/golfhit25.MP3"
+    str(GITHUB_DIR / "Untitled" / "sounds" / "crack1.wav"),
+    str(GITHUB_DIR / "Untitled" / "sounds" / "golfhit25.MP3")
 ]
 
 class TxScanner:

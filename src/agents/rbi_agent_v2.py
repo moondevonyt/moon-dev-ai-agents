@@ -42,8 +42,10 @@ AI_TEMPERATURE = 0.7
 AI_MAX_TOKENS = 4000
 
 # Import model factory with proper path handling
+from pathlib import Path
+PROJECT_ROOT = Path(__file__).parent.parent.parent
 import sys
-sys.path.append('/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading')
+sys.path.append(str(PROJECT_ROOT))
 
 try:
     from src.models import model_factory
@@ -87,9 +89,8 @@ DEEPSEEK_BASE_URL = "https://api.deepseek.com"
 # Get today's date for organizing outputs
 TODAY_DATE = datetime.now().strftime("%m_%d_%Y")
 
-# Update data directory paths - V2 uses separate folder structure
-PROJECT_ROOT = Path(__file__).parent.parent
-DATA_DIR = PROJECT_ROOT / "data/rbi_v2"  # NEW: Separate V2 folder
+# Update data directory paths - V2 uses separate folder structure (PROJECT_ROOT already defined above)
+DATA_DIR = PROJECT_ROOT / "src" / "data" / "rbi_v2"  # NEW: Separate V2 folder
 TODAY_DIR = DATA_DIR / TODAY_DATE
 RESEARCH_DIR = TODAY_DIR / "research"
 BACKTEST_DIR = TODAY_DIR / "backtests"
@@ -204,7 +205,7 @@ RISK MANAGEMENT:
 
 If you need indicators use TA lib or pandas TA. 
 
-Use this data path: /Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi/BTC-USD-15m.csv
+Use this data path: {PROJECT_ROOT}/src/data/rbi/BTC-USD-15m.csv (use absolute path in code)
 the above data head looks like below
 datetime, open, high, low, close, volume,
 2023-01-01 00:00:00, 16531.83, 16532.69, 16509.11, 16510.82, 231.05338022,

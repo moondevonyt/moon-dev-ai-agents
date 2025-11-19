@@ -1,0 +1,38 @@
+URL: https://moondev.com
+Timestamp: 2025-11-19T10:47:53.038981
+================================================================================
+
+RAW SCRAPED CONTENT:
+================================================================================
+
+Moon Dev Dashboard - Elite Algo Trading Intelligence
+Elite Algo Trading Intelligence Platform
+Master Algorithmic Trading
+With AI-Powered Intelligence
+The most comprehensive algorithmic trading dashboard. Built by traders, for traders. Access AI chat, strategy backtesting, real-time market data, and exclusive insights from the Quant Elite community.
+Join Now
+Join hundreds of successful algo traders
+Everything You Need to Succeed
+Powerful tools and data at your fingertips
+Strategy Backtesting
+Access 2,000+ backtests across multiple markets and timeframes. Filter by performance metrics, organize strategies into folders, and export results. Analyze Sharpe ratios, drawdowns, win rates, and more.
+Market Data Portal
+Real-time access to liquidations data, open interest, funding rates, and market metrics. Download historical data for your own analysis. Updated every 5 minutes.
+Polymarket Tracking
+Track prediction market sweeps and expiring markets on Polymarket. Get alerts on high-volume trades and market movements. Perfect for event-driven trading.
+Live Liquidations Stream
+Real-time WebSocket stream of Binance liquidation events. See exactly when positions get liquidated with 1H, 4H, 12H, and 24H aggregate statistics.
+Historical Crypto Data
+Download historical OHLCV data for major cryptocurrencies. Multiple timeframes available from 1-minute to daily. Export clean CSV files ready for backtesting.
+AI Chat Assistant
+Chat with advanced AI built for algorithmic traders. Code backtests, research strategies, generate ideas, and test them instantly with real-time streaming responses.
+2,000+
+Backtested Strategies
+26M+
+Liquidation Records
+Real-Time
+Market Data Updates
+Ready to Join Quant Elite?
+Get instant access to all premium features, exclusive strategies, and the Quant Elite community. Start making smarter trading decisions today.
+Join Now
+Join Quant Elite after joining the bootcamp

@@ -1,0 +1,66 @@
+{
+  "url": "https://youtube.com",
+  "timestamp": "2025-11-19T10:32:48.970606",
+  "scraped_data": {
+    "url": "https://youtube.com",
+    "title": "YouTube",
+    "description": "Disfruta los videos y la música que te encantan, sube contenido original y compártelo con tus amigos, familiares y el resto del mundo en YouTube.",
+    "keywords": "video, compartir, teléfono con cámara, teléfono con video, gratuito, subir",
+    "content": "YouTube\nAcerca de\nPrensa\nDerechos de autor\nComunicarte con nosotros\nCreadores\nAnunciar\nDesarrolladores\nCondiciones\nPrivacidad\nPolíticas y seguridad\nCómo funciona YouTube\nPrueba funciones nuevas\n© 2025 Google LLC",
+    "success": true,
+    "error": null,
+    "timestamp": "2025-11-19T10:32:27.336536"
+  },
+  "analysis": {
+    "success": true,
+    "ai_mode": "SWARM",
+    "consensus_summary": "Consensus analysis reveals unanimous agreement that YouTube is Google's free global video-sharing platform enabling users to watch, upload, and share content while supporting creators and advertisers. All responses consistently highlight mobile accessibility, community features, and policy frameworks, with no notable disagreements in core functionality. The platform universally serves as both entertainment hub and creative toolkit with global reach.",
+    "model_mapping": {
+      "AI #1": "XAI",
+      "AI #2": "DEEPSEEK",
+      "AI #3": "CLAUDE",
+      "AI #4": "OPENROUTER_QWEN",
+      "AI #5": "OPENROUTER_GPT5_MINI",
+      "AI #6": "OPENROUTER_GLM"
+    },
+    "responses": {
+      "xai": {
+        "response": "YouTube is a popular online video-sharing platform owned by Google, where users can watch, upload, and share a wide variety of videos, including music, entertainment, and user-generated content, fostering a global community of creators and viewers. It offers features for personalization, such as recommendations and subscriptions, while emphasizing accessibility through mobile devices and free usage.\n\n- **Video Streaming Service**: Primarily focused on allowing users to enjoy videos and music from around the world.\n- **Content Upload**: Enables individuals to upload original videos and share them with friends, family, and the global audience.\n- **Mobile-Friendly**: Supports viewing and recording via camera phones, making it convenient for on-the-go use.\n- **Free Access**: Provides all core features at no cost, broadening its reach to millions of users.\n- **Sharing Capabilities**: Facilitates easy sharing of videos across social networks and personal contacts.\n- **Creator Tools**: Includes resources and support for content creators to build and monetize their channels.\n- **Advertising Opportunities**: Offers options for businesses and creators to advertise and promote content.\n- **Developer Integration**: Provides APIs and tools for developers to build applications around YouTube's platform.\n- **Community and Policies**: Maintains guidelines on privacy, terms of service, and safety to ensure a positive user experience.\n- **Innovation Hub**: Encourages testing of new features, keeping the platform evolving with user feedback and technological advancements.",
+        "response_time": 4.82,
+        "success": true
+      },
+      "deepseek": {
+        "response": "YouTube is a popular online platform where users can watch, share, and upload videos for free, connecting with a global audience. It offers a wide range of content, from music and entertainment to educational and original creator videos.\n\n- Allows users to watch videos and listen to music\n- Enables uploading and sharing of original content\n- Free to use for viewers and creators\n- Supports video sharing from camera phones\n- Provides tools and resources for content creators\n- Includes advertising and developer opportunities\n- Governed by terms, privacy policies, and safety guidelines\n- Owned and operated by Google LLC\n- Offers new features for testing and experimentation\n- Facilitates communication and community engagement",
+        "response_time": 6.91,
+        "success": true
+      },
+      "claude": {
+        "response": "# YouTube Overview\n\nYouTube is the world's largest video-sharing platform where users can watch, upload, and share video content across virtually any topic imaginable. It serves as a global community for entertainment, education, news, and creative expression, accessible for free to billions of users worldwide.\n\n## Key Features:\n\n• **Video sharing platform** - Upload and share original content with a global audience\n• **Free access** - Watch millions of videos without requiring payment or subscription for basic features\n• **Mobile-friendly** - Fully compatible with camera phones and mobile devices for recording and viewing\n• **Social connectivity** - Share videos with friends, family, and communities around the world\n• **Creator tools** - Provides resources and support for content creators to build audiences\n• **Advertising platform** - Offers businesses opportunities to reach targeted audiences through video ads\n• **Developer support** - Includes APIs and tools for developers to integrate YouTube functionality\n• **Music streaming** - Extensive library of music videos and audio content\n• **Diverse content** - Hosts entertainment, educational, news, gaming, and lifestyle videos\n• **Google-owned service** - Operated by Google LLC with robust privacy policies and safety features",
+        "response_time": 10.16,
+        "success": true
+      },
+      "openrouter_qwen": {
+        "response": "YouTube is a global online video-sharing platform that allows users to watch, upload, share, and interact with a vast array of video content—from music and entertainment to educational and user-generated videos. Owned by Google, it serves both as a content consumption hub and a creative space for individuals and organizations to reach audiences worldwide.\n\n- Hosts millions of videos across countless genres and topics  \n- Enables users to upload and share their own original content  \n- Offers free access to video content for viewers worldwide  \n- Optimized for use on smartphones, including video and camera-enabled devices  \n- Provides tools and resources for content creators and influencers  \n- Supports community interaction through likes, comments, and subscriptions  \n- Includes advertising options for businesses and monetization for creators  \n- Complies with copyright, privacy, and safety policies  \n- Continuously tests and rolls out new features for users and developers  \n- Operated under Google LLC with comprehensive terms and user protections",
+        "response_time": 10.57,
+        "success": true
+      },
+      "openrouter_gpt5_mini": {
+        "response": "YouTube es una plataforma para ver, subir y compartir videos y música en todo el mundo. Propiedad de Google, ofrece canales, suscripciones, recomendaciones personalizadas, herramientas para creadores y normativas sobre derechos de autor, privacidad y publicidad.\n\n- Ver videos y música de creadores profesionales y usuarios aficionados.  \n- Subir contenido original desde el teléfono o la cámara de forma gratuita.  \n- Crear y gestionar canales, suscribirse y recibir notificaciones de nuevos videos.  \n- Comentar, valorar, compartir videos y crear listas de reproducción.  \n- Recomendaciones personalizadas y búsqueda por temas, tendencias y etiquetas.  \n- Transmisiones en vivo y estrenos de contenido.  \n- Monetización para creadores: anuncios, membresías de canal, Super Chat, etc.  \n- Herramientas y estadísticas para creadores (YouTube Studio) para gestionar contenido y rendimiento.  \n- Opciones publicitarias y recursos para anunciantes.  \n- Políticas y seguridad: derechos de autor, condiciones de uso, privacidad, y APIs/aplicaciones para desarrolladores y dispositivos (móvil, TV).",
+        "response_time": 17.25,
+        "success": true
+      },
+      "openrouter_glm": {
+        "response": "YouTube is a free platform for enjoying videos and music, uploading original content, and sharing media globally. It provides resources for creators, developers, and advertisers, while also establishing clear policies for copyright, privacy, and safety.\n\n*   It is a platform for watching videos and listening to music.\n*   The service is offered for free to users.\n*   Users can upload their own original content.\n*   Content can be shared with friends, family, and a worldwide audience.\n*   It supports media created on camera phones and video phones.\n*   There are specific resources and sections for \"Creators.\"\n*   The platform offers opportunities for advertising.\n*   Tools and support are provided for \"Developers.\"\n*   The site has clear policies regarding copyright, privacy, and safety.\n*   YouTube is a service of Google LLC.",
+        "response_time": 17.61,
+        "success": true
+      }
+    },
+    "metadata": {
+      "total_models": 6,
+      "successful_responses": 6,
+      "failed_responses": 0,
+      "total_time": 21.63
+    },
+    "error": null
+  }
+}

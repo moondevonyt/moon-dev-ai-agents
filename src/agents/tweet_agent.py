@@ -5,6 +5,16 @@ Built with love by Moon Dev 🚀
 This agent takes text input and generates tweets based on the content.
 """
 
+import os
+import pandas as pd
+import time
+from datetime import datetime
+from pathlib import Path
+
+# 🌙 Moon Dev: Calculate project root dynamically (MUST be before OG_TWEET_FILE)
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+DATA_DIR = PROJECT_ROOT / "src" / "data"
+
 # Model override settings
 # Set to "0" to use config.py's AI_MODEL setting
 # Available models:
@@ -19,13 +29,7 @@ MAX_CHUNK_SIZE = 10000  # Maximum characters per chunk
 TWEETS_PER_CHUNK = 3   # Number of tweets to generate per chunk
 USE_TEXT_FILE = True   # Whether to use og_tweet_text.txt by default
 # if the above is true, then the below is the file to use
-OG_TWEET_FILE = "/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/tweets/og_tweet_text.txt"
-
-import os
-import pandas as pd
-import time
-from datetime import datetime
-from pathlib import Path
+OG_TWEET_FILE = DATA_DIR / "tweets" / "og_tweet_text.txt"  # 🌙 Moon Dev: Dynamic path!
 from dotenv import load_dotenv
 import openai
 import anthropic
@@ -33,9 +37,6 @@ import traceback
 import math
 from termcolor import colored, cprint
 import sys
-
-# Get the project root directory
-PROJECT_ROOT = Path(__file__).parent.parent.parent
 
 # AI Settings - Override config.py if set
 from src import config
@@ -123,8 +124,8 @@ class TweetAgent:
         else:
             self.deepseek_client = None
         
-        # Create tweets directory if it doesn't exist
-        self.tweets_dir = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/tweets")
+        # Create tweets directory if it doesn't exist - 🌙 Moon Dev: Dynamic path!
+        self.tweets_dir = DATA_DIR / "tweets"
         self.tweets_dir.mkdir(parents=True, exist_ok=True)
         
         # Generate output filename with timestamp

@@ -1,0 +1,174 @@
+URL: https://predictionbots.com
+Timestamp: 2025-11-19T10:47:42.501210
+================================================================================
+
+RAW SCRAPED CONTENT:
+================================================================================
+
+🌙 PredictionBots.com
+PredictionBots.com
+LIVE
+⏸️ Paused
+🚨 Sweeps
+🐋 Whales
+🔴 NO
+💎 Edge
+⏰ Closing
+📊 Clusters
+🫧 Bubbles
+Ignore Sports
+Ignore Crypto
+Amount
+Side
+Price
+Market
+Time
+i
+$239
+Yes
+39.0%
+Will Pope Leo XIV be the #1 searched person on Google this year?
+4s ago
+🔥 $25,127
+No
+89.0%
+Russia x Ukraine ceasefire in 2025?
+4s ago
+$317
+No
+90.0%
+Will Apple dip to $248 in November?
+14s ago
+$141
+No
+94.0%
+Will Google (GOOGL) close at $270-$275 on the final day of trading of the week of Nov 17 – Nov 21?
+14s ago
+$171
+Yes
+44.0%
+Will Trump sign the Epstein Disclosure Bill on November 20?
+16s ago
+$402
+Yes
+96.9%
+Will Bad Bunny be the top Spotify artist for 2025?
+20s ago
+$247
+No
+84.8%
+Will Google (GOOGL) close at $285-$290 on the final day of trading of the week of Nov 17 – Nov 21?
+34s ago
+$167
+Yes
+3.1%
+Will Microsoft be the second-largest company in the world by market cap on November 30?
+38s ago
+$499
+Yes
+75.1%
+Will any AI model reach 1500+ on Chatbot Arena by Dec 31?
+40s ago
+$116
+No
+59.0%
+Will Trump sign the Epstein Disclosure Bill on November 19?
+40s ago
+$170
+No
+17.0%
+Will gmoney win the Synthetix trading competition?
+40s ago
+$114
+Yes
+69.6%
+Will Google (GOOGL) finish week of November 17 above $280?
+42s ago
+$246
+No
+58.0%
+No change in Fed interest rates after December 2025 meeting?
+44s ago
+$144
+Yes
+15.0%
+Will "Wicked: For Good" Opening Weekend Box Office be between 137m and 150m?
+46s ago
+$101
+Xtreme Gaming
+68.9%
+Dota 2: Xtreme Gaming vs Heroic - Game 1 Winner
+54s ago
+◀
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+...
+190
+▶
+Do you want to build an automated trading bot for Polymarket?
+Learn to build automated trading bots from scratch. This course walks you through three complete bot examples: Spread Market Maker, Whale Copy Bot, and Mean Reversion Bot. You'll get step-by-step video tutorials, complete source code, and hands-on Discord support to build your own strategies.
+🚀 Join the Bootcamp
+🤖
+3 Complete Bot Examples
+Step-by-step walkthroughs of building three bot examples: Spread Market Maker,
+Whale Copy Bot, and Mean Reversion Bot. Not plug-and-play - you'll learn the
+concepts to build your own strategies with your own ideas.
+📹
+8-Video Course Series
+Complete step-by-step video tutorials covering everything from API setup and
+Polymarket connection to building and deploying each prediction bot strategy.
+💻
+Complete Source Code
+Full Python source code for all bots, including nice_funcs.py utility library,
+API integration, and all trading logic. Download and customize everything.
+🔑
+Polymarket API Setup
+Learn how to securely connect to Polymarket with proper API authentication,
+private key management, and automated order execution.
+🛠️
+Essential Functions Library
+Access the complete nice_funcs.py toolkit with utilities for market data,
+order management, position tracking, and all the helper functions you need.
+💬
+Discord Support
+Join the Moon Dev Discord community for direct support, questions answered quickly,
+and collaboration with other traders building their own prediction bots.
+📊 From Gambler to Automated Trader
+This course takes you by the hand, step-by-step, through the complete journey of transforming
+from manual trading and gambling on Polymarket to becoming a precise, automated algorithmic trader.
+Stop clicking buttons and start building systematic strategies that run 24/7.
+🚀 Join the Bootcamp
+🛡️
+100% Ironclad 90-Day Money-Back Guarantee
+There is
+absolutely zero risk
+in joining this course. In fact, there's more risk
+in you continuing to gamble on Polymarket by hand than there is in this bootcamp.
+You have a
+full 90 days
+to go through the entire course, build your bots,
+and see results. If for
+any reason
+you're not satisfied - we don't ask questions -
+you get
+100% of your money back
+.
+✓ No Questions Asked
+✓ Full 90 Days to Decide
+✓ 100% Money Back
+🚀 Join the Bootcamp - Risk Free
+🤖
+Now You See The Power of Prediction Bots
+Bots don't need to sleep. Bots don't need to eat. Bots never miss a trade. They work 24/7, analyzing markets and executing strategies while you focus on what matters.
+The dashboard above is just the beginning. In this course, you'll learn how to build your own automated trading systems that capture opportunities the moment they appear. Everything you need is explained above - the choice is yours.
+🚀 Join the Bootcamp Now
+📊 Dashboard Tutorial
+×

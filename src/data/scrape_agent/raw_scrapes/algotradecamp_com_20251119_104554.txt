@@ -1,0 +1,259 @@
+URL: https://algotradecamp.com
+Timestamp: 2025-11-19T10:45:54.483462
+================================================================================
+
+RAW SCRAPED CONTENT:
+================================================================================
+
+Algo Trade Camp - Automate Your Trading
+Stop Trading With Your
+Emotions
+Automate your trading in 15 days - even if you're a complete beginner
+🚀 START YOUR FREEDOM JOURNEY →
+Join 1,000+ traders who've removed emotions from their trading
+⭐⭐⭐⭐⭐
+🎯 START YOUR AUTOMATION JOURNEY →
+No more staring at charts all day. No more emotional decisions.
+🤖 BOTS BEAT HUMANS - Here's The Truth
+📊 Manual Trading Reality
+• 95% of day traders lose money
+• Average trader watches charts 8+ hours/day
+• Emotions cause 80% of trading losses
+• Humans can only track 1-2 assets at once
+• Sleep = missed opportunities
+🚀 Automated Trading Reality
+• Bots trade 24/7 without rest
+• Zero emotional decisions
+• Monitor 100+ assets simultaneously
+• Execute in milliseconds
+• Never miss a trade setup
+The worst part?
+New bots are deployed every day. If you don't have one, the bots will slowly but surely eat your lunch.
+Trading by hand vs these bots is like trying to do really hard math in your head vs someone doing it with a calculator 🧮
+Your Trading Transformation
+Before Bootcamp
+❌
+Trading based on emotions and FOMO
+❌
+Staring at charts all day
+❌
+Inconsistent results
+❌
+Missing opportunities while sleeping
+❌
+Stress and anxiety from manual trading
+After Bootcamp
+✅
+Trading with systematic, emotion-free strategies
+✅
+Bots working 24/7 while you live your life
+✅
+Consistent, rule-based execution
+✅
+Never miss a trade opportunity
+✅
+Peace of mind with automated systems
+✨ YES! I WANT THIS TRANSFORMATION →
+🎁 EVERYTHING You Get Inside
+Worth over $5,000 if purchased separately
+📚
+15-Day Video Training
+Step-by-step guidance from complete beginner to automated trader
+🤖
+7 Full Trading Bots
+Ready-to-use algorithms with complete source code
+💬
+Private Discord Community
+24/7 support from expert traders and developers
+🚀 7 FULL Trading Algorithms + All Code
+📈 Turtle Trending Algorithm
+Analyzes 55 time periods and trades based on market trend + indicators
+👀 Order Book Stalking Algo
+Works for any timeframe, super easy to modify and well documented
+🕯️ The Engulfing Algorithm
+Waits for specific engulfing candles before entering positions
+💥 The Breakout Algo
+Built to capture breakouts and breakdowns automatically
+🔗 The Correlation Algorithm
+Looks at correlation between assets like BTC & ETH, trades divergence
+↩️ Mean Reversion Algo
+Trades mean reversion on 74 symbols simultaneously
+🎯 The Market Maker Algo
+Works in any market, trades both long and short positions
+⚠️ Note:
+Build your own edge - no "get rich quick" bots included. While I provide plenty of bots as examples, no one will give you a plug and play bot that prints profits. I will show you how to develop an edge and build your ideas into bots.
+🧠
+Unlimited Free AI Access
+Get unlimited access to:
+• OpenAI's GPT-5, O3, O3-mini
+• Anthropic's Claude Opus 4, Sonnet 4.5, Haiku
+• Cancel your AI subscriptions!
+🎓
+Expert Code Help
+24/7 coding support during bootcamp:
+• Multiple coding experts available
+• Private Discord code help channel
+• You are not alone on this journey
+📊
+Data & Backtesting
+Historical data access and backtesting frameworks
+🔄
+Monthly Updates
+New strategies and bot updates every month
+🌙
+Private Discord
+Exclusive members-only sections and lifetime connections
+📚 Your 15-Day Journey to Freedom
+From complete beginner to automated trader in just 15 days
+Week 1: Foundation 🏗️
+1
+Intro to Algorithmic Trading & Python
+3 hours of comprehensive training
+2
+Complete Setup & Resources
+49 mins + all code templates
+3
+Risk Management Systems
+Never blow up your account (11 mins)
+4
+Automated Order Execution
+Entry & exit strategies + code (23 mins)
+5
+Automated Risk Management
+Keep your bots safe + code (29 mins)
+6
+SMA Indicator Implementation
+Code your first indicator (7 mins)
+7
+RSI Indicator for Bots
+Momentum detection + code (6 mins)
+Week 2: Advanced & Bots 🤖
+8
+VWAP & VWMA Indicators
+Volume-weighted trading analysis (14 mins)
+9
+Bot 1: SMA + Orderbook Bot
+Your first working bot! (11 mins)
+10
+Bot 2: Breakout Trading Bot
+Catch big moves + code (5 mins)
+11
+Bot 3: Engulfing Pattern Bot
+Pattern recognition trading (7 mins)
+12
+Backtesting & RBI System
+Test before you trade (2.9 hrs)
+13
+Machine Learning in Trading
+AI-powered strategies (10 mins)
+14
+Scale & Find Unlimited Strategies
+Your path to mastery (29 mins)
+🎁 CLAIM YOUR BONUS:
+🔥 DYDX Goblin Bot Event
+Complete DYDX trading algorithm + 63 min walkthrough
+💰 Funding Rate Algorithm
+Unique funding strategy + backtest results (19 mins)
+1,000+ Traders Already Automated
+See what our members are saying
+Swipe or click arrows to browse testimonials
+🎆 JOIN THE COMMUNITY →
+Cosmic Level 90-Day Money Back Guarantee
+✦
+I
+HATE
+wasting money on products that suck. I hate even more to waste my
+TIME
+.
+✦
+I want you to feel
+completely comfortable
+with this investment.
+✦
+If your brain doesn't
+completely EXPLODE
+from what you learn in 90 days, email
+moon@algotradecamp.com
+.
+✦
+We'll refund
+100% of your money
+and you keep
+EVERYTHING
+- totally free.
+How's THAT for a Cosmic Level Guarantee? 🚀
+Ready To Remove Emotions From Your Trading?
+Join the bootcamp today and start building your automated trading systems
+🚀 START YOUR AUTOMATION JOURNEY →
+💰 Real Member Results
+⚠️ Disclaimer:
+These are real member results but past performance does not guarantee future results. Trading involves risk and you should not invest money you cannot afford to lose. Results shown are not typical and individual results will vary.
+💰 I WANT RESULTS LIKE THESE →
+❓ Frequently Asked Questions
+🎯 Is this suitable for beginners?
+Absolutely! The bootcamp starts from complete beginner level. Day 1 covers intro to algorithmic trading and Python basics. You'll learn step-by-step with 3 hours of comprehensive training to get you started.
+💻 What if I already have coding experience?
+Perfect! You'll breeze through the basics and dive deep into advanced trading strategies, machine learning, and scaling techniques. The 7 full algorithms and bonus events will give you plenty to work with.
+🔧 Can I customize the trading strategies?
+Yes! All code is fully documented and easy to modify. You'll learn the process to generate your own strategies and build your own edge. The algorithms are starting points for your customization.
+👥 Will I be part of a community?
+Yes! You get access to our private Discord with exclusive Moon Dev role, members-only sections, 24/7 expert support, and connections with other algo traders that will last a lifetime.
+🆘 Is ongoing support provided?
+Absolutely! You get unlimited code help during the bootcamp, multiple coding experts available 24/7 in Discord, monthly strategy updates, and ongoing community support.
+💰 How does the money back guarantee work?
+It's our COSMIC LEVEL 90-day guarantee! Use everything for 90 days. If you're not satisfied, email moon@algotradecamp.com and get a full refund while keeping all the content. No questions asked.
+⏰ This Won't Be Available Forever
+Join The Bootcamp TODAY
+- We will not be offering this for long because this is gold.
+At some point we will stop letting new members in. So join now. I'm serious about this offer not being around for long.
+Not only do you get all my code and knowledge, you also get unlimited access to expensive AIs like OpenAI's GPT-5, O3, and Anthropic's Opus 4, Sonnet 4.5 and Haiku.
+You can literally cancel your AI subscriptions when you join.
+🔥 This will not be here forever 🔥
+Transform From
+Emotional Hand Trader
+To
+Automated Trading Machine
+1
+STEP 1
+Create Account
+2
+STEP 2
+Join Bootcamp
+Full Name
+Email
+JOIN BOOTCAMP NOW
+100% No Questions Asked, Money Back Guarantee - if for any reason you are not 100% satisfied
+with the bootcamp, email us and get a 100% refund, no questions asked. need help? email:
+moon@algotradecamp.com
+⭐⭐⭐⭐⭐
+Verified on Trustpilot
+The Choice Is Yours...
+Join the bootcamp or go back to the old losing way of trading
+😰 BEFORE Bootcamp
+❌ Staring at charts all day
+❌ Emotional rollercoaster trading
+❌ Missing trades while sleeping
+❌ Revenge trading losses
+❌ No consistent strategy
+🎯 AFTER Bootcamp
+✅ Bots trade 24/7 automatically
+✅ Zero emotional decisions
+✅ Never miss opportunities
+✅ Systematic rule-based trading
+✅ Consistent profitable strategies
+Zero Risk 90-Day Money Back Guarantee
+⚠️
+There is
+ZERO RISK
+in joining this bootcamp. The real risk is continuing to trade manually.
+📈
+It's
+RISKIER
+to trade by hand than to learn what I teach in this bootcamp.
+🤖
+Manual trading = emotional decisions, missed opportunities, and inconsistent results.
+✦
+If you don't see the value within 90 days, email
+moon@algotradecamp.com
+for a full refund.
+The Only Risk is NOT Learning These Skills! 🚀

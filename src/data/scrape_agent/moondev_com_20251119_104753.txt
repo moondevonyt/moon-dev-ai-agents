@@ -1,0 +1,146 @@
+URL: https://moondev.com
+Timestamp: 2025-11-19T10:47:53.038657
+================================================================================
+
+METADATA:
+================================================================================
+
+Title:
+Moon Dev Dashboard - Elite Algo Trading Intelligence
+
+Description:
+The most comprehensive algorithmic trading intelligence platform. AI-powered analysis, backtesting, real-time data, and more.
+
+Keywords:
+No keywords found
+
+================================================================================
+
+AI ANALYSIS:
+================================================================================
+
+🧠 AI CONSENSUS SUMMARY:
+--------------------------------------------------------------------------------
+Consensus confirms Moon Dev Dashboard is an AI-powered algorithmic trading platform offering comprehensive tools including strategy backtesting, real-time market data, and historical analytics. All responses consistently highlight its 2,000+ pre-tested strategies, live liquidation streams, and Quant Elite community access, with no notable disagreements among core features. This positions it as an all-in-one solution for traders seeking data-driven strategy development and execution support.
+
+🔢 MODEL KEY:
+--------------------------------------------------------------------------------
+AI #1 = XAI
+AI #2 = DEEPSEEK
+AI #3 = CLAUDE
+AI #4 = OPENROUTER_QWEN
+AI #5 = OPENROUTER_GPT5_MINI
+AI #6 = OPENROUTER_GLM
+
+📋 INDIVIDUAL AI RESPONSES:
+--------------------------------------------------------------------------------
+
+🤖 XAI:
+Moon Dev Dashboard is a comprehensive algorithmic trading intelligence platform tailored for traders, featuring AI-powered tools, extensive backtesting capabilities, and real-time market data to optimize trading strategies. Built by and for the trading community, it provides access to historical data, live streams, prediction market tracking, and an exclusive Quant Elite network to support informed decision-making in crypto and beyond.
+
+- Offers over 2,000 pre-built and backtested trading strategies across multiple markets and timeframes for performance analysis.
+- Includes a market data portal with real-time updates on liquidations, open interest, funding rates, and other key metrics, refreshed every 5 minutes.
+- Provides tools for downloading historical OHLCV data on major cryptocurrencies, available in timeframes from 1-minute to daily, in clean CSV format.
+- Features a live WebSocket stream of Binance liquidation events, complete with 1H, 4H, 12H, and 24H aggregate statistics.
+- Tracks Polymarket prediction markets, including sweeps, expiring events, high-volume trades, and customizable alerts for event-driven trading.
+- Equips users with an AI chat assistant designed for algo traders to code backtests, research strategies, generate ideas, and receive real-time streaming responses.
+- Allows filtering of backtests by metrics like Sharpe ratios, drawdowns, and win rates, with options to organize strategies into folders and export results.
+- Boasts a database of over 26 million liquidation records for in-depth historical analysis and pattern recognition.
+- Connects users to the Quant Elite community for exclusive insights, premium features, and collaborative trading discussions.
+- Requires participation in a bootcamp to unlock full access to Quant Elite membership and advanced platform functionalities.
+
+--------------------------------------------------------------------------------
+
+🤖 DEEPSEEK:
+This website offers a comprehensive algorithmic trading platform that provides AI-powered tools, real-time market data, and backtesting capabilities for quantitative traders. It serves as an all-in-one dashboard for developing, testing, and executing automated trading strategies across cryptocurrency markets.
+
+- AI-powered algorithmic trading intelligence platform
+- Access to 2,000+ pre-backtested trading strategies
+- Real-time market data portal with liquidation tracking
+- Historical cryptocurrency data downloads in multiple timeframes
+- Live WebSocket stream of Binance liquidation events
+- Polymarket prediction market tracking and alerts
+- AI chat assistant for strategy development and coding
+- Performance analytics including Sharpe ratios and drawdowns
+- Quant Elite community for exclusive insights and strategies
+- Comprehensive backtesting capabilities across multiple markets
+
+--------------------------------------------------------------------------------
+
+🤖 CLAUDE:
+## Two-Sentence Summary
+
+Moon Dev Dashboard is a comprehensive algorithmic trading intelligence platform that provides traders with AI-powered tools, extensive backtesting capabilities, and real-time market data. It's designed to help algorithmic traders make data-driven decisions through advanced analytics, strategy testing, and access to an exclusive trading community called Quant Elite.
+
+## Ten Key Bullet Points
+
+• **Extensive Strategy Backtesting**: Access to over 2,000 pre-tested trading strategies across multiple markets and timeframes with detailed performance metrics
+
+• **Real-Time Market Data**: Live updates every 5 minutes on liquidations, open interest, funding rates, and other critical market indicators
+
+• **AI Trading Assistant**: Advanced AI chat interface specifically built for algorithmic traders to code backtests, research strategies, and generate trading ideas
+
+• **Liquidations Tracking**: Real-time WebSocket stream of Binance liquidation events with aggregate statistics over multiple timeframes (1H, 4H, 12H, 24H)
+
+• **Historical Data Access**: Downloadable historical OHLCV data for major cryptocurrencies in multiple timeframes (1-minute to daily) in CSV format
+
+• **Polymarket Integration**: Tracking tools for prediction market sweeps, expiring markets, and high-volume trades for event-driven trading opportunities
+
+• **Performance Analytics**: Comprehensive metrics including Sharpe ratios, drawdowns, win rates, and other key trading performance indicators
+
+• **26M+ Liquidation Records**: Massive database of historical liquidation data for analysis and pattern recognition
+
+• **Quant Elite Community**: Exclusive access to a community of successful algorithmic traders and premium insights
+
+• **Trader-Focused Design**: Built by experienced traders specifically for the needs of algorithmic and quantitative trading professionals
+
+--------------------------------------------------------------------------------
+
+🤖 OPENROUTER_QWEN:
+Moon Dev is an elite algorithmic trading intelligence platform designed for serious traders, offering AI-powered tools, real-time market data, and a library of backtested strategies. It provides everything from historical crypto datasets and live liquidation feeds to a specialized AI assistant and Polymarket tracking—all within a dashboard built by traders for traders.
+
+- Offers access to over 2,000 backtested trading strategies across multiple markets and timeframes  
+- Provides real-time market data updated every 5 minutes, including liquidations, open interest, and funding rates  
+- Features a live WebSocket stream of Binance liquidation events with aggregated statistics  
+- Includes a comprehensive historical crypto data repository with OHLCV data from 1-minute to daily intervals  
+- Delivers AI-powered chat assistance tailored for algo traders to generate, test, and code strategies  
+- Tracks Polymarket prediction markets, alerting users to high-volume sweeps and expiring contracts  
+- Enables users to export clean CSV files for custom backtesting and analysis  
+- Displays key performance metrics like Sharpe ratio, drawdown, and win rate for strategy evaluation  
+- Organizes strategies into customizable folders for streamlined portfolio management  
+- Grants access to the “Quant Elite” community and exclusive premium features upon joining
+
+--------------------------------------------------------------------------------
+
+🤖 OPENROUTER_GPT5_MINI:
+Moon Dev Dashboard is an AI-powered algorithmic trading intelligence platform that combines backtesting, real-time market data, and community-driven insights to help traders design and deploy better strategies. Built by traders for traders, it includes a strategy library, live liquidation streams, Polymarket tracking, downloadable historical OHLCV, and an AI chat assistant to code and test ideas quickly.
+
+- Comprehensive strategy backtesting hub with 2,000+ backtested strategies across multiple markets and timeframes  
+- Detailed performance metrics (Sharpe, drawdown, win rate) with filtering, folders, and exportable results  
+- Real-time market data portal updating every 5 minutes (liquidations, open interest, funding rates)  
+- Live WebSocket stream of Binance liquidation events with aggregate stats (1H, 4H, 12H, 24H)  
+- Polymarket tracking for prediction-market sweeps, expiring markets, and high-volume alerts  
+- Downloadable historical OHLCV data for major cryptocurrencies across minute-to-daily timeframes (CSV-ready)  
+- AI chat assistant tailored for algo traders to code backtests, research strategies, and get streaming responses  
+- Large data coverage (26M+ liquidation records) for deeper event-driven and risk analysis  
+- Quant Elite community and premium membership for exclusive strategies and bootcamp access  
+- Tools aimed at making faster, data-driven trading decisions and simplifying strategy development and testing
+
+--------------------------------------------------------------------------------
+
+🤖 OPENROUTER_GLM:
+Moon Dev Dashboard is a comprehensive intelligence platform for algorithmic traders, offering AI-powered analysis, strategy backtesting, and real-time market data. It aims to help traders succeed by providing powerful tools, data exports, and access to an exclusive community called Quant Elite.
+
+*   An AI-powered platform designed for algorithmic trading intelligence.
+*   Provides access to over 2,000 pre-backtested trading strategies.
+*   Features an AI chat assistant to help with coding and research.
+*   Offers a portal with real-time data on liquidations, funding rates, and open interest.
+*   Includes a live WebSocket stream of Binance liquidation events.
+*   Allows users to download historical cryptocurrency data for their own analysis.
+*   Tracks prediction market activity on Polymarket for event-driven trading.
+*   Built by traders, for traders, to deliver practical and effective tools.
+*   Grants access to the exclusive "Quant Elite" trading community.
+*   Designed to help traders make more informed and intelligent decisions.
+
+--------------------------------------------------------------------------------
+

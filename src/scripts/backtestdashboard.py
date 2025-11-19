@@ -50,8 +50,10 @@ import traceback
 import logging
 
 # Import MoonDevAPI from this project
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from agents.api import MoonDevAPI
+from pathlib import Path
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
+from src.agents.api import MoonDevAPI
 import websockets
 import json
 
@@ -61,12 +63,12 @@ import json
 
 # 📊 Path to your backtest stats CSV file
 # This CSV is created by rbi_agent_pp_multi.py after running backtests
-# Default: src/data/rbi_pp_multi/backtest_stats.csv
-STATS_CSV = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp_multi/backtest_stats.csv")
+# Default: src/data/rbi_pp_multi/backtest_stats.csv (PROJECT_ROOT already defined above)
+STATS_CSV = PROJECT_ROOT / "src" / "data" / "rbi_pp_multi" / "backtest_stats.csv"
 
 # 📁 Directory for static files (CSS, JS) and templates (HTML)
 # These files are located in: src/data/rbi_pp_multi/static and src/data/rbi_pp_multi/templates
-TEMPLATE_BASE_DIR = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/rbi_pp_multi")
+TEMPLATE_BASE_DIR = PROJECT_ROOT / "src" / "data" / "rbi_pp_multi"
 
 # 🗂️ Directory to store user-created folders
 # Folders allow you to organize and group your backtest results
@@ -81,19 +83,19 @@ DATA_DIR = TEMPLATE_BASE_DIR / "downloads"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 # 📊 Test Data Sets Directory - Historical datasets for backtesting
-TEST_DATA_DIR = Path("/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading/src/data/private_data")
+TEST_DATA_DIR = PROJECT_ROOT / "src" / "data" / "private_data"
 
 # TEST MODE for data portal - Set to True for fast testing with sample data
 TEST_MODE = True
 
-# 🎯 Polymarket CSV Paths
-POLYMARKET_SWEEPS_CSV = Path("/Users/md/Dropbox/dev/github/Polymarket-Trading-Bots/data/sweeps_database.csv")
-POLYMARKET_EXPIRING_CSV = Path("/Users/md/Dropbox/dev/github/Polymarket-Trading-Bots/data/expiring_markets.csv")
+# 🎯 Polymarket CSV Paths (relative to PROJECT_ROOT parent - sibling repo)
+POLYMARKET_SWEEPS_CSV = PROJECT_ROOT.parent / "Polymarket-Trading-Bots" / "data" / "sweeps_database.csv"
+POLYMARKET_EXPIRING_CSV = PROJECT_ROOT.parent / "Polymarket-Trading-Bots" / "data" / "expiring_markets.csv"
 
-# 🎯 Liquidation CSV Paths
-LIQUIDATIONS_MINI_CSV = Path("/Users/md/Dropbox/dev/github/Untitled/binance_trades_mini.csv")
-LIQUIDATIONS_BIG_CSV = Path("/Users/md/Dropbox/dev/github/Untitled/binance_trades.csv")
-LIQUIDATIONS_GRAND_CSV = Path("/Users/md/Dropbox/dev/github/Untitled/binance.csv")
+# 🎯 Liquidation CSV Paths (relative to PROJECT_ROOT parent - sibling repo)
+LIQUIDATIONS_MINI_CSV = PROJECT_ROOT.parent / "Untitled" / "binance_trades_mini.csv"
+LIQUIDATIONS_BIG_CSV = PROJECT_ROOT.parent / "Untitled" / "binance_trades.csv"
+LIQUIDATIONS_GRAND_CSV = PROJECT_ROOT.parent / "Untitled" / "binance.csv"
 
 # ============================================================================
 # 🚀 FASTAPI APP INITIALIZATION

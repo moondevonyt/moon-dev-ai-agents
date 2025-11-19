@@ -1,0 +1,66 @@
+{
+  "url": "https://anthropic.com",
+  "timestamp": "2025-11-19T10:25:53.071118",
+  "scraped_data": {
+    "url": "https://anthropic.com",
+    "title": "Home \\ Anthropic",
+    "description": "Anthropic is an AI safety and research company that's working to build reliable, interpretable, and steerable AI systems.",
+    "keywords": "No keywords found",
+    "content": "Home \\ Anthropic\nSkip to main content\nSkip to footer\nClaude Sonnet 4.5\nIntroducing the best model in the world for agents, coding, and computer use.\nRead announcement\nRead announcement\nRead announcement\nLearn more\nIntroducing Claude Haiku 4.5\nManaging context on the Claude Developer Platform\nModel details\n“\nWhen you’re talking to a large language model, what exactly is it that you’re talking to?\nAt Anthropic, we build AI to serve humanity’s long-term well-being.\n‍\nWhile no one can foresee every outcome AI will have on society, we do know that designing powerful technologies requires both bold steps forward and intentional pauses to consider the effects.\nThat’s why we focus on building tools with human benefit at their foundation, like Claude. Through our daily research, policy work, and product design, we aim to show what responsible AI development looks like in practice.\nCore Views on AI Safety\nLearn more about our views on AI Safety\nLearn more about our views on AI Safety\nAnthropic’s Responsible Scaling Policy\nLearn more about our Responsible Scaling Policy\nLearn more about our Responsible Scaling Policy\nAnthropic Academy: Learn to build with Claude\nAccess Anthropic Academy\nAccess Anthropic Academy\nFeatured\nIntroducing Haiku 4.5\nAnnouncements\nOct 15, 2025\nIntroducing Sonnet 4.5\nAnnouncements\nSep 29, 2025\nAnthropic Economic Index\nEconomic Research\nSep 15, 2025\nClaude Opus 4.1\nAnnouncements\nAug 05, 2025\nProject Vend\nPolicy\nJun 26, 2025\nAgentic Misalignment\nAlignment\nJun 20, 2025\nTracing the thoughts of a large language model\nInterpretability\nMar 27, 2025\nWant to help us build the future of safe AI?\nSee open roles\nSee open roles\nSee open roles\nSpeak with sales\nSpeak with sales\nSpeak with sales",
+    "success": true,
+    "error": null,
+    "timestamp": "2025-11-19T10:25:35.977728"
+  },
+  "analysis": {
+    "success": true,
+    "ai_mode": "SWARM",
+    "consensus_summary": "All AI responses consistently identify Anthropic as an AI safety company developing Claude models with emphasis on reliability, interpretability, and responsible scaling. There is unanimous agreement about their focus on human benefit through research, policy, and developer tools, with no notable disagreements across responses. The consensus shows Anthropic balances AI advancement with safety through models like Sonnet and Haiku while providing educational resources and enterprise platforms.",
+    "model_mapping": {
+      "AI #1": "XAI",
+      "AI #2": "DEEPSEEK",
+      "AI #3": "CLAUDE",
+      "AI #4": "OPENROUTER_GPT5_MINI",
+      "AI #5": "OPENROUTER_QWEN",
+      "AI #6": "OPENROUTER_GLM"
+    },
+    "responses": {
+      "xai": {
+        "response": "Anthropic is an AI safety and research company focused on creating reliable, interpretable, and steerable AI systems like the Claude family of models, with an emphasis on benefiting humanity's long-term well-being through responsible development practices. The website serves as a hub for announcements, educational resources, policy insights, and career opportunities related to advancing safe AI technologies.\n\n- Introduces Claude Sonnet 4.5 as the world's leading model for AI agents, coding, and computer use capabilities.\n- Highlights the launch of Claude Haiku 4.5, emphasizing efficient context management on the Claude Developer Platform.\n- Provides model details and resources for developers building with Claude AI systems.\n- Explores philosophical questions about interacting with large language models (LLMs) and their underlying nature.\n- Outlines Anthropic's mission to build AI tools grounded in human benefit, balancing innovation with careful societal impact assessment.\n- Details core views on AI safety, including strategies for mitigating risks in advanced AI development.\n- Presents Anthropic's Responsible Scaling Policy to guide the ethical expansion of AI capabilities.\n- Offers Anthropic Academy, an educational platform for learning to integrate and build applications with Claude.\n- Features recent announcements, such as the Haiku 4.5 release (Oct 15, 2025), Sonnet 4.5 (Sep 29, 2025), and research on economic impacts and agentic misalignment.\n- Invites visitors to explore open roles in safe AI development and connect with sales for enterprise solutions.",
+        "response_time": 4.17,
+        "success": true
+      },
+      "deepseek": {
+        "response": "Anthropic is an AI safety and research company focused on building reliable, interpretable, and steerable AI systems that serve humanity's long-term well-being. The company develops AI models like Claude while emphasizing responsible development through safety research, policy work, and intentional design practices.\n\n• Develops AI models including Claude Sonnet, Haiku, and Opus\n• Focuses on AI safety and responsible scaling policies\n• Emphasizes interpretability and steerability in AI systems\n• Conducts research on agentic misalignment and model interpretability\n• Maintains a Responsible Scaling Policy for safe development\n• Offers Anthropic Academy for learning to build with Claude\n• Publishes economic research through the Anthropic Economic Index\n• Engages in policy work and public discussions about AI impacts\n• Prioritizes human benefit as the foundation of technology design\n• Provides enterprise solutions through sales and developer platforms",
+        "response_time": 7.84,
+        "success": true
+      },
+      "claude": {
+        "response": "## Two-Sentence Summary\n\nAnthropic is an AI safety and research company focused on building reliable, interpretable, and steerable AI systems that prioritize humanity's long-term well-being. They develop Claude, an AI assistant, while emphasizing responsible AI development through research, policy work, and safety-focused practices.\n\n## Ten Key Points\n\n• **Claude AI Models**: Develops advanced AI models including Claude Sonnet 4.5, Haiku 4.5, and Opus 4.1 for various applications like coding, agents, and computer use\n\n• **AI Safety Focus**: Core mission centers on building AI systems that are safe, reliable, and beneficial to humanity\n\n• **Responsible Scaling Policy**: Implements structured policies to ensure AI development proceeds responsibly as systems become more powerful\n\n• **Interpretability Research**: Conducts research to understand how large language models think and operate internally\n\n• **Developer Platform**: Offers Claude Developer Platform with tools and resources for building AI applications\n\n• **Anthropic Academy**: Provides educational resources to help people learn to build with Claude\n\n• **Policy Work**: Engages in AI policy initiatives like Project Vend to shape responsible AI governance\n\n• **Alignment Research**: Studies issues like agentic misalignment to ensure AI systems behave as intended\n\n• **Economic Research**: Publishes research like the Anthropic Economic Index on AI's economic impact\n\n• **Human-Centered Design**: Emphasizes building AI tools with human benefit as the foundation of product design",
+        "response_time": 9.11,
+        "success": true
+      },
+      "openrouter_gpt5_mini": {
+        "response": "Anthropic is an AI safety and research company that builds and releases the Claude family of models while prioritizing reliable, interpretable, and steerable systems designed for human benefit. The site showcases their research, policies, developer tools, educational resources, product announcements, and ways to work with or join the company.\n\n- Home of the Claude models (e.g., Haiku, Sonnet, Opus) and related model announcements and details  \n- Emphasis on AI safety, alignment, interpretability, and “steerable” behavior  \n- Responsible Scaling Policy and core views on safe AI development  \n- Research publications and policy work (alignment, interpretability, economic research)  \n- Developer platform resources about managing context and using models for agents, coding, and computer tasks  \n- Anthropic Academy for learning to build with Claude  \n- News and updates about model releases and research findings  \n- Job listings and hiring information for people who want to join the team  \n- Sales and enterprise engagement/contact options  \n- Overall focus on designing powerful AI with human well‑being and responsible deployment in mind",
+        "response_time": 9.59,
+        "success": true
+      },
+      "openrouter_qwen": {
+        "response": "Anthropic is an AI safety and research company focused on developing reliable, interpretable, and steerable AI systems that prioritize humanity's long-term well-being. Their flagship product, Claude, includes a suite of advanced language models like Sonnet 4.5 and Haiku 4.5, designed for coding, agents, and general-purpose use, all guided by rigorous safety and ethical principles.\n\n- Develops AI systems centered on safety, interpretability, and human control  \n- Creates the Claude family of AI models, including Sonnet 4.5, Haiku 4.5, and Opus 4.1  \n- Emphasizes responsible AI development through research, policy, and product design  \n- Publishes a Responsible Scaling Policy to guide safe AI deployment  \n- Offers the Claude Developer Platform with tools for managing context and building applications  \n- Runs Anthropic Academy to teach developers how to build with Claude  \n- Conducts cutting-edge research in AI alignment, interpretability, and economic impact  \n- Releases regular updates and announcements about new models and capabilities  \n- Advocates for proactive governance and ethical considerations in AI advancement  \n- Actively hires talent and engages with enterprise clients through sales and partnerships",
+        "response_time": 10.91,
+        "success": true
+      },
+      "openrouter_glm": {
+        "response": "**Two sentences:**\n\nAnthropic is an AI safety and research company focused on building reliable, interpretable, and steerable AI systems, primarily its Claude family of models. The organization emphasizes responsible development practices that prioritize humanity's long-term well-being, balancing innovation with careful consideration of AI's societal impact.\n\n**Ten bullet points:**\n\n*   AI safety and research company developing advanced language models\n*   Creator of the Claude AI model family (Sonnet, Haiku, Opus)\n*   Focuses on building reliable, interpretable, and steerable AI systems\n*   Prioritizes responsible AI development with human benefit at its foundation\n*   Conducts research in AI alignment, interpretability, and economic impact\n*   Implements a Responsible Scaling Policy for AI development\n*   Offers Claude Developer Platform for building applications\n*   Provides Anthropic Academy for educational resources\n*   Regularly announces new model updates and capabilities\n*   Actively recruiting talent to advance safe AI development",
+        "response_time": 13.08,
+        "success": true
+      }
+    },
+    "metadata": {
+      "total_models": 6,
+      "successful_responses": 6,
+      "failed_responses": 0,
+      "total_time": 17.09
+    },
+    "error": null
+  }
+}

@@ -1,0 +1,149 @@
+URL: https://predictionbots.com
+Timestamp: 2025-11-19T10:47:42.500668
+================================================================================
+
+METADATA:
+================================================================================
+
+Title:
+🌙 PredictionBots.com
+
+Description:
+No description found
+
+Keywords:
+No keywords found
+
+================================================================================
+
+AI ANALYSIS:
+================================================================================
+
+🧠 AI CONSENSUS SUMMARY:
+--------------------------------------------------------------------------------
+Consensus shows PredictionBots.com operates as both a live dashboard for real-time Polymarket prediction markets and an educational platform offering automated trading bot development courses. All responses consistently highlight the dual functionality of displaying diverse betting markets alongside structured bot-building tutorials with Python source code and API integration. Notably, every AI description emphasizes the platform's focus on transitioning users from manual trading to algorithmic strategies through three core bot examples and community support.
+
+🔢 MODEL KEY:
+--------------------------------------------------------------------------------
+AI #1 = XAI
+AI #2 = OPENROUTER_GLM
+AI #3 = DEEPSEEK
+AI #4 = CLAUDE
+AI #5 = OPENROUTER_QWEN
+AI #6 = OPENROUTER_GPT5_MINI
+
+📋 INDIVIDUAL AI RESPONSES:
+--------------------------------------------------------------------------------
+
+🤖 XAI:
+PredictionBots.com is a platform focused on prediction markets, displaying live betting opportunities on Polymarket for events spanning politics, finance, entertainment, and more, with real-time data on market volumes, probabilities, and closing times. It also promotes an educational bootcamp for users to learn building automated trading bots for Polymarket, providing step-by-step tutorials, source code, and community support to transition from manual gambling to algorithmic trading.
+
+- Features a live dashboard showing active Polymarket predictions, including bets on topics like geopolitical events (e.g., Russia-Ukraine ceasefire), stock prices (e.g., Apple, Google), political actions (e.g., Trump signing bills), and entertainment (e.g., Spotify artists, box office results).
+- Displays market details such as bet amounts (e.g., $239, $25,127), sides (Yes/No or team picks), implied probabilities (e.g., 39.0%, 89.0%), and timestamps for recent activity.
+- Includes interactive elements like pagination for browsing hundreds of markets (e.g., pages 1 to 190) and filters/icons for features such as pausing trades, tracking whales (large bettors), edges (profitable opportunities), clusters (market groupings), and bubbles (overhyped markets).
+- Offers options to ignore categories like sports or crypto, allowing users to focus on preferred prediction types.
+- Promotes a "Bootcamp" course for building automated bots on Polymarket, emphasizing three core examples: Spread Market Maker (for liquidity provision), Whale Copy Bot (mimicking big traders), and Mean Reversion Bot (betting on price corrections).
+- Provides 8 video tutorials covering API setup, Polymarket integration, bot deployment, and strategy customization, with full Python source code including a utility library (nice_funcs.py) for market data, orders, and positions.
+- Includes hands-on Discord support for learners, fostering a community of traders developing custom prediction bots.
+- Targets users transitioning from manual "gambling" on Polymarket to 24/7 automated systems, highlighting bots' advantages like non-stop operation without human errors or fatigue.
+- Backed by a 90-day money-back guarantee with no questions asked, positioning the course as low-risk compared to manual trading losses.
+- Ends with a call-to-action to join the bootcamp risk-free, underscoring the site's goal of empowering users with tools for systematic, algorithmic prediction market trading.
+
+--------------------------------------------------------------------------------
+
+🤖 OPENROUTER_GLM:
+PredictionBots.com is a platform that provides a live dashboard of prediction market trading opportunities alongside a comprehensive course for building automated trading bots. The site focuses on transforming manual prediction market gamblers into systematic algorithmic traders through hands-on bot development education.
+
+• Live dashboard displaying real-time prediction markets across politics, finance, sports, and entertainment
+• Comprehensive bootcamp course teaching automated bot development from scratch
+• Three complete bot examples: Spread Market Maker, Whale Copy Bot, and Mean Reversion Bot
+• Step-by-step video tutorials covering API setup to deployment
+• Complete Python source code provided for all trading strategies
+• Polymarket API integration with secure authentication guidance
+• Essential functions library (nice_funcs.py) for market data and order management
+• Discord community support for direct assistance and collaboration
+• 90-day money-back guarantee with no questions asked
+• Emphasis on 24/7 automated trading capabilities that never miss opportunities
+
+--------------------------------------------------------------------------------
+
+🤖 DEEPSEEK:
+This website is a platform for automated prediction market trading that displays real-time betting opportunities on various future events while offering an educational bootcamp to teach users how to build their own trading bots. It combines a live dashboard of active prediction markets with a comprehensive course that provides tools and strategies for algorithmic trading on platforms like Polymarket.
+
+• Features real-time prediction markets on diverse topics including politics, finance, and entertainment
+• Displays current betting amounts, market probabilities, and recent activity timestamps
+• Offers a trading bot bootcamp with three complete bot examples
+• Provides step-by-step video tutorials for building automated trading strategies
+• Includes complete Python source code and utility libraries
+• Covers Polymarket API setup and secure authentication
+• Offers Discord community support for collaboration and troubleshooting
+• Focuses on transforming manual trading into systematic algorithmic strategies
+• Markets a 90-day money-back guarantee for the educational program
+• Enables 24/7 automated trading across various prediction markets
+
+--------------------------------------------------------------------------------
+
+🤖 CLAUDE:
+# PredictionBots.com Overview
+
+**PredictionBots.com** is a real-time dashboard that tracks live betting activity on Polymarket prediction markets, displaying recent trades with amounts, odds, and market questions. The site also promotes a bootcamp course that teaches users how to build automated trading bots for Polymarket using Python.
+
+## Key Points:
+
+• **Live trade feed** showing real-time bets on political, financial, entertainment, and crypto prediction markets
+
+• **Trade details** include bet amount, yes/no position, current odds, and market question for each transaction
+
+• **Filter options** to ignore sports or crypto markets and focus on specific prediction categories
+
+• **Bootcamp course** offering step-by-step video tutorials for building three types of trading bots
+
+• **Bot strategies taught** include Spread Market Maker, Whale Copy Bot, and Mean Reversion Bot
+
+• **Complete source code** provided in Python with API integration and utility libraries
+
+• **Discord community support** for troubleshooting and collaboration with other bot builders
+
+• **90-day money-back guarantee** with no questions asked for the course
+
+• **Automated trading focus** emphasizing 24/7 bot operation versus manual betting
+
+• **Market intelligence tool** for tracking whale activity, edge opportunities, and closing markets
+
+--------------------------------------------------------------------------------
+
+🤖 OPENROUTER_QWEN:
+**Two-sentence summary:**  
+PredictionBots.com is a platform that offers a bootcamp teaching users how to build automated trading bots for Polymarket, a prediction market platform. The site features a live dashboard of real-time prediction market activity and promotes algorithmic trading strategies over manual betting.
+
+**Ten bullet points:**
+
+- Teaches users to build automated trading bots for Polymarket from scratch.
+- Offers a structured 8-video course series with step-by-step tutorials.
+- Includes three complete bot examples: Spread Market Maker, Whale Copy Bot, and Mean Reversion Bot.
+- Provides full Python source code and a utility library (nice_funcs.py) for bot development.
+- Covers secure Polymarket API setup, private key management, and automated order execution.
+- Features a live dashboard showing real-time prediction market trades with metrics like amount, side, price, and time.
+- Markets focus on diverse topics including politics, crypto, sports, entertainment, and macroeconomic events.
+- Offers dedicated Discord community support for troubleshooting and collaboration.
+- Promotes a shift from manual “gambling” to systematic, 24/7 algorithmic trading.
+- Backed by a 90-day, no-questions-asked, 100% money-back guarantee.
+
+--------------------------------------------------------------------------------
+
+🤖 OPENROUTER_GPT5_MINI:
+PredictionBots.com hosts a live dashboard of prediction-market activity and offers a paid bootcamp to teach you how to build automated trading bots (focused on Polymarket). The site combines real-time market data and trade indicators with a course that includes video tutorials, full Python source code, API setup guidance, and community support.
+
+- Live prediction-market dashboard showing active markets and recent trades.
+- Displays trade amounts, side (Yes/No), probability percentages, price, market, and timestamps.
+- UI indicators and filters like Sweeps, Whales, Edge, Clusters, Bubbles, Closing, and options to ignore Sports/Crypto.
+- Lists diverse markets (politics, stocks, entertainment, esports, etc.) with example questions and odds.
+- Bootcamp for building automated trading bots tailored to Polymarket.
+- Course includes three complete bot examples: Spread Market Maker, Whale Copy Bot, and Mean Reversion Bot.
+- Eight-video tutorial series with step-by-step walkthroughs.
+- Full Python source code and an essential utility library (nice_funcs.py) for market data and order management.
+- Teaches Polymarket API setup, secure private key handling, automated order execution, plus Discord support.
+- 90-day no-questions-asked money-back guarantee and emphasis on 24/7 automated trading benefits.
+
+--------------------------------------------------------------------------------
+

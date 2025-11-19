@@ -6,10 +6,11 @@ This makes links clickable when opening in Excel/Numbers/etc.
 
 import pandas as pd
 import os
+from pathlib import Path
 from termcolor import cprint
 
 # Paths to CSVs
-PROJECT_ROOT = "/Users/md/Dropbox/dev/github/moon-dev-ai-agents-for-trading"
+PROJECT_ROOT = Path(__file__).parent.parent.parent
 CONSENSUS_PICKS_CSV = os.path.join(PROJECT_ROOT, "src/data/polymarket/consensus_picks.csv")
 PREDICTIONS_CSV = os.path.join(PROJECT_ROOT, "src/data/polymarket/predictions.csv")
 

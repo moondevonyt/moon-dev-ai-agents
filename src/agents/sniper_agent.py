@@ -10,6 +10,10 @@ import os
 import sys
 from pathlib import Path
 
+# 🌙 Moon Dev: Calculate project root dynamically
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+GITHUB_DIR = PROJECT_ROOT.parent  # Parent folder containing all repos
+
 # Add src directory to Python path
 src_path = str(Path(__file__).parent.parent)
 if src_path not in sys.path:
@@ -66,12 +70,12 @@ LAUNCH_EMOJIS = [
     "💥", "🌪️", "⚡", "☄️", "🌠", "🎇", "🎆", "✨", "💫", "⭐",  # Energy & explosions
 ]
 
-# Sound effects paths
+# Sound effects paths - 🌙 Moon Dev: External repo (sibling to this repo)
 SOUND_EFFECTS = [
-    "/Users/md/Dropbox/dev/github/Untitled/sounds/pownew.MP3",
-    "/Users/md/Dropbox/dev/github/Untitled/sounds/Shining.wav",
-    "/Users/md/Dropbox/dev/github/Untitled/sounds/final_fant1.MP3",
-    "/Users/md/Dropbox/dev/github/Untitled/sounds/final_fant2.MP3"
+    str(GITHUB_DIR / "Untitled" / "sounds" / "pownew.MP3"),
+    str(GITHUB_DIR / "Untitled" / "sounds" / "Shining.wav"),
+    str(GITHUB_DIR / "Untitled" / "sounds" / "final_fant1.MP3"),
+    str(GITHUB_DIR / "Untitled" / "sounds" / "final_fant2.MP3")
 ]
 
 class TokenScanner:

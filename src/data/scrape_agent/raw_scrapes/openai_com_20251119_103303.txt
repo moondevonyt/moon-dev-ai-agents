@@ -1,0 +1,91 @@
+URL: https://openai.com
+Timestamp: 2025-11-19T10:33:03.081054
+================================================================================
+
+RAW SCRAPED CONTENT:
+================================================================================
+
+OpenAI
+Switch to
+ChatGPT
+(opens in a new window)
+Sora
+(opens in a new window)
+API Platform
+(opens in a new window)
+OpenAI
+What can I help with?
+Message ChatGPT
+Search with ChatGPT
+Talk with ChatGPT
+Research
+Sora
+More
+Introducing ChatGPT Atlas, the browser with ChatGPT built in
+Product
+7 min read
+Introducing ChatGPT Atlas, the browser with ChatGPT built in
+Product
+7 min read
+GPT-5.1: A smarter, more conversational ChatGPT
+Product
+7 min read
+Introducing GPT-5.1 for developers
+Product
+Nov 13, 2025
+8 min read
+Sora 2 is here
+Research
+8 min read
+Latest news
+View all
+Intuit and OpenAI join forces on new AI-powered experiences
+Company
+Nov 18, 2025
+OpenAI named Emerging Leader in Generative AI
+Company
+Nov 17, 2025
+Piloting group chats in ChatGPT
+Product
+Nov 13, 2025
+Fighting the New York Times’ invasion of user privacy
+Security
+Nov 12, 2025
+Free ChatGPT for transitioning U.S. servicemembers and veterans
+Company
+Nov 10, 2025
+Understanding prompt injections: a frontier security challenge
+Security
+Nov 7, 2025
+Stories
+View all
+Coding and design with GPT-5
+GPT-5
+Aug 7, 2025
+2 min read
+Creative writing with GPT-5
+GPT-5
+Aug 7, 2025
+2 min read
+Medical research with GPT-5
+GPT-5
+Aug 7, 2025
+2 min read
+Latest research
+View all
+Understanding neural networks through sparse circuits
+Research
+Nov 13, 2025
+Introducing IndQA
+Research
+Nov 3, 2025
+OpenAI for business
+View all
+Knowledge preservation powered by ChatGPT
+ChatGPT
+Doppel’s AI defense system stops attacks before they spread
+API
+A law and tax firm redefines efficiency with ChatGPT Business
+ChatGPT
+Get started with ChatGPT
+Download
