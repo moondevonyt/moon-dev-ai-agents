@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-🌙 Moon Dev's Scrape Agent 🌙
+🌙 Moon Dev's Scraper Agent 🌙
 
 Scrapes websites and analyzes them using AI swarms!
 
 Features:
 - Batch processing - enter multiple URLs at once (space-separated)
+- Prompt override - add custom prompt after URLs
 - Parallel execution - all URLs scrape + analyze simultaneously
 - Selenium headless browser - handles JavaScript-rendered sites (Next.js, React, etc.)
 - SwarmAgent integration - multiple AI models analyze in parallel
@@ -18,13 +19,15 @@ Requirements:
     brew install chromedriver  # macOS (or download for Windows/Linux)
 
 Usage:
-    python src/agents/scrape_agent.py
+    python src/agents/scraper_agent.py
 
-    Then enter multiple URLs separated by spaces:
+    Default prompt:
     > https://site1.com https://site2.com https://site3.com
 
-    All process in parallel, results shown when complete!
-    Then ready for next batch.
+    Custom prompt:
+    > https://site1.com https://site2.com what are their pricing models
+
+    Everything after the last URL becomes the custom prompt!
 
 Built with love by Moon Dev 🚀
 """
@@ -71,7 +74,7 @@ XAI_MODEL = "grok-4-fast-reasoning"
 DEFAULT_PROMPT = """Give me two sentences and ten bullet points about what this website is about."""
 
 # Where to save results
-RESULTS_DIR = DATA_DIR / "scrape_agent"
+RESULTS_DIR = DATA_DIR / "scraper_agent"
 
 # Request timeout (seconds)
 REQUEST_TIMEOUT = 30
@@ -84,12 +87,12 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 # ============================================
 
 
-class ScrapeAgent:
-    """🌙 Moon Dev's Scrape Agent for website analysis"""
+class ScraperAgent:
+    """🌙 Moon Dev's Scraper Agent for website analysis"""
 
     def __init__(self, use_swarm: bool = USE_SWARM, prompt: Optional[str] = None):
         """
-        Initialize the Scrape Agent
+        Initialize the Scraper Agent
 
         Args:
             use_swarm: Use SwarmAgent (True) or XAI model only (False)
@@ -103,7 +106,7 @@ class ScrapeAgent:
         self.results_dir.mkdir(parents=True, exist_ok=True)
 
         cprint("\n" + "="*60, "cyan")
-        cprint("🌙 Moon Dev's Scrape Agent Initialized 🌙", "cyan", attrs=['bold'])
+        cprint("🌙 Moon Dev's Scraper Agent Initialized 🌙", "cyan", attrs=['bold'])
         cprint("="*60, "cyan")
 
         # Initialize AI models
@@ -120,7 +123,7 @@ class ScrapeAgent:
             self.ai_mode = "XAI"
 
         cprint(f"✅ AI Mode: {self.ai_mode}", "green")
-        cprint(f"📝 Analysis Prompt: {self.prompt[:60]}...", "blue")
+        cprint(f"📝 Default Prompt: {DEFAULT_PROMPT[:60]}...", "blue")
         cprint(f"💾 Results saved to: {self.results_dir.relative_to(PROJECT_ROOT)}", "blue")
 
     def clean_url_for_filename(self, url: str) -> str:
@@ -262,12 +265,13 @@ class ScrapeAgent:
                 "timestamp": datetime.now().isoformat()
             }
 
-    def analyze_content(self, scraped_data: Dict) -> Dict:
+    def analyze_content(self, scraped_data: Dict, custom_prompt: Optional[str] = None) -> Dict:
         """
         Analyze scraped content using AI
 
         Args:
             scraped_data: Dict containing scraped website data
+            custom_prompt: Optional custom prompt override
 
         Returns:
             Dict containing AI analysis results
@@ -277,6 +281,9 @@ class ScrapeAgent:
                 "success": False,
                 "error": "Scraping failed, cannot analyze"
             }
+
+        # Use custom prompt if provided, otherwise use default
+        prompt_to_use = custom_prompt if custom_prompt else self.prompt
 
         # Build analysis prompt with scraped data
         analysis_prompt = f"""Website: {scraped_data['url']}
@@ -289,7 +296,7 @@ Content:
 
 ---
 
-{self.prompt}"""
+{prompt_to_use}"""
 
         cprint(f"\n🧠 Analyzing content with {self.ai_mode}...", "magenta")
 
@@ -438,57 +445,16 @@ Content:
             cprint(f"   📝 Human Readable: {txt_filepath.name}", "white")
             cprint(f"   🔍 Raw Scrape: raw_scrapes/{raw_filepath.name}", "white")
 
-            # Also print the analysis to console
-            self._print_analysis(analysis_results, url)
-
         except Exception as e:
             cprint(f"❌ Error saving results: {str(e)}", "red")
 
-    def _print_analysis(self, analysis_results: Dict, url: str):
-        """Print analysis results to console"""
-        cprint("\n" + "="*60, "green")
-        cprint(f"🎯 ANALYSIS RESULTS: {url}", "green", attrs=['bold'])
-        cprint("="*60, "green")
-
-        if not analysis_results["success"]:
-            cprint(f"❌ Analysis failed: {analysis_results['error']}", "red")
-            return
-
-        if analysis_results["ai_mode"] == "SWARM":
-            # Show consensus summary
-            cprint("\n🧠 AI CONSENSUS SUMMARY:", "magenta", attrs=['bold'])
-            cprint(f"{analysis_results['consensus_summary']}\n", "white")
-
-            # Show model mapping
-            if analysis_results.get("model_mapping"):
-                cprint("🔢 Model Key:", "blue")
-                for ai_num, provider in analysis_results["model_mapping"].items():
-                    cprint(f"   {ai_num} = {provider}", "white")
-
-            # Show individual responses (truncated)
-            cprint("\n📋 Individual AI Responses:", "cyan")
-            for provider, data in analysis_results["responses"].items():
-                if data["success"]:
-                    cprint(f"\n🤖 {provider.upper()}:", "yellow", attrs=['bold'])
-                    response_text = data["response"]
-                    # Truncate if too long
-                    if len(response_text) > 500:
-                        cprint(f"{response_text[:500]}...", "white")
-                    else:
-                        cprint(response_text, "white")
-        else:
-            # XAI mode
-            cprint("\n🤖 XAI RESPONSE:", "magenta", attrs=['bold'])
-            cprint(f"{analysis_results['response']}", "white")
-
-        cprint("\n" + "="*60, "green")
-
-    def process_url(self, url: str) -> Dict:
+    def process_url(self, url: str, custom_prompt: Optional[str] = None) -> Dict:
         """
         Process a single URL (scrape + analyze + save)
 
         Args:
             url: The URL to process
+            custom_prompt: Optional custom prompt override
 
         Returns:
             Dict containing all results for this URL
@@ -506,7 +472,7 @@ Content:
             }
 
         # Analyze the content
-        analysis_results = self.analyze_content(scraped_data)
+        analysis_results = self.analyze_content(scraped_data, custom_prompt)
 
         # Save results
         self.save_results(url, scraped_data, analysis_results)
@@ -519,12 +485,13 @@ Content:
             "analysis": analysis_results
         }
 
-    def process_batch(self, urls: list) -> list:
+    def process_batch(self, urls: list, custom_prompt: Optional[str] = None) -> list:
         """
         Process multiple URLs in parallel
 
         Args:
             urls: List of URLs to process
+            custom_prompt: Optional custom prompt override
 
         Returns:
             List of results for each URL
@@ -536,7 +503,7 @@ Content:
 
         def process_and_store(index, url):
             """Wrapper to store results by index"""
-            results[index] = self.process_url(url)
+            results[index] = self.process_url(url, custom_prompt)
 
         # Start all threads
         for i, url in enumerate(urls):
@@ -550,24 +517,53 @@ Content:
 
         return results
 
+    def parse_input(self, user_input: str) -> tuple:
+        """
+        Parse user input to separate URLs from custom prompt
+
+        Args:
+            user_input: Raw user input string
+
+        Returns:
+            Tuple of (urls_list, custom_prompt or None)
+        """
+        parts = user_input.split()
+        urls = []
+        prompt_words = []
+        found_all_urls = False
+
+        for part in parts:
+            # Check if this looks like a URL (has a dot and could be a domain)
+            if '.' in part and not found_all_urls:
+                urls.append(part)
+            else:
+                # Once we hit a non-URL, everything after is the prompt
+                found_all_urls = True
+                prompt_words.append(part)
+
+        # Join prompt words back together
+        custom_prompt = ' '.join(prompt_words) if prompt_words else None
+
+        return urls, custom_prompt
+
     def run(self):
         """
-        Run the scrape agent in batch mode
+        Run the scraper agent in batch mode
 
-        Accepts multiple space-separated URLs, processes all in parallel,
-        then outputs all results together
+        Accepts multiple space-separated URLs with optional custom prompt,
+        processes all in parallel, then outputs all results together
         """
         cprint("\n" + "="*60, "cyan")
-        cprint("🌐 SCRAPE AGENT - BATCH MODE", "cyan", attrs=['bold'])
+        cprint("🌐 SCRAPER AGENT - BATCH MODE", "cyan", attrs=['bold'])
         cprint("="*60, "cyan")
         cprint("\n💡 Enter multiple URLs separated by spaces", "yellow")
-        cprint("💡 Example: https://site1.com https://site2.com https://site3.com", "yellow")
-        cprint("💡 All URLs process in parallel, results shown when complete", "yellow")
+        cprint("💡 Default: https://site1.com https://site2.com", "yellow")
+        cprint("💡 Custom prompt: https://site1.com what are their prices", "yellow")
         cprint("💡 Type 'quit' or 'exit' to stop\n", "yellow")
 
         while True:
             try:
-                # Get URLs from user
+                # Get input from user
                 user_input = input(colored("🌙 Enter URLs > ", "cyan", attrs=['bold'])).strip()
 
                 if not user_input:
@@ -578,8 +574,8 @@ Content:
                     cprint("\n👋 Goodbye Moon Dev! 🌙", "green", attrs=['bold'])
                     break
 
-                # Split by spaces to get multiple URLs
-                raw_urls = user_input.split()
+                # Parse URLs and custom prompt
+                raw_urls, custom_prompt = self.parse_input(user_input)
 
                 # Validate and clean URLs
                 urls = []
@@ -596,13 +592,20 @@ Content:
                     cprint("❌ No valid URLs provided", "red")
                     continue
 
+                # Display what we're processing
                 cprint(f"\n📋 URLs to process: {len(urls)}", "cyan")
                 for i, url in enumerate(urls, 1):
                     cprint(f"   {i}. {url}", "white")
 
+                # Show prompt being used (red background for custom)
+                if custom_prompt:
+                    cprint(f"\n🔴 CUSTOM PROMPT: {custom_prompt}", "white", "on_red", attrs=['bold'])
+                else:
+                    cprint(f"\n📝 Using default prompt", "blue")
+
                 # Process all URLs in parallel
                 start_time = time.time()
-                results = self.process_batch(urls)
+                results = self.process_batch(urls, custom_prompt)
                 elapsed = time.time() - start_time
 
                 # Print all results
@@ -660,7 +663,7 @@ Content:
                 successful = sum(1 for r in results if r["success"])
                 cprint(f"✅ Completed: {successful}/{len(results)} URLs", "green", attrs=['bold'])
                 cprint(f"⏱️  Total Time: {elapsed:.2f}s", "cyan")
-                cprint(f"💾 Results saved to: src/data/scrape_agent/", "blue")
+                cprint(f"💾 Results saved to: src/data/scraper_agent/", "blue")
                 cprint(f"{'='*60}\n", "green")
 
             except KeyboardInterrupt:
@@ -673,8 +676,8 @@ Content:
 
 def main():
     """Main entry point"""
-    # Create and run the scrape agent
-    agent = ScrapeAgent(use_swarm=USE_SWARM, prompt=DEFAULT_PROMPT)
+    # Create and run the scraper agent
+    agent = ScraperAgent(use_swarm=USE_SWARM, prompt=DEFAULT_PROMPT)
     agent.run()
 
 
