@@ -43,20 +43,20 @@ The agent displays on a **single line** that updates in real-time.
 
 **Shows:**
 ```
-Red Background:  Drop your Sol Addy To Enter  (default state)
+Yellow Background (Black Text):  Drop Sol Wallet To Enter  (default state)
 ```
 
 When someone earns a point:
 ```
-Green Background:  +1 moondev123  (flashes for 2 seconds)
+Green Background (White Text):  +1 moondev123  (flashes for 3 seconds)
 ```
 
 When someone enters their Solana address:
 ```
-Green Background:  moondev123 addy saved  (flashes for 2 seconds)
+Green Background (White Text):  moondev123 addy saved  (flashes for 3 seconds)
 ```
 
-Then automatically reverts back to red "Drop your Sol Addy To Enter"
+Then automatically reverts back to yellow "Drop Sol Wallet To Enter"
 
 **Super clean** - no scrolling, just one line that updates!
 
@@ -99,6 +99,9 @@ Edit `src/agents/giveaway_agent.py` top section:
 ```python
 # Minimum characters for a chat to be considered
 MIN_CHARS = 10
+
+# Flash duration for status messages (seconds)
+FLASH_DURATION = 3  # How long to show "+1 username" or "username addy saved"
 
 # 777 auto-point settings
 SEVEN_SEVEN_SEVEN_COOLDOWN = 900  # 15 minutes in seconds
@@ -173,24 +176,24 @@ Automatically detects Solana addresses:
 ## Example Output
 
 ```
-Drop your Sol Addy To Enter
+Drop Sol Wallet To Enter
 ```
 
 That's it! Just one line.
 
 When someone chats:
 ```
-+1 moondev123  (green, flashes for 2 seconds)
++1 moondev123  (green background, white text, flashes for 3 seconds)
 ```
 
 When someone enters Solana address:
 ```
-moondev123 addy saved  (green, flashes for 2 seconds)
+moondev123 addy saved  (green background, white text, flashes for 3 seconds)
 ```
 
 Then back to:
 ```
-Drop your Sol Addy To Enter  (red)
+Drop Sol Wallet To Enter  (yellow background, black text)
 ```
 
 Zero clutter, maximum clarity!

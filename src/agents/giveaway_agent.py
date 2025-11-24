@@ -45,6 +45,9 @@ load_dotenv(dotenv_path=env_path)
 # Minimum characters for a chat to be considered
 MIN_CHARS = 10
 
+# Flash duration for status messages (seconds)
+FLASH_DURATION = 3  # How long to show "+1 username" or "username addy saved"
+
 # 777 auto-point settings
 SEVEN_SEVEN_SEVEN_COOLDOWN = 900  # 15 minutes in seconds
 
@@ -128,18 +131,18 @@ class GiveawayAgent:
 
         if message_type == 'prompt':
             print('\r', end='')
-            cprint("Drop your Sol Addy To Enter", "white", "on_red", end='', flush=True)
+            cprint("Drop Sol Wallet To Enter", "black", "on_yellow", end='', flush=True)
         elif message_type == 'point' and username:
             print('\r', end='')
             cprint(f"+1 {username}", "white", "on_green", end='', flush=True)
-            # Wait 2 seconds, then revert to prompt
-            time.sleep(2)
+            # Wait before reverting to prompt
+            time.sleep(FLASH_DURATION)
             self.display_status('prompt')
         elif message_type == 'addy_saved' and username:
             print('\r', end='')
             cprint(f"{username} addy saved", "white", "on_green", end='', flush=True)
-            # Wait 2 seconds, then revert to prompt
-            time.sleep(2)
+            # Wait before reverting to prompt
+            time.sleep(FLASH_DURATION)
             self.display_status('prompt')
 
     def process_message(self, username, text):
