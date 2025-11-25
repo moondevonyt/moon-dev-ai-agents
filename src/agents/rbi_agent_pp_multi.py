@@ -138,35 +138,32 @@ rate_limiter = Semaphore(MAX_PARALLEL_THREADS)
 # - GLM: z-ai/glm-4.6
 # See src/models/openrouter_model.py for ALL available models!
 
-# 🧠 RESEARCH: Grok 4 Fast Reasoning (xAI's blazing fast model!)
-RESEARCH_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
-}
+# ============================================
+# 🌙 Moon Dev's MODEL SELECTION - Easy Switch!
+# ============================================
+# Uncomment the model you want to use, comment out the other!
+# Option 1: Claude Opus 4.5 (Anthropic's most powerful model!)
+# Option 2: Grok 4 Fast Reasoning (xAI's blazing fast model!)
 
-# 💻 BACKTEST CODE GEN: Grok 4 Fast Reasoning (xAI's blazing fast model!)
-BACKTEST_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
-}
+# 🧠 RESEARCH
+RESEARCH_CONFIG = {"type": "claude", "name": "claude-opus-4-5-20251101"}
+# RESEARCH_CONFIG = {"type": "xai", "name": "grok-4-fast-reasoning"}
 
-# 🐛 DEBUGGING: Grok 4 Fast Reasoning (xAI's blazing fast model!)
-DEBUG_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
-}
+# 💻 BACKTEST CODE GEN
+BACKTEST_CONFIG = {"type": "claude", "name": "claude-opus-4-5-20251101"}
+# BACKTEST_CONFIG = {"type": "xai", "name": "grok-4-fast-reasoning"}
 
-# 📦 PACKAGE CHECK: Grok 4 Fast Reasoning (xAI's blazing fast model!)
-PACKAGE_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
-}
+# 🐛 DEBUGGING
+DEBUG_CONFIG = {"type": "claude", "name": "claude-opus-4-5-20251101"}
+# DEBUG_CONFIG = {"type": "xai", "name": "grok-4-fast-reasoning"}
 
-# 🚀 OPTIMIZATION: Grok 4 Fast Reasoning (xAI's blazing fast model!)
-OPTIMIZE_CONFIG = {
-    "type": "xai",
-    "name": "grok-4-fast-reasoning"
-}
+# 📦 PACKAGE CHECK
+PACKAGE_CONFIG = {"type": "claude", "name": "claude-opus-4-5-20251101"}
+# PACKAGE_CONFIG = {"type": "xai", "name": "grok-4-fast-reasoning"}
+
+# 🚀 OPTIMIZATION
+OPTIMIZE_CONFIG = {"type": "claude", "name": "claude-opus-4-5-20251101"}
+# OPTIMIZE_CONFIG = {"type": "xai", "name": "grok-4-fast-reasoning"}
 
 # 🎯 PROFIT TARGET CONFIGURATION
 TARGET_RETURN = 50  # Target return in %

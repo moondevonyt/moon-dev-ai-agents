@@ -30,7 +30,7 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 # Configuration
 CHECK_INTERVAL_MINUTES = 10  # 3 hours and 53 minutes
 TIMEFRAMES = ['15m']#['15m', '1h', '4h', '1d']  # Multiple timeframes to analyze
-LOOKBACK_BARS = 100  # Number of candles to analyze
+LOOKBACK_BARS = 15  # Number of candles to analyze
 
 # Trading Pairs to Monitor
 SYMBOLS = ["BTC", "FARTCOIN"]  # Add or modify symbols here
@@ -345,10 +345,19 @@ class ChartAnalysisAgent(BaseAgent):
             
             # Print last 5 candles with proper timestamp formatting
             last_5 = data.tail(5)
-            last_5.index = pd.to_datetime(last_5.index)
-            for idx, row in last_5.iterrows():
-                time_str = idx.strftime('%Y-%m-%d %H:%M')  # Include date and time
-                print(f"║ {time_str} │ {row['open']:.2f} │ {row['high']:.2f} │ {row['low']:.2f} │ {row['close']:.2f} │ {row['volume']:.0f} │")
+
+            # Check if timestamp is a column or the index
+            if 'timestamp' in last_5.columns:
+                # Timestamp is a column, use it directly
+                for idx, row in last_5.iterrows():
+                    time_str = pd.to_datetime(row['timestamp']).strftime('%Y-%m-%d %H:%M')
+                    print(f"║ {time_str} │ {row['open']:.2f} │ {row['high']:.2f} │ {row['low']:.2f} │ {row['close']:.2f} │ {row['volume']:.0f} │")
+            else:
+                # Timestamp is the index
+                last_5.index = pd.to_datetime(last_5.index)
+                for idx, row in last_5.iterrows():
+                    time_str = idx.strftime('%Y-%m-%d %H:%M')
+                    print(f"║ {time_str} │ {row['open']:.2f} │ {row['high']:.2f} │ {row['low']:.2f} │ {row['close']:.2f} │ {row['volume']:.0f} │")
             
             print("\n║ Technical Indicators:")
             print(f"║ SMA20: {data['SMA20'].iloc[-1]:.2f}")

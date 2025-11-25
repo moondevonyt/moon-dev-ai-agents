@@ -15,8 +15,8 @@ not done yet
 # 7 - liquidation amount
 '''
 
-from ..core.config import *
-from ..core.utils import nice_funcs as n 
+from src.config import *
+from src import nice_funcs as n
 import time
 from termcolor import colored, cprint
 import schedule

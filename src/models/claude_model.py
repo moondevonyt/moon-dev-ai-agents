@@ -11,7 +11,8 @@ class ClaudeModel(BaseModel):
     """Implementation for Anthropic's Claude models"""
     
     AVAILABLE_MODELS = {
-        # Claude 4 Series (New Generation)
+        # Claude 4 Series (New Generation) - 🌙 Moon Dev's Latest Models!
+        "claude-opus-4-5-20251101": "Claude Opus 4.5 - Most powerful model with superior reasoning and creativity",
         "claude-opus-4-1": "Most powerful Claude 4 model with advanced reasoning",
         "claude-sonnet-4-5": "Balanced Claude 4.5 model with improved capabilities",
         "claude-haiku-4-5": "Fast, efficient Claude 4.5 model for rapid responses",
