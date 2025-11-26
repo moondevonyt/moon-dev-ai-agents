@@ -227,7 +227,7 @@ class PolymarketAgent:
         # 🌙 Moon Dev - Link column at END for clickable CSVs in Excel/Numbers
         return pd.DataFrame(columns=[
             'analysis_timestamp', 'analysis_run_id', 'market_title', 'market_slug',
-            'claude_prediction', 'openai_prediction', 'groq_prediction',
+            'claude_prediction', 'opus_prediction', 'openai_prediction', 'groq_prediction',
             'gemini_prediction', 'deepseek_prediction', 'xai_prediction',
             'ollama_prediction', 'consensus_prediction', 'num_models_responded',
             'market_link'  # 🌙 Link at end for clickable CSVs
@@ -849,6 +849,7 @@ Provide predictions for each market in the specified format."""
                         'market_title': market_title,
                         'market_slug': market_slug,
                         'claude_prediction': predictions.get('claude', 'N/A'),
+                        'opus_prediction': predictions.get('opus', 'N/A'),  # 🌙 Moon Dev - Opus 4.5 predictions
                         'openai_prediction': predictions.get('openai', 'N/A'),
                         'groq_prediction': predictions.get('groq', 'N/A'),
                         'gemini_prediction': predictions.get('gemini', 'N/A'),
@@ -1429,7 +1430,7 @@ def main():
     cprint(f"   🤖 Analysis Thread: Every {ANALYSIS_CHECK_INTERVAL_SECONDS}s - Checks for new markets", "magenta")
     cprint(f"   🎯 AI Analysis triggers when {NEW_MARKETS_FOR_ANALYSIS} new markets collected", "yellow")
     cprint("", "yellow")
-    cprint(f"🤖 AI Mode: {'SWARM (6 models)' if USE_SWARM_MODE else 'Single Model'}", "yellow")
+    cprint(f"🤖 AI Mode: {'SWARM (7 models)' if USE_SWARM_MODE else 'Single Model'}", "yellow")
     cprint(f"💰 Price Info to AI: {'ENABLED' if SEND_PRICE_INFO_TO_AI else 'DISABLED'}", "green" if SEND_PRICE_INFO_TO_AI else "yellow")
     cprint("", "yellow")
     cprint("📁 Data Files:", "cyan", attrs=['bold'])

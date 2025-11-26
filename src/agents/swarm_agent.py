@@ -60,13 +60,14 @@ from src.models.model_factory import model_factory
 
 # Configure which models to use in the swarm (set to True to enable)
 SWARM_MODELS = {
-    # 🌙 Moon Dev's Active Swarm Models - 3 Model Configuration
+    # 🌙 Moon Dev's Active Swarm Models - 7 Model Configuration
     "deepseek": (True, "deepseek", "deepseek-chat"),  # DeepSeek Chat - Fast chat model (API)
     "xai": (True, "xai", "grok-4-fast-reasoning"),  # Grok-4 fast reasoning ($0.20-$0.50/1M tokens)
     "openrouter_qwen": (True, "openrouter", "qwen/qwen3-max"),  # Qwen 3 Max - Powerful reasoning ($1.00/$1.00 per 1M tokens)
 
     # 🔇 Disabled Models (uncomment to enable)
     "claude": (True, "claude", "claude-sonnet-4-5"),  # Claude 4.5 Sonnet - Latest & Greatest!
+    "opus": (True, "claude", "claude-opus-4-5-20251101"),  # 🌙 Moon Dev - Claude Opus 4.5 - Most powerful!
     #"openai": (True, "openai", "gpt-5"),  # GPT-5 - Most advanced model!
     #"ollama_qwen": (True, "ollama", "qwen3:8b"),  # Qwen3 8B via Ollama - Fast local reasoning!
     #"ollama": (True, "ollama", "DeepSeek-R1:latest"),  # DeepSeek-R1 local model via Ollama
